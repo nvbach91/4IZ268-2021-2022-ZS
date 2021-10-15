@@ -1,23 +1,35 @@
-a {
-    font-weight: bold;
+body {
+    font-family: "Open Sans";
 }
+
+header {
+    background-color: cadetblue;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+h1 {
+    margin: 0;
+    color: white;
+}
+
 h2 {
-    color: pink;
-}
-.product {
-    font-size: 24px;
-}
-
-h1:hover {
-    color: red;
+    text-align: center;
+    background-color: chocolate;
+    padding: 5px;
+    color: white;
 }
 
-li.product {
-    text-decoration: none;
-    color: blue;
+article {
+    border-width: 1px;
+    border-style: solid;
+    border-color: brown;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
-li {
-    text-decoration: underline;
-    color: red;
+main {
+    max-width: 640px;
+    margin: auto;
 }
