@@ -2,7 +2,7 @@
 /**
  * 0) Pre-preparacion.
  * - Vytvořte HTML stránku s nadpisem h1 "JavaScript is awesome!" 
- * - Na stránce vytvořte místo pro umístění jednotlivých spouštěčů úkoly (div, který má id s hodnotou "tasks"). 
+ * - Na stránce vytvořte místo pro umístění jednotlivých spouštěčů úkolů - tlačítek (tj. div, který má id s hodnotou "task-buttons"). 
  * - Na stránce vytvořte místo pro výpis výsledků úkolů (div, který má id s hodnotou "result").
  * 
  * - Připojte tento homework.js soubor k vytvořené HTML stránce pomocí tagu <script> (viz LAB) a vyzkoušejte
