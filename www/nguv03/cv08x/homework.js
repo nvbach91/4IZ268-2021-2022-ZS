@@ -119,7 +119,7 @@
 /** 
  * 9) Not sure if triangle, or just some random values. Vytvořte funkci, která rozhodne, zda se z 
  * dodaných 3 délek na argumentu funkce dá postavit trojúhelník, tj. vypíše tyto 3 délky stran a, b, a c
- * a výsledek buď ano/ne, true/yes nebo false/no. 
+ * a výsledek buď ano/ne, true/yes nebo false/no. Z funkce vraťte hodnotu true/false
  * 
  * Pro testování vytvořte tlačítko s touto funkcí podle pokynu v úloze č. 3. Argumenty pro volání funkce zadávejte 
  * staticky.
