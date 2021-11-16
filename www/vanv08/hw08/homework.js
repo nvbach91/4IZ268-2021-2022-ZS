@@ -27,6 +27,8 @@ function tempConverter() {
     var celsius_value = document.getElementById("celsius_value").value;
     var fahrenheiht_value = document.getElementById("fahrenheiht_value").value;
 
+    var temperatureOutput_field = document.getElementById.bind(document); // pouze jednou document.getElementId
+
     function celsiusToF(celsius_value) {
         return ((celsius_value * 9) / 5) + 32;
     }
@@ -37,17 +39,19 @@ function tempConverter() {
 
     if (!!fahrenheiht_value && !celsius_value) {
         console.log('Fahrenheit to celsius is: ' + fahrenheihtToC(fahrenheiht_value).toFixed(2) + 'C');
-        document.getElementById("temperature").value = parseFloat(fahrenheihtToC(fahrenheiht_value).toFixed(2)) + 'C';
+        temperatureOutput_field("temperature").value = parseFloat(fahrenheihtToC(fahrenheiht_value).toFixed(2)) + 'C';
     } else if (!fahrenheiht_value && !!celsius_value) {
         console.log('Celsius to fahrenheiht is: ' + celsiusToF(celsius_value).toFixed(2) + 'F');
-        document.getElementById("temperature").value = parseFloat(celsiusToF(celsius_value).toFixed(2)) + 'F';
+        temperatureOutput_field("temperature").value = parseFloat(celsiusToF(celsius_value).toFixed(2)) + 'F';
     } else {
         console.log('Obe hodnty jsou null nebo si vyplnil obe cisla');
-        document.getElementById("temperature").value = "Error"
+        temperatureOutput_field("temperature").value = "Error";
+
+
     }
 }
 
-var temperatureButton = document.getElementById("task-2");
+const temperatureButton = document.getElementById("task-2");
 temperatureButton.addEventListener("click", tempConverter, true);
 
 // Cvrty ukol
@@ -70,7 +74,7 @@ function division() {
     }
 }
 
-var divisionButton = document.getElementById("task-4");
+const divisionButton = document.getElementById("task-4");
 divisionButton.addEventListener("click", division, true);
 
 // Paty ukol
@@ -92,7 +96,7 @@ function comparision() {
     }
 }
 
-var compareButton = document.getElementById("task-5");
+const compareButton = document.getElementById("task-5");
 compareButton.addEventListener("click", comparision, true);
 
 // Sesty ukol
@@ -105,19 +109,19 @@ function thirteenReasonWhy() {
     }
     console.log(pattern_string);
     var div = document.getElementById("target_result");
-    div.innerHTML += pattern_string;
+    div.innerText += pattern_string; // zmemeno na innerText - ale, nic se nezmenilo?
 
 }
 
-var cycleButton = document.getElementById("task-6");
+const cycleButton = document.getElementById("task-6");
 cycleButton.addEventListener("click", thirteenReasonWhy, true);
 
 // Sedmy ukol
 
 function calcAreaCircle() {
-    var polomer = 5;
-    if (!!polomer || polomer != 0) {
-        S = Math.pow(polomer, 2) * Math.PI;
+    var radius = 5;
+    if (!!radius || radius != 0) {
+        S = Math.pow(radius, 2) * Math.PI;
         console.log(S.toFixed(2));
         document.getElementById("circleArea_field").value = S.toFixed(2);
     } else {
@@ -126,27 +130,28 @@ function calcAreaCircle() {
     }
 
 }
-var circleButton = document.getElementById("task-7");
+const circleButton = document.getElementById("task-7");
 circleButton.addEventListener("click", calcAreaCircle, true);
 
 // Osmy ukol
 
-function calcVolCone(polomer, vyska) {
+function calcVolCone(radius, height) {
     // Deklerace polomeru a vysky
-    var polomer = 2;
-    var vyska = 3;
+    var radius = 2;
+    var height = 3;
+    var V; // inicializace promene V?
 
-    if (!polomer || polomer == 0 || !vyska || vyska == 0) {
+    if (!radius || radius == 0 || !height || height == 0) {
         console.log("Spatny argumenty");
         document.getElementById("volumeCone_field").value = 'Invalid Argument'
     } else {
-        V = 1 / 3 * Math.PI * Math.pow(polomer, 2) * vyska;
+        V = 1 / 3 * Math.PI * Math.pow(radius, 2) * height;
         console.log(V.toFixed(2));
         document.getElementById("volumeCone_field").value = V.toFixed(2);
 
     }
 }
-var volumeButton = document.getElementById("task-8");
+const volumeButton = document.getElementById("task-8");
 volumeButton.addEventListener("click", calcVolCone, true);
 
 
@@ -179,7 +184,7 @@ function sumSideCheckFill() {
         document.getElementById("trianglePossible_field").value = 'NO';
     }
 }
-var checkSides = document.getElementById("task-9");
+const checkSides = document.getElementById("task-9");
 checkSides.addEventListener("click", sumSideCheckFill, true);
 
 // Desaty ukol
@@ -188,6 +193,8 @@ function Hero() {
     var side1 = 2;
     var side2 = 2;
     var side3 = 3;
+    var s;
+    var S;
     if (sumSideCheck(side1, side2, side3) == true) {
         s = (side1 + side2 + side3) / 2;
         S = Math.sqrt((s * (s - side1) * (s - side2) * (s - side3)));
@@ -198,5 +205,5 @@ function Hero() {
         document.getElementById("triangleArea_field").value = 'Triangle is impossible';
     }
 }
-var huronButton = document.getElementById("task-10");
+const huronButton = document.getElementById("task-10");
 huronButton.addEventListener("click", Hero, true);
