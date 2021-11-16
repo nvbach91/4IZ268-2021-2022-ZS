@@ -30,8 +30,7 @@ console.log('Pepe\'s age is ' + (new Date().getFullYear() - birthYear));
 // Solution here
 const tempCelsius = 30;
 const tempFahrenheit = 86;
-console.log(tempCelsius + '°C = ' + (((tempCelsius * 9) / 5) + 32) +
-    '°F resp. ' + tempFahrenheit + '°F = ' + ((tempFahrenheit - 32) * 5) / 9 + '°C');
+console.log(`${tempCelsius}°C = ${(((tempCelsius * 9) / 5) + 32)}°F resp. ${tempFahrenheit}°F = ${((tempFahrenheit - 32) * 5) / 9}°C`);
 
 /**
  * 3) Funkce function fonction funktio. Vemte předchozí úlohy a udělejte z nich funkce. Tj. vytvoříte funkce, 
@@ -52,11 +51,11 @@ const pepeAge = (birthYear) => {
 }
 
 const cToF = (tempCelsius) => {
-    return tempCelsius + '°C = ' + (((tempCelsius * 9) / 5) + 32) + '°F';
+    return `${tempCelsius}°C = ${(((tempCelsius * 9) / 5) + 32)}°F`;
 }
 
-const FToC = (tempFahrenheit) => {
-    return tempFahrenheit + '°F = ' + ((tempFahrenheit - 32) * 5) / 9 + '°C';
+const fToC = (tempFahrenheit) => {
+    return `${tempFahrenheit}°F = ${((tempFahrenheit - 32) * 5) / 9}°C`;
 }
 
 const appendText = (textToAppend) => {
@@ -87,7 +86,7 @@ button3.innerText = 'Task 2-2 (Fahrenheit to Celsius)';
 button3.id = 'task-2-2';
 buttons.appendChild(button3);
 button3.addEventListener('click', () => {
-    appendText(FToC(90));
+    appendText(fToC(90));
 });
 
 /**
@@ -100,7 +99,7 @@ button3.addEventListener('click', () => {
  */
 // Solution here
 
-const iDontKnowWhatToCallThisButItDoesPercentageMagicStuff = (a, b) => {
+const calculateRatio = (a, b) => {
     if (b === 0) {
         return 'stop';
     }
@@ -112,7 +111,7 @@ button4.innerText = 'Task 4 (Percentage of)';
 button4.id = 'task-4';
 buttons.appendChild(button4);
 button4.addEventListener('click', () => {
-    appendText(iDontKnowWhatToCallThisButItDoesPercentageMagicStuff(10, 100));
+    appendText(calculateRatio(10, 100));
 });
 
 /**
@@ -240,12 +239,12 @@ button10.addEventListener('click', () => {
 
 const isTriangle = (a, b, c) => {
     if (a <= 0 || b <= 0 || c <= 0) {
-        return 'all values need to be greater than 0, also just false'
+       return 'all values need to be greater than 0, also just'+ false;
     }
     if (a + b > c && a + c > b && b + c > a) {
-        return 'a: ' + a + ' b: ' + b + ' c: ' + c + ' true';
+        return `a: ${a} b: ${b} c: ${c} ${true}`;
     } else {
-        return 'a: ' + a + ' b: ' + b + ' c: ' + c + ' false';
+        return `a: ${a} b: ${b} c: ${c} ${false}`;
     }
 }
 
