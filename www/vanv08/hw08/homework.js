@@ -8,7 +8,7 @@ console.log('Nenapadl mne appendovat text do results, tak jsem to delal pres inp
 // Prvni ukol
 
 function logPepeAge() {
-    var pepeAge = null;
+    const pepeAge = null;
     if (!!pepeAge) {
         console.log('Pepe\'s age is: ' + pepeAge);
         document.getElementById("pepe_field").value = pepeAge;
@@ -18,16 +18,16 @@ function logPepeAge() {
     }
 }
 
-var age = document.getElementById("task-1");
+const age = document.getElementById("task-1");
 age.addEventListener("click", logPepeAge, true);
 
 // Druhy ukol jedno z nich musi byt null aby se mohla vypocitat ta druha
 
 function tempConverter() {
-    var celsius_value = document.getElementById("celsius_value").value;
-    var fahrenheiht_value = document.getElementById("fahrenheiht_value").value;
+    const celsius_value = document.getElementById("celsius_value").value;
+    const fahrenheiht_value = document.getElementById("fahrenheiht_value").value;
 
-    var temperatureOutput_field = document.getElementById.bind(document); // pouze jednou document.getElementId
+    const temperatureOutput_field = document.getElementById.bind(document); // pouze jednou document.getElementId
 
     function celsiusToF(celsius_value) {
         return ((celsius_value * 9) / 5) + 32;
@@ -57,8 +57,8 @@ temperatureButton.addEventListener("click", tempConverter, true);
 // Cvrty ukol
 
 function division() {
-    var x = document.getElementById("x").value;
-    var y = document.getElementById("y").value;
+    const x = document.getElementById("x").value;
+    const y = document.getElementById("y").value;
     if (x != y) {
         result = (x / y) * 100;
         console.log('X je mensi nez Y a vysledek deleni je: ' + parseFloat(result.toFixed(2)) + '%');
@@ -80,11 +80,10 @@ divisionButton.addEventListener("click", division, true);
 // Paty ukol
 
 function comparision() {
-    // var a = document.getElementById("a").value;
-    // var b = document.getElementById("b").value;
 
-    var a = -1.3;
-    var b = 3;
+
+    const a = -1.3;
+    const b = 3;
     if (a > b) {
         console.log('Cislo A je vetsi nez B');
         document.getElementById("comparasion_field").value = "Cislo " + a + ' je vetsi nez ' + b;
@@ -108,7 +107,7 @@ function thirteenReasonWhy() {
 
     }
     console.log(pattern_string);
-    var div = document.getElementById("target_result");
+    let div = document.getElementById("target_result");
     div.innerText += pattern_string; // zmemeno na innerText - ale, nic se nezmenilo?
 
 }
@@ -119,7 +118,7 @@ cycleButton.addEventListener("click", thirteenReasonWhy, true);
 // Sedmy ukol
 
 function calcAreaCircle() {
-    var radius = 5;
+    const radius = 5;
     if (!!radius || radius != 0) {
         S = Math.pow(radius, 2) * Math.PI;
         console.log(S.toFixed(2));
@@ -137,9 +136,9 @@ circleButton.addEventListener("click", calcAreaCircle, true);
 
 function calcVolCone(radius, height) {
     // Deklerace polomeru a vysky
-    var radius = 2;
-    var height = 3;
-    var V; // inicializace promene V?
+    const radius = 2;
+    const height = 3;
+    const V; // inicializace promene V?
 
     if (!radius || radius == 0 || !height || height == 0) {
         console.log("Spatny argumenty");
@@ -175,9 +174,9 @@ function sumSideCheck(side1, side2, side3) {
 
 function sumSideCheckFill() {
     // DEKLERACE STRAN PRO UKOL 9
-    var side1 = 5;
-    var side2 = 5;
-    var side3 = 6;
+    const side1 = 5;
+    const side2 = 5;
+    const side3 = 6;
     if (sumSideCheck(side1, side2, side3) == true) {
         document.getElementById("trianglePossible_field").value = 'YES';
     } else {
@@ -190,11 +189,11 @@ checkSides.addEventListener("click", sumSideCheckFill, true);
 // Desaty ukol
 
 function Hero() {
-    var side1 = 2;
-    var side2 = 2;
-    var side3 = 3;
-    var s;
-    var S;
+    const side1 = 2;
+    const side2 = 2;
+    const side3 = 3;
+    const s;
+    const S;
     if (sumSideCheck(side1, side2, side3) == true) {
         s = (side1 + side2 + side3) / 2;
         S = Math.sqrt((s * (s - side1) * (s - side2) * (s - side3)));
