@@ -113,15 +113,15 @@ window.onload = () => {
      */
     const selectBiggerNumber = (x, y) => x > y ? x : y;
 
-    const button4 = createButton('Fahrenheiht', 'fahrenheiht');
+    const button4 = createButton('selectBiggerNumber1', 'selectBiggerNumber1');
     button4.addEventListener('click', () => {
         result.innerText = selectBiggerNumber(10, 20);
     });
-    const button5 = createButton('Fahrenheiht', 'fahrenheiht');
+    const button5 = createButton('selectBiggerNumber2', 'selectBiggerNumber1');
     button5.addEventListener('click', () => {
         result.innerText = selectBiggerNumber(10 / 3, 11 / 4).toFixed(2);
     });
-    const button6 = createButton('Fahrenheiht', 'fahrenheiht');
+    const button6 = createButton('selectBiggerNumber3', 'selectBiggerNumber1');
     button6.addEventListener('click', () => {
         result.innerText = selectBiggerNumber(10.11, 13.78);
     });
