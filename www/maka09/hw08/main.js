@@ -9,7 +9,7 @@
  */
 
 console.log('Ahoj Světe');
-const task_buttons = document.getElementById('task-buttons');
+const taskButtons = document.getElementById('task-buttons');
 const result = document.getElementById('result');
 
 /**
@@ -28,12 +28,12 @@ console.log(thisYear - pepesBirthday);
  *     z F na C: odečíst 32, vynásobit 5 a vydělit 9. 
  */
 // Solution here
-const Celsius = 20;
-const Fahrenheiht = 68;
+const celsius = 20;
+const fahrenheiht = 68;
 console.log("Celsius to Fahrenheiht :");
-console.log(Celsius * 9 / 5 + 32);
+console.log(celsius * 9 / 5 + 32);
 console.log("Fahrenheiht to Celsius :");
-console.log((Fahrenheiht - 32) * 5 / 9);
+console.log((fahrenheiht - 32) * 5 / 9);
 
 /**
  * 3) Funkce function fonction funktio. Vemte předchozí úlohy a udělejte z nich funkce. Tj. vytvoříte funkce, 
@@ -50,41 +50,42 @@ console.log((Fahrenheiht - 32) * 5 / 9);
  */
 // Solution here
 
-function pepesAge(pepesBirthday){
-    return ("Pepe's Age : " + (thisYear - pepesBirthday));
+function pepesAge(pepesBirthday) {
+    const thisYear2 = new Date().getFullYear();
+    return ("Pepe's Age : " + (thisYear2 - pepesBirthday));
 }
 
 const button1 = document.createElement('button');
-button1.innerText='1).Pepes age';
-button1.id='task1';
+button1.innerText = '1).Pepes age';
+button1.id = 'task1';
 button1.addEventListener('click', () => {
-    result.innerText=(pepesAge(window.prompt("Set Pepes birthday year: ")));
+    result.innerText = (pepesAge(window.prompt("Set Pepes birthday year: ")));
 });
-task_buttons.appendChild(button1);
+taskButtons.appendChild(button1);
 
-function cToF(Celsius){
+function cToF(Celsius) {
     return ("Celsius to Fahrenheit: " + (Celsius * 9 / 5 + 32));
 }
 
 const button2 = document.createElement('button');
-button2.innerText='2).Celsius to Fahrenheit';
-button2.id='task2';
+button2.innerText = '2).Celsius to Fahrenheit';
+button2.id = 'task2';
 button2.addEventListener('click', () => {
-    result.innerText=(cToF(window.prompt("Set Celsius: ")));
+    result.innerText = (cToF(window.prompt("Set Celsius: ")));
 });
-task_buttons.appendChild(button2);
+taskButtons.appendChild(button2);
 
-function fToC(Fahrenheiht){
+function fToC(Fahrenheiht) {
     return ("Fahrenheit to Celsius: " + (Fahrenheiht - 32) * 5 / 9);
 }
 
 const button3 = document.createElement('button');
-button3.innerText='3).Fahrenheit to Celsius';
-button3.id='task3';
+button3.innerText = '3).Fahrenheit to Celsius';
+button3.id = 'task3';
 button3.addEventListener('click', () => {
-    result.innerText=(fToC(window.prompt("Set Fahrenheit: ")));
+    result.innerText = (fToC(window.prompt("Set Fahrenheit: ")));
 });
-task_buttons.appendChild(button3);
+taskButtons.appendChild(button3);
 
 /**
  * 4) %CENSORED%. Vytvořte funkci, která vezme 2 číselné argumenty a vrátí podíl prvního čísla a druhého čísla. 
@@ -98,24 +99,24 @@ task_buttons.appendChild(button3);
 
 
 
-function percentage(number1,number2){
-    if (number2 == 0){
+function percentage(number1, number2) {
+    if (number2 == 0) {
         return ("Pozor, dělení nulou");
-        
+
     }
     else {
-    var vysledek = (number1/number2 * 100);
-    return (number1 + " je " + vysledek.toFixed(0) + "%" + " z " + number2);
+        const result = (number1 / number2 * 100);
+        return (number1 + " je " + result.toFixed(0) + "%" + " z " + number2);
     }
 }
 
 const button4 = document.createElement('button');
-button4.innerText='4).Percentage';
-button4.id='task4';
+button4.innerText = '4).Percentage';
+button4.id = 'task4';
 button4.addEventListener('click', () => {
-    result.innerText=(percentage(window.prompt("Set 1st number: "),window.prompt("Set 2nd number: ")));
+    result.innerText = (percentage(window.prompt("Set 1st number: "), window.prompt("Set 2nd number: ")));
 });
-task_buttons.appendChild(button4);
+taskButtons.appendChild(button4);
 
 /**
  * 5) Kdo s koho. Vytvořte funkci, která vezme 2 číselné argumenty a vypíše, který z nich je větší, do předem vytvořeného 
@@ -127,30 +128,31 @@ task_buttons.appendChild(button4);
  */
 // Solution here
 
-function comparison(number1,number2){
-    if (number1 == number2){
-        return ("Čísla se rovnají");        
-    }
-    else { if (number1 > number2){
+function comparison(number1, number2) {
+    if (number1 == number2) {
+        return ("Čísla se rovnají");
+    } 
+    else {
+        if (number1 > number2) {
 
-        return (number1 + " je Větší");
-                                 }
+            return (number1 + " je Větší");
+        }
 
         else {
             return (number2 + " je Větší");
-             }
+        }
 
-         }
-    
     }
 
+}
+
 const button5 = document.createElement('button');
-button5.innerText='5).Comparison';
-button5.id='task5';
+button5.innerText = '5).Comparison';
+button5.id = 'task5';
 button5.addEventListener('click', () => {
-    result.innerText=(comparison(window.prompt("Set 1st number: "),window.prompt("Set 2nd number: ")));
+    result.innerText = (comparison(window.prompt("Set 1st number: "), window.prompt("Set 2nd number: ")));
 });
-task_buttons.appendChild(button5);
+taskButtons.appendChild(button5);
 
 /**
  * 6) I can cleary see the pattern. Vytvořte funkci, která vypíše popořadě všechny násobky 13, které jsou menší 
@@ -160,21 +162,21 @@ task_buttons.appendChild(button5);
  */
 // Solution here
 
-function multipl(){
+function multipl() {
     let a = "";
-    for (let i=0; i<=730/13; i++){
-        a+=i*13 +", ";
+    for (let i = 0; i <= 730 / 13; i++) {
+        a += i * 13 + ", ";
     }
     return a;
 }
 
 const button6 = document.createElement('button');
-button6.innerText='6).Multiplication';
-button6.id='task6';
+button6.innerText = '6).Multiplication';
+button6.id = 'task6';
 button6.addEventListener('click', () => {
-    result.innerText=(multipl());
+    result.innerText = (multipl());
 });
-task_buttons.appendChild(button6);
+taskButtons.appendChild(button6);
 /**
  * 7) Around and about. Vytvořte funkci, která vypočte obsah kružnice podle dodaného poloměru v argumentu. 
  *
@@ -183,18 +185,18 @@ task_buttons.appendChild(button6);
  */
 // Solution here
 
-function square(polomer){
-    var aa = Math.PI*Math.pow(polomer,2);
-  return ("Area of a circle is: " + aa.toFixed(2));
+function square(radius) {
+    var aa = Math.PI * Math.pow(radius, 2);
+    return ("Area of a circle is: " + aa.toFixed(2));
 }
 
 const button7 = document.createElement('button');
-button7.innerText='7).Square';
-button7.id='task7';
+button7.innerText = '7).Square';
+button7.id = 'task7';
 button7.addEventListener('click', () => {
-    result.innerText=(square(window.prompt("Set circle radius: ")));
+    result.innerText = (square(window.prompt("Set circle radius: ")));
 });
-task_buttons.appendChild(button7);
+taskButtons.appendChild(button7);
 
 /**
  * 8) Another dimension. Vytvořte funkci, která vypočte objem kuželu, pokud dostanete na argumentech výšku a poloměr. 
@@ -204,17 +206,17 @@ task_buttons.appendChild(button7);
  */
 // Solution here
 
-function volume(height,radius){
-    var aa = 1/3*Math.PI*Math.pow(radius,2)*height;
+function calculateConeVolume(height, radius) {
+    var aa = 1 / 3 * Math.PI * Math.pow(radius, 2) * height;
     return ("Volume of cone: " + aa.toFixed(2));
 }
 const button8 = document.createElement('button');
-button8.innerText='8).Cone';
-button8.id='task8';
+button8.innerText = '8).Cone';
+button8.id = 'task8';
 button8.addEventListener('click', () => {
-    result.innerText=(volume(window.prompt("Set height: "),window.prompt("Set radius: ")));
+    result.innerText = (volume(window.prompt("Set height: "), window.prompt("Set radius: ")));
 });
-task_buttons.appendChild(button8);
+taskButtons.appendChild(button8);
 
 /** 
  * 9) Not sure if triangle, or just some random values. Vytvořte funkci, která rozhodne, zda se z 
@@ -226,32 +228,32 @@ task_buttons.appendChild(button8);
  */
 // Solution here
 
-function triangle(s1,s2,s3){
+function isTriangle(s1, s2, s3) {
     var flag = false;
-    if (s1+s2>s3){
+    if (s1 + s2 > s3) {
         flag = true;
     }
-    if (s1+s3>s2){
+    if (s1 + s3 > s2) {
         flag = true;
     }
-    if (s2+s3>s1){
+    if (s2 + s3 > s1) {
         flag = true;
     }
-    if (flag = true){
+    if (flag = true) {
         return (flag);
     }
-    if (flag = false){
+    if (flag = false) {
         return (flag);
     }
 }
 
 const button9 = document.createElement('button');
-button9.innerText='9).Triangle';
-button9.id='task9';
+button9.innerText = '9).Triangle';
+button9.id = 'task9';
 button9.addEventListener('click', () => {
-    result.innerText=(triangle(window.prompt("Set s1: "),window.prompt("Set s2: "),window.prompt("Set s3: ")));
+    result.innerText = (triangle(window.prompt("Set s1: "), window.prompt("Set s2: "), window.prompt("Set s3: ")));
 });
-task_buttons.appendChild(button9);
+taskButtons.appendChild(button9);
 /**
  * 10) Heroic performance. Vytvořte funkci, která vypočte a vypíše obsah trojúhelníka podle Heronova vzorce, 
  * tj. funkce dostane délky všech 3 stran. Použijte přitom předchozí validaci v úloze č. 9, tj. počítejte pouze, 
@@ -272,23 +274,23 @@ task_buttons.appendChild(button9);
 // - krok 3 - nabindujte na toto tlačítko callback, ve kterém zavoláte implementovanou funkci pro výpočet a výpis výsledků
 // - krok 4 - tlačítko umístěte na stránku
 // - krok 5 - otestujte řešení klikáním na tlačítko
-function heron(s1,s2,s3){
-    if (triangle(s1,s2,s3)){
-        const s = (s1+s2+s3)/2;
-        let res=s*((s-s1)*(s-s2)*(s-s3));
-        let res2=Math.sqrt(res);
+function calculateTriangleArea(s1, s2, s3) {
+    if (triangle(s1, s2, s3)) {
+        const s = (s1 + s2 + s3) / 2;
+        let res = s * ((s - s1) * (s - s2) * (s - s3));
+        let res2 = Math.sqrt(res);
         return res2.toFixed(2);
-    } 
-    else{
+    }
+    else {
         return "Chyba";
     }
 
 }
 
 const button10 = document.createElement('button');
-button10.innerText='10).Heron';
-button10.id='task10';
+button10.innerText = '10).Heron';
+button10.id = 'task10';
 button10.addEventListener('click', () => {
-    result.innerText=(heron(3,3,3))
+    result.innerText = (calculateTriangleArea(3, 3, 3))
 });
-task_buttons.appendChild(button10);
+taskButtons.appendChild(button10);
