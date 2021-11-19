@@ -206,10 +206,14 @@ const perform = (taskNumber) => {
   resultEl.textContent = output
 }
 
+const taskButtons = document.createElement('div')
+
 for (let i = 0; i < 10; i++) {
   const btn = document.createElement('button')
   btn.textContent = `ÚKOL ${i + 1}`
   btn.addEventListener('click', () => perform(i))
 
-  taskButtonsEl.appendChild(btn)
+  taskButtons.appendChild(btn)
 }
+
+taskButtonsEl.appendChild(taskButtons)
