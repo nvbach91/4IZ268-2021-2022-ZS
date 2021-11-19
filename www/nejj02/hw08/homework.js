@@ -65,7 +65,7 @@ const printAge = (birth) => {
 
 const toFahrenheit = (celsius) => {
     let result = celsius * 9 / 5 + 32;
-    return celsius + '°C = ' + result + '°F'
+    return celsius + '°C = ' + result + '°F';
 }
 
 const toCelsius = (fahrenheit) => {
@@ -73,19 +73,29 @@ const toCelsius = (fahrenheit) => {
     return fahrenheit + '°F = ' + result + '°C';
 }
 
-const createButton = (id, text, action) => {
+const buttons = document.getElementById('task-buttons');
+const result = document.getElementById('result');
+
+const createButton = (id, text, callback) => {
     const button = document.createElement('button');
     button.id = id;
     button.innerText = text;
-    button.addEventListener('click', () => {
-        document.getElementById('result').innerText = action;
-    })
-    document.getElementById('task-buttons').appendChild(button);
+    button.addEventListener('click', callback);
+    buttons.appendChild(button);
 }
 
-createButton('task-0', 'Task 0 (Pre-preparacion)', hello());
-createButton('task-1', 'Task 1 (Pepe\'s age)', printAge(2000));
-createButton('task-2', 'Task 2 (WTF)', toCelsius(451));
+createButton('task-0', 'Task 0 (Pre-preparacion)', () => {
+    let value = hello();
+    result.innerText = value;
+});
+createButton('task-1', 'Task 1 (Pepe\'s age)', () => {
+    let value = printAge(2000);
+    result.innerText = value;
+});
+createButton('task-2', 'Task 2 (WTF)', () => {
+    let value = toCelsius(451);
+    result.innerText = value;
+});
 
 /**
  * 4) %CENSORED%. Vytvořte funkci, která vezme 2 číselné argumenty a vrátí podíl prvního čísla a druhého čísla. 
@@ -98,12 +108,15 @@ createButton('task-2', 'Task 2 (WTF)', toCelsius(451));
 // Solution here
 
 const findPercentage = (first, second) => {
-    result = first / second * 100;
+    let result = first / second * 100;
     result = result.toFixed(1);
     return first + ' is ' + result + " % of " + second;
 }
 
-createButton('task-4', 'Task 4 (%CENSORED%)', findPercentage(23, 40));
+createButton('task-4', 'Task 4 (%CENSORED%)', () => {
+    let value = findPercentage(23, 40);
+    result.innerText = value;
+});
 
 /**
  * 5) Kdo s koho. Vytvořte funkci, která vezme 2 číselné argumenty a vypíše, který z nich je větší, do předem vytvořeného 
@@ -123,8 +136,15 @@ const findBigger = (first, second) => {
     }
 }
 
-createButton('task-5', 'Task 5 (Kdo s koho)', findBigger(6, 4 / 3));
-createButton('task-5', 'Task 5 (Kdo s koho)', findBigger('0', 0.0));
+createButton('task-5', 'Task 5 (Kdo s koho)', () => {
+    let value = findBigger(6, 4 / 3);
+    result.innerText = value;
+});
+
+createButton('task-5', 'Task 5 (Kdo s koho)', () => {
+    let value = findBigger('0', 0.0);
+    result.innerText = value;
+});
 
 /**
  * 6) I can cleary see the pattern. Vytvořte funkci, která vypíše popořadě všechny násobky 13, které jsou menší 
@@ -142,7 +162,10 @@ const printMultiples = () => {
     return result.slice(0, -2);
 }
 
-createButton('task-6', 'Task 6 (I can clearly see the pattern)', printMultiples());
+createButton('task-6', 'Task 6 (I can clearly see the pattern)', () => {
+    let value = printMultiples();
+    result.innerText = value;
+});
 
 /**
  * 7) Around and about. Vytvořte funkci, která vypočte obsah kružnice podle dodaného poloměru v argumentu. 
@@ -152,11 +175,14 @@ createButton('task-6', 'Task 6 (I can clearly see the pattern)', printMultiples(
  */
 // Solution here
 
-const findArea = (radius) => {
+const calculateCircleArea = (radius) => {
     return (Math.PI * radius * radius).toFixed(2);
 }
 
-createButton('task-7', 'Task 7 (Around and about)', findArea(2));
+createButton('task-7', 'Task 7 (Around and about)', () => {
+    let value = calculateCircleArea(2);
+    result.innerText = value;
+});
 
 /**
  * 8) Another dimension. Vytvořte funkci, která vypočte objem kuželu, pokud dostanete na argumentech výšku a poloměr. 
@@ -166,11 +192,14 @@ createButton('task-7', 'Task 7 (Around and about)', findArea(2));
  */
 // Solution here
 
-const findVolume = (radius, height) => {
+const calculateCylinderVolume = (radius, height) => {
     return (1 / 3 * Math.PI * radius * radius * height).toFixed(2);
 }
 
-createButton('task-8', 'Task 8 (Another dimension)', findVolume(2, 5));
+createButton('task-8', 'Task 8 (Another dimension)', () => {
+    let value = calculateCylinderVolume(2, 5);
+    result.innerText = value;
+});
 
 /** 
  * 9) Not sure if triangle, or just some random values. Vytvořte funkci, která rozhodne, zda se z 
@@ -186,7 +215,10 @@ const isTriangle = (a, b, c) => {
     return (a + b > c) && (a + c > b) && (b + c > a);
 }
 
-createButton('task-9', 'Task 9 (Not sure if triangle)', isTriangle(10, 7, 4));
+createButton('task-9', 'Task 9 (Not sure if triangle)', () => {
+    let value = isTriangle(10, 7, 4);
+    result.innerText = value;
+});
 
 /**
  * 10) Heroic performance. Vytvořte funkci, která vypočte a vypíše obsah trojúhelníka podle Heronova vzorce, 
@@ -219,4 +251,7 @@ const heroicArea = (a, b, c) => {
     }
 }
 
-createButton('task-10', 'Task 10 (Heroic performance)', heroicArea(10, 7, 4));
+createButton('task-10', 'Task 10 (Heroic performance)', () => {
+    let value = heroicArea(10, 7, 4);
+    result.innerText = value;
+});
