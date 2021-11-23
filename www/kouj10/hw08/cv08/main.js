@@ -77,7 +77,7 @@ taskButtons.appendChild(button2);
 /**
  * 4) %CENSORED%. Vytvořte funkci, která vezme 2 číselné argumenty a vrátí podíl prvního čísla a druhého čísla.
  * Výsledek vypište v procentech do předem vytvořeného místa na stránce pro výsledky, např. 21 je 50% z 42. Pro
- * zkrácení / zaokrouhlení desetinných míst použijte funkci .toFixed(n). Např. var pi = 3.1415926535; pi.toFixed(2);
+ * zkrácení / zaokrouhlení desetinných míst použijte funkci .toFixed(n). Např. const pi = 3.1415926535; pi.toFixed(2);
  * Pozor na dělení nulou!
  *
  * Pro testování vytvořte tlačítko s touto funkcí podle pokynu v úloze č. 3
@@ -114,12 +114,7 @@ taskButtons.appendChild(button3);
  */
 // Solution here
 
-const button4 = document.createElement('button');
-button4.innerText = 'Kdo s koho (celé a celé)';
-button4.id = 'task-5';
-button4.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 9;
-    numberTwo = 8;
+const compareTwoNumbers = (numberOne, numberTwo) => {
     const p = document.createElement('p');
     if (numberOne === numberTwo) {
         p.innerText = 'Čísla se rovnají';
@@ -129,87 +124,48 @@ button4.addEventListener('click', (numberOne, numberTwo) => {
         p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
     }
     results.appendChild(p);
+}
+
+const button4 = document.createElement('button');
+button4.innerText = 'Kdo s koho (celé a celé)';
+button4.id = 'task-5';
+button4.addEventListener('click', () => {
+    compareTwoNumbers(5, 9);
 });
 
 const button5 = document.createElement('button');
 button5.innerText = 'Kdo s koho (zlomek a zlomek)';
 button5.id = 'task-5';
-button5.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 1 / 2;
-    numberTwo = 2 / 3;
-    const p = document.createElement('p');
-    if (numberOne === numberTwo) {
-        p.innerText = 'Čísla se rovnají';
-    } else if (numberOne > numberTwo) {
-        p.innerText = 'Vetší číslo je ' + numberOne.to + (' (numberOne)');
-    } else {
-        p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
-    }
-    results.appendChild(p);
+button5.addEventListener('click', () => {
+    compareTwoNumbers(1 / 3, 2 / 3);
 });
+
 const button6 = document.createElement('button');
 button6.innerText = 'Kdo s koho (desetinné a desetinné)';
 button6.id = 'task-5';
-button6.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 2.474;
-    numberTwo = 2.474;
-    const p = document.createElement('p');
-    if (numberOne === numberTwo) {
-        p.innerText = 'Čísla se rovnají';
-    } else if (numberOne > numberTwo) {
-        p.innerText = 'Vetší číslo je ' + numberOne + (' (numberOne)');
-    } else {
-        p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
-    }
-    results.appendChild(p);
+button6.addEventListener('click', () => {
+    compareTwoNumbers(2.474, 2.474);
 });
+
 const button7 = document.createElement('button');
 button7.innerText = 'Kdo s koho (celé a zlomek)';
 button7.id = 'task-5';
-button7.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 2;
-    numberTwo = 2 / 1;
-    const p = document.createElement('p');
-    if (numberOne === numberTwo) {
-        p.innerText = 'Čísla se rovnají';
-    } else if (numberOne > numberTwo) {
-        p.innerText = 'Vetší číslo je ' + numberOne + (' (numberOne)');
-    } else {
-        p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
-    }
-    results.appendChild(p);
+button7.addEventListener('click', () => {
+    compareTwoNumbers(2, 2 / 1);
 });
+
 const button8 = document.createElement('button');
 button8.innerText = 'Kdo s koho (celé a desetinné)';
 button8.id = 'task-5';
-button8.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 2;
-    numberTwo = 4.01;
-    const p = document.createElement('p');
-    if (numberOne === numberTwo) {
-        p.innerText = 'Čísla se rovnají';
-    } else if (numberOne > numberTwo) {
-        p.innerText = 'Vetší číslo je ' + numberOne + (' (numberOne)');
-    } else {
-        p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
-    }
-    results.appendChild(p);
+button8.addEventListener('click', () => {
+    compareTwoNumbers(2, 4.01);
 });
+
 const button9 = document.createElement('button');
 button9.innerText = 'Kdo s koho (zlomek a desetinné)';
 button9.id = 'task-5';
-button9.addEventListener('click', (numberOne, numberTwo) => {
-    numberOne = 2 / 7;
-    numberTwo = 2.474;
-    const p = document.createElement('p');
-    if (numberOne === numberTwo) {
-        p.innerText = 'Čísla se rovnají';
-    } else if (numberOne > numberTwo) {
-        p.innerText = 'Vetší číslo je ' + numberOne + (' (numberOne)');
-    } else {
-        p.innerText = 'Větší číslo je ' + numberTwo + (' (numberTwo)');
-    }
-    results.appendChild(p);
+button9.addEventListener('click', () => {
+    compareTwoNumbers(2 / 7, 2.474);
 });
 
 taskButtons.appendChild(button4);
@@ -235,14 +191,14 @@ const button10 = document.createElement('button');
 button10.innerText = 'I can clearly see the pattern';
 button10.id = 'task-6';
 button10.addEventListener('click', () => {
-    var p = document.createElement('p');
+    const p = document.createElement('p');
     for (let i = 0; i * 7 <= 730; i++) {
         p.innerText = p.innerText + ' ' + i * 7;
     };
     results.appendChild(p);
 });
 
-results.appendChild(button10);
+taskButtons.appendChild(button10);
 
 
 
@@ -253,18 +209,19 @@ results.appendChild(button10);
  * staticky.
  */
 // Solution here
-
+const calculateCircleArea = (radius) => {
+    const p = document.createElement('p');
+    p.innerText = (radius * radius * Math.PI).toFixed(2) + ' cm^2';
+    results.appendChild(p);
+}
 const button11 = document.createElement('button');
 button11.innerText = 'Around and about';
 button11.id = 'task-7';
-button11.addEventListener('click', (raduius) => {
-    var p = document.createElement('p');
-    const radius = 24;
-    p.innerText = (radius * radius * Math.PI).toFixed(2) + ' cm^2';
-    results.appendChild(p);
+button11.addEventListener('click', () => {
+    calculateCircleArea(24);
 });
 
-results.appendChild(button11);
+taskButtons.appendChild(button11);
 
 
 /**
@@ -274,15 +231,17 @@ results.appendChild(button11);
  * staticky.
  */
 // Solution here
-const button12 = document.createElement('button');
-button12.innerText = 'Another dimension';
-button12.id = 'task-8';
-button12.addEventListener('click', (radius, height) => {
-    radius = 5;
-    height = 4;
+const calculateConeVolume = (radius, height) => {
     const p = document.createElement('p');
     p.innerText = 'Objem kuželu je: ' + radius * radius * height * Math.PI * 1 / 3;
     results.appendChild(p);
+}
+
+const button12 = document.createElement('button');
+button12.innerText = 'Another dimension';
+button12.id = 'task-8';
+button12.addEventListener('click', () => {
+    calculateConeVolume(5, 4);
 })
 
 taskButtons.appendChild(button12);
@@ -299,14 +258,8 @@ taskButtons.appendChild(button12);
  */
 // Solution here
 
-const button13 = document.createElement('button');
-button13.innerText = 'Not sure if triangle, or just some random values';
-button13.id = 'task-9';
-button13.addEventListener('click', (numberOne, numberTwo, numberThree) => {
-    numberOne = 40;
-    numberTwo = 20;
-    numberThree = 22;
-    var p = document.createElement('p');
+const isTriangle = (numberOne, numberTwo, numberThree) => {
+    const p = document.createElement('p');
 
     if (numberOne + numberTwo < numberThree || numberOne + numberThree < numberTwo || numberTwo + numberThree < numberOne) {
         p.innerText = numberOne + ' ' + numberTwo + ' ' + numberThree + ' Ne'
@@ -314,9 +267,16 @@ button13.addEventListener('click', (numberOne, numberTwo, numberThree) => {
         p.innerText = numberOne + ' ' + numberTwo + ' ' + numberThree + ' Ano'
     }
     results.appendChild(p);
+}
+
+const button13 = document.createElement('button');
+button13.innerText = 'Not sure if triangle, or just some random values';
+button13.id = 'task-9';
+button13.addEventListener('click', () => {
+    isTriangle(40, 20, 22);
 });
 
-results.appendChild(button13);
+taskButtons.appendChild(button13);
 
 
 
@@ -332,11 +292,7 @@ results.appendChild(button13);
 
 const heron = (numberOne, numberTwo, numberThree) => {
 
-    numberOne = 40;
-    numberTwo = 12;
-    numberThree = 22;
-
-    var p = document.createElement('p');
+    const p = document.createElement('p');
 
     if (numberOne + numberTwo < numberThree || numberOne + numberThree < numberTwo || numberTwo + numberThree < numberOne) {
 
@@ -352,8 +308,10 @@ const heron = (numberOne, numberTwo, numberThree) => {
 const button14 = document.createElement('button');
 button14.innerText = 'Heroic performance';
 button14.id = 'task-10';
-button14.addEventListener('click', heron);
-results.appendChild(button14);
+button14.addEventListener('click', () => {
+    heron(40, 50, 22);
+});
+taskButtons.appendChild(button14);
 
 // - krok 1 - vytvořte funkci
 //   - krok 1.1 - pomocí selektoru vyberte container pro výpis výsledků a uložte ho do proměnné
