@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/main.css" />
+    <title>Caesarova šifra</title>
+</head>
+<body>
+    <div class="form-box">
+        <h2>Encipher</h2>
+        <form>
+            <div class="input-box">
+                <input id="text" type="text" onkeyup="this.value = this.value.toUpperCase();">
+                <label>Text</label>
+            </div>
+
+            <div class="input-box">
+                <input id="key" type="number">
+                <label>Key</label>
+            </div>
+          
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <button id="submit" type="submit">Submit</button>
+        </a>
+          
+        </form>
+
+        <div class="result" id="result"></div>
+
+        <div class="button-box">
+            <a href="../index.html"><button class="button">BACK</button></a>
+        </div>
+    </div>
+    <script src="../js/second.js"></script>
+</body>
+</html>
