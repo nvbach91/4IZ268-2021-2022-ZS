@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+
+.cipherForm {
+    background-color: #d6d6d6;
+    margin: 0 auto;
+    padding: 10px;
+    max-width: 550px;
+}
+
+#cipher, #cipherKey, #submitCipher {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#result {
+    text-align: center;
+    margin: 10px 0;
+}
+
+#submitCipher {
+    background-color: aqua;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+#submitCipher:hover {
+    background-color: aquamarine;
+}
