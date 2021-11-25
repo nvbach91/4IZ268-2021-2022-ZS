@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Long live SPARTA!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body>
+    <!-- Your implementation goes here -->
+    <!-- 
+                                 88                    
+                                 ""   ,d               
+                                      88               
+,adPPYba, 8b,dPPYba,  8b,dPPYba, 88 MM88MMM ,adPPYba,  
+I8[    "" 88P'    "8a 88P'   "Y8 88   88   a8P_____88  
+ `"Y8ba,  88       d8 88         88   88   8PP"""""""  
+aa    ]8I 88b,   ,a8" 88         88   88,  "8b,   ,aa  
+`"YbbdP"' 88`YbbdP"'  88         88   "Y888 `"Ybbd8"'  
+          88                                           
+          88                                           
+    -->
+    <main>
+      <h1>Caesar cipher</h1>
+
+      <form id="decode">
+        <h2>Decode</h2>
+        <textarea
+          name="decode"
+          id="decode-field"
+          placeholder="Enter text to decode..."
+          rows="8"
+        ></textarea>
+        <br />
+        <input
+          type="number"
+          id="decode-key"
+          name="decodeKey"
+          placeholder="Decode with 🔑"
+        />
+        <button onclick="onSubmit()">Decode</button>
+      </form>
+
+      <h3 id="output"></h3>
+
+      <h2 class="shortcuts">Shortcuts:</h2>
+      <button
+        onclick="prefill('MPH MABGZL TKX BGYBGBMX: MAX NGBOXKLX TGW ANFTG LMNIBWBMR; TGW BF GHM LNKX TUHNM MAX NGBOXKLX. - TEUXKM XBGLMXBG', 19)"
+      >
+        Albert Einstein
+      </button>
+      <button
+        onclick="prefill('YMJWJ NX ST QFB JCHJUY YMJ QFB YMFY YMJWJ NX ST QFB. - OTMS FWHMNGFQI BMJJQJW', 5)"
+      >
+        John Archibald Wheeler
+      </button>
+      <button
+        onclick="prefill('M YMZ ITA PMDQE FA IMEFQ AZQ TAGD AR FUYQ TME ZAF PUEOAHQDQP FTQ HMXGQ AR XURQ. ― OTMDXQE PMDIUZ', 12)"
+      >
+        Charles Darwin
+      </button>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

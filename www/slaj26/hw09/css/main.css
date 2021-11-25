@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  text-align: center;
+}
+
+h1,
+h3 {
+  color: #2c67f6;
+}
+
+form {
+  background-color: #fafafa;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  width: 40%;
+  margin: 0 auto;
+}
+
+textarea,
+input {
+  width: 100%;
+  border: none;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  resize: none;
+}
+
+button {
+  padding: 0.75rem 1.75rem;
+  font-family: 'Outfit';
+  color: #f1f1f1;
+  background-color: black;
+  border-radius: 7rem;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.shortcuts {
+  margin-top: 2rem;
+}
