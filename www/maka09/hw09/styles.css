@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+    
+}
+
+.container h1{
+    padding-bottom: 30px;
+    color:white;
+}
+
+.container {
+    background-color: black;
+    margin-top: 200px;
+    margin:0 auto;
+    padding: 50px;
+    max-width: 550px;
+}
+
+.resultbox {
+    background-color: white;
+    margin: 0 auto;
+    max-width: 550px;
+}
+
+#cipheredtext, #key, #decipher {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.result {
+    text-align: center;
+    margin: 10px 0;
+}
+
+#decipher {
+    background-color:red;
+    border: none;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+
+
+#decipher:hover {
+    background-color: white;
+}
