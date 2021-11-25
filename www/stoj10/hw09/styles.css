@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sparta {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(214, 213, 213);
+    width: 50%;
+    padding: 20px;
+}
+
+input {
+    width: 100%;
+    border: none;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+}
+
+
+#cipher {
+    height: 150px;
+    resize: none;
+}
+
+#key {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+input[type=submit] {
+    border-radius: 0px;
+    color: white;
+    background-color: rgb(18, 122, 122);
+    width: 100px;
+    height: 35px;
+}
+
+#deciphered {
+    margin-top: 15px;
+    border-top: rgb(214, 213, 213) solid;
+    border-bottom: rgb(214, 213, 213) solid;
+    width: 50%;
+    text-align: center;
+
+}
