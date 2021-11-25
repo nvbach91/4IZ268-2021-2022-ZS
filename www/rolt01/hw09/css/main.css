@@ -1,0 +1,73 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url(https://static.displate.com/857x1200/displate/2021-02-22/e49e90107056c53fdb8f5e47d48a122c_b3b8c508099489d70cf19a19ba6558e1.jpg) ;
+    background-repeat: repeat;
+    background-size: 300px;
+}
+
+.welcome{
+    font-size: 50px;
+    text-align: center;
+}
+
+.wrapper{
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 100px;
+    flex-wrap: wrap;
+}
+
+form{
+    padding: 100px;
+    background-color: rgba(255, 255, 255, 0.719);
+    width: 100%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.sentence{
+    max-width: 100%;
+    min-width: 100%;
+    font-size: 25px;
+    min-height: 150px;
+    border-radius: 10px;
+}
+
+.shift{
+    width: 150px;
+    height: 100px;
+    font-size: 35px;
+    margin: 25px;
+    border-radius: 10px;
+}
+
+button{
+    width: 230px;
+    padding: 20px;
+    font-size: 25px;
+    background-color: deeppink;
+    color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+button:hover{
+    background-color:aqua;
+    color: black;
+
+ }
+
+.result{
+    font-size: 25px;
+    background-color: aqua;
+    width: 100%;
+    border-radius: 10px;
+    padding: 20px;
+}
+
