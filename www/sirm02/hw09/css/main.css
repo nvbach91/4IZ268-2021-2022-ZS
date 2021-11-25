@@ -1,0 +1,56 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: blanchedalmond;
+    font-size: 40px;
+}
+
+.app {
+    padding-top: 150px;
+    text-align: center;
+    background-color: rgba(256, 256, 256, 0.8);
+    max-width: 1280px;
+    margin: 250px;
+
+}
+
+.cipherInput {
+    font-size: 40px;
+    color: red;
+    min-width: 80%;
+    max-width: 80%;
+    padding-bottom: 60px;
+
+}
+
+.shift {
+    font-size: 40px;
+    width: 80px;
+    text-align: center
+}
+
+button {
+    font-size: 40px;
+    margin-top: 20px;
+    background-color: rgb(49, 207, 70);
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: royalblue;
+    transition: 1s ease;
+}
+
+.result {
+    font-size: 40px;
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+    background-color: pink;
+    width: 100%;
+    background-color: rgba(256, 256, 256, 0.8);
+    border: 1px solid black;
+    border-radius: 10px;
+}
