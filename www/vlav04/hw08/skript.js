@@ -56,11 +56,11 @@ function pepesAge(birthdayPepes) {
     return ("Pepe's Age: " + (thisYear1 - birthdayPepes));
 }
 
-function CelsiusToFahrenheiht(celsius) {
+function celsiusToFahrenheihtFunkce(celsius) {
     return ("Celsius to Fahrenheit: " + (celsius * 9 / 5 + 32));
 }
 
-function FahrenheihtToCelsius(fahrenheiht) {
+function fahrenheihtToCelsiusFunkce(fahrenheiht) {
     return ("Fahrenheit to Celsius: " + (fahrenheiht - 32) * 5 / 9);
 }
 
@@ -71,7 +71,8 @@ const button1 = document.createElement('button');
 button1.innerText = 'Uloha 1 (Pepes age)';
 button1.id = 'task-1';
 button1.addEventListener('click', () => {
-    result.innerText = (pepesAge(window.prompt("Pepes year of birth: ")));
+    let message = window.prompt("Pepes year of birth: ");
+    result.innerText = (pepesAge(message));
 });
 taskButtons.appendChild(button1);
 
@@ -79,7 +80,8 @@ const button2 = document.createElement('button');
 button2.innerText = 'Uloha 2 (Celsius to Fahrenheit)';
 button2.id = 'task-2';
 button2.addEventListener('click', () => {
-    result.innerText = (CelsiusToFahrenheiht(window.prompt("Temperature in Celsius: ")));
+    let message = window.prompt("Temperature in Celsius: ");
+    result.innerText = (celsiusToFahrenheihtFunkce(message));
 });
 taskButtons.appendChild(button2);
 
@@ -87,7 +89,8 @@ const button3 = document.createElement('button');
 button3.innerText = 'Uloha 3 (Fahrenheit to Celsius)';
 button3.id = 'task-3';
 button3.addEventListener('click', () => {
-    result.innerText = (FahrenheihtToCelsius(window.prompt("Temperature in Fahrenheit: ")));
+    let message = window.prompt("Temperature in Fahrenheit: ");
+    result.innerText = (fahrenheihtToCelsiusFunkce(message));
 });
 taskButtons.appendChild(button3);
 
@@ -117,7 +120,9 @@ const button4 = document.createElement('button');
 button4.innerText = 'Uloha 4 (Percentage)';
 button4.id = 'task-4';
 button4.addEventListener('click', () => {
-    result.innerText = (percentage(window.prompt("1 number: "), window.prompt("2 number: ")));
+    let message1 = window.prompt("1 number: ");
+    let message2 = window.prompt("2 number: ");
+    result.innerText = (percentage(message1, message2));
 });
 taskButtons.appendChild(button4);
 
@@ -150,7 +155,9 @@ const button5 = document.createElement('button');
 button5.innerText = 'Uloha 5 (Kdo s koho)';
 button5.id = 'task-5';
 button5.addEventListener('click', () => {
-    result.innerText = (comparison(window.prompt("1 number: "), window.prompt("2 number: ")));
+    let message1 = window.prompt("1 number: ");
+    let message2 = window.prompt("2 number: ");
+    result.innerText = (comparison(message1, message2));
 });
 taskButtons.appendChild(button5);
 
@@ -188,7 +195,7 @@ taskButtons.appendChild(button6);
  */
 
 // Solution here
-function square(radius) {
+function calculateCircleArea(radius) {
     let s = Math.PI * Math.pow(radius, 2);
     return ("Area of a circle: " + s.toFixed(2));
 }
@@ -197,7 +204,8 @@ const button7 = document.createElement('button');
 button7.innerText = 'Uloha 7 (Around and about)';
 button7.id = 'task-7';
 button7.addEventListener('click', () => {
-    result.innerText = (square(window.prompt("Radius: ")));
+    let message = window.prompt("Radius: ");
+    result.innerText = (calculateCircleArea(message));
 });
 taskButtons.appendChild(button7);
 
@@ -217,7 +225,9 @@ const button8 = document.createElement('button');
 button8.innerText = 'Uloha 8 (Another dimension)';
 button8.id = 'task-8';
 button8.addEventListener('click', () => {
-    result.innerText = (coneVolume(window.prompt("Height: "), window.prompt("Radius: ")));
+    let message1 = window.prompt("Height: ");
+    let message2 = window.prompt("Radius: ");
+    result.innerText = (coneVolume(message1, message2));
 });
 taskButtons.appendChild(button8);
 
@@ -232,7 +242,6 @@ taskButtons.appendChild(button8);
 
 // Solution here
 function isTriangle(d1, d2, d3) {
-    var flag = false;
     if ((d1 + d2 > d3) || (d1 + d3 > d2) || (d2 + d3 > d1)){
         return 'Možné vytvořit trojúhelník'
     } else {
@@ -244,7 +253,10 @@ const button9 = document.createElement('button');
 button9.innerText = 'Uloha 9 (Not sure if triangle, or just some random values)';
 button9.id = 'task-9';
 button9.addEventListener('click', () => {
-    result.innerText = (isTriangle(window.prompt("Délka 1: "), window.prompt("Délka 2: "), window.prompt("Délka 3: ")));
+    let message1 = window.prompt("Délka 1: ");
+    let message2 = window.prompt("Délka 2: ");
+    let message3 = window.prompt("Délka 3: ");
+    result.innerText = (isTriangle(message1, message2, message3));
 });
 taskButtons.appendChild(button9);
 
@@ -269,3 +281,24 @@ taskButtons.appendChild(button9);
 // - krok 3 - nabindujte na toto tlačítko callback, ve kterém zavoláte implementovanou funkci pro výpočet a výpis výsledků
 // - krok 4 - tlačítko umístěte na stránku
 // - krok 5 - otestujte řešení klikáním na tlačítko
+
+function calculateTriangleArea(d1, d2, d3) {
+    if (isTriangle(d1, d2, d3)) {
+        const d = (d1 + d2 + d3) / 2;
+        let rootExpression = d * ((d - d1) * (d - d2) * (d - d3));
+        let result = Math.sqrt(rootExpression);
+        return result.toFixed(2);
+    }
+    else {
+        return "Chyba";
+    }
+
+}
+
+const button10 = document.createElement('button');
+button10.innerText = 'Uloha 10 (Heroic performance)';
+button10.id = 'task-10';
+button10.addEventListener('click', () => {
+    result.innerText = (calculateTriangleArea(5, 5, 2))
+});
+taskButtons.appendChild(button10);
