@@ -60,7 +60,7 @@ const button = document.getElementById('submit-button');
 const outputText = document.getElementById('text-output');
 
 button.addEventListener('click', function () {
-    const key = inputKey.value;
+    let key = inputKey.value;
     if (isNaN(key)) {
         key = 0;
     }
