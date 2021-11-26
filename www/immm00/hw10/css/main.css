@@ -48,7 +48,8 @@ body {
 }
 .card.revealed {
     color: #b27943;
-    background-color: maroon;   
+    background-color: maroon;  
+    pointer-events: none;
 }
 
 h1,h2{

@@ -50,47 +50,43 @@ window.onload = () => {
     }
 
     function cardSelected(evt) {
-        let card = evt.currentTarget;
+        let card = evt.target;
         if (newMoveAvailable) {
             if (selectedCard1 === null) {
                 selectedCard1 = card;
+                card.classList.add('revealed');
             } else if (selectedCard2 === null) {
-                selectedCard2 = card;
                 newMoveAvailable = false;
-            } else {
-            }
+                selectedCard2 = card;           
+                card.classList.add('revealed');
 
-            card.classList.add('revealed');
-
-            if (selectedCard1 != null & selectedCard2 != null) {
                 if (selectedCard1.innerText === selectedCard2.innerText) {
                     points.innerText = parseInt(points.innerText) + 1;
                     cardsLeft -= 2;
-                    console.log(cardsLeft); 
                     if (cardsLeft === 0) {
-                        gameField.style.opacity ='0';
+                        gameField.style.opacity = '0';
                     }
+                    selectedCard1 = null;
+                    selectedCard2 = null;
                     setTimeout(function () {
                         newMoveAvailable = true;
-                        selectedCard1.removeEventListener('click', cardSelected);
-                        selectedCard2.removeEventListener('click', cardSelected);
-                        selectedCard1 = null;
-                        selectedCard2 = null;
                     }
-                        , 2000);                              
+                        , 2000);
                 } else {
                     if (points.innerText > 0) {
                         points.innerText = parseInt(points.innerText) - 1;
                     }
+
                     setTimeout(function () {
                         selectedCard1.classList.remove('revealed');
                         selectedCard2.classList.remove('revealed');
-                        newMoveAvailable = true;
                         selectedCard1 = null;
                         selectedCard2 = null;
+                        newMoveAvailable = true;
                     }
                         , 2000);
                 }
+
             }
         }
     }
