@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
+    background-color: darkcyan;
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 50px;
+}
+
+.form-row {
+    margin: 20px 0;
+}
+
+.text-input {
+    width: 400px;
+}
+
+.key-input {
+    width: 400px;
+}
+
+.submit-button {
+    width: 400px;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+.result-area {
+    background-color: cadetblue;
+    width: 400px;
+    height: 100px;
+}
