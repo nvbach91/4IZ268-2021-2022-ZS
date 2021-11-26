@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Caesar cipher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+  <div class="form">
+    <h1>Caesar Cipher</h1>
+    <form id="encryption-form">
+      <div class="form-row">
+        <label>Cipher text:<br></label>
+        <textarea class="text-input" id="text-input" name="text" rows="5" placeholder="Text to decipher"></textarea>
+      </div>
+      <div class="form-row">
+        <label>Cipher key:<br></label>
+        <input class="key-input" id="key-input" type="number" name="key" placeholder="Encryption key">
+      </div>
+      <button type="button" class="submit-button" id="submit-button">Decipher</button>
+      <div class="form-row result-area" id="text-output"></div>
+    </form>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

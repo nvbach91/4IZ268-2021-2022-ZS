@@ -1,0 +1,62 @@
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+h1 {
+    text-align: center;
+    color: #F5BB00;
+}
+
+body {
+    background-image: url("https://i.pinimg.com/originals/ca/a4/ac/caa4ace52439c358117356bb9f7f8cad.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center bottom;
+    background-color: #6E8898;
+}
+
+body * {
+    margin: 10px auto;
+    display: block;
+}
+
+.formWrapper * {
+    margin: 10px auto;
+    display: block;
+}
+
+.formWrapper textarea {
+    height: 120px;
+}
+
+.formWrapper textarea,
+input[type="number"] {
+    width: 480px;
+    border: #2E5266 3px solid;
+    min-height: 20px;
+}
+
+.formWrapper textarea:focus,
+.formWrapper input[type="number"]:focus {
+    border: #F5BB00 3px solid;
+    outline: none;
+}
+
+.formWrapper input[type="submit"] {
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    color: white;
+    background-color: #F5BB00;
+    transition: 0.5s ease-in-out;
+}
+
+.formWrapper input[type="submit"]:hover {
+    border-radius: 25px;
+}
+
+.decrypted {
+    text-align: center;
+    margin: 30px;
+}

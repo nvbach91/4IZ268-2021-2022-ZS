@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.page-content, .page-content * {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.caesars-app, .caesars-app * {
+    background-color: antiquewhite;
+}
+
+.caesars-app {
+    width: 600px;
+    align-self: center;
+}
+
+.app-name {
+    align-self: center;
+    width: 100%;
+}
+
+.app-name h1 {
+    align-self: center;
+}
+
+.app-separator {
+    border-bottom: 5px solid black;
+}
+
+.caesars-input input {
+    background-color: white;
+}
+
+.caesars-input label {
+    padding: 20px;
+}
+
+.caesars-input button {
+    background-color: whitesmoke;
+    margin: 10px;
+    padding: 10px;
+    max-width: 300px;
+    align-self: center;
+}
+
+.caesars-output{
+    padding: 20px;
+}

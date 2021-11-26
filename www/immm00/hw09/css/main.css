@@ -1,0 +1,56 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Gideon Roman', cursive;
+}
+
+
+.form{
+    background-color: rgba(255,215,0,0.7);
+    display: inline-block;
+    padding: 20px;
+}
+
+#cipher-text{
+    max-width: 400px;
+    min-width: 100px;
+    width: 400px;
+
+    max-height: 200px;
+    height: 200px;
+    min-height: 50px;
+
+    font-size: 15px;
+}
+
+body{
+    text-align: center;
+    background-image: url(https://m.media-amazon.com/images/M/MV5BODIyNTA3MzgxOF5BMl5BanBnXkFtZTgwMzYzOTY3MTE@._V1_.jpg);
+    background-size: cover;
+}
+
+#deciphered-text{
+    margin-top: 80px;
+    margin-left:  100px;
+    margin-right:  100px;
+    padding: 20px 100px;
+    border-top: 10px dashed rgb(154,9,8); 
+    border-bottom: 10px dashed rgb(154,9,8);
+    background-color: rgba(255,215,0,0.9);
+    min-height: 80px;
+    word-wrap: break-word;
+}
+
+h1, h2{
+    background-color: rgba(154,9,8,0.8);
+    padding: 10px;
+}
+
+button{
+    font-size: 20px;
+}
+
+#cipher-key{
+    font-size: 20px;
+    text-align: center;
+}
+
