@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin-top: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    border-bottom: 5px solid rgb(13, 45, 132);
+    margin: 0 20px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+h1 {
+    box-sizing: initial;
+    width: 320px;
+    margin: 10px 0 10px 10px;
+}
+
+h3 {
+    box-sizing: initial;
+    width: 140px;
+    text-align: center;
+    margin: 0 10px 0 180px;
+    line-height: 32px;
+}
+
+#new-game {
+    line-height: 64px;
+}
+
+button {
+    font-weight: bold;
+    background-color: white;
+    border: none;
+    border-bottom: 5px solid rgb(13, 45, 132);
+    border-top: 5px solid rgb(13, 45, 132);
+    text-transform: uppercase;
+    height: 35px;
+    transition: height 0.3s ease, border-color 0.1s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    height: 40px;
+}
+
+button:active {
+    border-color: black;
+}
+
+#game-field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 300px 0 300px;
+
+}
+
+.card {
+    color: white;
+    font-size: 0;
+    margin: 4px;
+    background-image: url('../img/logo-white-min.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    background-color: rgb(13, 45, 132);
+    width: 150px;
+    height: 150px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px 1px rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+.revealed:hover {
+    transform: none;
+    box-shadow: none;
+    cursor: initial;
+}
+
+#cover {
+    display: fixed;
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: 90%;
+    height: 100%;
+}
