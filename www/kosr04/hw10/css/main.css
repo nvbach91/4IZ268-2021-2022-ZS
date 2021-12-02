@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    font-family: monospace;
+    font-size: 25px;
+    
+}
+
+.wrapper {
+    text-align: center;
+    color: white;
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    padding: 25px;
+    
+}
+.card {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    border-radius: 30px;
+    border: 10px solid white;
+    width: 300px;
+    background: powderblue;
+    transition: background-color 1s ease;
+
+}
+
+.card:hover {
+    background-color: cornflowerblue;
+}
+.card.paired {
+    color:black;
+    background: palevioletred;
+
+}
+
+#playground {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
