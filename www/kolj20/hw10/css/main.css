@@ -1,0 +1,38 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background-image: url(https://back.femininbio.com/attachments/2020/11/20/landscape/w1200/10066-10066-fruits.jpg);
+}
+
+#game-field {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.card {
+    background-color:turquoise;
+    color: transparent;
+    border: 20px solid black;
+    width: 20%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: crosshair;
+    border-radius: 50px;
+    transition: background-color .2s ease;
+}
+.card:hover {
+    background-color:thistle;
+}
+
+.card.revealed {
+    background: cadetblue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
