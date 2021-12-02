@@ -1,0 +1,32 @@
+h1, h2 {
+    text-align: center;
+}
+.wrapper {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    gap: 5px;
+}
+.pexeso-card {
+    background-color: red;
+    width: 19%;
+    height: 150px;
+    color: transparent;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.show {
+    background-color: blue;
+    color: white;
+}
+
+.pexeso-card:hover {
+    background-color: blue;
+
+}
