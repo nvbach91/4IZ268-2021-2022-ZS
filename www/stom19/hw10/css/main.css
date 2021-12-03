@@ -1,0 +1,43 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#gameSquare{
+    display: flex;
+    flex-wrap: wrap;
+    margin:0 auto;
+    align-self: center;
+    width: 80%;
+    padding-left:13%;
+    padding-right: 7%;
+    
+}
+
+.card {
+    background-color: coral;
+    border-radius: 10px;
+    padding:40px;
+    height:30px;
+    margin:7px;
+    width:10%;
+    text-align: center;
+    color: transparent;
+    user-select: none;
+
+}
+
+
+
+.card:hover {
+    background-color: gold;
+    cursor: pointer;
+}
+
+.card.revealed{
+    background-color: cornflowerblue;
+    color:white;
+}
+
+h1,h3 {
+    text-align: center;
+}
