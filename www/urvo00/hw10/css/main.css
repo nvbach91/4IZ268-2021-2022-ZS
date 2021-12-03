@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    color: black;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+#cards-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.points-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.card {
+    justify-self: center;
+    background-color: pink;
+    height: 150px;
+    flex-basis: 19%;
+    border-radius: 10px;
+    background-color: rgb(255, 143, 163);
+    transition: background-color 0.5s ease;
+}
+
+.card:hover {
+    background-color: rgb(252, 93, 122);
+    transition: background-color 0.5s ease;
+    cursor: pointer;
+}
+
+.image {
+    border-radius: 10px;
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.shown {
+    display: block;
+}
+
+.points-box {
+    background-color: rgb(255, 179, 193);
+    margin: auto;
+    width: 150px;
+    margin-bottom: 1em;
+    border-radius: 10px;
+}
+
+#points-text {
+    padding-right: 10px;
+}
