@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+
+h1, h2{
+    color:rgb(64, 192, 201);
+}
+
+#game-field {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.card {
+    margin: 15px;
+    height: 150px;
+    width: calc(1280px / 6);
+    background-color: rgb(75, 180, 80);
+    border-radius: 30px;
+    color: transparent;
+    display: flex;
+    transition: background-color 0.7s ease;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.card:hover {
+ background-color: rgb(8, 102, 40);
+}
+
+.revealed {
+    background-color:rgb(56, 197, 197) !important;
+    color: black;
+    font-size: 22px;
+}
+
+.matched {
+    background-color: transparent;
+    color: transparent;
+    text-indent: -9999px;
+}
