@@ -1,35 +1,3 @@
-/*console.log('ahoj svete-');
-
-const sentence = '   kobyla ma  maly bok    kajak je blbej';
-
-console.log(sentence.length);
-
-console.log(sentence.charAt(5));
-console.log(sentence.charAt(sentence.length - 1));
-
-console.log(
-    sentence.charAt(sentence.indexOf('b'))
-);
-
-console.log(sentence.slice(0, 5));
-console.log(sentence.slice(5));
-console.log(sentence.slice(-5));
-
-console.log(sentence.replace('k', 'xxx'));
-console.log(sentence.replace(/[kal]/g, 'x'));
-console.log(sentence.replace(/ +/g, '-'));
-
-console.log(sentence.toUpperCase());
-console.log(sentence.toUpperCase().toLowerCase());
-
-
-console.log(sentence.trim());
-console.log(sentence.trim().split(/ +/));
-
-const words = ['kobyla', 'ma', 'maly', 'bok'];
-
-console.log(words.join('+'));*/
-
 window.onload = () => {
     const pokemonForm = document.querySelector('#pokemon-form');
     // console.log(pokemonForm);
@@ -50,26 +18,39 @@ window.onload = () => {
         const pokemonNames = inputValue.split(/ +/);
         const pokemonCount = parseInt(pokemonCountContainer.innerText);
         // const temporaryPokemons = [];
-        
+        const existingPokemonNames = [];//['pikachu', 'squirtle', 'charmander'];
+        // podivame na stranku, co tam mame za pokemony
+        const existingPokemons = document.querySelectorAll('.pokemon');
+        for (let i = 0; i < existingPokemons.length; i++) {
+            const existingPokemon = existingPokemons[i];
+            const existingPokemonNameContainer = existingPokemon.querySelector('.pokemon-name');
+            const existingPokemonName = existingPokemonNameContainer.innerText;
+            existingPokemonNames.push(existingPokemonName);
+            
+        }
         for (let i = 0; i < pokemonNames.length; i += 1) {
             const pokemonName = pokemonNames[i];
-            
-            fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonName).then((resp) => {
-                return resp.json();
-            }).then((resp) => {
-                const pokemonType = resp.types[0].type.name;
-                const pokemonData = {
-                    name: pokemonName,
-                    id: resp.id,
-                    imageUrl: 'https://www.postavy.cz/foto/' + pokemonName + '-foto.jpg',
-                    type: pokemonType,
-                    height: resp.height,
-                };
-                const pokemon = createPokemon(pokemonData);
-                // temporaryPokemons.push(pokemon);
-                pokemonList.appendChild(pokemon);
-                updatePokemonCount(pokemonCount + 1);
-            });
+            // porovnam noveho pokemona s existujicimi pokemony
+            if (!existingPokemonNames.includes(pokemonName)) {
+                fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonName).then((resp) => {
+                    return resp.json();
+                }).then((resp) => {
+                    const pokemonType = resp.types[0].type.name;
+                    const pokemonData = {
+                        name: pokemonName,
+                        id: resp.id,
+                        imageUrl: 'https://www.postavy.cz/foto/' + pokemonName + '-foto.jpg',
+                        type: pokemonType,
+                        height: resp.height,
+                    };
+                    const pokemon = createPokemon(pokemonData);
+                    // temporaryPokemons.push(pokemon);
+                    pokemonList.appendChild(pokemon);
+                    updatePokemonCount(pokemonCount + 1);
+                });
+            } else {
+                console.log('pokemon uz existuje');
+            }
 
         }
     });
@@ -136,7 +117,4 @@ window.onload = () => {
 
     };
 
-
-
-    
 };
