@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    
+}
+#game-field {
+    display: flex;
+    max-width: 600px;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+.card {
+    background-color: red;
+    width: 100px;
+    height: 75px;
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card:hover {
+    background-color: darkred;
+    cursor: pointer;
+}
+.card.revealed {
+    background-color: white;
+    border: solid 2px red;
+    color: black;    
+}
