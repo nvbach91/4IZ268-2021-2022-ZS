@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    text-align: center;
+}
+
+
+#game-field {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.card {
+    background-color: black;
+    color: transparent;
+    width: 20%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 5px solid pink;
+}
+.card:hover {
+    background-color: #099196;
+}
+
+.card.revealed {
+    background: #fff;
+    color: black;
+}
