@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+hr {
+    border-style: solid;
+    border-color: #eee;
+}
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+.loader {
+    border: 5px solid #4723D9;
+    border-top: 5px solid #ccc;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+footer {
+    background-color: #4723D9;
+    color: white;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+header {
+    padding:20px;
+}
+
+form {
+    padding: 30px;
+    padding-top: 0;
+}
+form > * {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #4723D9;
+}
+
+#user-profile {
+    max-width: 1024px;
+}
+
+button {
+    background-color: #4723D9;
+    color: white;
+}
+
+button:hover {
+    opacity: 80%;
+}
+
+.user-avatar {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+#repositories {
+    list-style: none;
+    padding: 0;
+    max-width: 840px;
+    margin: 20px auto;
+}
+.repository, .repository-counter {
+    padding: 5px 10px;
+    margin-bottom: 5px;
+}
+
+.item,
+.repository-list {
+    padding:6px;
+    margin:10px 0;
+    background-color: rgba(228, 228, 228, 0.726);
+    max-width: 90%;
+    margin: 10px auto;
+    align-self: center;
+}
+
+.repository-list {
+    padding: 6px;
+    border-bottom: 1px solid rgba(228, 228, 228, 0.726);
+}
+
+h2 {
+    margin-top:30px;
+}
+
+h5,
+.item > div{
+    margin-bottom: 0 !important;
+    padding:4px;
+    
+}
+
+.item.user-avatar {
+    background-color: white;
+    margin: 0px;
+    align-self:unset;
+}
+
+.item.user-login {
+    margin-top:0;
+}
+.item.user-profile {
+    margin-bottom: 0;
+}
+
+.item{
+    text-align: center;
+}
+
+
