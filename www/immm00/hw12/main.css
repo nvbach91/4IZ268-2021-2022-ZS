@@ -1,0 +1,86 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 10px 150px;
+}
+
+.info-frame{
+    padding: 5px;
+    background: lightgray;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 50px;
+}
+
+#form{
+    background-color:lightgray;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+#name-input, #submit {
+    width: 100%;
+    font-size: 25px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+#submit{
+    background-color: red;
+    color: white;
+}
+
+#name-input{
+    height: 50px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.repository-frame{
+    background: lightgray;
+    border-radius: 5px;
+    padding: 5px 30px;
+    margin-bottom: 5px;
+}
+
+.user-header{
+    background-color: seagreen;
+    color: white;
+    text-transform: uppercase;
+    padding: 5px;
+    text-align:left;
+    font-size: 25px;
+}
+
+.user-wrapper{
+    display:flex;
+    justify-content: center;
+    column-gap: 20px;
+}
+
+.user-info-wrapper{
+    width: 60%;
+    margin-top: 30px;
+}
+
+img{
+    width: 300px;
+    height: 300px;
+    margin-top: 5px;
+}
+
+.info-frame span{
+    width: 200px;
+    display:inline-block;
+}
+
+.user-data{
+    font-weight: bold;
+
+}
