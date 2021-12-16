@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+
+hr {
+    border-style: solid;
+    border-color: #eee;
+}
+
+header {
+    padding: 20px;
+    background-color: rgb(216, 196, 196);
+    border-radius: 10px;
+}
+
+a {
+    color: black;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    border: 5px solid navy;
+    border-top: 5px solid #ccc;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+    margin: auto;
+}
+
+footer {
+    background-color: rgb(216, 196, 196);
+    padding: 20px 0;
+    border-radius: 10px;
+}
+
+#search-form {
+    padding: 20px;
+}
+
+#search-form>button, #search-form>input {
+    padding: 10px;
+    background-color:rgb(188, 188, 235);
+    color: black;
+    width: 300px;
+}
+
+#user-profile {
+    justify-content: center;
+    margin: auto;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin: auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.user-title {
+    margin: auto;
+    width: 100%;
+    border-radius: 10px;
+    background-color: rgb(230, 217, 217);
+}
+
+.avatar-box {
+    margin: 0px auto;
+    flex-basis: 50%;
+    min-width: 400px;
+}
+
+.info-box {
+    min-width: 450px;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0px auto;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(216, 196, 196);
+}
+
+.user-info>* {
+    padding: 10px;
+    width: 200px;
+    text-align: left;
+}
+
+.user-info>*:nth-child(2) {
+    font-weight: bold;
+}
+
+.user-info>a {
+    text-decoration: underline;
+}
+
+.user-avatar>img {
+    border-radius: 10px;
+    width: 100%;
+
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+li {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(216, 196, 196);
+}
+
+li>* {
+    width: 500px;
+}
+
+li>*:nth-child(2) {
+    align-self: flex-start;
+    text-align: left;
+}
