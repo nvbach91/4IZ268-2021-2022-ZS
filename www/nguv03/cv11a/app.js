@@ -4,6 +4,10 @@ $(document).ready(() => {
     const pokemonNameInput = $('input[name="pokemon-name"]');
     const pokemonContainer = $('#pokemons');
 
+    
+
+
+
     pokedexForm.submit((event) => {
         event.preventDefault();
         // pracujeme s inputy
@@ -49,6 +53,9 @@ $(document).ready(() => {
                 const pokemon = createPokemon(pokemonData);
                 pokemons.push(pokemon);
                 pokemonContainer.append(pokemon);
+                const existingPokemons = JSON.parse(localStorage.pokemons);
+                existingPokemons.push(pokemonData);
+                localStorage.setItem('pokemons', JSON.stringify(existingPokemons));
 
                 // spinner.remove();
             });
@@ -111,4 +118,22 @@ $(document).ready(() => {
         return pokemonContainer;
 
     };
+
+
+
+    const existingPokemons = JSON.parse(localStorage.pokemons);
+    const pokemonContainers = [];
+    existingPokemons.forEach((pokemon) => {
+        const existingPokemon = createPokemon(pokemon);
+        pokemonContainers.push(existingPokemon);
+    })
+    pokemonContainer.append(pokemonContainers);
+
+
+    try {
+        const somethingBad = JSON.parse(localStorage.somethingBad);
+    } catch (e) {
+        localStorage.setItem('somethingBad', '{}');
+        const somethingBad = JSON.parse(localStorage.somethingBad);
+    }
 });
