@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700');
+
+* {
+    box-sizing: border-box;
+}
+
+/*---Key components----*/
+
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    min-height: 100vh; /*for infinite bottom page*/
+    /*display: flex */ /*for infinite bottom page - Skryto kvuli nefunkcnimu IE11*/
+    /*flex-direction: column;*/ /*for infinite bottom page - Skryto kvuli nefunkcnimu IE11*/
+}
+
+header {
+    background-color: #272635;
+    padding: 12.8px 0;
+}
+
+footer {
+    background-color: #272635;
+    padding: 8px 0;
+    color: white;
+    text-align: center;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/*---Header navigation----*/
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.container-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    color: white;
+}
+
+.nav-item{
+    margin-left: 32px;
+}
+
+.logo:hover{
+    color: #fd5f00;
+    transition: color .1s ease;
+}
+
+/*---Main components----*/
+
+main{
+    display: flex;
+    flex-wrap: wrap;
+    flex:1;
+}
+
+span{
+    color: #fd5f00;
+}
+
+.articles{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.article{
+    margin: 50px 0;
+    padding: 0 80px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    max-width: 1580px;
+}
+
+.article-explore{
+    margin-bottom: 100px;
+}
+
+input {
+    margin: 10px;
+    padding: 15px 100px;
+    font-size: medium;
+    border-style: none;
+    border-radius: 15px;
+}
+
+.button{
+    font-size: medium;
+    padding: 15px 20px;
+    background-color:#272635;
+    border-radius: 15px;
+    border-style: none;
+    color: white;
+    width: 50%;
+}
+
+.button:hover{
+    background-color:#a6a6a8;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+    transition: background-color .2s ease, color .3s ease;
+}
+
+/** */
+
+#main-content{
+    width: 100%;
+    margin: 0 150px;
+}
+
+#main-content-menu ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+}
+
+#main-content-menu ul li{
+    margin: 0px;
+    padding: 10px 40px;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+}
+
+#main-content-menu ul li.active{
+    margin: 0;
+    padding: 10px 40px; 
+    color: #272635;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+#main-content-menu ul li:not(.active):hover{
+    margin: 0;
+    padding: 10px 40px; 
+    color: red;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.search-box {
+    padding: 50px;
+    background-color: #fd5f00;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-box {
+    padding: 50px;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.non-active {
+    display: none;
+}
+
+#collection-content {
+    margin: 0 150px;
+    margin-top: 20px;
+    padding: 300px;
+    background-color: cornflowerblue;
+    width: 100%;
+}
+
+#main-content-infobar {
+    width: 100%;
+    margin: 0 150px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+#main-content-infobar-menu {
+    flex: 1;
+    align-items: center;
+    align-content: center;
+}
+
+#main-content-infobar-menu ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+}
+
+#main-content-infobar-menu ul li{
+    margin: 0px;
+    padding: 10px 40px;
+    cursor: pointer;
+    width: 50%;
+    text-align: center;
+    background-color: white;
+}
+
+#main-content-infobar-menu ul li.active{
+    margin: 0;
+    padding: 10px 40px; 
+    color: #272635;
+    background-color: whitesmoke;
+    border-radius: 5px;
+}
+
+#main-content-infobar-menu ul li:not(.active):hover{
+    margin: 0;
+    padding: 10px 40px; 
+    color: red;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.info-box {
+    padding: 100px;
+    background-color: crimson;
+}
+
+.random-box {
+    padding: 100px;
+    background-color: blueviolet;
+}
+
+.really-box {
+    padding: 100px;
+    background-color: greenyellow;
+}
+
+/*----Dissolve and animation----*/
+/* Used from cv06 */
+
+@keyframes dissolve {
+    from {
+        opacity: 0;
+    }
+    to{
+        opacity: 100;
+    }
+}
