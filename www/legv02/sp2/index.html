@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="4IZ268-SP2">
+    <meta name="author" content="Vojtěch Legler">
+    <meta name="keywords" content="flight tracking, flight lookup, map">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/img/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.5/ol.js"
+        integrity="sha512-O7kHS9ooekX8EveiC94z9xSvD/4xt10Qigl6uEKvspYykdux3Ci5QNu5fwi4ca0ZkZI/oCgx5ja8RklWUEqzxQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.common.min.js"
+        integrity="sha512-jZKi6TBVzDfFhXngwyvl4u3aScPzqwGQDAAEWunCf8Vu3vetinz/JWDCI69mW43KtgNahB7AW77MlUE9zCbqpw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.5.3/vue-router.common.min.js"
+        integrity="sha512-IbEdueik5CIuYpP1P56dB2gxKLsUKM5y5VNb7y/G/HDNXrnuvYUJCV0nydadT8rSfQ6Ne8js3n0aYCj4ht0POQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>4IZ268-SP2</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Flights app</h1>
+
+        <div>
+            <router-link to="/home">Main page</router-link>
+            <router-link to="/saved">Saved flights</router-link>
+        </div>
+
+        <div class="parameters">
+            <div class="takeoff"></div>
+            <div class="landing"></div>
+            <div class="date"></div>
+            <div class="time"></div>
+            <div class="id"></div>
+            <div class="airline"></div>
+        </div>
+        <div class="flights"></div>
+        <div id="map" class="map"></div>
+
+        <router-view></router-view>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
