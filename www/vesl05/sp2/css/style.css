@@ -1,0 +1,57 @@
+* { box-sizing:border-box }
+
+body {
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+button {
+    float: left;
+    text-align: left;
+    font-size:30px;
+    padding: 15px;
+    margin: 15px;
+    color: black;
+    text-decoration: none;
+}
+
+.controls {
+    background-color: black;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    max-width: 20%;
+}
+
+a:hover {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+footer {
+    background-color: black;
+    width: 100%;
+    color: white;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+}
+
+.footer-text {
+    margin-left: 200px;
+}
+
+.main-section {
+    flex: 1;
+}
+
+.main-map { 
+    height: 920px;
+    width: 100%;
+}
