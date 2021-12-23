@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Dosis', sans-serif;
+    color: #E7E7DE;
+}
+
+h1 {
+    text-align: center;
+    background-color: #0F3057;
+
+}
+/**
+nav {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    font-weight: 600;
+    font-size: 20px;
+    list-style-type: none;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    margin: 3px;
+}
+**/
+.main {
+    justify-content: center;
+    text-align: center;
+}
+
+.main-header {
+    padding-top: 150px;
+    background-color: #00587A;
+    background-image: url(../img/movies.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    min-height: 400px;
+}
+
+.footer {
+    margin-top: 3px;
+    padding-top: 30px;
+    width: 100%;
+    height: 80px;
+    background-color: #0F3057;
+    text-align: center;
+}
