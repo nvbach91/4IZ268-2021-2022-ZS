@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto;
+    font-family: Open sans-serif;
+    text-align: center;
+}
+
+header {
+    padding:20px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.user-form {
+    margin: 30px;
+    border-radius: 20px;
+    background-color: rgb(26, 75, 116);
+}
+
+input {
+    border-radius: 5px;
+    height: 28px;
+}
+
+button {
+    border-radius: 5px;
+    background-color: rgb(33, 196, 95);
+    font-size: large;
+    color: rgb(15, 19, 8);
+}
+
+button:hover {
+    background-color: rgb(8, 104, 28);
+    transition: linear .5s;
+}
+
+#user-profile {
+    margin: 20px auto;
+}
+
+.bi {
+    max-width: 500px;
+    margin: 5px auto;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(158, 210, 226);
+    font-weight: bold;
+}
