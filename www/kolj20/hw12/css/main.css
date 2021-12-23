@@ -1,0 +1,146 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    text-align: center;
+}
+
+hr {
+    border-style: solid;
+    border-color: #eee;
+}
+
+header {
+    padding: 20px;
+}
+
+a {
+    color: black;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader {
+    border: 5px solid navy;
+    border-top: 5px solid #ccc;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+    margin: auto;
+}
+
+footer {
+    background-color: rgb(219, 210, 210);
+    padding: 10px 0;
+}
+
+#search-form {
+    padding: 15px;
+}
+
+#search-form>button, #search-form>input {
+    padding: 10px;
+    background-color:rgb(188, 188, 235);
+    color: black;
+    width: 300px;
+}
+
+#user-profile {
+    justify-content: center;
+    margin: auto;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    margin: auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.user-title {
+    margin: auto;
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgb(219, 210, 210);
+}
+
+.avatar-box {
+    margin: 0px auto;
+    flex-basis: 50%;
+    min-width: 330px;
+}
+
+.info-box {
+    min-width: 330px;
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0px auto;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: center;
+    background-color: rgb(219, 210, 210);
+}
+
+.user-info>* {
+    padding: 10px;
+    width: 200px;
+    text-align: left;
+}
+
+.user-info>*:nth-child(2) {
+    font-weight: bold;
+}
+
+.user-info>a {
+    text-decoration: underline;
+}
+
+.user-avatar>img {
+    border-radius: 10px;
+    width: 100%;
+
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+li {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 10px;
+    background-color: rgb(219, 210, 210);
+}
+
+li>* {
+    width: 330px;
+}
+
+li>*:nth-child(2) {
+    align-self: flex-start;
+    text-align: left;
+}
