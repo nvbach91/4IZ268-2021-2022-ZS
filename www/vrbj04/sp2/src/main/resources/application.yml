@@ -1,0 +1,9 @@
+server:
+  error:
+    include-exception: false
+    include-stacktrace: never
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://mongo:27017/test}
