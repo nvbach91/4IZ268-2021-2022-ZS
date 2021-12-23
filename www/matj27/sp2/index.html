@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="author" content="Jiří Matějka">
+    <meta name="description" content="Aplikace pro zjištění počasí ve zvolené lokalitě">
+    <meta name="keywords" content="pocasi mapycz mapa openweathermap map weather">
+
+    <title>Počasí v lokalitě</title>
+
+    <!-- Ubuntu font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap"
+          rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Mapy.cz -->
+    <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+    <script type="text/javascript">Loader.load();</script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./res/icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./res/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./res/icon/favicon-16x16.png">
+    <link rel="manifest" href="./res/icon/site.webmanifest">
+    <link rel="shortcut icon" href="./res/icon/favicon.ico">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="./res/icon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="text/javascript" src="js/mapycz.js"></script>
+    <script type="text/javascript" src="js/openweather.js"></script>
+    <script type="text/javascript" src="js/weather-handler.js"></script>
+    <script type="text/javascript" src="js/email-sender.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
