@@ -10,13 +10,13 @@
   const userProfileContainer = $('#user-profile');
   const userReposContainer = $('#repositories');
   const input = $('#search-form input');
-  const submitButton = $('#search-form button');
   const errorWrapper = $('.js-error');
   const loader = $('.js-loader');
   let userData = null;
   let userRepos = null;
 
-  body.on('click', '#search-form button', function (event) {
+  $('#search-form').submit(function (e) {
+    e.preventDefault();
     loader.css('display', 'flex');
     doSearch();
   });
@@ -33,7 +33,7 @@
     }).fail(function() {
       userData = null;
       userRepos = null;
-      drawResults();
+      renderResults();
     });
 
   }
@@ -48,12 +48,12 @@
     }).fail(function() {
       userRepos = null;
     }).always(function () {
-      drawResults();
+      renderResults();
     });
 
   }
 
-  function drawResults() {
+  function renderResults() {
     loader.hide();
     if (userData === null) {
       errorWrapper.html('<p>Načtení uživatelského profilu nebylo úspěšné</p>');
