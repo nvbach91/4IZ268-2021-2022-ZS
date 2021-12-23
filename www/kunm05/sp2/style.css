@@ -1,0 +1,27 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    max-width: 800px;
+    margin: auto;
+    background-color: burlywood;
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    border: burlywood solid 2px;
+    justify-content: space-between;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    border: burlywood solid 2px;
+}

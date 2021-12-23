@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <header>
+        DND SPELLBOOK
+    </header>
+    <main>
+        <div class="menu">
+            <div class="options">
+                <form id="spell-class-form">
+                    <label for="dnd-class">Choose a class:</label>
+                    <select id="dnd-class" name="dnd-class">
+                        <option value="wizard">wizard</option>
+                        <option value="cleric">cleric</option>
+                        <option value="druid">druid</option>
+                        <option value="bard">bard</option>
+                    </select>
+                    <button id="get-class-spell-list">Submit</button>
+                </form>
+                <form id="spell-level-form">
+                    <label for="spells-by-level-button">Choose a spell level:</label>
+                    <select id="spell-level" name="spell-level">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <button id="get-spell-list">Submit</button>
+                </form>
+                <form id="spell-form">
+                    <input name="spells-name"> Find a spell
+                    <button id="get-a-spell">Add a spell</button>
+                </form>
+            </div>
+            <div id="spell-names-list"></div>
+            <div>
+                <button id="long-rest">Long rest</button>
+            </div>
+        </div>
+        <div>
+            <div id="spell-cards"></div>
+            <div class="spell-slots"></div>
+        </div>
+
+    </main>
+</body>
+
+</html>
