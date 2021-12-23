@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Git The Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>Git The Hub</h1>
+            <p>Enter a username to search for an user on GitHub</p>
+        </header>
+        <main>
+            <form id="search-form">
+                <input name="username" placeholder="Search by name" />
+                <button>Find</button>
+            </form>
+
+            <div class="js-error"></div>
+
+            <div id="user-profile">
+                <div class="info-col js-name">Egoist</div>
+                <div class="side-by-side">
+                    <div class="col">
+                        <div class="image-part js-image-part"></div>
+                    </div>
+                    <div class="col">
+                        <div class="info-col"><span>Login</span><span class="js-login"></span></div>
+                        <div class="info-col"><span>Bio</span><span class="js-bio"></span></div>
+                        <div class="info-col"><span>Location</span><span class="js-location"></span></div>
+                        <div class="info-col"><span>Description</span><span class="js-desc"></span></div>
+                        <div class="info-col"><span>Email</span><span class="js-email"></span></div>
+                        <div class="info-col"><span>Followers</span><span class="js-flwrs"></span></div>
+                        <div class="info-col"><span>Registered</span><span class="js-rgstrd"></span></div>
+                        <div class="info-col"><a class="js-link" href=""></a></div>
+                    </div>
+                    <div class="clear-both"></div>
+                </div>
+            </div>
+
+            <h2>Repositories</h2>
+            <ul id="repositories"></ul>
+            <div class="loader-wrapper js-loader">
+                <div class="loader"></div>
+            </div>
+        </main>
+        <footer>2018 &copy; Master Yoda</footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
