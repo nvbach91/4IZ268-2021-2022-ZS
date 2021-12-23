@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Git The Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+  </head>
+
+  <body>
+    <div class="viewport">
+      <header>
+        <h1>Git The Hub</h1>
+        <img class="logo" src="./css/logo.svg" alt="Git The Hub" />
+      </header>
+
+      <main>
+        <form id="search-form" class="container">
+          <h2>Enter a username to search for a user on GitHub 👀</h2>
+          <input name="username" id="username" placeholder="Search by name" />
+          <button class="btn" id="submit">Find</button>
+        </form>
+
+        <div id="user-profile"></div>
+
+        <div id="repos"></div>
+      </main>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>
