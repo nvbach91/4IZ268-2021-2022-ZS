@@ -12,7 +12,8 @@ fun Game.dto(): GameDto = GameDto(
     scores.toList()
         .map { (player, score) -> Score(player, score) }
         .sortedByDescending { it.score },
-    round
+    round,
+    finished
 )
 
 data class Score(val player: UUID, val score: Int)
@@ -22,5 +23,6 @@ data class GameDto(
     val mode: GameMode,
     val players: List<PlayerDto>,
     val scores: List<Score>,
-    val round: GameRound?
+    val round: GameRound?,
+    val finished: Boolean
 )

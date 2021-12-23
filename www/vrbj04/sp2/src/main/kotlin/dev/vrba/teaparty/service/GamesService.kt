@@ -5,6 +5,7 @@ import dev.vrba.teaparty.domain.Lobby
 import dev.vrba.teaparty.domain.Player
 import dev.vrba.teaparty.domain.game.GameRound
 import dev.vrba.teaparty.domain.game.ScoredWord
+import dev.vrba.teaparty.domain.game.ScoringType
 import dev.vrba.teaparty.domain.game.SubmittedWord
 import dev.vrba.teaparty.dto.dto
 import dev.vrba.teaparty.exceptions.GameNotFoundException
@@ -43,10 +44,10 @@ class GamesService(
 
     fun createGame(lobby: Lobby): Game {
         val scores = lobby.players.associate { it.id to 0 }
-        val game =  Game(mode = lobby.mode, players = lobby.players, scores = scores).let {
-            scheduleNextRound(it)
-            repository.save(it)
-        }
+        val game = Game(mode = lobby.mode, players = lobby.players, scores = scores)
+
+        repository.save(game)
+        scheduleNextRound(game.id)
 
         return game
     }
@@ -56,25 +57,54 @@ class GamesService(
         val round = game.round ?: return
 
         val submitted = SubmittedWord(word, player.id, Instant.now())
-        val scored = scoringService.score(round.mode, submitted, round.syllable, round.words)
+        val scored = scoringService.score(round.mode, submitted, round)
 
         game.copy(round = round.copy(words = round.words + scored)).let { repository.save(it) }
         broadcastScoredWord(game, scored)
     }
 
-    private fun scheduleNextRound(game: Game) {
+    private fun scoreRound(id: UUID) {
+        val game = repository.findByIdOrNull(id) ?: return
+        val round = game.round ?: throw IllegalStateException("Scoring a game where round == null")
+
+        // Pick best word for each player
+        val best = round.words.groupBy { it.player }
+            .map { (player, words) -> player to words.maxOf { it.score } }
+            .sortedByDescending { (_, score) -> score }
+
+        val change = when (round.mode.scoring) {
+            ScoringType.Single -> best.firstOrNull()?.let { mapOf(it.first to 5) } ?: mapOf()
+            ScoringType.TopThree -> best.take(3).mapIndexed { index, word ->
+                // First player receives 5 points, second receives 3 points and third player receives 1 point
+                word.first to (5 - 2 * index).coerceAtLeast(0)
+            }.toMap()
+        }
+
+        val scores = game.scores.map { (player, score) -> player to score + (change[player] ?: 0) }.toMap()
+        val finished = scores.any { (_, score) -> score >= 10 }
+
+        game.copy(round = null, scores = scores, finished = finished).let {
+            if (!it.finished) {
+                scheduler.schedule({ scheduleNextRound(id) }, Instant.now() + Duration.ofSeconds(5))
+            }
+
+            broadcastGameUpdate(it)
+            repository.save(it)
+        }
+    }
+
+    private fun scheduleNextRound(id: UUID) {
+        val game = repository.findByIdOrNull(id) ?: return
         val runnable = {
             game.copy(round = createNewRound(game)).let {
-                // TODO: check win conditions here
-                scheduler.schedule({ scheduleNextRound(it) }, game.round?.end ?: Instant.now())
-
+                scheduler.schedule({ scoreRound(id) }, it.round!!.end)
                 repository.save(it)
                 broadcastGameUpdate(it)
             }
         }
 
-        // 10 seconds should be enough for all players to be connected to the websocket endpoint
-        scheduler.schedule(runnable, Instant.now() + Duration.ofSeconds(10))
+        // 5 seconds should be enough for all players to be connected to the websocket endpoint
+        scheduler.schedule(runnable, Instant.now() + Duration.ofSeconds(5))
     }
 
     private fun createNewRound(game: Game): GameRound {

@@ -7,7 +7,19 @@
       </v-overlay>
     </v-fade-transition>
     <v-container v-if="this.connection !== null">
-      <v-row>
+      <v-row v-if="game.finished">
+        <v-col>
+          <div class="text-center mt-16">
+            <v-icon size="96">mdi-party-popper</v-icon>
+            <h1 class="display-2 text-center mt-8">The game is over!</h1>
+          </div>
+          <v-card class="my-8">
+            <v-card-text v-for="(entry, i) in game.scores" :key="i">{{ player(entry.player).username }} <strong>{{ entry.score }}</strong></v-card-text>
+          </v-card>
+          <v-btn :to="{name: 'Lobbies'}" dark color="black">Return to lobbies</v-btn>
+        </v-col>
+      </v-row>
+      <v-row v-else>
         <v-col cols="12" md="8">
           <v-card class="d-flex flex-column" style="min-height: 90vh">
             <v-card-title>Game</v-card-title>
@@ -17,7 +29,9 @@
             <v-divider v-if="game.round !== null"/>
             <v-card-text v-if="game.round !== null">
               <div class="text-overline">
-                <h2 class="grey--text">Type in a word containing <strong class="primary--text">{{ game.round.syllable }}</strong></h2>
+                <h2 class="grey--text">Type in a word containing <strong class="primary--text">{{
+                    game.round.syllable
+                  }}</strong></h2>
               </div>
               <v-progress-linear :value="time" max="100"></v-progress-linear>
             </v-card-text>
@@ -30,27 +44,20 @@
                 </v-overlay>
               </v-fade-transition>
               <v-row>
-                <v-col v-for="(round, i) in pastRounds" :key="i" cols="12">
-                  <v-card flat>
-                    <div v-if="round.winner === null" class="text-overline grey--text">Nobody won this round</div>
-                    <div v-else class="text-overline grey--text">{{ round.winner.username }} won the round with word '{{ round.word.value }}'</div>
-
-                    <div>The syllable was <span class="black--text">{{ round.syllable }}</span></div>
-                  </v-card>
-                  <v-divider class="my-4"/>
-                </v-col>
                 <v-col v-for="(word, i) in words" :key="i" cols="12">
-                  <v-chip :disabled="word.score < 0" :color="color(rank(word.score, words))">
-                      <div class="text-overline mr-3">{{ player(word.player).username }}:</div>
-                      <div class="h2">{{ word.value }}</div>
-                      <v-icon v-if="rank(word.score, words) === 0">mdi-trophy-variant</v-icon>
+                  <v-chip :disabled="word.score < 0" :color="rank(word.score, words) === 0 ? 'orange' : 'black'" large
+                          text-color="white" class="px-8">
+                    <div class="text-overline mr-3">{{ player(word.player).username }}:</div>
+                    <div class="h2">{{ word.value }}</div>
+                    <v-icon v-if="rank(word.score, words) === 0" class="ml-4">mdi-trophy-variant</v-icon>
                   </v-chip>
                 </v-col>
               </v-row>
             </v-card-text>
             <v-divider/>
             <v-card-text class="d-flex flex-row align-stretch">
-              <v-text-field outlined class="flex-grow-1" hint="Tip: You can use enter to submit the word" v-model="word" :persistent-hint="true" autofocus @keydown.enter="submitWord()"></v-text-field>
+              <v-text-field outlined class="flex-grow-1" hint="Tip: You can use enter to submit the word" v-model="word"
+                            :persistent-hint="true" autofocus @keydown.enter="submitWord()"></v-text-field>
               <v-btn color="primary" class="ml-2" icon x-large @click="submitWord()">
                 <v-icon>mdi-chevron-double-right</v-icon>
               </v-btn>
@@ -60,7 +67,9 @@
         <v-col cols="12" md="4">
           <v-card>
             <v-card-title>Score</v-card-title>
-            <v-card-subtitle class="text-overline">Once one of the players hits <strong>50</strong> points, the game ends</v-card-subtitle>
+            <v-card-subtitle class="text-overline">Once one of the players hits <strong>50</strong> points, the game
+              ends
+            </v-card-subtitle>
             <v-divider/>
             <v-card-text>
               <v-row>
@@ -92,7 +101,6 @@ export default {
     hook: null,
     time: 0,
     word: "",
-    pastRounds: [],
     words: []
   }),
   async mounted() {
@@ -111,14 +119,13 @@ export default {
       switch (type) {
         case "game-updated":
           await this.$store.commit("setGame", message.game);
-          this.pastRounds.push(this.roundSummary());
-          this.pastRounds = this.pastRounds.slice(this.pastRounds.length - 5, this.pastRounds.length);
           this.words = [];
           break;
         case "scored-word-submitted":
           this.words.push(message.word);
-        break;
-        default: console.error(`Unknown message type: ${type}`)
+          break;
+        default:
+          console.error(`Unknown message type: ${type}`)
       }
     });
 
@@ -146,7 +153,7 @@ export default {
     },
     submitWord() {
       if (this.word.trim() !== "") {
-        this.connection.send(this.$store.state.token, { word: this.word, })
+        this.connection.send(this.$store.state.token, {word: this.word.toLowerCase()})
         this.word = "";
       }
     },
@@ -160,33 +167,6 @@ export default {
           .sort()
           .reverse()
           .indexOf(score)
-    },
-    color(rank) {
-      const colors = [
-          "yellow",
-          "gray",
-          "orange"
-      ]
-
-      return colors[rank] || "";
-    },
-    roundSummary() {
-      const round = Object.assign({}, this.game.round);
-      const words = [...this.words];
-      const summary = {
-        syllable: round.syllable,
-        winner: null,
-        word: null
-      }
-
-      if (words.length !== 0) {
-        const winner = words.map(word => ({ word, rank: this.rank(word, words) }))[0];
-
-        summary.winner = this.player(winner.word.player);
-        summary.word = winner.word;
-      }
-
-      return summary;
     }
   },
   computed: {

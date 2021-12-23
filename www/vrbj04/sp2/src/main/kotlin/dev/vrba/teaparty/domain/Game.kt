@@ -19,5 +19,7 @@ data class Game(
 
     val scores: Map<UUID, Int>,
 
-    val round: GameRound? = null
+    val round: GameRound? = null,
+
+    val finished: Boolean = false
 )

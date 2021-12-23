@@ -5,9 +5,7 @@
         <v-card-title>Account</v-card-title>
         <v-card-subtitle>Pick yourself a cool username</v-card-subtitle>
         <v-card-text>
-          <v-text-field v-model="username" :error="!valid" outlined hint="Must be between 3 and 16 characters"
-                        class="text-center" label="Username"
-          ></v-text-field>
+          <v-text-field v-model="username" :error="!valid" outlined hint="Must be between 3 and 16 characters" class="text-center" label="Username" @keydown.enter="createAccount()"></v-text-field>
           <v-btn block :disabled="!valid" color="primary" large @click="createAccount()">Join the party</v-btn>
         </v-card-text>
       </v-card>
