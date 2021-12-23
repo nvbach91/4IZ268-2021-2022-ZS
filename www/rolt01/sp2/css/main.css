@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-image: url(https://free4kwallpapers.com/uploads/originals/2020/10/14/blue-space-nebula-wallpaper.jpg);
+    background-size: cover;
+}
+
+.app {
+    max-width: 1280px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.main-header{
+    width:100%;
+    font-size: 30px;
+    padding: 20px;
+    margin: 10px;
+    max-width: 1280px;
+    text-align: center;
+    
+}
+
+.nav{
+   background-color: blue;
+   width: 17%;
+   display: inline-block;
+   height: 500px;
+   
+}
+
+.nav-button{
+    background-color:azure;
+    border-radius: 3px;
+    width: 100px;
+    padding: 10px;
+    margin: 10px;
+    
+}
+
+.center-bar{
+    float: right;
+    width: 83%;
+    background-color:aqua;
+    height:60px;
+    margin:0px;
+}
+
+.search-bar{
+    float: left;
+    width: 20%;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
+
+.center-button{
+    background-color:azure;
+    border-radius: 3px;
+    width: 100px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.main-box{
+    float: right;
+    width: 83%;
+    background-color:cadetblue;  
+    height: 440px;
+    margin: 0px;
+}
