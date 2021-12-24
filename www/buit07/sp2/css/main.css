@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+.clear {
+    clear: both;
+}
+
+body {
+    margin: 0;
+}
+
+h1,
+h2{
+    text-align: center;
+}
+
+header{
+    background: pink;
+    width: 100%;
+    padding: 20px;
+}
+
+footer{
+    text-align: center;
+    width: 100%;
+    background: pink;
+    padding: 20px;
+}
+
+.hangman-left{
+    float: left;
+    width: 50%;
+    background-color: plum;
+}
+
+.letters-right{
+    float: right;
+    width: 50%;
+    background-color: powderblue;
+}
+
+.alphabet{
+    font-size: 25px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.hint{
+    text-align: center;
+    background-color: beige;
+}
