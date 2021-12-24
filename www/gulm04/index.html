@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="css/circles.css">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    
+    <header>
+        <p>Semestralni prace 2.</p>
+    </header>
+    <h1>GENERATE YOUR CONGRATULATIONS</h1>
+    <h3>Please, select a type of a congratulation you would like to get: </h3>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div class="circle3"></div>
+    <div class="circle4"></div>
+    <div class="btn-box" id="btn-box">
+        <button class="create-img btn" id="create-img">CREATE AN IMAGE</button>
+        <button class="create-txt btn" id="create-txt">CREATE A TEXT</button>
+    </div> 
+    <div class="create-txt-box" id="create-txt-box">
+        <button class="create-txt hlw btn" id="hlw" name="create-txt">HALLOWEEN</button>
+        <button class="create-txt xmas btn" id="xmas">CHRISTMAS</button>
+        <button class="create-txt bday btn" id="bday">BIRTHDAY</button>
+        <button class="create-txt thx btn" id="thx">THANKGIVING</button>
+    </div>
+    <form>
+        <input type="text" placeholder="FROM" id="from">
+        <input type="text" placeholder="TO" id="to">
+        <button type="button" class="btn" id="submit">GO!</button>
+    </form>
+    <p class="hidden">HERE: <div id="test"></div></p>
+    <p class="hidden">HERE: <div id="test2"></div></p>
+    <footer>&#169;gulm04</footer>
+    
+    <script src="./js/main.js"></script>
+</body>
+</html>
