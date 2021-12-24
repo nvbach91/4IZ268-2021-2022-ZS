@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Ondrej Musil">
+    <meta name="description" content="Play the classic mobile Snake game online. 
+        Eat the food but don't hit the walls or your own tail!">
+    <meta name="keywords" content="2D, snake, game, p5, 2dSnake">
+    <title>Snake2D</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/snake-favicon.png">
+    <!-- import p5 knihovny -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <!--TODO:ANIMACE-->
+        <h1>Snake 2D</h1>
+    </header>
+    <main>
+        <div>
+            <div id="game-canvas" class="anim-border"></div>
+        </div>
+        <div class="text">
+            <div>
+                <h2>Pravidla:</h2>
+                <p>V herním poli se náhodně zobrazuje potrava,
+                    pokud ji had sní, prodlouží se o jeden článek.</p>
+                <p>Hrany herního pole jsou bariéry. Hra končí pokud had
+                    narazí do okraje herního pole nebo se zakousne sám do sebe.</p>
+                <p>S rostoucím skóre se hra zrychluje. Hráč si může vybrat pozadí herního pole.</p>
+            </div>
+            <div>
+                <h2>Ovládání</h2>
+                <p>Hra se ovládá šipkami. Spustí se a opět pozastaví pomocí mezerníku.</p>
+            </div>
+        </div>
+        <div id=btn>
+            <h2>Pozadí herního pole:</h2>
+            <!--button id="btn-0">default</button>
+            <button id="btn-1">pozadí 1</button>
+            <button id="btn-2">pozadí 2</button>
+            <button id="btn-3">náhodné</button-->
+            <div id="btns"></div>
+        </div>
+    </main>
+    <footer></footer>
+    <!-- napojení scriptů -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/fruit.js"></script>
+    <script src="assets/js/head.js"></script>
+    <script src="assets/js/tail.js"></script>
+
+</body>
+
+</html>
