@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Optional: Makes the sample page fill the window. 
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}*/
+
+body {
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px;
+}
+
+p {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/*header*/
+header {
+    width: 100%;
+    background-color: #66fcf1;
+    display: flex;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+
+header span {
+    font-size: 40px;
+    font-weight: bold;
+    margin: auto;
+    flex-basis: 40%;
+    text-align: center;
+    display: inline-block;
+}
+
+header span a img{
+    vertical-align: middle;
+    height: 45px;
+}
+
+
+/*text styles*/
+
+h1 {
+    font-style: italic;
+    margin: 50px;
+    font-size:3em;
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    color:rgb(38, 197, 197);
+    margin-top: 45px;
+}
+
+
+
+/*home and about pages layout*/
+.introduction-box {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    margin-top: 25px;
+}
+
+
+/*Map part*/
+#map-form {
+    margin: 15px;
+}
+
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+    height: 450px;
+    width: 100%;
+
+}
+
+
+
+/*footer*/
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-style: italic;
+    font-size: smaller;
+    border-radius: 5px;
+}
+
+footer p {
+    padding: 6px;
+}
+
+

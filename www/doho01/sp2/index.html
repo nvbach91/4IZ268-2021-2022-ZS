@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Homepage">
+    <meta name="keywords" content="travelling, songs">
+    <meta name="author" content="Do Viet Anh">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acoustic travel - Map app</title>
+    <link rel="stylesheet" type="text/css" href="./assets/style/main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="./assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="./assets/favicon/android-chrome-512x512.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <span>
+                <a href="./index.html"><img src="./assets/img/sound-min.png" alt="logo"></a>
+                Acoustic travel
+            </span>
+        </header>
+
+        <main>
+            <section id="home">
+                <h1>Mapp app</h1>
+                <div class="introduction-box">
+                    <div class="text">
+                        <h2>Plan your journey!</h2>
+                        <p>
+                            Here on this page you can plan your journey. Below is a map, where you can add your own
+                            waypoints and write notes to them. The notes will be saved to the storage.
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </p>
+                    </div>
+                    <!--<div class="intro-img">
+                        <figure>
+                            <img src="" alt="">
+                            <figcaption>Sunrise</figcaption>
+                        </figure>
+                    </div>-->
+                </div>
+            </section>
+
+            <form id="map-form">
+                <input id="map-input" name="search" placeholder="Please enter location of interest">
+                <button>Find</button>
+            </form>
+
+            <div id="map"></div>
+
+        </main>
+
+        <footer>
+            <p>Do Viet Anh ©2021</p>
+        </footer>
+
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZYVfP5jtWCzgpq9l0-neeZvxUa6_I_y0&callback=initMap&v=weekly">
+    </script>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
