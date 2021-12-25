@@ -1,0 +1,1 @@
+console.log('Hello world! - Toto jsou úvodní soubory pro SP2')
