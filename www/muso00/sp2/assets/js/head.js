@@ -12,9 +12,10 @@ class Head {
         this.dir = 'up'; // směr
         this.score = 0;
         this.tails =[]; // pole, které bude pbsahovat všechny články ocasu
+        this.color = 'rgb(23, 31, 10)'
     };
 
-    // posouvá hada daným směrem
+    // pohyb hada po plátně
     update() {
         if (this.dir == 'left') {
             this.x -= gap;
@@ -34,7 +35,7 @@ class Head {
         this.dir = 'up';
         this.score = 0;
         this.tails =[];
-        frameRate(vel);
+        frameRate(12);
     };
 
     // metoda pro kolizi ocasu s hlavou
@@ -68,10 +69,9 @@ class Head {
         }
     }
 
-
     // zobrazení hlavy na herním poli
     show() {
-        fill(23, 31, 10); //barva hlavy
+        fill(this.color); //barva hlavy
         rect(this.x, this.y, gap, gap, 4); // obdélník
     };
 };

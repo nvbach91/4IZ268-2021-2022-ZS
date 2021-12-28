@@ -8,6 +8,7 @@ class Fruit {
     constructor() {
         this.x = floor(random(0, width) / gap) * gap;
         this.y = floor(random(0, height) / gap) * gap;
+        this.color = 'rgb(71,97,33)';
     }
 
     // metoda pro snězení potravy
@@ -25,7 +26,9 @@ class Fruit {
     //TODO: animace
     // metoda pro zobrazení potravy
     show() {
-        fill(71,97,33);
+        //fill(71,97,33);
+        fill(this.color);
+        noStroke();
         rect(this.x, this.y, gap, gap, 4);
     };
 };

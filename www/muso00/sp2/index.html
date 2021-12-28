@@ -14,6 +14,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/snake-favicon.png">
     <!-- import p5 knihovny -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+    <!-- import jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- import fontu-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
@@ -21,14 +24,17 @@
 
 <body>
     <header>
-        <!--TODO:ANIMACE-->
         <h1>Snake 2D</h1>
+        <div id="loader">
+            Fetching data. Please wait...
+            <img id="img-loading" src="assets/img/loader.gif" alt="loading">
+        </div>
     </header>
     <main>
         <div>
-            <div id="game-canvas" class="anim-border"></div>
+            <div id="game-canvas"></div>
         </div>
-        <div class="text">
+        <div id="text-box" class="text">
             <div>
                 <h2>Pravidla:</h2>
                 <p>V herním poli se náhodně zobrazuje potrava,
@@ -39,19 +45,16 @@
             </div>
             <div>
                 <h2>Ovládání</h2>
-                <p>Hra se ovládá šipkami. Spustí se a opět pozastaví pomocí mezerníku.</p>
+                <p>Hra se ovládá šipkami nebo pomocí [W][A][S][D]. Spustí se a opět pozastaví pomocí mezerníku.</p>
             </div>
         </div>
-        <div id=btn>
+        <div id="buttons-box" class="buttons">
             <h2>Pozadí herního pole:</h2>
-            <!--button id="btn-0">default</button>
-            <button id="btn-1">pozadí 1</button>
-            <button id="btn-2">pozadí 2</button>
-            <button id="btn-3">náhodné</button-->
-            <div id="btns"></div>
+            <p>Změna pozadí je možná pouze pokud je hra pozastavena. Při opakovaném stisknutí tlačítka 'náhodné' se mění pozadí.</p>
+            <div id="btns" class="wrapper"></div><!--FIXME: zarovnat na střed-->
         </div>
     </main>
-    <footer></footer>
+    <!--footer></footer-->
     <!-- napojení scriptů -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/fruit.js"></script>
