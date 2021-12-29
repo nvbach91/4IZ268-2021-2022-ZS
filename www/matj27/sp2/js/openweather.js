@@ -4,10 +4,6 @@ const OpenWeather = {
     weatherRetrieved: false
 };
 
-OpenWeather.init = (apiKey)=>{
-    OpenWeather.apiKey=apiKey;
-}
-
 /**
  * Retrieves weather data from OpenWeatherMap API
  * @param lat [in, float] geographical latitude
@@ -29,6 +25,12 @@ OpenWeather.retrieveWeather = (lat, lon) => {
 
     const apiQuery = `${OpenWeather.url}?lat=${lat}&lon=${lon}&units=${App.weatherUnits}&lang=${App.weatherLang}&appid=${OpenWeather.apiKey}`;
 
+    App.weatherDivRendered = false;
+    App.weatherDiv.empty();
+    App.emailDivRendered = false;
+    App.emailDiv.empty();
+    App.weatherSpinner.addClass("spinner");
+
     /*
     $.getJSON(`./openweather_reply.json`)
         .done((data) => {
@@ -38,8 +40,7 @@ OpenWeather.retrieveWeather = (lat, lon) => {
             console.log('FAIL');
         })
     ;
-
-     */
+    */
 
     $.getJSON(apiQuery)
         .done((data) => {
@@ -48,15 +49,84 @@ OpenWeather.retrieveWeather = (lat, lon) => {
         .fail((resp) => {
             alert(
                 'Chyba při kontaktování OpenWeatherMap API.\n' +
-                'Je dostupné internetové připojení?'
+                'Je dostupné internetové připojení?\n' +
+                'Je zadán správný API klíč?'
             );
+            App.weatherSpinner.removeClass("spinner");
         })
     ;
 };
 
+/**
+ * Method will save received json of weather data,
+ * sets flag of weather retrivision as true
+ * and calls next method which will update on-screen coordinates
+ * @param json of weather data
+ */
 OpenWeather.processWeather = (json) => {
     OpenWeather.weather = json;
     OpenWeather.weatherRetrieved = true;
 
     App.updateWeather(OpenWeather.weather);
+}
+
+/**
+ * Method prepares a html code which will be visible on-screen in the main app
+ * @param json of weather data
+ * @returns {string} of prepared html code
+ */
+OpenWeather.prepareWeatherHtml = (json) => {
+    let tempUnit = '';
+    let windUnit = '';
+
+    switch (App.weatherUnits) {
+        case 'metric':
+            tempUnit = '°C';
+            windUnit = 'm/s';
+            break;
+        case 'imperial':
+            tempUnit = '°F';
+            windUnit = 'mph'
+            break;
+        case 'standard':
+            tempUnit = 'K';
+            windUnit = 'm/s';
+            break;
+        default:
+            return '';
+    }
+
+    const html = `
+        <div class="panel-name">
+            <h1 class="location-name">${json.name}</h1>
+        </div>
+        <div class="weather-params">
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Teplota</div>
+                <div class="weather-data">${json.main.temp} ${tempUnit}</div>
+            </div>
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Pocitová teplota</div>
+                <div class="weather-data">${json.main.feels_like} ${tempUnit}</div>
+            </div>
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Atmosferický tlak</div>
+                <div class="weather-data">${json.main.pressure} hPa</div>
+            </div>
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Vlhkost vzduchu</div>
+                <div class="weather-data">${json.main.humidity} %</div>
+            </div>
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Rychlost větru</div>
+                <div class="weather-data">${json.wind.speed} ${windUnit}</div>
+            </div>
+            <div class="weather-param-wrapper">
+                <div class="weather-param">Směr větru</div>
+                <div class="weather-data">${json.wind.deg}°</div>
+            </div>
+        </div>
+    `;
+
+    return html;
 }

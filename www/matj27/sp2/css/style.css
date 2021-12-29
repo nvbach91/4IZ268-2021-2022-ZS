@@ -1,3 +1,7 @@
+:root {
+    --blue: #6bb2ff;
+}
+
 * {
     box-sizing: border-box;
     font-family: Ubuntu, sans-serif;
@@ -10,10 +14,32 @@ html, body {
     height: 100%;
 }
 
+.spinner {
+    align-self: center;
+    margin-top: 10px;
+    border-right: 5px solid whitesmoke;
+    border-left: 5px solid whitesmoke;
+    border-top: 5px solid var(--blue);
+    border-bottom: 5px solid var(--blue);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 #app {
     padding: 10px;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     gap: 10px;
     width: 100%;
     height: 100%;
@@ -23,8 +49,17 @@ html, body {
     border-radius: 10px;
 }
 
+#map {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    height: 75%;
+    justify-content: center;
+}
+
 #seznam-mapa {
-    width: 75%;
+    border-radius: 10px;
+    width: 100%;
     height: 100%;
 }
 
@@ -38,20 +73,21 @@ html, body {
     overflow-y: auto;
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 10px;
     align-content: center;
 }
 
 #side-panel {
     display: flex;
     flex-flow: column nowrap;
-    width: 25%;
-    height: 100%;
+    width: 100%;
+    height: 25%;
     background-color: aliceblue;
     overflow-y: auto;
     padding: 10px;
 }
 
-.side-panel-content{
+.side-panel-content {
     display: flex;
     flex-flow: column nowrap;
 }
@@ -60,9 +96,11 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     padding: 10px;
-    background-color: lightblue;
+    background-color: var(--blue);
     border-radius: 10px;
     justify-content: center;
+    color: whitesmoke;
+    width: 100%;
 }
 
 .panel-name > h1 {
@@ -70,17 +108,22 @@ html, body {
     text-align: center;
 }
 
+.weather-params {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 10px;
+}
+
 .weather-param-wrapper {
+    padding-right: 5px;
+    padding-left: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     display: flex;
     flex-flow: column nowrap;
     text-align: center;
-    border-bottom: 1px solid lightblue;
-}
-
-.weather-param-wrapper:nth-last-child(1) {
-    border-bottom: none;
+    border-bottom: 1px solid var(--blue);
+    width: calc(100% / 3);
 }
 
 .weather-param {
@@ -95,6 +138,7 @@ html, body {
 }
 
 #email-input {
+    text-align: center;
     margin-top: 10px;
     width: 100%;
 }
@@ -105,10 +149,57 @@ html, body {
     align-self: center;
 }
 
-#apikey-input {
+.apikey-input {
     width: 100%;
 }
 
-#delete-api-keys-button-wrapper{
+#app-controls {
+    display: flex;
+    gap: 10px;
     margin-top: auto;
+}
+
+#units {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+#units-select {
+    text-align: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    #app {
+        flex-flow: row nowrap;
+    }
+
+    #map {
+        flex-flow: row wrap;
+        width: 75%;
+        height: 100%;
+    }
+
+    #side-panel {
+        flex-flow: column nowrap;
+        width: 25%;
+        height: 100%;
+    }
+
+    .weather-params {
+        display: unset;
+        flex-flow: unset;
+        padding-bottom: unset;
+    }
+
+    .weather-param-wrapper {
+        padding-right: unset;
+        padding-left: unset;
+        width: 100%;
+    }
+
+    .weather-param-wrapper:nth-last-child(1) {
+        border-bottom: none;
+    }
 }

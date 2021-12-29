@@ -9,7 +9,10 @@ const Mapycz = {
 Mapycz.init = () => {
     Mapycz.mapDiv = $('#seznam-mapa').get(0);
 
-    Mapycz.currentPosition().done(() => Mapycz.renderMap());
+    Mapycz.currentPosition().done(() => {
+        Mapycz.renderMap();
+        App.mapSpinner.removeClass("spinner");
+    });
 };
 
 /**
@@ -43,6 +46,10 @@ Mapycz.renderMap = () => {
     }
 };
 
+/**
+ * Method removes all existing in map markers and creates a new one on given coords
+ * @param coords coordinates on which the new marker should be created.
+ */
 Mapycz.createMarker = (coords) => {
     Mapycz.markerLayer.removeAll();
     const options = {};
@@ -86,6 +93,7 @@ Mapycz.currentPosition = () => {
 
 /**
  * Handler of in map click
+ * This method will create a new marker in map at click position and calls method for weather data retrieving.
  * @param e event
  * @param elm Mapy.cz API element
  */
@@ -94,5 +102,6 @@ Mapycz.mapClick = (e, elm) => {
 
     Mapycz.createMarker(coords);
 
+    App.lastLocationPoppedFromHistory = false;
     OpenWeather.retrieveWeather(coords.toWGS84()[1], coords.toWGS84()[0]);
 }
