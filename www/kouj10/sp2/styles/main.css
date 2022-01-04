@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 40px 150px;
+}
+
+.results {
+  background-color: gray;
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.747), 0 0 40px 5px black;
+  padding: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: auto;
+}
+
+.remove-button,
+.add-game-button {
+  position: absolute;
+  right: 20px;
+}
+
+.image {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+}
+.game-container {
+  display: flex;
+  margin: 10px 0;
+}
+.info-container {
+  margin: 5px 5px;
+}
+.info-container .remove-button {
+  position: absolute;
+  top: 10px;
+}
+
+.game-element-wrapper {
+  display: flex;
+}
+
+#game-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-container {
+  position: relative;
+  width: 50%;
+}
