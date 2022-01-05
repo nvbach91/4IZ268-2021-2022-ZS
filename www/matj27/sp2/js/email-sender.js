@@ -44,6 +44,7 @@ EmailSender.prepareEmailFormHtml = () => {
             <label>
                 <input id="email-input"
                     name="email"
+                    type="email" multiple
                     placeholder="Zadejte e-mailovou adresu"/>
             </label>
             <button>Odeslat</button>

@@ -143,6 +143,10 @@ html, body {
     width: 100%;
 }
 
+#email-input:invalid {
+    box-shadow: 0 0 3px #CC0000;
+}
+
 #apikey-form {
     max-width: 300px;
     width: 100%;
