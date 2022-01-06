@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    App.init();
+    App.init($('#app'), 'open-weather-api-key', 'send-grid-api-key');
 });
 
 window.onpopstate = function (event) {
@@ -17,9 +17,6 @@ window.onpopstate = function (event) {
 };
 
 const App = {
-    openWeatherLocalStorageKey: 'open-weather-api-key',
-    sendGridLocalStorageKey: 'send-grid-api-key',
-    appDiv: $('#app'),
     emailDivRendered: false,
     weatherDivRendered: false,
     weatherUnits: 'metric',
@@ -29,19 +26,22 @@ const App = {
 
 /**
  * Runs initialization procedures for map view and for email sender form
+ * @param appDiv jQuery object of main app div as specified in index.html
+ * @param openWeatherLSKey localStorage key of where openweather api key is (about to be) stored
+ * @param sendGridLSKey localStorage key of where sendgrid api key is (about to be) stored
  */
-App.init = async () => {
+App.init = async (appDiv, openWeatherLSKey, sendGridLSKey) => {
+    App.openWeatherLocalStorageKey = openWeatherLSKey;
+    App.sendGridLocalStorageKey = sendGridLSKey;
+    App.appDiv = appDiv;
+
     App.emailDivRendered = false;
     App.weatherDivRendered = false;
 
-    let appStructurePrepared = false;
-    while (!appStructurePrepared) {
-        try {
-            await App.prepareMainAppStructure();
-            appStructurePrepared = true;
-        } catch (e) {
-            alert(e);
-        }
+    try {
+        await App.initMainAppStructure();
+    } catch (e) {
+        App.openModalWindow(e);
     }
 
     App.mapSpinner.addClass("spinner");
@@ -50,7 +50,7 @@ App.init = async () => {
 }
 
 /**
- * Method for getting a parameter from url
+ * Retreive a parameter from url
  * @param name of an parameter
  * @returns {string|number|null} string/number - value of parameter if parameter found in url, if not returns null
  */
@@ -111,7 +111,7 @@ App.renderEmailForm = () => {
  * Prepares main app structure - html code of the webapp
  * @returns {Promise} got all api keys needed
  */
-App.prepareMainAppStructure = async () => {
+App.initMainAppStructure = async () => {
     let deferred = $.Deferred();
 
     await App.retrieveApiKeys();
@@ -120,6 +120,11 @@ App.prepareMainAppStructure = async () => {
     App.appDiv.empty();
 
     const html = `
+        <div id="scratch"></div>
+        <div id="modal" class="modal">
+            <p id="modal-paragraph"></p>
+            <a href="#" rel="modal:close">Zavřít</a>
+        </div>
         <div id="map">
             <div id="map-spinner"></div>
             <div id="seznam-mapa"></div>
@@ -146,6 +151,11 @@ App.prepareMainAppStructure = async () => {
     `;
 
     App.appDiv.html(html);
+
+    App.scratchDiv = $('#scratch');
+
+    App.modalDiv = $('#modal');
+    App.modalParagraph = $('#modal-paragraph');
 
     App.mapSpinner = $('#map-spinner');
     App.weatherSpinner = $('#weather-spinner');
@@ -260,4 +270,16 @@ App.deleteApiKeys = () => {
     localStorage.removeItem(App.sendGridLocalStorageKey);
 
     App.init();
+}
+
+/**
+ * Open a modal window with given message instead of alert()
+ * @param message string of message to be shown in modal window
+ */
+App.openModalWindow = (message) => {
+    App.modalParagraph.text(message);
+    const a = $(`<a href="#modal" rel="modal:open"></a>`);
+    App.scratchDiv.append(a);
+    a.click();
+    App.scratchDiv.empty();
 }

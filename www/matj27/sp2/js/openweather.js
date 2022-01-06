@@ -47,10 +47,8 @@ OpenWeather.retrieveWeather = (lat, lon) => {
             OpenWeather.processWeather(data);
         })
         .fail((resp) => {
-            alert(
-                'Chyba při kontaktování OpenWeatherMap API.\n' +
-                'Je dostupné internetové připojení?\n' +
-                'Je zadán správný API klíč?'
+            App.openModalWindow(
+                'Chyba při kontaktování OpenWeatherMap API. Je dostupné internetové připojení? Je zadán správný API klíč?'
             );
             App.weatherSpinner.removeClass("spinner");
         })

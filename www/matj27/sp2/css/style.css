@@ -14,6 +14,10 @@ html, body {
     height: 100%;
 }
 
+#scratch {
+    display: none;
+}
+
 .spinner {
     align-self: center;
     margin-top: 10px;

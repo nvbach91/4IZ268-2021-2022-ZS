@@ -60,7 +60,7 @@ EmailSender.prepareEmailFormHtml = () => {
  */
 EmailSender.sendMail = (html) => {
     if (html === 'ERR') {
-        alert('Chyba pri generovani tela zpravy!');
+        App.openModalWindow('Chyba pri generovani tela zpravy!');
     }
 
     const recipients = EmailSender.emailInput.val().split(",").map(recipient => recipient.trim());
@@ -79,9 +79,9 @@ EmailSender.sendMail = (html) => {
         Body: html
     }).then((message) => {
             if (message === 'OK') {
-                alert('E-mail byl odeslán na adresu/y: ' + recipientsString + '. Pokud e-mail nepřišel, zkontrolujte SPAM složku.');
+                App.openModalWindow('E-mail byl odeslán na adresu/y: ' + recipientsString + '. Pokud e-mail nepřišel, zkontrolujte SPAM složku.');
             } else {
-                alert(message);
+                App.openModalWindow(message);
             }
         }
     );
