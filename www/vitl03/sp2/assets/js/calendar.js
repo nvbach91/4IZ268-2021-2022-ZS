@@ -1,26 +1,31 @@
 // Client ID and API key from the Developer Console
-var CLIENT_ID =
+const CLIENT_ID =
   "547208858852-7u1c48actoiv12vhfl37puc8cjbedv7i.apps.googleusercontent.com";
 
-const config = { API_KEY: 'AIzaSyDO_rScKzh5dSM5mmqn5URZjp1_W6qrNAE' };
-// var id_token = '';
+const config = { API_KEY: "AIzaSyDO_rScKzh5dSM5mmqn5URZjp1_W6qrNAE" };
 
 // Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
+const DISCOVERY_DOCS = [
   "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
 ];
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces
-var SCOPES = "https://www.googleapis.com/auth/calendar";
+const SCOPES = "https://www.googleapis.com/auth/calendar";
 
-var CALENDAR_ID = "primary";
+const CALENDAR_ID = "primary";
+
+const signButton = $("#my-signin2");
+const signOutButton = $("#my-signout");
+const sectionEventsElement = $("#section-events");
+const deadlineText = $("#deadlines-text");
+const authorName = $("#author-name");
+const navImg = $("#nav-img");
 
 const showSpinner = () => {
   const spinner = document.createElement("div");
   spinner.classList.add("spinner");
-  const divElement = document.querySelector("#section-events");
-  divElement.appendChild(spinner);
+  sectionEventsElement.appendChild(spinner);
   return spinner;
 };
 
@@ -28,7 +33,7 @@ const showSpinner = () => {
  *  On load, called to load the auth2 library and API client library.
  */
 function handleClientLoad() {
-  gapi.load("client:auth2", initClient)
+  gapi.load("client:auth2", initClient);
 }
 
 /**
@@ -43,16 +48,13 @@ function initClient() {
       discoveryDocs: DISCOVERY_DOCS,
       scope: SCOPES,
     })
-    .then(
-      function () {
-        //updateSigninStatus(true);
-        // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+    .then(function () {
+      // Listen for sign-in state changes.
+      gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-        // Handle the initial sign-in state.
-       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());        
-      },
-    );
+      // Handle the initial sign-in state.
+      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    });
 }
 
 /**
@@ -61,26 +63,24 @@ function initClient() {
  */
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
-    $('#my-signin2').addClass('logged');
+    signButton.addClass("logged");
     showSpinner();
     listUpcomingEvents();
-    if($('#my-signout').hasClass('logged')){
-      $('#my-signout').removeClass('logged');
+    if (signOutButton.hasClass("logged")) {
+      signOutButton.removeClass("logged");
     }
   }
 }
 
-
 function signOut() {
-  gapi.auth2.getAuthInstance().disconnect();  
-  $("#section-events").hide();
-  $("#my-signin2").removeClass("logged");
-  $("#my-signout").addClass("logged");
+  gapi.auth2.getAuthInstance().disconnect();
+  sectionEventsElement.hide();
+  signButton.removeClass("logged");
+  signOutButton.addClass("logged");
   renderButton();
-  $("#author-name").html("User");
-  $("#nav-img").attr("src", "https://www.postavy.cz/foto/pikachu-foto.jpg");
+  authorName.html("User");
+  navImg.attr("src", "https://www.postavy.cz/foto/pikachu-foto.jpg");
 }
-
 
 /**
  * Print the summary and start datetime/date of the next ten events in
@@ -98,11 +98,11 @@ function listUpcomingEvents() {
       orderBy: "startTime",
     })
     .then(function (response) {
-      var events = response.result.items;
+      const events = response.result.items;
 
       if (events.length > 0) {
         for (let i = 0; i < events.length; i++) {
-          var event = events[i];
+          const event = events[i];
           let summary = event.summary;
 
           //get date & time of the event
@@ -127,28 +127,30 @@ function listUpcomingEvents() {
             data: events,
           });
 
-          $("#deadlines-text").hide();
+          deadlineText.hide();
 
-          $("#section-events").html(content);
-          $("#section-events").show(content);
+          sectionEventsElement.html(content);
+          sectionEventsElement.show(content);
         }
       } else {
-        $("#section-events").hide();
+        sectionEventsElement.hide();
       }
     });
 }
 
 function onSuccess(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log("Profile"+ profile);
-  console.log("Logged in as: " + googleUser.getBasicProfile().getName()); 
+  const profile = googleUser.getBasicProfile();
+  console.log("Profile" + profile);
+  console.log("Logged in as: " + googleUser.getBasicProfile().getName());
 
-  $("#author-name").html(googleUser.getBasicProfile().getName());
-  $("#nav-img").attr("src", profile.getImageUrl());
+  authorName.html(googleUser.getBasicProfile().getName());
+  navImg.attr("src", profile.getImageUrl());
 }
+
 function onFailure(error) {
   console.log(error);
 }
+
 function renderButton() {
   gapi.signin2.render("my-signin2", {
     scope: "profile email",
