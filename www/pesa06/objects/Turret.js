@@ -3,4 +3,6 @@ export default class Turret extends Phaser.GameObjects.Image {
         super(scene, 0, 0, 'sprites', 'turret');
         this.nextTic = 0;
     }
+
+
 }
