@@ -1,0 +1,213 @@
+:root {
+    --blue: #6bb2ff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: Ubuntu, sans-serif;
+    font-weight: normal;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+#scratch {
+    display: none;
+}
+
+.spinner {
+    align-self: center;
+    margin-top: 10px;
+    border-right: 5px solid whitesmoke;
+    border-left: 5px solid whitesmoke;
+    border-top: 5px solid var(--blue);
+    border-bottom: 5px solid var(--blue);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#app {
+    padding: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+#app > * {
+    border-radius: 10px;
+}
+
+#map {
+    display: flex;
+    flex-flow: column wrap;
+    width: 100%;
+    height: 75%;
+    justify-content: center;
+}
+
+#seznam-mapa {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-panel {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    align-content: center;
+}
+
+#side-panel {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 25%;
+    background-color: aliceblue;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.side-panel-content {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.panel-name {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    background-color: var(--blue);
+    border-radius: 10px;
+    justify-content: center;
+    color: whitesmoke;
+    width: 100%;
+}
+
+.panel-name > h1 {
+    margin: unset;
+    text-align: center;
+}
+
+.weather-params {
+    display: flex;
+    flex-flow: row wrap;
+    padding-bottom: 10px;
+}
+
+.weather-param-wrapper {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    border-bottom: 1px solid var(--blue);
+    width: calc(100% / 3);
+}
+
+.weather-param {
+    font-weight: bold;
+}
+
+#email-form, #apikey-form {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+#email-input {
+    text-align: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+#email-input:invalid {
+    box-shadow: 0 0 3px #CC0000;
+}
+
+#apikey-form {
+    max-width: 300px;
+    width: 100%;
+    align-self: center;
+}
+
+.apikey-input {
+    width: 100%;
+}
+
+#app-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+#units {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+}
+
+#units-select {
+    text-align: center;
+    width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+    #app {
+        flex-flow: row nowrap;
+    }
+
+    #map {
+        flex-flow: row wrap;
+        width: 75%;
+        height: 100%;
+    }
+
+    #side-panel {
+        flex-flow: column nowrap;
+        width: 25%;
+        height: 100%;
+    }
+
+    .weather-params {
+        display: unset;
+        flex-flow: unset;
+        padding-bottom: unset;
+    }
+
+    .weather-param-wrapper {
+        padding-right: unset;
+        padding-left: unset;
+        width: 100%;
+    }
+
+    .weather-param-wrapper:nth-last-child(1) {
+        border-bottom: none;
+    }
+}
