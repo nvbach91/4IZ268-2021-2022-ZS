@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="547208858852-7u1c48actoiv12vhfl37puc8cjbedv7i.apps.googleusercontent.com">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css"
+        integrity="sha512-IBfPhioJ2AoH2nST7c0jwU0A3RJ7hwIb3t+nYR4EJ5n9P6Nb/wclzcQNbTd4QFX1lgRAtTT+axLyK7VUCDtjWA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>LineUp</title>
+</head>
+
+<body id="body-pd" class="body-pd">
+    <div class="container m-5 p-2 rounded mx-auto bg-light shadow">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="nav-menu" id="nav-bar">
+                    <nav class="nav first-nav">
+                        <div>
+                            <a href="#" class="nav-logo">
+                                <div class="nav-img"> <img id="nav-img"
+                                        src="https://www.postavy.cz/foto/pikachu-foto.jpg" alt="nav-logo"></div>
+                                <span id="author-name" class="nav-logo-name">User</span>
+                            </a>
+                            <div class="nav-list">
+                                <a href="#" class="nav-href active-link" id="task-toggle">
+                                    <i class="fa fa-light fa-house nav-icon"></i>
+                                    <span class="nav-name">Dashboard</span>
+                                </a>
+                                <a href="#" class="nav-href" id="list-toggle">
+                                    <i class="fa fa-light fa-list-check nav-icon"></i>
+                                    <span class="nav-name">Lists</span>
+                                </a>
+                                <a href="#" class="nav-href" id="calendar-toggle">
+                                    <i class="fa fa-light fa-calendar nav-icon"></i>
+                                    <span class="nav-name">Calendar</span>
+                                </a>
+                                <div>
+                                    <canvas id="myChart" width="100" height="100"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row m-1 p-4">
+                    <div class="col">
+                        <div class="p-1 h1 head-text text-center mx-auto display-inline-block">
+                            <img class="header-img" src="assets/img/logo.png" alt="logo" width="60" height="50">
+                            <span class="header-name">LineUp</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container d-block" id="task-section">
+                    <div class="row m-1 p-3">
+                        <div class="col col-11 mx-auto">
+                            <form id="new-task-form">
+                                <div
+                                    class="row bg-white shadow-sm p-2 align-items-center justify-content-center first-line rounded-top">
+                                    <div class="col">
+                                        <input id="new-task-input"
+                                            class="form-control form-control-lg border-0 add-todo-input bg-transparent"
+                                            type="text" placeholder="Add new ..">
+                                    </div>
+                                </div>
+                                <div
+                                    class="row bg-white shadow-sm p-2 align-items-center justify-content-center rounded-bottom">
+
+                                    <div class="col-md-5 pr-0 mx-0 mr-2" id="lists-select">
+                                    </div>
+                                    <div class="col-md-5 m-0 px-2 d-flex align-items-center">
+                                        <input type="datetime-local" id="new-task-date">
+                                    </div>
+
+                                    <div class="col-md-2 mx-0 add-btn-box">
+                                        <input class="btn btn-primary add-btn" id="new-task-submit" type="submit"
+                                            value="Add">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 mx-4 border-black-25 border-bottom"></div>
+
+
+                    <div class="row p-4 pb-0 mt-2">
+                        <ul class="nav nav-tabs nav-justified" role="tablist">
+                            <li>
+                                <a class="nav-link active" id="active-click"href="#">Active</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" id="done-click" href="#">Done</a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="row px-2 mx-4 mt-5 mb-5 align-items-center todo-item rounded">
+                        <div class="task-list">
+                            <div id="tasks" class="d-block"></div>
+                        </div>
+                    </div>
+
+                    <div class="row px-2 mx-4 mt-5 mb-5 align-items-center todo-item rounded">
+                        <div class="task-list">
+                            <div id="tasks-done" class="d-none"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="container d-none" id="list-section">
+                    <div class="row m-1 p-3">
+                        <div class="col-md-12 align-self-center mb-2">
+                            <h1>Task lists</h1>
+                        </div>
+                        <div class="col-md-12">
+                            <form id="new-list-form">
+                                <div
+                                    class="row bg-white shadow-sm p-2 align-items-center justify-content-center first-line rounded-top">
+                                    <div class="col">
+                                        <input id="new-list-input"
+                                            class="form-control form-control-lg border-0 add-todo-input bg-transparent"
+                                            type="text" placeholder="Add new ..">
+                                    </div>
+                                    <div class="col-auto px-0 mx-0 mr-2" id="new-list-theme-input"></div>
+                                    <div class="col-auto mx-0 mr-2 add-btn-box">
+                                        <input class="btn btn-primary add-btn" id="new-list-submit" type="submit"
+                                            value="Add">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="container mb-4">
+                        <div class="row" id="lists">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container mb-4 d-none" id="calendar-section">
+                    <!--    <p id="calendar-text" class="mt-2 mb-4">Please, log in to display the calendar.</p> -->
+                    <iframe class="iframe"
+                        src="https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&ctz=Europe%2FPrague&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&showTitle=0&mode=WEEK&src=bHVreXNla3ZpdEBnbWFpbC5jb20&color=%237986CB"
+                        style="border-width:0" width="600" height="600" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="container">
+                    <div class="row mt-4">
+                        <ul class="nav nav-tabs nav-justified mb-4" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="calendar-click" href="#">Calendar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="focus-mode-click" href="#">Focus Mode</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container d-block" id="calendar">
+                    <div class="row mt-4">
+                        <div id="my-signin2"></div>
+                        <a id="my-signout" class="logged" href="#" onclick="signOut();">Sign out</a>
+                        <div class="col-md-12">
+                            <h4 class="mt-2 mb-4">Upcoming deadlines</h4>
+                            <p id="deadlines-text">Log in and add task with date at least one minute from now and it
+                                will be added to your deadlines and calendar.</p>
+                        </div>
+                        <div id="section-events"></div>
+                    </div>
+                </div>
+
+                <div class="container d-none" id="focus-mode">
+                    <div class="row mt-4">
+                        <div class="timer"></div>
+                        <div id="focus-points"></div>
+                        <svg class="svg-display d-none" viewBox="15 -10 240 250" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <g id="Desktop-HD-Copy" transform="translate(-589.000000, -2185.000000)"
+                                    stroke="#000000" stroke-width="4">
+                                    <g id="Page-1" transform="translate(591.000000, 2187.000000)">
+                                        <g class="stems">
+                                            <path class="main-stem" d="M133.4414,160.118 L133.4414,31.451"
+                                                id="Stroke-7"></path>
+                                            <path class="outer-stems" style="-webkit-transition-delay: 2s;
+                          transition-delay: 2s;" d="M133.4416,146.522 L72.3706,85.451" id="Stroke-15"></path>
+                                            <path class="outer-stems" d="M133.8455,146.522 194.9165,85.451"
+                                                id="Stroke-13"></path>
+                                        </g>
+                                        <g class="leaves">
+                                            <path
+                                                d="M133.4414,98.0008 C133.4414,98.0008 185.4414,78.0008 133.4414,0.0008 C81.4414,78.0008 133.4414,98.0008 133.4414,98.0008"
+                                                id="Stroke-1"></path>
+                                            <path
+                                                d="M159.3208,121.0467 C159.3208,121.0467 200.5998,139.3927 215.5058,64.8617 C140.9748,79.7687 159.3208,121.0467 159.3208,121.0467"
+                                                id="Stroke-3"></path>
+                                            <path
+                                                d="M107.9663,121.0467 C107.9663,121.0467 66.6873,139.3927 51.7813,64.8617 C126.3123,79.7687 107.9663,121.0467 107.9663,121.0467"
+                                                id="Stroke-5"></path>
+                                            <g class="leaves-detail">
+                                                <path d="M90.75,103.8309 L90.75,90.9489" id="Stroke-9"></path>
+                                                <path d="M175.25,103.8309 L175.25,90.9489" id="Stroke-11"></path>
+                                                <path d="M77.4316,104.8309 L90.3126,104.8309" id="Stroke-23"></path>
+                                                <path d="M147.0195,56.3377 L133.4415,69.9157" id="Stroke-25"></path>
+                                                <path d="M141.5762,43.1444 L133.4412,51.2794" id="Stroke-27"></path>
+                                                <path d="M119.8633,56.3377 L133.4413,69.9157" id="Stroke-17"></path>
+                                                <path d="M125.3066,43.1444 L133.4416,51.2794" id="Stroke-19"></path>
+                                                <path d="M175.25,104.8309 L188.131,104.8309" id="Stroke-21"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="upcoming-events-template" type="text/html">
+        {{#data}}
+        <div class="col-md-12">
+                <div class="card card-event shadow shadow-lg--hover mb-1 text-body">
+                    <div class="card-body">
+                        <span class="h5 mr-1 card-event-date">{{date}}</span>
+                        <span class="small text-muted mr-4 text-uppercase">{{month}}, {{day}}</span>
+                        <span class="mr-5"> {{endTime}}</span><br>
+                        <span class="font-weight-bold ml-1">{{summary}}</span>
+                    </div>
+                </div>
+        </div>
+        {{/data}}
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.1/mustache.min.js"
+        integrity="sha512-3GRj7sme01zpWwRNPNy48Rda1bD9cq34lqYG5vb8ZXGc+wRqsoBJ3+AC25IYW5w5SrWlzHqIpNIxZt5QF9sXLg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/8a4ddad498.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()">
+    </script>
+    <script src="assets/js/calendar.js"></script>
+    <script src="assets/js/main.js" type="module"></script>
+</body>
+
+</html>
