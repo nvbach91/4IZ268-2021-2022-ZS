@@ -24,7 +24,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        window.score = 0;
+        window.scoreButNotSoEasy = 0;
         // load the game assets – enemy and turret atlas
         this.load.setBaseURL('../assets/');
         this.load.atlas('sprites', 'spritesheet.png', 'spritesheet.json');
@@ -40,7 +40,7 @@ export class GameScene extends Phaser.Scene {
         let sound = this.sound.add('music', {loop: true});
         sound.play({loop: true});
 
-        window.gold = 10000;
+        window.goldButYouWontFindItHaHa = 10000;
 
         graphics.lineStyle(3, 0xffffff, 1);
         // the path for our enemies
@@ -57,7 +57,7 @@ export class GameScene extends Phaser.Scene {
         this.path.lineTo(675, 75);
         this.path.lineTo(675, 525);
         window.scoreText = this.add.text(815, 450, 'Score: 0', { fontSize: '28px', fill: '#fff'});
-        window.goldText = this.add.text(815, 550, 'Gold: ' + window.gold, { fontSize: '28px', fill: '#FFD700'});
+        window.goldText = this.add.text(815, 550, 'Gold: ' + window.goldButYouWontFindItHaHa, { fontSize: '28px', fill: '#FFD700'});
 
         // visualize the path
         this.path.draw(graphics, 64);
@@ -127,7 +127,7 @@ export class GameScene extends Phaser.Scene {
                     newTurret = this.longTurrets.get();
                     break;
             }
-            if (window.gold < newTurret.price) {
+            if (window.goldButYouWontFindItHaHa < newTurret.price) {
                 newTurret.setActive(false);
                 newTurret.setVisible(false);
                 console.log('not enough gold');
@@ -146,7 +146,7 @@ export class GameScene extends Phaser.Scene {
                     .setStyle({ backgroundColor: '#111' })
                     .setInteractive({ useHandCursor: true })
                     .on('pointerdown', () => {
-                        if (window.gold < price) {
+                        if (window.goldButYouWontFindItHaHa < price) {
                             console.log('not enough gold');
                             return;
                         }
@@ -157,7 +157,7 @@ export class GameScene extends Phaser.Scene {
                         newTurret.level++;
                         newTurret.damage += newTurret.baseDamage;
                         window.gold -= price;
-                        window.goldText.setText('Gold: ' + window.gold);
+                        window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
                         circle.destroy();
                         upgrade.destroy();
                         level.destroy();
@@ -174,7 +174,7 @@ export class GameScene extends Phaser.Scene {
             });
             this.selectedTurret = null;
             window.gold -= newTurret.price;
-            window.goldText.setText('Gold: ' + window.gold);
+            window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
         })
 
         this.enemies = this.physics.add.group({
@@ -256,7 +256,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     dealDamage(enemy, bullet) {
-        if (window.score === undefined) {
+        if (window.scoreButNotSoEasy === undefined) {
             window.score = 0;
         }
         if (enemy.active === true && bullet.active === true) {
@@ -264,9 +264,9 @@ export class GameScene extends Phaser.Scene {
             bullet.setVisible(false);
             if (enemy.receiveDamage(bullet.damage)) {
                 window.gold+=10;
-                window.score++;
-                window.scoreText.setText('Score: ' + window.score);
-                window.goldText.setText('Gold: ' + window.gold);
+                window.scoreButNotSoEasy++;
+                window.scoreText.setText('Score: ' + window.scoreButNotSoEasy);
+                window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
             }
         }
     }
@@ -291,7 +291,7 @@ export class GameScene extends Phaser.Scene {
                 enemy.setActive(true);
                 enemy.setVisible(true);
                 enemy.startOnPath(this.path);
-                enemy.setHp(100 + window.score * 2);
+                enemy.setHp(100 + window.scoreButNotSoEasy * 2);
 
                 this.nextEnemy = time + 1000;
             }
