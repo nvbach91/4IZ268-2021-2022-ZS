@@ -40,7 +40,7 @@ export class GameScene extends Phaser.Scene {
         let sound = this.sound.add('music', {loop: true});
         sound.play({loop: true});
 
-        window.goldButYouWontFindItHaHa = 10000;
+        window.goldButYouWontFindItHaHa = 350;
 
         graphics.lineStyle(3, 0xffffff, 1);
         // the path for our enemies
@@ -156,7 +156,7 @@ export class GameScene extends Phaser.Scene {
                         }
                         newTurret.level++;
                         newTurret.damage += newTurret.baseDamage;
-                        window.gold -= price;
+                        window.goldButYouWontFindItHaHa -= price;
                         window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
                         circle.destroy();
                         upgrade.destroy();
@@ -173,7 +173,7 @@ export class GameScene extends Phaser.Scene {
                 }, 2000);
             });
             this.selectedTurret = null;
-            window.gold -= newTurret.price;
+            window.goldButYouWontFindItHaHa -= newTurret.price;
             window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
         })
 
@@ -263,7 +263,7 @@ export class GameScene extends Phaser.Scene {
             bullet.setActive(false);
             bullet.setVisible(false);
             if (enemy.receiveDamage(bullet.damage)) {
-                window.gold+=10;
+                window.goldButYouWontFindItHaHa+=10;
                 window.scoreButNotSoEasy++;
                 window.scoreText.setText('Score: ' + window.scoreButNotSoEasy);
                 window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
