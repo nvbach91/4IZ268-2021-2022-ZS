@@ -24,7 +24,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        window.scoreButNotSoEasy = 0;
         // load the game assets – enemy and turret atlas
         this.load.setBaseURL('../assets/');
         this.load.atlas('sprites', 'spritesheet.png', 'spritesheet.json');
@@ -34,13 +33,14 @@ export class GameScene extends Phaser.Scene {
     }
 
     create() {
+        this.score = 0;
         // this graphics element is only for visualization,
         // its not related to our path
         let graphics = this.add.graphics();
         let sound = this.sound.add('music', {loop: true});
         sound.play({loop: true});
 
-        window.goldButYouWontFindItHaHa = 350;
+        this.gold = 350;
 
         graphics.lineStyle(3, 0xffffff, 1);
         // the path for our enemies
@@ -56,8 +56,8 @@ export class GameScene extends Phaser.Scene {
         this.path.lineTo(525, 75);
         this.path.lineTo(675, 75);
         this.path.lineTo(675, 525);
-        window.scoreText = this.add.text(815, 450, 'Score: 0', { fontSize: '28px', fill: '#fff'});
-        window.goldText = this.add.text(815, 550, 'Gold: ' + window.goldButYouWontFindItHaHa, { fontSize: '28px', fill: '#FFD700'});
+        this.scoreText = this.add.text(815, 450, 'Score: 0', { fontSize: '28px', fill: '#fff'});
+        this.goldText = this.add.text(815, 550, 'Gold: ' + this.gold, { fontSize: '28px', fill: '#FFD700'});
 
         // visualize the path
         this.path.draw(graphics, 64);
@@ -127,7 +127,7 @@ export class GameScene extends Phaser.Scene {
                     newTurret = this.longTurrets.get();
                     break;
             }
-            if (window.goldButYouWontFindItHaHa < newTurret.price) {
+            if (this.gold < newTurret.price) {
                 newTurret.setActive(false);
                 newTurret.setVisible(false);
                 console.log('not enough gold');
@@ -146,7 +146,7 @@ export class GameScene extends Phaser.Scene {
                     .setStyle({ backgroundColor: '#111' })
                     .setInteractive({ useHandCursor: true })
                     .on('pointerdown', () => {
-                        if (window.goldButYouWontFindItHaHa < price) {
+                        if (this.gold < price) {
                             console.log('not enough gold');
                             return;
                         }
@@ -156,8 +156,8 @@ export class GameScene extends Phaser.Scene {
                         }
                         newTurret.level++;
                         newTurret.damage += newTurret.baseDamage;
-                        window.goldButYouWontFindItHaHa -= price;
-                        window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
+                        this.gold -= price;
+                        this.goldText.setText('Gold: ' + this.gold);
                         circle.destroy();
                         upgrade.destroy();
                         level.destroy();
@@ -173,8 +173,8 @@ export class GameScene extends Phaser.Scene {
                 }, 2000);
             });
             this.selectedTurret = null;
-            window.goldButYouWontFindItHaHa -= newTurret.price;
-            window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
+            this.gold -= newTurret.price;
+            this.goldText.setText('Gold: ' + this.gold);
         })
 
         this.enemies = this.physics.add.group({
@@ -192,7 +192,21 @@ export class GameScene extends Phaser.Scene {
         let castle = this.castleGroup.get();
         castle.initLife();
 
-        this.physics.add.overlap(this.enemies, this.bullets, this.dealDamage);
+        this.physics.add.overlap(this.enemies, this.bullets, (enemy, bullet) => {
+            if (this.score === undefined) {
+                this.score = 0;
+            }
+            if (enemy.active === true && bullet.active === true) {
+                bullet.setActive(false);
+                bullet.setVisible(false);
+                if (enemy.receiveDamage(bullet.damage)) {
+                    this.gold+=10;
+                    this.score++;
+                    this.scoreText.setText('Score: ' + this.score);
+                    this.goldText.setText('Gold: ' + this.gold);
+                }
+            }
+        });
         this.physics.add.overlap(this.enemies, this.castleGroup, (enemy, castle) => {
             if (enemy.active === true && castle.active === true) {
                 enemy.setActive(false);
@@ -256,19 +270,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     dealDamage(enemy, bullet) {
-        if (window.scoreButNotSoEasy === undefined) {
-            window.score = 0;
-        }
-        if (enemy.active === true && bullet.active === true) {
-            bullet.setActive(false);
-            bullet.setVisible(false);
-            if (enemy.receiveDamage(bullet.damage)) {
-                window.goldButYouWontFindItHaHa+=10;
-                window.scoreButNotSoEasy++;
-                window.scoreText.setText('Score: ' + window.scoreButNotSoEasy);
-                window.goldText.setText('Gold: ' + window.goldButYouWontFindItHaHa);
-            }
-        }
+
     }
 
     drawGrid(graphics) {
@@ -291,7 +293,7 @@ export class GameScene extends Phaser.Scene {
                 enemy.setActive(true);
                 enemy.setVisible(true);
                 enemy.startOnPath(this.path);
-                enemy.setHp(100 + window.scoreButNotSoEasy * 2);
+                enemy.setHp(100 + this.score * 2);
 
                 this.nextEnemy = time + 1000;
             }
