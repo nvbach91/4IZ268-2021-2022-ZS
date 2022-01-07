@@ -26,6 +26,26 @@ $(document).ready(() => {
   const createThemeField = document.querySelector("#new-list-theme-input");
 
   const listElement = document.querySelector("#lists");
+
+  const activeTaskList = document.querySelector("#active-click");
+  const doneTaskList = document.querySelector("#done-click");
+  const taskListDoneElement = document.querySelector("#tasks-done");
+
+  activeTaskList.addEventListener("click", () => {
+    // zobrazime list s active taskama, schováme list s done taskama
+    taskListElement.classList.remove("d-none");
+    taskListElement.classList.add("d-block");
+    taskListDoneElement.classList.remove("d-block");
+    taskListDoneElement.classList.add("d-none");
+  });
+
+  doneTaskList.addEventListener("click", () => {
+    taskListDoneElement.classList.remove("d-none");
+    taskListDoneElement.classList.add("d-block");
+    taskListElement.classList.add("d-block");
+    taskListElement.classList.add("d-none");
+  });
+
   const arrayListValues = [];
 
   // tasks loading
@@ -238,6 +258,7 @@ $(document).ready(() => {
     const taskElement = document.createElement("div");
     taskElement.classList.add("task");
     taskElement.classList.add("row");
+    taskElement.classList.add("animated", "show");
 
     const checkboxElement = document.createElement("input");
     checkboxElement.type = "checkbox";
@@ -260,8 +281,9 @@ $(document).ready(() => {
     const inputElement = document.createElement("p");
     inputElement.contentEditable = true;
     inputElement.classList.add("task-input");
-    inputElement.innerHTML = data.value;
+    inputElement.innerText = data.value;
     inputElement.id = data.token;
+    inputElement.title = "(" + dateTaskField.value + ")";
 
     const taskDescriptionInputElement = document.createElement("p");
     taskDescriptionInputElement.contentEditable = true;
@@ -293,11 +315,16 @@ $(document).ready(() => {
 
     taskElement.append(checkboxElement, inputElementBox, taskIconElementBox);
 
-    taskListElement.appendChild(taskElement);
+    console.log(taskElement.classList.contains("checked") === true);
+    if (taskElement.classList.contains("checked") === true) {
+      taskListDoneElement.appendChild(taskElement);
+    } else {
+      taskListElement.appendChild(taskElement);
+    }
 
     inputElement.addEventListener("input", () => {
-      if(inputElement.innerHTML === ""){
-        if(confirm("Do you want to delete this task?")){
+      if (inputElement.innerHTML === "") {
+        if (confirm("Do you want to delete this task?")) {
           if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
             deleteEvent(data.token);
           }
@@ -307,8 +334,8 @@ $(document).ready(() => {
         } else {
           console.log(" no");
         }
-      } 
-      if(inputElement.innerHTML !== ""){
+      }
+      if (inputElement.innerHTML !== "") {
         data.value = inputElement.innerHTML;
         storageUpdate(data);
       }
@@ -328,12 +355,28 @@ $(document).ready(() => {
       taskElement.remove();
     });
 
-    taskListElement.appendChild(taskElement);
-
     checkboxElement.addEventListener("input", function () {
       data.checked = checkboxElement.checked;
       toggleTaskStatus({ checked: data.checked, taskElement });
       storageUpdate(data);
+      taskElement.classList.remove("show");
+
+      if (checkboxElement.checked === true) {
+        taskElement.classList.remove("show");
+        // taskElement.remove();
+        setTimeout(function () {
+          taskListDoneElement.appendChild(taskElement);
+          taskElement.classList.add("show");
+        }, 1000);
+        
+      } else {
+        taskElement.classList.remove("show");
+        //taskElement.remove();
+        setTimeout(function () {
+          taskListElement.appendChild(taskElement);
+          taskElement.classList.add("show");
+        }, 1000);
+      }
     });
 
     taskDescriptionElement.addEventListener("click", () => {
