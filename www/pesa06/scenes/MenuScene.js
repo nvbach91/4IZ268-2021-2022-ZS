@@ -11,6 +11,7 @@ export class MenuScene extends Phaser.Scene {
 
     preload() {
         this.load.setBaseURL('../assets/');
+        this.load.audio('music', 'music.mp3');
         this.load.image('play', 'play2.jpg');
 
         this.load.image('sky', 'space3.png');
@@ -36,7 +37,7 @@ export class MenuScene extends Phaser.Scene {
         play.setInteractive();
         play.on("pointerup", () => {
             this.scene.start(SceneEnum.GAME);
-        })
+        });
 
         logo.setVelocity(100, 200);
         logo.setBounce(1, 1);
