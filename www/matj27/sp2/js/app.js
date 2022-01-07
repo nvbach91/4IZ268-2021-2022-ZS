@@ -269,7 +269,7 @@ App.deleteApiKeys = () => {
     localStorage.removeItem(App.openWeatherLocalStorageKey);
     localStorage.removeItem(App.sendGridLocalStorageKey);
 
-    App.init();
+    App.init($('#app'), 'open-weather-api-key', 'send-grid-api-key');
 }
 
 /**
