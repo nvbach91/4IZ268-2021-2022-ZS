@@ -17,7 +17,7 @@ export class GameScene extends Phaser.Scene {
         this.enemies = null;
         this.selectedTurret = null;
         this.scoreText = null;
-        this.blockedLocations = [[0, 10], [1, 10], [2, 10], [2, 9], [2, 8], [2, 7], [2, 6], [2, 5], [2, 4], [2, 3], [2, 2], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [6, 2], [6, 3], [5, 3], [4, 3], [4, 4], [4, 5], [4, 6], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [10, 6], [10, 5], [10, 4], [10, 3], [10, 2], [10, 1], [11, 1], [12, 1], [13, 1], [13, 2], [13, 3], [13, 4], [13, 5], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10]];
+        this.blockedLocations = [[0, 9], [1, 9], [2, 9], [2, 8], [2, 7], [2, 6], [2, 5], [2, 4], [2, 3], [2, 2], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [6, 2], [6, 3], [5, 3], [4, 3], [4, 4], [4, 5], [4, 6], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [10, 6], [10, 5], [10, 4], [10, 3], [10, 2], [10, 1], [11, 1], [12, 1], [13, 1], [13, 2], [13, 3], [13, 4], [13, 5], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10]];
     }
 
     init() {
@@ -106,6 +106,15 @@ export class GameScene extends Phaser.Scene {
             if (found) {
                 return;
             }
+            if (this.checkTurretGroup(this.normalTurrets, roundedX, roundedY)) {
+                return;
+            }
+            if (this.checkTurretGroup(this.longTurrets, roundedX, roundedY)) {
+                return;
+            }
+            if (this.checkTurretGroup(this.fastTurrets, roundedX, roundedY)) {
+                return;
+            }
             let newTurret = null;
             switch (this.selectedTurret) {
                 case TurretEnum.NORMAL:
@@ -163,8 +172,6 @@ export class GameScene extends Phaser.Scene {
                     damage.destroy();
                 }, 2000);
             });
-
-            this.blockedLocations.push([Math.floor((roundedX - 25) / 50), Math.floor((roundedY - 25) / 50)]);
             this.selectedTurret = null;
             window.gold -= newTurret.price;
             window.goldText.setText('Gold: ' + window.gold);
@@ -201,6 +208,20 @@ export class GameScene extends Phaser.Scene {
 
 
         this.loadSideMenu();
+    }
+
+    checkTurretGroup(group, wantedX, wantedY) {
+        let found = false;
+        group.getChildren().forEach((t) => {
+            if (found) {
+                return found;
+            }
+            if (t.x === wantedX && t.y === wantedY) {
+                found = true;
+                return true;
+            }
+        });
+        return found;
     }
 
     loadSideMenu() {
