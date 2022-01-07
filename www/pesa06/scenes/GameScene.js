@@ -40,7 +40,7 @@ export class GameScene extends Phaser.Scene {
         let sound = this.sound.add('music', {loop: true});
         sound.play({loop: true});
 
-        window.gold = 350;
+        window.gold = 10000;
 
         graphics.lineStyle(3, 0xffffff, 1);
         // the path for our enemies
@@ -124,14 +124,50 @@ export class GameScene extends Phaser.Scene {
                 console.log('not enough gold');
                 return;
             }
-            window.gold -= newTurret.price;
-            window.goldText.setText('Gold: ' + window.gold);
+
             newTurret.initTurret(this.enemies, roundedX, roundedY, this.bullets);
             newTurret.setInteractive();
             newTurret.on("pointerdown", (e) => {
-            })
+                let circle = this.add.circle(newTurret.x, newTurret.y, newTurret.range);
+                circle.setStrokeStyle(1, 0xefc53f);
+                let price = newTurret.price * newTurret.level;
+                let upgrade = this.add.text(roundedX - 10, roundedY, 'Upgrade (' + price + ')', {fontSize: '12px', fill: '#fff'})
+                    .setOrigin(0.5)
+                    .setPadding(10)
+                    .setStyle({ backgroundColor: '#111' })
+                    .setInteractive({ useHandCursor: true })
+                    .on('pointerdown', () => {
+                        if (window.gold < price) {
+                            console.log('not enough gold');
+                            return;
+                        }
+                        if (newTurret.level >= 10) {
+                            console.log('level already 10');
+                            return;
+                        }
+                        newTurret.level++;
+                        newTurret.damage += newTurret.baseDamage;
+                        window.gold -= price;
+                        window.goldText.setText('Gold: ' + window.gold);
+                        circle.destroy();
+                        upgrade.destroy();
+                        level.destroy();
+                        damage.destroy();
+                    });
+                let level = this.add.text(roundedX - 30, roundedY - 45, 'Level: ' + newTurret.level, {fontSize: '12px', fill: '#fff'})
+                let damage = this.add.text(roundedX - 30, roundedY - 30, 'Damage: ' + newTurret.damage, {fontSize: '12px', fill: '#fff'})
+                setTimeout(() => {
+                    circle.destroy();
+                    upgrade.destroy();
+                    level.destroy();
+                    damage.destroy();
+                }, 2000);
+            });
+
             this.blockedLocations.push([Math.floor((roundedX - 25) / 50), Math.floor((roundedY - 25) / 50)]);
             this.selectedTurret = null;
+            window.gold -= newTurret.price;
+            window.goldText.setText('Gold: ' + window.gold);
         })
 
         this.enemies = this.physics.add.group({
@@ -174,8 +210,8 @@ export class GameScene extends Phaser.Scene {
             this.selectedTurret = TurretEnum.NORMAL;
         });
         this.add.text(860, 50, 'Damage: 50', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 75, 'Speed: 800ms', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 100, 'Range: 150', { fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 75, 'Speed: 700ms', { fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 100, 'Range: 200', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 125, 'Price: 100', { fontSize: '18px', fill: '#fff'});
         let turret2 = this.add.image(820, 200, 'bullet');
         turret2.setInteractive();
@@ -199,7 +235,6 @@ export class GameScene extends Phaser.Scene {
     }
 
     dealDamage(enemy, bullet) {
-        console.log(window.score);
         if (window.score === undefined) {
             window.score = 0;
         }
@@ -236,7 +271,6 @@ export class GameScene extends Phaser.Scene {
                 enemy.setVisible(true);
                 enemy.startOnPath(this.path);
                 enemy.setHp(100 + window.score * 2);
-                console.log("hp " + (100 + window.score * 2));
 
                 this.nextEnemy = time + 1000;
             }

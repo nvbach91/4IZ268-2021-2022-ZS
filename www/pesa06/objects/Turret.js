@@ -4,6 +4,7 @@ export default class Turret extends Phaser.GameObjects.Image {
         this.nextTic = 0;
         this.range = 0;
         this.damage = 0;
+        this.baseDamage = 0;
         this.price = 0;
         this.enemies = null;
         this.attackSpeed = 0;

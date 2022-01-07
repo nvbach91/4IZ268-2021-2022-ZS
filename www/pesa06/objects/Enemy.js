@@ -28,6 +28,7 @@ export default class Enemy extends Phaser.GameObjects.Image {
         if (this.hp <= 0) {
             this.setActive(false);
             this.setVisible(false);
+            this.hb.bar.clear();
             return true;
         }
         return false;

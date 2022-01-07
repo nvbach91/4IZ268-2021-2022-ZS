@@ -4,9 +4,10 @@ export default class NormalTurret extends Turret {
     constructor(scene) {
         super(scene, 'sprites', 'turret');
         this.damage = 50;
-        this.range = 150;
+        this.baseDamage = 50;
+        this.range = 200;
         this.price = 100;
-        this.attackSpeed = 800;
+        this.attackSpeed = 700;
     }
 
 }
