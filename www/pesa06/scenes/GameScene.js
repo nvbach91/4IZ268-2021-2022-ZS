@@ -57,7 +57,13 @@ export class GameScene extends Phaser.Scene {
         this.path.lineTo(675, 75);
         this.path.lineTo(675, 525);
         this.scoreText = this.add.text(815, 450, 'Score: 0', { fontSize: '28px', fill: '#fff'});
-        this.goldText = this.add.text(815, 550, 'Gold: ' + this.gold, { fontSize: '28px', fill: '#FFD700'});
+        this.goldText = this.add.text(815, 500, 'Gold: ' + this.gold, { fontSize: '28px', fill: '#FFD700'});
+        let backToMenu = this.add.text(815, 550, 'Main menu', { fontSize: '28px', fill: '#fff'});
+        backToMenu.setInteractive();
+        backToMenu.on("pointerup", () => {
+            sound.stop();
+            this.scene.start(SceneEnum.MAIN_MENU);
+        });
 
         // visualize the path
         this.path.draw(graphics, 64);
@@ -221,8 +227,6 @@ export class GameScene extends Phaser.Scene {
                     formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                     xhr.open("POST", 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
                     xhr.send(formData);
-                    console.log(this.score);
-                    console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                     sound.stop();
                     this.scene.start(SceneEnum.MAIN_MENU);
                 }
