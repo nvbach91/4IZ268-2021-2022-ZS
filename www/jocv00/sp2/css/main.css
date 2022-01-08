@@ -20,7 +20,7 @@ header, #main, .container, .column-text, .column-poster, .missing, .buttons {
     justify-content: center;
 }
 
-#login-button, #logout-button, .submit-button, #search-button {
+#login-button, #logout-button, .submit-button, #search-button, #discover-button {
     border: 0 solid white;
 }
 
@@ -28,7 +28,7 @@ header, #main, .container, .column-text, .column-poster, .missing, .buttons {
     width: 100%;
 }
 
-#login-button, #logout-button, #search-button {
+#login-button, #logout-button, #search-button, #discover-button {
     width: 100px;
     text-align: right;
     border-radius: 8px;
@@ -50,6 +50,12 @@ header, #movie-sign, body {
 
 #login-button, #logout-button {
     background: white url(../images/cal_logo.png) 0px 0px no-repeat;
+}
+
+#discover-button{
+    background: white url(../images/info.png) 0px 0px no-repeat;
+    width: 115px;
+    margin-right: 10px;
 }
 
 
@@ -81,6 +87,7 @@ html, body {
 }
 
 header {
+   
     height: 55px;
     background: gray;
     padding-top: 20px;
@@ -88,8 +95,8 @@ header {
 }
 
 #movie-sign {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 30px;
     font-weight: 700;
 }
@@ -107,6 +114,7 @@ form {
     height: 30px;
     outline: none;
     padding-left: 10px;
+    margin-left: 10px;
 }
 
 header {
@@ -221,7 +229,24 @@ button {
     }
 }
 
-@media screen and (max-width:725px) {
+@media screen and (max-width:640px) {
+    #search-button, #login-button, #logout-button, #discover-button {
+        background-image: none;
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    #search-button, #login-button, #logout-button{
+        width: 63px;
+    }
+
+    #discover-button{
+        width: 80px;
+    }
+
+}
+
+@media screen and (max-width:840px) {
     .container {
         flex-direction: column;
     }
@@ -254,7 +279,7 @@ button {
 
 }
 
-@media screen and (max-width:820px) {
+@media screen and (max-width:930px) {
     #movie-sign {
         font-size: 20px;
     }
