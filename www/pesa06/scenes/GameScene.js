@@ -216,7 +216,7 @@ export class GameScene extends Phaser.Scene {
                     let date = new Date();
                     let xhr = new XMLHttpRequest();
                     let formData = new FormData();
-                    formData.append('name', 'testing');
+                    formData.append('name', window.localStorage.getItem('name') === null ? '' : window.localStorage.getItem('name'));
                     formData.append('score', this.score);
                     formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                     xhr.open("POST", 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);

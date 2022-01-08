@@ -17,6 +17,7 @@ export class MenuScene extends Phaser.Scene {
         this.load.image('sky', 'space3.png');
         this.load.image('logo', 'phaser3-logo.png');
         this.load.image('red', 'red.png');
+        this.load.html('nameform', 'nameForm.html');
     }
 
     create() {
@@ -32,6 +33,8 @@ export class MenuScene extends Phaser.Scene {
 
         let logo = this.physics.add.image(400, 100, 'logo');
 
+        let text = document.createElement("input");
+
         let play = this.add.image(400, 300, 'play');
         play.setScale(0.1);
         play.setInteractive();
@@ -45,5 +48,26 @@ export class MenuScene extends Phaser.Scene {
 
         emitter.startFollow(logo);
 
+        this.parent = document.getElementById("gameDiv");
+
+        let element = this.add.dom(400, 0).createFromCache('nameform');
+        element.setPerspective(800);
+        element.addListener('click');
+        let saveButton = element.getChildByName('saveNameButton');
+        let input = element.getChildByName('textInput');
+        if (window.localStorage.getItem('name') !== null && window.localStorage.getItem('name') !== undefined) {
+            input.value = window.localStorage.getItem('name');
+        }
+        saveButton.addEventListener('click', (e) => {
+            if (input.value !== '') {
+                window.localStorage.setItem('name', input.value);
+            }
+        });
+        this.tweens.add({
+            targets: element,
+            y: 200,
+            duration: 2000,
+            ease: 'Power3'
+        });
     }
 }

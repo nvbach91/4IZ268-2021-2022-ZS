@@ -5,6 +5,10 @@ let config = {
     type: Phaser.AUTO,
     width: 1000,
     height: 600,
+    parent: 'gameDiv',
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
