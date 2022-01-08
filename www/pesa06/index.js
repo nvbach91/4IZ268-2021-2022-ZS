@@ -1,5 +1,6 @@
 import {MenuScene} from "./scenes/MenuScene.js";
 import {GameScene} from "./scenes/GameScene.js";
+import {LeaderboardScene} from "./scenes/LeaderboardScene.js";
 
 let config = {
     type: Phaser.AUTO,
@@ -16,7 +17,7 @@ let config = {
         }
     },
     scene: [
-        MenuScene, GameScene
+        MenuScene, GameScene, LeaderboardScene
     ]
 };
 

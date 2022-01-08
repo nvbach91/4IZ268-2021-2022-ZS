@@ -13,6 +13,7 @@ export class MenuScene extends Phaser.Scene {
         this.load.setBaseURL('../assets/');
         this.load.audio('music', 'music.mp3');
         this.load.image('play', 'play2.jpg');
+        this.load.html('item', 'leaderboardItem.html');
 
         this.load.image('sky', 'space3.png');
         this.load.image('logo', 'phaser3-logo.png');
@@ -33,13 +34,16 @@ export class MenuScene extends Phaser.Scene {
 
         let logo = this.physics.add.image(400, 100, 'logo');
 
-        let text = document.createElement("input");
-
-        let play = this.add.image(400, 300, 'play');
-        play.setScale(0.1);
+        let play = this.add.text(400, 400, 'Play', { fontSize: '26px', fill: '#fff'});
         play.setInteractive();
         play.on("pointerup", () => {
             this.scene.start(SceneEnum.GAME);
+        });
+
+        let leaderboard = this.add.text(350, 500, 'Leaderboard', { fontSize: '26px', fill: '#fff'});
+        leaderboard.setInteractive();
+        leaderboard.on("pointerup", () => {
+            this.scene.start(SceneEnum.LEADERBOARDS);
         });
 
         logo.setVelocity(100, 200);
