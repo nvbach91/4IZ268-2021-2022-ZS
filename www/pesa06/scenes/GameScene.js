@@ -213,7 +213,16 @@ export class GameScene extends Phaser.Scene {
                 enemy.setVisible(false);
                 enemy.hb.bar.clear();
                 if (castle.receiveDamage()) {
-                    console.log("game over");
+                    let date = new Date();
+                    let xhr = new XMLHttpRequest();
+                    let formData = new FormData();
+                    formData.append('name', 'testing');
+                    formData.append('score', this.score);
+                    formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+                    xhr.open("POST", 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
+                    xhr.send(formData);
+                    console.log(this.score);
+                    console.log(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                     sound.stop();
                     this.scene.start(SceneEnum.MAIN_MENU);
                 }
