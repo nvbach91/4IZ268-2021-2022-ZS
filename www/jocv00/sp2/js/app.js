@@ -9,9 +9,10 @@ $(document).ready(() => {
   const button = $('#search-button');
   const discoverButton = $('#discover-button')
 
+  const containerDiv = $('<div></div>');
+
   const mediaQuery = window.matchMedia('(max-width:840px)');
   const mediaQueryBig = window.matchMedia('(min-width:840px)');
-
 
   const getDefaultUrl = () => {
     return `https://api.themoviedb.org/3/discover/movie?sort_by=${localStorage.getItem('sort')}&api_key=04c35731a5ee918f014970082a0088b1&page=1`
@@ -148,7 +149,7 @@ $(document).ready(() => {
     const timeInput = $('<input/>').attr('type', 'time');
     timeRow.append(timeText, timeInput);
 
-    main.append(container);
+    containerDiv.append(container);
 
     let length = await getLengthFromId(element.id);
     let lenghtText = (length == 0 || length == undefined) ? 'unknown' : `${length} min`;
@@ -169,7 +170,6 @@ $(document).ready(() => {
     columnText.append(name, rating, lengthAndRelease, description, pickers);
     pickers.append(dateRow, timeRow, submitButton);
     container.append(columnText, columnPoster);
-    
   };
 
 
@@ -342,9 +342,11 @@ $(document).ready(() => {
 
   const createMovieContainers = (data) => {
     main.empty();
-    data.results.forEach(async (element) => {
-      await createMovieDom(element);
+    containerDiv.empty()
+    data.results.forEach((element) => {
+      createMovieDom(element);
     });
+    main.append(containerDiv);
   }
 
   const noMoviesFound = (data) => {
@@ -397,6 +399,9 @@ $(document).ready(() => {
   }
 
   const hasInternetConnection = () => {
+    fetch('https://google.com').then(resp => resp.text()).then(data => {
+      console.log(data);
+    })
     return navigator.onLine;
   }
 
