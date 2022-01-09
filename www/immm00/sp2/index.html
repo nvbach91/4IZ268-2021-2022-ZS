@@ -5,8 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deez</title>
-    <link rel="stylesheet" href="main.css">
+    <meta name="description" content="A website for finding recipes that fit all your needs.">
+    <meta name="author" content="Marek Immer, immm00">
+    <meta name="keywords" content="recipes, nutrition, nutritonal values, ingredients, diet">
+    <title>Deez Recipes</title>
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -16,13 +19,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
         integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="main.js"></script>
+        <script src="js/main.js"></script>
 </head>
 
 <body>
 
     <header>
-        <span class="header-title">Recipe Finder Website</span>
+        <span class="header-title">Deez Recipes</span>
         <span class="header-tab">Find Recipes</span>
     </header>
 
@@ -41,8 +44,8 @@
 
                         <div class="dropdowns">
                             <div class="dropdown">
-                                <label for="foodType">Food type</label>
-                                <select name="foodType" id="foodTypeSelector">
+                                <label>Food type</label>
+                                <select name="food-type" id="food-type-selector">
                                     <option value="main+course">main course</option>
                                     <option value="side+dish">side dish</option>
                                     <option value="dessert">dessert</option>
@@ -60,8 +63,8 @@
                                 </select>
                             </div>
                             <div class="dropdown">
-                                <label for="diet">Diet</label>
-                                <select name="diet" id="dietSelector">
+                                <label>Diet</label>
+                                <select name="diet" id="diet-selector">
                                     <option value="none">none</option>
                                     <option value="gluten+free">gluten free</option>
                                     <option value="ketogenic">ketogenic</option>
@@ -76,48 +79,36 @@
                                     <option value="whole30">whole30</option>
                                 </select>
                             </div>
-                            <!--
-                                <div class="dropdown">
-                                <label for="max-results">Max results</label>
-                                <select name="max-results" id="max-results-selector">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select>
-                            </div>
-                            --->
                         </div>
 
                         <div class="nutritional-values">
                             <div class="nutritional-value">
-                                <label for="caloriesMinMax">Calories (kcal)</label>
-                                <select name="caloriesMinMax" id="caloriesMinMaxSelector">
+                                <label>Calories (kcal)</label>
+                                <select name="calories-min-max" id="calories-min-max-selector">
                                     <option value="min">min</option>
                                     <option value="max">max</option>
                                 </select>
                                 <input type="number" id="calories" name="calories" min="0">
                             </div>
                             <div class="nutritional-value">
-                                <label for="proteinMinMax">Protein (g)</label>
-                                <select name="proteinMinMax" id="proteinMinMaxSelector">
+                                <label>Protein (g)</label>
+                                <select name="protein-min-max" id="protein-min-max-selector">
                                     <option value="min">min</option>
                                     <option value="max">max</option>
                                 </select>
                                 <input type="number" id="protein" name="protein" min="0">
                             </div>
                             <div class="nutritional-value">
-                                <label for="carbs">Carbs (g)</label>
-                                <select name="carbsMinMax" id="carbsMinMaxSelector">
+                                <label>Carbs (g)</label>
+                                <select name="carbs-min-max" id="carbs-min-max-selector">
                                     <option value="min">min</option>
                                     <option value="max">max</option>
                                 </select>
                                 <input type="number" id="carbs" name="carbs" min="0">
                             </div>
                             <div class="nutritional-value">
-                                <label for="fat">Fat (g)</label>
-                                <select name="fatMinMax" id="fatMinMaxSelector">
+                                <label>Fat (g)</label>
+                                <select name="fat-min-max" id="fat-min-max-selector">
                                     <option value="min">min</option>
                                     <option value="max">max</option>
                                 </select>
@@ -128,11 +119,11 @@
                         <div class="ingredients">
                             <div class="ingredients-area">
                                 <label>Include ingredients (separate with comma)</label>
-                                <textarea rows="2" cols="35" id="includedIngredientsTextArea"></textarea>
+                                <textarea rows="2" cols="35" id="included-ingredients-textarea"></textarea>
                             </div>
                             <div class="ingredients-area">
                                 <label>Exclude ingredients (separate with comma)</label>
-                                <textarea rows="2" cols="35" id="excludedIngredientsTextArea"></textarea>
+                                <textarea rows="2" cols="35" id="excluded-ingredients-textarea"></textarea>
                             </div>
                         </div>
 
@@ -170,7 +161,7 @@
         </main>
     </div>
     <footer>
-        <span>Recipe Finder Website, Marek Immer, 2021&copy;</span>
+        <span>Deez Recipes, Marek Immer, 2021&copy;</span>
     </footer>
 
 </body>
