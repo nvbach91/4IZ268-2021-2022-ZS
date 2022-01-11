@@ -25,10 +25,6 @@
 <body>
     <header>
         <h1>Snake 2D</h1>
-        <div id="loader">
-            Fetching data. Please wait...
-            <img id="img-loading" src="assets/img/loader.gif" alt="loading">
-        </div>
     </header>
     <main>
         <div>
@@ -45,13 +41,15 @@
             </div>
             <div>
                 <h2>Ovládání</h2>
-                <p>Hra se ovládá šipkami nebo pomocí [W][A][S][D]. Spustí se a opět pozastaví pomocí mezerníku.</p>
+                <p>Pohyb hada - šipky/WASD. Pause/Unpause - mezerník/Esc (cooldown 1s).</p>
             </div>
         </div>
         <div id="buttons-box" class="buttons">
             <h2>Pozadí herního pole:</h2>
-            <p>Změna pozadí je možná pouze pokud je hra pozastavena. Při opakovaném stisknutí tlačítka 'náhodné' se mění pozadí.</p>
-            <div id="btns" class="wrapper"></div><!--FIXME: zarovnat na střed-->
+            <p>Změna pozadí je možná pouze pokud je hra pozastavena. Při opakovaném stisknutí tlačítka 'náhodné' se mění
+                pozadí.</p>
+            <div id="btns" class="wrapper"></div>
+            <!--FIXME: zarovnat na střed-->
         </div>
     </main>
     <!--footer></footer-->

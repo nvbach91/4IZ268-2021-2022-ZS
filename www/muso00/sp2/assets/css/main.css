@@ -18,7 +18,7 @@ main {
 }
 
 h1 {
-    font-size: 35pt;
+    font-size: 32pt;
     margin-bottom: 0px;
     margin-top: 0px;
 }
@@ -92,5 +92,5 @@ button:focus:hover {
     opacity: 1;
     z-index: 99;
     margin: auto;
-    background-color: rgba(0,0,0,0.5);
-  }
+    background-color: rgba(0, 0, 0, 0.5);
+}

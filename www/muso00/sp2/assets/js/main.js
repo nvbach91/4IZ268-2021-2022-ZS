@@ -34,6 +34,16 @@ let bg02;
 let bg03;
 let bgRndm;
 
+// proměnné pro 'debounce'
+let currentTime = 0; // aktuální čas
+let lastTime = 0; // čas posledního stisknutí tlačítka
+let debounceMs = 1000; // cooldown v milisekundách - 1000ms = 1s
+let readyToPlay; // proměnná pro odpočet debounce fce
+
+function playSelectionSound() {
+    selectSound.play();
+};
+
 /**
  * Vytvoření tlačítek pro změnu 
  * pozadí herního pole.
@@ -72,7 +82,8 @@ buttons.appendChild(btnRndm);
 
 // přídání event listenerů na tlačítka pro přepínání switchů
 btnDef.addEventListener('click', () => {
-    selectSound.play();
+    playSelectionSound();
+
     swDef = true;
     sw01 = false;
     sw02 = false;
@@ -81,7 +92,8 @@ btnDef.addEventListener('click', () => {
 });
 
 btn01.addEventListener('click', () => {
-    selectSound.play();
+    playSelectionSound();
+
     swDef = false;
     sw01 = true;
     sw02 = false;
@@ -90,7 +102,8 @@ btn01.addEventListener('click', () => {
 });
 
 btn02.addEventListener('click', () => {
-    selectSound.play();
+    playSelectionSound();
+
     swDef = false;
     sw01 = false;
     sw02 = true;
@@ -99,7 +112,8 @@ btn02.addEventListener('click', () => {
 });
 
 btn03.addEventListener('click', () => {
-    selectSound.play();
+    playSelectionSound();
+
     swDef = false;
     sw01 = false;
     sw02 = false;
@@ -108,9 +122,11 @@ btn03.addEventListener('click', () => {
 });
 
 btnRndm.addEventListener('click', () => {
+    playSelectionSound();
+
     // async
     bgRndm = loadImage(`https://picsum.photos/${canvX}/${canvY}/?blur`);
-    selectSound.play();
+
     swDef = false;
     sw01 = false;
     sw02 = false;
@@ -124,32 +140,44 @@ btnRndm.addEventListener('click', () => {
  * se provede jako první před a funkce setup(), která hru nastaví/inicializuje,
  * čeká, až se soubory načtou.
  */
- function preload() {
+function preload() {
     bg01 = loadImage(`https://picsum.photos/id/1081/${canvX}/${canvY}/?blur`);
     bg02 = loadImage(`https://picsum.photos/id/141/${canvX}/${canvY}/?blur`);
     bg03 = loadImage(`https://picsum.photos/id/1032/${canvX}/${canvY}/?blur`);
 };
 
-// inicialitace herního pole
+/**
+ * Funkce se spustí pouze jednou, když se program spustí. Je součástí
+ * knihovny p5 a používá se pro definování počátečního prostředí a
+ * inicializaci proměnných.
+ */
 function setup() {
     const canvas = createCanvas(canvX, canvY); // vytvoření canvasu
     canvas.parent('#game-canvas'); // rodič canvasu je div s id game-canvas
     food = new Fruit(); // přidání potravy
     snake = new Head(); // přídání hlavy hada
-    //loadImages(); // načtení obrázků
     frameRate(vel); // rychlost hry
     snake.tails = []; // články hadova ocasu
-    togglePause(); // na počátku je hra pozastavena
+    paused = true;
 };
 
-// nakreslení herního pole
+/**
+ *  Funkce se zavolá hned po funkci 'setup' a slouží ke kontinuálnímu
+ *  provádění řádků kódu, které jsou v ní obsažené.
+ * (součástí knihovny p5)
+ */
 function draw() {
+    // metoda millis vrátí počet milisekund  od spuštění sketche (zavolání setup)
+    currentTime = millis();
+    // pokud je 
+    readyToPlay = (currentTime - lastTime) > debounceMs;
+
     setBackground();
-    if (!paused) { //TODO: možnost změnit barvu pozadí pro pozastavenou obrazovku
-        
+    if (!paused) {
+
         // skryj skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'none';
-        
+
         // posouvání článků, dokud první článek (i=0) není hadova hlava
         for (var i = snake.tails.length - 1; i >= 0; i--) {
             if (i === 0) {
@@ -174,7 +202,7 @@ function draw() {
     } // jinak...
     else {
         //background('rgba(0,0,0,0.1)');
-        
+
         // zobraz skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'inline';
         // vypiš text pozastavené obrazovky
@@ -239,7 +267,7 @@ function draw() {
     if (snake.collision(food) === false || snake.tail_collision() === true) {
         gameOver();
         // spusť zvuk konce hry.
-        gameOverSound.play();
+        //gameOverSound.play();
     };
 
     // pokud je aktivní defaultní pozadí, tak...
@@ -253,9 +281,6 @@ function draw() {
     };
 
     drawScore();
-    //noFill();
-    //stroke(43, 51, 25);
-    //rect(1, 1, width - 2, height - 2);
 };
 
 /**
@@ -289,10 +314,12 @@ function keyPressed() {
  * spuštění.
  */
 function togglePause() {
-    // pokud hra není pozastaven, tak...
-    if (!paused) {
-        // pozastav hru.
+    // pokud hra není pozastavena a není aktivní debounce, tak...
+    if (!paused && readyToPlay) {
+        // pozastav hru a...
         paused = true;
+        // ulož poslední čas do aktuálního času.
+        lastTime = currentTime;
     } // jinak, pokud je pozastavena, tak...
     else {
         // spusť hru.
@@ -303,8 +330,10 @@ function togglePause() {
 // nastavení tlačítka pro pozastavení hry.
 document.addEventListener('keydown', function (e) {
     var key = e.key;
-    if (key === ' ') {
+    // pokud je stisknut mezerník nebo Esc
+    if (key === ' ' || key === 'Escape') {
         e.preventDefault();
+        // spusť funkci.
         togglePause();
     };
 });
@@ -319,8 +348,8 @@ function drawPaused() {
  * a nejvyššího skóre v herním poli/na plátně.
  */
 function drawScore() {
-    text('Score: ' + int(snake.score), 10, height - 25);
-    text('Highscore: ' + localStorage.getItem('highScore'), 10, height - 10);
+    text(`Score: ${snake.score}`, 10, height - 25); // aktuální skóre
+    text(`Highscore: ${localStorage.getItem('highScore')}`, 10, height - 10); // nejvyšší skóre
 };
 
 /**
@@ -375,44 +404,3 @@ function gameOver() {
     // respawni jídlo.
     food.eat();
 };
-
-/**
- * Get a value from web storage regardless of whether it's sync or async
- */
-function getStorageItem(storage, key, callback) {
-
-    if (typeof callback !== 'function') throw new Error('Invalid callback handler');
-
-    var result = storage.getItem(key);
-
-    if (result instanceof window.Promise) {
-        result.then(callback);
-    }
-    else {
-        callback(result);
-    }
-};
-
-/**
- * Set a value in web storage regardless of whether it's sync or async
- */
-function setStorageItem(storage, key, value, callback) {
-
-    var result = storage.setItem(key, value);
-
-    if (result instanceof window.Promise && callback) {
-        result.then(callback);
-    }
-    else if (callback) {
-        callback();
-    }
-};
-
-$('#loader')
-    .hide() //hide it initially
-    .ajaxStart(function () {
-        $(this).show();
-    })
-    .ajaxStop(function () {
-        $(this).hide();
-    });
