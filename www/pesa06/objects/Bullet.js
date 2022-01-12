@@ -4,7 +4,7 @@ export default class Bullet extends Phaser.GameObjects.Image {
         this.x = 0;
         this.y = 0;
         this.lifespan = 0;
-        this.speed = Phaser.Math.GetSpeed(1200, 1);
+        this.speed = Phaser.Math.GetSpeed(1500, 1);
         this.damage = 0;
     }
 

@@ -136,8 +136,7 @@ export class GameScene extends Phaser.Scene {
                     break;
             }
             if (this.gold < newTurret.price) {
-                newTurret.setActive(false);
-                newTurret.setVisible(false);
+                newTurret.destroy();
                 console.log('not enough gold');
                 return;
             }
@@ -226,7 +225,11 @@ export class GameScene extends Phaser.Scene {
                     let formData = new FormData();
                     formData.append('name', window.localStorage.getItem('name') === null ? '' : window.localStorage.getItem('name'));
                     formData.append('score', this.score);
-                    formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+                    formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1).toString(10).padStart(2, '0') + '-'
+                        + date.getDate().toString(10).padStart(2, '0') + ' '
+                        + date.getHours().toString(10).padStart(2, '0') + ':'
+                        + date.getMinutes().toString(10).padStart(2, '0') + ':'
+                        + date.getSeconds().toString(10).padStart(2, '0'));
                     xhr.open("POST", 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
                     xhr.send(formData);
                     alert("Game over! Your final score was " + this.score);

@@ -32,12 +32,12 @@ export class LeaderboardScene extends Phaser.Scene {
                     let element = that.add.dom(position < 6 ? 50 : 550, 0).createFromCache('item');
                     element.setPerspective(800);
                     element.getChildByID('positionLabel').innerHTML = position;
-                    element.getChildByID('nameLabel').innerHTML = item.name;
+                    element.getChildByID('nameLabel').innerHTML = item.name === '' ? 'no nickname' : item.name;
                     element.getChildByID('scoreLabel').innerHTML = item.score;
                     element.getChildByID('dateLabel').innerHTML = item.date;
                     that.tweens.add({
                         targets: element,
-                        y: 100 + (position % 6) * 80,
+                        y: 100 + ((position - 1) % 5) * 80,
                         duration: 2000,
                         ease: 'Power3'
                     });
