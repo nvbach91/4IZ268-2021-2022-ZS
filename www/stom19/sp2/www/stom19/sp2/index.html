@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Weather Forecast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <meta name="keywords" content="Weather forecast, brno weather, prague weather, plzen weather">
+    <meta name="author" content="Matvii Stonaiev">
+    <meta name="description" content="This webpage has weather forecast for 3 different cities: Prague, Brno and Plzen . You can easily get forecast for today and 4 days to plan all your events during this days. To start weather forecast, please, choose one of the cities on the right-top angle">
+    <meta name="version" content="Version 1.0">
+
+
+
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/manifest.json">
+
+
+</head>
+
+<body>
+    <header>
+        <div>
+            <h2>Weather Forecast by Mr. Stoyn</h2>
+        </div>
+        <div class="cities">
+            <button id="prague">Prague</button>
+            <button id="brno">Brno</button>
+            <button id="plzen">Plzen</button>
+
+        </div>
+    </header>
+    <main>
+        <div class="date">
+            <button class="dateButton" id="date_today"></button>
+
+            <button class="dateButton" id="date_tomorrow"></button>
+
+
+            <button class="dateButton" id="date_plus_2"></button>
+
+
+            <button class="dateButton" id="date_plus_3"></button>
+
+
+            <button class="dateButton" id="date_plus_4"></button>
+
+        </div>
+        <div class="bigSquare">
+            <div class="cityInf">
+                <div id="current_weather">
+                    <div id="current">
+                        <p>Current Weather</p>
+                        <p id="current_degrees"></p>
+                    </div>
+                    <div id="feels_like">
+                        <p>Feels Like</p>
+                        <p id="feels_like_degrees"></p>
+                    </div>
+                </div>
+                <div id="city_inf">
+                    <p></p>
+                    <p id="latitude"> </p>
+                    <p id="longtitude"></p>
+                    <p id="timezone"></p>
+                </div>
+            </div>
+            <div class="bigData" id="big_data">
+                <h1 class="title"></h1>
+                <div class="dataWeather">
+                    <p id="map_center">
+                        <div id="map"></div>
+                        <div id="image"></div>
+                        <div class="weatherInf">
+                            <p id="weather_inf"></p>
+                            <p id="sunrise"></p>
+                            <p id="sunset"></p>
+                            <p id="moon_phase"></p>
+                        </div>
+                        <div class="temperature">
+                            <p id="morn_temp"></p>
+                            <p id="day_temp"></p>
+                            <p id="eve_temp"></p>
+                            <p id="night_temp"></p>
+                            <p id="pressure"></p>
+                            <p id="wind_speed"></p>
+                        </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="about">
+
+            <p>This webpage has weather forecast for 3 different cities: <strong>Prague, Brno and Plzen</strong> . You can easily get forecast <strong>for today and 4 days </strong>to plan all your events during this days. To start weather forecast, please,
+                choose one of the cities on the right-top angle
+            </p>
+        </div>
+        <div class="weatherTable">
+            <div>
+                <h5>Today</h5>
+                <p id="table_today_weather_max"></p>
+                <p id="table_today_weather_min"></p>
+                <p id="table_today_humidity"></p>
+                <p id="table_today_description"></p>
+            </div>
+            <div>
+                <h5>Tomorrow</h5>
+                <p id="table_tomorrow_weather_max"></p>
+                <p id="table_tomorrow_weather_min"></p>
+                <p id="table_tomorrow_humidity"></p>
+                <p id="table_tomorrow_description"></p>
+            </div>
+            <div>
+                <h5 id="date_2_table"></h5>
+                <p id="table_date2_weather_max"></p>
+                <p id="table_date2_weather_min"></p>
+                <p id="table_date2_humidity"></p>
+                <p id="table_date2_description"></p>
+            </div>
+
+            <div>
+                <h5 id="date_3_table"></h5>
+                <p id="table_date3_weather_max"></p>
+                <p id="table_date3_weather_min"></p>
+                <p id="table_date3_humidity"></p>
+                <p id="table_date3_description"></p>
+            </div>
+            <div>
+                <h5 id="date_4_table"></h5>
+                <p id="table_date4_weather_max"></p>
+                <p id="table_date4_weather_min"></p>
+                <p id="table_date4_humidity"></p>
+                <p id="table_date4_description"></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h4>Made by Matvii Stonaiev. All Rights reserved</h4>
+    </footer>
+
+
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7A130UVohx0bZ1MDCoHjxxXNR4M0P0nc&callback=initMap&libraries=&v=weekly" async></script>
+</body>
+
+</html>
