@@ -10,16 +10,15 @@ export class LeaderboardScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL('../assets/');
     }
 
     create() {
-        this.add.image(400, 300, 'sky');
+        this.add.image(500, 300, 'sky');
 
         let xhttp = new XMLHttpRequest();
         let that = this;
 
-        let menu = this.add.text(350, 500, 'Back to menu', { fontSize: '26px', fill: '#fff'});
+        let menu = this.add.text(425, 500, 'Back to menu', { fontSize: '26px', fill: '#fff'});
         menu.setInteractive();
         menu.on("pointerup", () => {
             this.scene.start(SceneEnum.MAIN_MENU);

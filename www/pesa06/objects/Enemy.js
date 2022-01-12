@@ -2,11 +2,12 @@ import HealthBar from "./HealthBar.js";
 
 export default class Enemy extends Phaser.GameObjects.Image {
     constructor(scene) {
-        super(scene, 0, 0, 'sprites', 'enemy');
+        super(scene, 0, 0, 'pepe');
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
         this.hp = 0;
         this.path = null;
         this.hb = new HealthBar(scene, this.follower.vec.x - 35, this.follower.vec.y + 20);
+        this.setScale(0.17);
     }
 
     startOnPath(path) {

@@ -2,8 +2,9 @@ import HealthBar from "./HealthBar.js";
 
 export default class Castle extends Phaser.GameObjects.Image {
     constructor(scene) {
-        super(scene, 675, 525, 'sprites', 'turret');
+        super(scene, 675, 525, 'castle');
         this.life = 100;
+        this.setScale(0.22);
 
         this.hb = new HealthBar(scene, 635, 560);
         scene.add.existing(this.hb);

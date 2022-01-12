@@ -26,10 +26,12 @@ export class GameScene extends Phaser.Scene {
     preload() {
         // load the game assets – enemy and turret atlas
         this.load.setBaseURL('../assets/');
-        this.load.atlas('sprites', 'spritesheet.png', 'spritesheet.json');
         this.load.image('bullet', 'bullet.png');
-        this.load.image('turret2', 'play2.jpg');
-        this.load.image('turret3', 'turret3.png');
+        this.load.image('longTurret', 'tower2_transparent.png');
+        this.load.image('normalTurret', 'tower3_transparent.png');
+        this.load.image('fastTurret', 'tower1_transparent.png');
+        this.load.image('castle', 'castle.png');
+        this.load.image('pepe', 'pepe.png');
     }
 
     create() {
@@ -227,6 +229,7 @@ export class GameScene extends Phaser.Scene {
                     formData.append('date', date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
                     xhr.open("POST", 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
                     xhr.send(formData);
+                    alert("Game over! Your final score was " + this.score);
                     sound.stop();
                     this.scene.start(SceneEnum.MAIN_MENU);
                 }
@@ -252,28 +255,30 @@ export class GameScene extends Phaser.Scene {
     }
 
     loadSideMenu() {
-        let turret1 = this.add.image(820, 100, 'sprites', 'turret');
-        turret1.setInteractive();
-        turret1.on("pointerup", () => {
+        let normalTurret = this.add.image(820, 100, 'normalTurret');
+        normalTurret.setInteractive();
+        normalTurret.setScale(0.15);
+        normalTurret.on("pointerup", () => {
             this.selectedTurret = TurretEnum.NORMAL;
         });
         this.add.text(860, 50, 'Damage: 50', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 75, 'Speed: 700ms', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 100, 'Range: 200', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 125, 'Price: 100', { fontSize: '18px', fill: '#fff'});
-        let turret2 = this.add.image(820, 200, 'bullet');
-        turret2.setInteractive();
-        turret2.on("pointerup", () => {
+        let longRangeTurret = this.add.image(820, 200, 'longTurret');
+        longRangeTurret.setScale(0.15);
+        longRangeTurret.setInteractive();
+        longRangeTurret.on("pointerup", () => {
             this.selectedTurret = TurretEnum.SLOW;
         });
         this.add.text(860, 175, 'Damage: 50', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 200, 'Speed: 1200ms', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 225, 'Range: 300', { fontSize: '18px', fill: '#fff'});
         this.add.text(860, 250, 'Price: 120', { fontSize: '18px', fill: '#fff'});
-        let turret3 = this.add.image(820, 325, 'turret3');
-        turret3.setScale(0.05);
-        turret3.setInteractive();
-        turret3.on("pointerup", () => {
+        let fastTurret = this.add.image(820, 325, 'fastTurret');
+        fastTurret.setScale(0.15);
+        fastTurret.setInteractive();
+        fastTurret.on("pointerup", () => {
             this.selectedTurret = TurretEnum.FAST;
         });
         this.add.text(860, 300, 'Damage: 20', { fontSize: '18px', fill: '#fff'});
