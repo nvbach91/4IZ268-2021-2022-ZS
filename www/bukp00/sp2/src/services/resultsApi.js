@@ -21,7 +21,7 @@ export const getClubResults = ({ queryKey }) => {
 */
 export const getResults = ({ queryKey }) => {
 
-    const [_key, { comp, type, value }] = queryKey;
+    const [, { comp, type, value }] = queryKey;
 
     if (!comp || !value) {
         throw new Error('No competition or class selected')
@@ -52,7 +52,7 @@ export const getResults = ({ queryKey }) => {
 
 export const getClasses = ({ queryKey }) => {
 
-    const [_key, { comp }] = queryKey
+    const [, { comp }] = queryKey
 
     if (!comp) {
         return null
@@ -70,7 +70,7 @@ export const getClasses = ({ queryKey }) => {
 
 export const getLastPassings = ({ queryKey }) => {
 
-    const [_key, { comp }] = queryKey
+    const [, { comp }] = queryKey
 
     if (!comp) {
         return null
@@ -88,12 +88,30 @@ export const getLastPassings = ({ queryKey }) => {
 
 export const getCompetitionInfo = ({ queryKey }) => {
 
-    const [_key, { comp }] = queryKey
+    const [, { comp }] = queryKey
 
     if (!comp) {
         return null
     }
 
     return axios.get(`${resultsApiUrl}?method=getcompetitioninfo&comp=${comp}`)
+        .then((res) => res.data)
+}
+
+export const getClubResults = ({ queryKey }) => {
+
+    const [, { comp, clubName }] = queryKey;
+
+    return axios.get(`${resultsApiUrl}?method=getclubresults&comp=${comp}&club=${clubName}`)
+        .then((res) => res.data)
+}
+
+export const getCompetitions = ({ queryKey }) => {
+
+    const cacheData = queryClient.getQueryData(queryKey)
+
+    if (cacheData) return cacheData
+
+    return axios.get(`${resultsApiUrl}?method=getcompetitions`)
         .then((res) => res.data)
 }

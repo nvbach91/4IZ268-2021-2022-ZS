@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { Table, Skeleton, Empty } from 'antd'
+import { useLocation } from 'react-router-dom'
 
 import { getResults } from '../services/resultsApi'
 import { useDataStore, usePersonalSettings } from '../hooks/useStore'
 
-const compId = '20432';
-
 const ResultsTable = (props) => {
 
     const { selectedResults, setSelectedResults } = props
+
+    const location = useLocation()
+
+    const compId = location.pathname.slice(location.pathname.lastIndexOf('/') + 1)
 
     const highlightClub = usePersonalSettings((state) => state.highlightClub)
     const clubList = useDataStore((store) => store.clubList)

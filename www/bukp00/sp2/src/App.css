@@ -19,6 +19,14 @@
   align-items: center;
 }
 
+.select-list {
+  padding: 30px;
+}
+
+.select-list-loading {
+  min-height: calc(100vh - 64px - 82px);
+}
+
 .container {
   display: grid;
   grid-template-rows: auto 72px 1fr;

@@ -1,5 +1,10 @@
 import create from 'zustand'
 
+export const useRace = create((set) => ({
+  currentRace: null,
+  setCurrentRace: (newRace) => set({currentRace: newRace})
+}))
+
 export const useStore = create((set) => ({
   title: 'Orienteering Live Results',
   setTitle: (newTitle) => set({title: newTitle}),

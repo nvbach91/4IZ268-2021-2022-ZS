@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { Empty } from 'antd'
 
+import { useLocation } from 'react-router-dom'
+
 import ResultsTable from './ResultTable'
 import LastPassings from './LastPassings'
 import ClassPicker from './ClassPicker'
@@ -9,9 +11,6 @@ import ClassPicker from './ClassPicker'
 import { useStore, useDataStore, usePersonalSettings } from '../hooks/useStore'
 
 import { getClasses, getCompetitionInfo, getLastPassings } from '../services/resultsApi'
-
-
-const compId = '20432';
 
 const useSetInfiniteDataStore = (compId) => {
 
@@ -38,6 +37,10 @@ const useSetInfiniteDataStore = (compId) => {
 }
 
 const Competition = () => {
+
+    const location = useLocation()
+
+    const compId = location.pathname.slice(location.pathname.lastIndexOf('/') + 1)
 
     const setTitle = useStore((state) => state.setTitle)
     const setSubtitle = useStore((state) => state.setSubtitle)

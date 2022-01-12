@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Menu, Dropdown, InputNumber, Tooltip, Switch } from 'antd'
+import { Menu, Dropdown, InputNumber, Tooltip, Switch, Button } from 'antd'
 import { SettingOutlined, InfoCircleOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 import HighlightInput from './HighlightInput'
 
@@ -10,12 +11,18 @@ const Settings = () => {
 
     const [visible, setVisible] = useState(false);
 
+    const navigate = useNavigate()
+
     const handleMenuClick = (e) => {
         // console.log(e)
     }
 
     const handleVisibleChange = (flag) => {
         setVisible(flag)
+    }
+
+    const onRaceSelect = () => {
+        navigate('~bukp00/sp2/')
     }
 
     const menu = (
@@ -35,6 +42,11 @@ const Settings = () => {
             <Menu.Item key={2}>
                 <div>
                     <RefetchIntervalInput />
+                </div>
+            </Menu.Item>
+            <Menu.Item key={3}>
+                <div>
+                    <Button onClick={onRaceSelect}>Vybrat závod</Button>
                 </div>
             </Menu.Item>
         </Menu>
@@ -64,7 +76,7 @@ const RefetchIntervalInput = () => {
     const setAutoRefetch = usePersonalSettings((state) => state.setAutoRefetch)
 
     const onChange = (val) => {
-        if (val > 15 && val < 1000) {
+        if (val >= 15 && val < 1000) {
             setRefetchInterval(val * 1000)
         }
     }
@@ -76,16 +88,16 @@ const RefetchIntervalInput = () => {
     return (
         <>
             <span>Automatické aktualizace:</span>
-            <br/>
+            <br />
             <Switch checked={autoRefetch} onChange={onDisableChange} />
             {autoRefetch ?
-            <>
-                <br />
-                <span>Aktualizace po: (s)</span>
-                <br />
-                <InputNumber value={refetchInterval / 1000} onChange={onChange} min={15} max={1000} />
-            </>
-            : null}
+                <>
+                    <br />
+                    <span>Aktualizace po: (s)</span>
+                    <br />
+                    <InputNumber value={refetchInterval / 1000} onChange={onChange} min={15} max={1000} />
+                </>
+                : null}
         </>
     )
 }

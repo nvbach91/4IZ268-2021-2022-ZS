@@ -2,12 +2,14 @@ import React from 'react'
 import { Space, Typography } from 'antd'
 import { FacebookOutlined, ChromeOutlined } from '@ant-design/icons'
 
+import logo from '../assets/logo.svg'
+
 const { Text } = Typography
 
 const Footer = () => {
     return (
         <div className={'footer-container'}>
-            <img width={164} height={50} href='./public/logo_full' alt='Logo SKOB'/>
+            <img width={164} height={50} src={logo} alt='Logo SKOB'/>
             <Space direction='vertical' style={{ justifyContent: 'flex-end' }}>
                 <Space>
                     <Text italic>Follow: </Text>
