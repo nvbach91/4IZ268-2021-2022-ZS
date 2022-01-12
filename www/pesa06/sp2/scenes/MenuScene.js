@@ -10,7 +10,8 @@ export class MenuScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.setBaseURL('../assets/');
+        document.getElementById('gameDiv').style.cursor = 'progress';
+        this.load.setBaseURL('./assets/');
         this.load.audio('music', 'music.mp3');
         this.load.html('item', 'leaderboardItem.html');
 
@@ -18,6 +19,11 @@ export class MenuScene extends Phaser.Scene {
         this.load.image('logo', 'phaser3-logo.png');
         this.load.image('red', 'red.png');
         this.load.html('nameform', 'nameForm.html');
+        this.load.on('complete', this.loadingDone);
+    }
+
+    loadingDone() {
+        document.getElementById('gameDiv').style.cursor = 'default';
     }
 
     create() {

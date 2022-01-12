@@ -25,7 +25,7 @@ export class GameScene extends Phaser.Scene {
 
     preload() {
         // load the game assets – enemy and turret atlas
-        this.load.setBaseURL('../assets/');
+        this.load.setBaseURL('./assets/');
         this.load.image('bullet', 'bullet.png');
         this.load.image('longTurret', 'tower2_transparent.png');
         this.load.image('normalTurret', 'tower3_transparent.png');
