@@ -4,10 +4,15 @@
 class Storage {
 
     localData;
+    storageProgress;
 
     constructor() {
-        Storage.storageItem = "getPlaces";
+        Storage.storageItem = 'getPlaces';
+        Storage.size = 5222880;
+        Storage.critUsage = 80;
+        this.storageProgress = $('.js-storage-usage');
         this.loadLocalStorage();
+        this.updateStorageUsage();
     }
 
     loadLocalStorage() {
@@ -20,6 +25,23 @@ class Storage {
 
     saveLocalStorage() {
         localStorage.setItem(Storage.storageItem, JSON.stringify(this.localData));
+        this.updateStorageUsage();
+    }
+
+    getCurrentDataSize() {
+        const data = JSON.stringify(this.localData);
+        const blob = new Blob([data]);
+        return blob.size;
+    }
+
+    getStorageUsage() {
+        return Math.ceil((this.getCurrentDataSize() / Storage.size) * 100);
+    }
+
+    updateStorageUsage() {
+        const percent = this.getStorageUsage();
+        this.storageProgress.attr('aria-valuenow', percent);
+        this.storageProgress.css('width', percent);
     }
 
     addPlace(place) {
@@ -64,6 +86,72 @@ class Storage {
 
     getIndexOfPlace(place) {
         return this.localData.indexOf(place);
+    }
+
+    readFile(file) {
+        const _this = this;
+        return new Promise(function (resolve, reject) {
+            const reader = new FileReader();
+            reader.onload = (function (file) {
+                return function (event) {
+                    const rawData = event.target.result;
+                    try {
+                        const data = JSON.parse(rawData);
+                        if (_this.validFileData(data)) {
+                            resolve(data);
+                        } else {
+                            reject();
+                        }
+                    } catch (e) {
+                        reject();
+                    }
+                };
+            })(file);
+            reader.onerror = reject;
+            reader.readAsText(file, 'utf-8');
+        });
+
+    }
+
+    validFileData(data) {
+
+        if (Array.isArray(data)) {
+            if (data.length === 0) {
+                return true;
+            }
+
+            const item = data[0];
+
+            const props = ['id', 'name', 'description', 'lat', 'lng', 'interestPoints'];
+            const types = ['number', 'string', 'string', 'number', 'number', 'object'];
+
+            props.forEach(function (prop, index) {
+                if (item.hasOwnProperty(prop) && item.prop === types[index]) {
+                    if (types[index] === 'object') {
+                        if (Array.isArray(item.prop)) {
+                            if (item.prop.length > 0) {
+                                const interItem = item.prop[0];
+                                const interProps = ['name', 'link'];
+                                interProps.forEach(function (interProp) {
+                                    if (interItem.interProp !== 'string') {
+                                        return false;
+                                    }
+                                });
+                            }
+                        } else {
+                            return false;
+                        }
+                    }
+                } else {
+                    return false;
+                }
+            });
+
+            return true;
+
+        }
+
+        return false;
     }
 
 }
@@ -121,7 +209,7 @@ class FileGenerator {
     }
 
     createFileLink(content) {
-        const blob = new Blob([content], {type: "text/plain"});
+        const blob = new Blob([content], {type: 'text/plain'});
 
         const url = window.URL.createObjectURL(blob);
         this.links.push(url);
@@ -145,7 +233,7 @@ class MapHolder {
     map;
 
     constructor() {
-        this.map = new google.maps.Map(document.getElementById("map"), {
+        this.map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 49.9, lng: 15.5 },
             zoom: 8
         });
@@ -185,35 +273,42 @@ class MapHolder {
 
 class PlacesApi {
 
-    constructor(key) {
+    map;
+
+    constructor(map, key) {
+        this.map = map;
         PlacesApi.key = key;
     }
 
     callServer(lat, lng, callback) {
-        $.ajax({
-            url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' + lat + '%2C' + lng + '&radius=5000&type=tourist_attraction&key=' + PlacesApi.key,
-            success: function (response) {
-                try {
-                    const data = JSON.parse(response);
-                    const places = [];
-                    let itemCount = 3;
-                    if (data.results.length <= 3) {
-                        itemCount = data.results.length;
-                    }
-                    for (let i = 0; i < itemCount; i++) {
-                        let place = data.results[i];
-                        places.push({name: place.name, link: 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id=' + place.place_id});
-                    }
-                    callback(places);
-                } catch (e) {
-                    callback([]);
-                }
 
-            },
-            error: function () {
+
+        const service = new google.maps.places.PlacesService(this.map);
+        const latlng = new google.maps.LatLng(lat, lng);
+
+        const request = {
+          location: latlng,
+          radius: 5000,
+          type: ['tourist_attraction']
+        };
+
+        service.nearbySearch(request, function (data, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                const places = [];
+                let itemCount = 5;
+                if (data.length <= 5) {
+                    itemCount = data.length;
+                }
+                for (let i = 0; i < itemCount; i++) {
+                    let place = data[i];
+                    places.push({name: place.name, link: 'https://www.google.com/maps/search/?api=1&query=Google&query_place_id=' + place.place_id});
+                }
+                callback(places);
+            } else {
                 callback([]);
             }
         });
     }
-
 }
+
+
