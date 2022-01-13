@@ -29,14 +29,19 @@
     margin: 0 auto;
     border-radius: 5px;
 }
-.nav{
+nav{
     display: flex;
+    background-color: rgba(98, 154, 213, 0.317);
+    padding: 20px;
+    border-radius: 10px;
+    align-items: center;
 }
-.search-img, .position-img{
-    float:right;
-    padding: 5px;
+h1{  
+ display: inline;
+ justify-self: flex-start;
+ flex-grow: 5;
 }
-.search-img:hover, .position-img:hover, .search-img-submit:hover{
+.search-img:hover, .position-img:hover, .search-img-submit:hover, .airport:hover{
     cursor:pointer;
     background-color: rgba(0, 0, 0, 0.132);
     border-radius: 5px;
@@ -44,16 +49,62 @@
 }
 .content{
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .icao-input{
-    padding: 20px 100px;
-    margin-top: 50vh;
-    margin-left: 50vh;
+    padding: 15px 60px;
     border-radius: 5px;
 }
 .search-img-submit{
-    margin-top: 50vh;
-    margin-left: 20px;
+    background: url("../img/search.png") no-repeat;
+    background-size: 40px;
+    order: 2;
+}
+.position-img{
+    background: url("../img/position.png") no-repeat;
+    background-size: 33px;
+    order: 3;
+}
+.position-img, .search-img-submit{
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    border: none;
+    float:right;
+    margin-left: 5px;
+}
+.airport-box{
+    display: flex;
+    width: 80px;
+}
+.airport-delete{
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    border: none;
+    background: url("../img/delete.png") no-repeat;
+    background-size: 20px;
+    border-radius: 50%;
+    padding: 5px;
     align-self: center;
-
+}
+.airport-delete:hover{
+    cursor:pointer;
+    background-color: rgba(255, 0, 0, 0.372);
+    border-radius: 50%;
+    transition: .3s;
+}
+.airport{
+    padding:5px;
+    order:1;
+}
+.metar-help{
+margin-top: 25px;
+object-fit: cover;
+width:700px;
+height:215px;
+}
+.show-storage{
+    padding:10px;
 }
