@@ -1,10 +1,12 @@
 import React from 'react';
-import type { DocumentContext } from 'next/document';
 import Document, {
 	Html, Main, Head, NextScript,
 } from 'next/document';
 import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
+
 import { theme } from '../src/theme';
+
+import type { DocumentContext } from 'next/document';
 
 export default class MyDocument extends Document {
 
@@ -39,7 +41,7 @@ export default class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 					/>
 				</Head>
-				<body>
+				<body style={{ margin: 0 }}>
 					<Main/>
 					<NextScript />
 				</body>

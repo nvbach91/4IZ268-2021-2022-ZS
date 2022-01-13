@@ -9,18 +9,24 @@ import {
 	Paper,
 	TextField,
 } from '@mui/material';
-import Image from 'next/image';
 import { makeStyles } from '@mui/styles';
 import { VpnKey } from '@mui/icons-material';
 import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+
 import { useAppContext } from '../src/connectionManager';
+import { apikeysActions, apiKeysSelector } from '../src/store/apiKeysSlice';
+import { useAppDispatch, useAppSelector } from '../src/store/store';
+import { posActions } from '../src/store/posSlice';
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
+		//@ts-expect-error
 		marginTop: theme.spacing(8),
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
+		//@ts-expect-error
 		padding: `${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(3)}`,
 		maxWidth: 600,
 		marginLeft: 'auto',
@@ -29,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		width: '100%', // Fix IE 11 issue.
+		//@ts-expect-error
 		marginTop: theme.spacing(1),
 	},
 	badge: {
@@ -46,22 +53,23 @@ enum STATE {
 
 const IndexPage = () => {
 	const classes = useStyles();
+	const router = useRouter();
 	const c = useAppContext();
-	const apiKeys = JSON.parse(localStorage.getItem('apiKeys') || '[]') as ({ apiKey: string; restaurant: string })[];
+	const apiKeys = useAppSelector(apiKeysSelector.selectAll);
+	const appDispatch = useAppDispatch();
 	const [ state, setState ] = useState<STATE>(STATE.APIKEYS);
-	const applyApiKey = useCallback(async (apiKey: string, isNew = false) => {
+	const applyApiKey = useCallback(async (apiKey: string) => {
 		setState(STATE.LOADING);
 		const result = await c.connect([ apiKey ]);
-		console.log('result = ', result);
-		if (result === false) {
+		if (result.isErr()) {
 			setState(STATE.APIKEYS);
 			return;
 		}
-		if (isNew) {
-			localStorage.setItem('apiKeys', JSON.stringify([ ...apiKeys, { apiKey, name: 'Restaurant name' } ]));
-		}
-		setState(STATE.SUCCESS);
-	}, [ apiKeys, c ]);
+
+		appDispatch(apikeysActions.addApikey(result.value));
+		appDispatch(posActions.addNewPos(result.value.id));
+		router.push('/pos');
+	}, [ appDispatch, c, router ]);
 	return (
 		<Fade
 			in={true}
@@ -83,7 +91,7 @@ const IndexPage = () => {
 				<Box style={{ visibility: state === STATE.APIKEYS ? 'visible' : 'hidden' }}>
 					<Box position={'relative'}>
 						<Badge badgeContent={'POS'} color="secondary" classes={{ badge: classes.badge }}>
-							<Image src={'/assets/qerko-logo.svg'} width={300} height={150} alt={'Qerko Logo'} />
+							<img src={'https://sandbox.qerko.com/restaurant-admin/qerko-logo.svg'} width={300} height={150} alt={'Qerko Logo'} />
 						</Badge>
 					</Box>
 					<List style={{ width: '100%', maxHeight: '200px', overflow: 'auto' }} dense={false}>
@@ -93,7 +101,7 @@ const IndexPage = () => {
 									<VpnKey />
 								</ListItemIcon>
 								<ListItemText
-									primary={apiKey.restaurant}
+									primary={apiKey.name}
 									secondary={apiKey.apiKey}
 								/>
 							</ListItemButton>

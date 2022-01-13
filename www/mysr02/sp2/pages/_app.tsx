@@ -1,15 +1,18 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { theme } from '../src/theme';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material';
-import { PosLayout } from '../layouts/PosLayout';
-import type { AppProps } from 'next/app';
-import DateFnsUtils from '@date-io/date-fns';
-import en from 'date-fns/locale/en-GB';
-import { LocalizationProvider } from '@mui/lab';
-import { ConnectionManager } from '../src/connectionManager';
+import { Provider } from 'react-redux';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
+import { ConnectionManager } from '../src/connectionManager';
+import { PosLayout } from '../layouts/PosLayout';
+import { theme } from '../src/theme';
+import store from '../src/store/store';
+
+import type { AppProps } from 'next/app';
+
+const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
 	const router = useRouter();
 	return (<>
@@ -17,13 +20,13 @@ export default function App({ Component, pageProps }: AppProps) {
 			<title>Point of sale</title>
 			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 			<link rel="manifest" href={`${router.basePath}/manifest.json`} />
-			<link rel="icon" href={`${router.basePath}/favicon.ico`} />
-			<link rel="apple-touch-icon" href={`${router.basePath}/logo192.png`} />
+			<link rel="icon" href={'https://sandbox.qerko.com/restaurant-admin/favicon.ico'} />
+			<link rel="apple-touch-icon" href={'https://sandbox.qerko.com/restaurant-admin/logo192.png'} />
 		</Head>
-		{typeof localStorage !== 'undefined' && <>
+		{typeof localStorage !== 'undefined' && <Provider store={store}>
 			<StyledEngineProvider injectFirst>
-				<ThemeProvider theme={theme}>
-					<LocalizationProvider dateAdapter={DateFnsUtils} locale={en}>
+				<QueryClientProvider client={queryClient}>
+					<ThemeProvider theme={theme}>
 						<ConnectionManager>
 							{
 								router.pathname === '/' ? (
@@ -37,10 +40,10 @@ export default function App({ Component, pageProps }: AppProps) {
 								)
 							}
 						</ConnectionManager>
-					</LocalizationProvider>
-				</ThemeProvider>
+					</ThemeProvider>
+				</QueryClientProvider>
 			</StyledEngineProvider>
-		</>}
+		</Provider>}
 	</>
 	);
 }

@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import { grey, red } from '@mui/material/colors';
 
 export const theme = createTheme({
 	breakpoints: {
@@ -13,47 +12,48 @@ export const theme = createTheme({
 	},
 	palette: {
 		primary: {
-			main: '#00B588',
+			main: '#00a687b8',
 		},
 		secondary: {
-			main: '#556cd6',
+			main: '#ffffff5c',
 		},
-		error: {
-			main: red.A400,
-		},
-		background: {
-			default: '#fff',
-		},
-		warning: {
-			main: '#ffc107',
-		},
-		info: {
-			main: grey['600'],
-		},
-		success: {
-			main: '#00B588',
-		},
+	// 	error: {
+	// 		main: red.A400,
+	// 	},
+	// 	background: {
+	// 		default: '#fff',
+	// 	},
+	// 	warning: {
+	// 		main: '#ffc107',
+	// 	},
+	// 	info: {
+	// 		main: grey['600'],
+	// 	},
+	// 	success: {
+	// 		main: '#00B588',
+	// 	},
 	},
 	typography: {
 		h2: {
 			fontSize: '2.75rem',
 		},
 		fontSize: 13,
-		// body2: {
-		// 	fontSize: 13,
-		// },
-		// body1: {
-		// 	fontSize: 13,
-		// },
-		// caption: {
-		// 	fontSize: 13,
-		// },
-		// button: {
-		// 	fontSize: 13,
-		// },
 	},
 	components: {
 		MuiButton: {
+			styleOverrides: {
+				root: {
+					boxShadow: 'none',
+				},
+				contained: {
+					borderRadius: '30px',
+					padding: '10px 20px',
+					fontSize: '1rem',
+					border: 'solid 1px #0000004f',
+				},
+			},
+		},
+		MuiButtonGroup: {
 			styleOverrides: {
 				root: {
 					boxShadow: 'none',

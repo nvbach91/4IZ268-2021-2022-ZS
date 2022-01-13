@@ -1,7 +1,13 @@
+import type { PosConnectionCloseReason } from './posTransportWebsocket';
+import type { ResponseType } from '../posIncomingMethods';
 import type { Result } from 'neverthrow';
+import type { RestaurantApikey } from '../store/apiKeysSlice';
+import type { AuthorizationError } from '../error';
 
 export interface Transport {
-	authorize: (apiKeys: string[]) => Promise<boolean>;
+	authorize: (apiKeys: string[]) => Promise<Result<RestaurantApikey, AuthorizationError>>;
+	setMessageHandler(callback: (message: unknown) => Promise<Result<ResponseType, Error>>): void;
+	close: (reason: PosConnectionCloseReason) => void;
 }
 
 export enum TransportType {
