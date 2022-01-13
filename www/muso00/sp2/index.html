@@ -8,7 +8,7 @@
     <meta name="author" content="Ondrej Musil">
     <meta name="description" content="Play the classic mobile Snake game online. 
         Eat the food but don't hit the walls or your own tail!">
-    <meta name="keywords" content="2D, snake, game, p5, 2dSnake">
+    <meta name="keywords" content="2D, snake, game, p5, 2dSnake, arcade">
     <title>Snake2D</title>
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/main.css">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/snake-favicon.png">
@@ -41,7 +41,9 @@
             </div>
             <div>
                 <h2>Ovládání</h2>
-                <p>Pohyb hada - šipky/WASD. Pause/Unpause - mezerník/Esc (cooldown 1s).</p>
+                <p>Pohyb hada - šipky/WASD. Pause/Unpause - mezerník/Esc (<span
+                        title="Funkce pozastavení hry má tzv. 'debounce' funkcionalitu, která brání hráči stisknout tlačítko častěji než jednou za sekundu.">cooldown
+                        1s</span>).</p>
             </div>
         </div>
         <div id="buttons-box" class="buttons">
@@ -49,7 +51,6 @@
             <p>Změna pozadí je možná pouze pokud je hra pozastavena. Při opakovaném stisknutí tlačítka 'náhodné' se mění
                 pozadí.</p>
             <div id="btns" class="wrapper"></div>
-            <!--FIXME: zarovnat na střed-->
         </div>
     </main>
     <!--footer></footer-->

@@ -1,10 +1,10 @@
-let food; // proměnná jídlo
-let gap = 15; // mezery v grid lines
+let food; // jídlo
 let snake; // hlava hada
+let gap = 15; // mezery v grid lines
 let pLoc = {}; // předchozí pozice (previousLocation)
 
-// vyzvednutí nejvyššího skóre z localstorage do proměnné
-var highScore = localStorage.getItem('highScore');
+var highscore = 0;
+//localStorage.setItem('highscore', 0); - možnost resetování nejvyššího skore po refreshi
 
 // sfx
 let gameOverSound = new Audio(src = 'assets/sfx/game_over.mp3');
@@ -19,7 +19,7 @@ let canvY = 495; // výška
 let paused;
 
 // rychlost hada (velocity)
-let vel = 12; //FIXME: pokusit se změnit způsob určení rychlosti hry
+let vel = 12;
 
 // switche pro nastavení pozadí plátna
 let swDef = true;
@@ -34,122 +34,120 @@ let bg02;
 let bg03;
 let bgRndm;
 
-// proměnné pro 'debounce'
+/**
+ * Proměnné pro 'debounce'. Debounce donutí funkci čekat
+ * zvolený čas předtím, než může být znovu spuštěna. Používá se
+ * k eliminaci bezprostředního opakovaného volání zvolené funkce.
+ */
 let currentTime = 0; // aktuální čas
 let lastTime = 0; // čas posledního stisknutí tlačítka
 let debounceMs = 1000; // cooldown v milisekundách - 1000ms = 1s
 let readyToPlay; // proměnná pro odpočet debounce fce
 
+/**
+ * Funkce přehraje zvuk,
+ * který se používá při výběru 
+ * pozadí.
+ */
 function playSelectionSound() {
     selectSound.play();
 };
 
 /**
- * Vytvoření tlačítek pro změnu 
- * pozadí herního pole.
+ * Založení tlačítek pro změnu pozadí herního pole 
+ * a vytvoření eventu přikliknutí na tlačítko.
+ * 
+ * Tlačítka přepínají spínače, které se používají
+ * pro změnu pozadí ve funkci setBackground().
+ * 
+ * Při kliknutí tlačítka se přehraje zvuk.
  */
-const buttons = document.getElementById('btns');
 
-// založení tlačítka 'default'
-const btnDef = document.createElement('button');
-btnDef.innerText = 'default';
-btnDef.id = 'def';
-buttons.appendChild(btnDef);
+const btnDef = $('<button>default</button>')
+    .attr('id', 'b-def')
+    .appendTo('#btns')
+    .click(function () {
+        playSelectionSound();
+        swDef = true;
+        sw01 = false;
+        sw02 = false;
+        sw03 = false;
+        swRndm = false;
+    });
 
-// založení tlačítka 'pozadí-01'
-const btn01 = document.createElement('button');
-btn01.innerText = 'pozadí 01';
-btn01.id = 'b-01';
-buttons.appendChild(btn01);
+$('<button>pozadí 01</button>')
+    .attr('id', 'b-01')
+    .appendTo('#btns')
+    .click(function () {
+        playSelectionSound();
+        swDef = false;
+        sw01 = true;
+        sw02 = false;
+        sw03 = false;
+        swRndm = false;
+    });
 
-// založení tlačítka 'pozadí-02'
-const btn02 = document.createElement('button');
-btn02.innerText = 'pozadí 02';
-btn02.id = 'b-02';
-buttons.appendChild(btn02);
+$('<button>pozadí 02</button>')
+    .attr('id', 'b-02')
+    .appendTo('#btns')
+    .click(function () {
+        playSelectionSound();
+        swDef = false;
+        sw01 = false;
+        sw02 = true;
+        sw03 = false;
+        swRndm = false;
+    });
 
-// založení tlačítka 'pozadí-03'
-const btn03 = document.createElement('button');
-btn03.innerText = 'pozadí 03';
-btn03.id = 'b-03';
-buttons.appendChild(btn03);
+$('<button>pozadí 03</button>')
+    .attr('id', 'b-03')
+    .appendTo('#btns')
+    .click(function () {
+        playSelectionSound();
+        swDef = false;
+        sw01 = false;
+        sw02 = false;
+        sw03 = true;
+        swRndm = false;
+    });
 
-// založení tlačítka 'náhodné'
-const btnRndm = document.createElement('button');
-btnRndm.innerText = 'náhodné';
-btnRndm.id = 'b-rndm';
-buttons.appendChild(btnRndm);
+$('<button>náhodné</button>')
+    .attr('id', 'b-rndm')
+    .appendTo('#btns')
+    .click(function () {
+        locked = true;
+        playSelectionSound();
+        /**
+         * Async
+         * Funkce loadImage načte obrázek. Druhý parametr je funkce, která se zavolá
+         * po úspešném načtení obrázku (callback).
+         */
+        bgRndm = loadImage(`https://picsum.photos/${canvX}/${canvY}/?blur`, bgLoaded);
+        swDef = false;
+        sw01 = false;
+        sw02 = false;
+        sw03 = false;
+        swRndm = true;
+        lastTime = currentTime;
+    });
 
-// přídání event listenerů na tlačítka pro přepínání switchů
-btnDef.addEventListener('click', () => {
-    playSelectionSound();
-
-    swDef = true;
-    sw01 = false;
-    sw02 = false;
-    sw03 = false;
-    swRndm = false;
-});
-
-btn01.addEventListener('click', () => {
-    playSelectionSound();
-
-    swDef = false;
-    sw01 = true;
-    sw02 = false;
-    sw03 = false;
-    swRndm = false;
-});
-
-btn02.addEventListener('click', () => {
-    playSelectionSound();
-
-    swDef = false;
-    sw01 = false;
-    sw02 = true;
-    sw03 = false;
-    swRndm = false;
-});
-
-btn03.addEventListener('click', () => {
-    playSelectionSound();
-
-    swDef = false;
-    sw01 = false;
-    sw02 = false;
-    sw03 = true;
-    swRndm = false;
-});
-
-btnRndm.addEventListener('click', () => {
-    playSelectionSound();
-
-    // async
-    bgRndm = loadImage(`https://picsum.photos/${canvX}/${canvY}/?blur`);
-
-    swDef = false;
-    sw01 = false;
-    sw02 = false;
-    sw03 = false;
-    swRndm = true;
-});
 
 /**
  * Funkce se stará o načtení obrázků před nastavením hry.
  * Nejde o asynchronní načítání souborů, protože funkce preload
- * se provede jako první před a funkce setup(), která hru nastaví/inicializuje,
- * čeká, až se soubory načtou.
+ * se provede jako první před funkcí setup(), která hru 
+ * nastaví/inicializuje - čeká, až se soubory načtou.
  */
 function preload() {
     bg01 = loadImage(`https://picsum.photos/id/1081/${canvX}/${canvY}/?blur`);
     bg02 = loadImage(`https://picsum.photos/id/141/${canvX}/${canvY}/?blur`);
-    bg03 = loadImage(`https://picsum.photos/id/1032/${canvX}/${canvY}/?blur`);
+    bg03 = loadImage(`https://picsum.photos/id/994/${canvX}/${canvY}/?blur`);
 };
 
 /**
  * Funkce se spustí pouze jednou, když se program spustí. Je součástí
  * knihovny p5 a používá se pro definování počátečního prostředí a
- * inicializaci proměnných.
+ * definováním počátečních proměnných.
  */
 function setup() {
     const canvas = createCanvas(canvX, canvY); // vytvoření canvasu
@@ -158,7 +156,7 @@ function setup() {
     snake = new Head(); // přídání hlavy hada
     frameRate(vel); // rychlost hry
     snake.tails = []; // články hadova ocasu
-    paused = true;
+    paused = true; // na počátku je hra pozastavena
 };
 
 /**
@@ -169,16 +167,22 @@ function setup() {
 function draw() {
     // metoda millis vrátí počet milisekund  od spuštění sketche (zavolání setup)
     currentTime = millis();
-    // pokud je 
     readyToPlay = (currentTime - lastTime) > debounceMs;
 
-    setBackground();
-    if (!paused) {
+    setBackground(); // funkce pro nastavení pozadí
 
+    // pokud hra není pozastavena, tak...
+    if (!paused) {
         // skryj skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'none';
 
-        // posouvání článků, dokud první článek (i=0) není hadova hlava
+        /**
+         * Posouvání článků ocasu spolu s hadem.
+         * Dochází k loopování pozpátku skrz pole s články ocasu. Poslední ocas
+         * se přesune jako předposlední, předposlední jako druhý předposlední atp. až 
+         * dokud první ocas, resp. článek (i=0) není položen na hlavu hada.
+         * Hlava hada se posouvá podle směru.
+         */
         for (var i = snake.tails.length - 1; i >= 0; i--) {
             if (i === 0) {
                 snake.tails[i].x = snake.x;
@@ -190,6 +194,7 @@ function draw() {
             snake.tails[i].show();
         }
 
+        // ocas se spawne na předchozích souřadnicích hadovi hlavy
         pLoc.x = snake.x;
         pLoc.y = snake.y;
 
@@ -201,11 +206,11 @@ function draw() {
 
     } // jinak...
     else {
-        //background('rgba(0,0,0,0.1)');
-
+        // ztmavení pozadí při pozastavené obrazovce
+        background('rgba(0,0,0,0.1)');
         // zobraz skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'inline';
-        // vypiš text pozastavené obrazovky
+        // vypiš text pozastavené obrazovky  
         drawPaused();
     }
 
@@ -241,19 +246,20 @@ function draw() {
         }
     };
 
-    // pokud nejvyšší skore není null, a...
-    if (highScore !== null) {
-        // pokud je aktuální skore vyšší než nejvyšší skore, tak...
-        if (snake.score > highScore) {
-            // ulož nové nejvyšší skore do localStorage.
-            localStorage.setItem('highScore', snake.score);
-        }
-    } else {
-        localStorage.setItem('highScore', snake.score);
-    };
+    // pomocná proměnná pro skóre
+    var score = snake.score;
+    // uložení aktuálního nejvyššího skore do proměnné
+    var storagedHighscore = localStorage.getItem('highscore');
+
+    // pokud je aktuální skóre vyšší než nejvyšší skóre, tak...
+    if (score > storagedHighscore) {
+        // ulož nové nejvyšší skóre do localStorage.
+        localStorage.setItem('highscore', score);
+    }
 
     // když dojde ke kolizi hada s jídlem, tak...
     if (snake.collision(food)) {
+        // přehraj zvuk snědení potravy
         eatSound.play();
         // přičti skore,...
         snake.score++;
@@ -264,10 +270,11 @@ function draw() {
     };
 
     // když dojde ke kolizi s okrajem nebo s ocasem, tak...
-    if (snake.collision(food) === false || snake.tail_collision() === true) {
+    if (snake.collision(food) === false || snake.tailCollision() === true) {
+        // konec hry, 
         gameOver();
         // spusť zvuk konce hry.
-        //gameOverSound.play();
+        gameOverSound.play();
     };
 
     // pokud je aktivní defaultní pozadí, tak...
@@ -292,17 +299,21 @@ function draw() {
 function keyPressed() {
     // pokud hra není pozastavena, tak...
     if (!paused) {
-        // při stisknutí levé šipky/A had zatočí doleva.
+        // pokud je stiknuta levá šipka (nebo a) a had se nepohybuje doprava, tak...
         if (keyCode === LEFT_ARROW && snake.dir != 'right' || key === 'a' && snake.dir != 'right') {
+            // nastav nový směr hada.
             snake.dir = 'left';
-        } // jinak, pokud se stikne pravá šipka/D, had zatočí doprava.
+        } // jinak, pokud je stiknuta pravá šipka (nebo d) a had se nepohybuje doleva, tak...
         else if (keyCode === RIGHT_ARROW && snake.dir != 'left' || key === 'd' && snake.dir != 'left') {
+            // nastav nový směr hada.
             snake.dir = 'right';
-        } // jinak, pokud se stikne šipka nahoru/W, had zatočí nahoru.
+        } // jinak, pokud je stiknuta šipka nahoru (nebo w) a had se nepohybuje dolu, tak...
         else if (keyCode === UP_ARROW && snake.dir != 'down' || key === 'w' && snake.dir != 'down') {
+            // nastav nový směr hada.
             snake.dir = 'up';
-        } // jinak, pokud se stikne praví dolu/S, had zatočí dolu.
+        } // jinak, pokud je stiknuta šipka dolů (nebo s) a had se nepohybuje nahoru, tak...
         else if (keyCode === DOWN_ARROW && snake.dir != 'up' || key === 's' && snake.dir != 'up') {
+            // nastav nový směr hada.
             snake.dir = 'down';
         }
     }
@@ -327,7 +338,7 @@ function togglePause() {
     }
 };
 
-// nastavení tlačítka pro pozastavení hry.
+// nastavení listeneru pro tlačítko, které pozastaví hru.
 document.addEventListener('keydown', function (e) {
     var key = e.key;
     // pokud je stisknut mezerník nebo Esc
@@ -348,8 +359,8 @@ function drawPaused() {
  * a nejvyššího skóre v herním poli/na plátně.
  */
 function drawScore() {
-    text(`Score: ${snake.score}`, 10, height - 25); // aktuální skóre
-    text(`Highscore: ${localStorage.getItem('highScore')}`, 10, height - 10); // nejvyšší skóre
+    text('Score: ' + snake.score, 10, height - 25); // aktuální skóre
+    text('Highscore: ' + localStorage.getItem('highscore'), 10, height - 10); // nejvyšší skóre
 };
 
 /**
@@ -365,31 +376,31 @@ function setBackground() {
         // nastav pozadí na pozadí 01, a...
         background(bg01);
         // nastav focus na tlačítko pozadí 01.
-        btn01.focus();
+        $('#b-01').get(0).focus();
     } // jinak, pokud je stisknuto tlačítko pozadí 02, tak...
     else if (sw02) {
         // nastav pozadí na pozadí 02, a...
         background(bg02);
         // nastav focus na tlačítko pozadí 01.
-        btn02.focus();
+        $('#b-02').get(0).focus();
     } // jinak, pokud je stisknuto tlačítko pozadí 03, tak...
     else if (sw03) {
         // nastav pozadí na pozadí 03, a...
         background(bg03);
         // nastav focus na tlačítko pozadí 03.
-        btn03.focus();
+        $('#b-03').get(0).focus();
     } // jinak, pokud je stisknuto tlačítko náhodné, tak...
     else if (swRndm) {
         // nastav náhodné pozadí, a...
-        background(bgRndm);
+        bgLoaded();
         // nastav focus na tlačítko náhodné.
-        btnRndm.focus();
+        $('#b-rndm').get(0).focus();
     } // jinak...
     else {
         // nastav defaultní pozadí herní plochy, a...
         background(170, 204, 102);
         // nastav focus na tlačítko default.
-        btnDef.focus();
+        $('#b-def').get(0).focus();
     }
 };
 
@@ -403,4 +414,15 @@ function gameOver() {
     snake.respawn();
     // respawni jídlo.
     food.eat();
+};
+
+/**
+ * Funkce je zavolána po stisknutí tlačítka
+ * náhodné, pokud došlo k úspěšné realizaci 
+ * funkce loadImage, tj. načtení obrázku.
+ * 
+ * Používá se na realizaci callbacku.
+ */
+function bgLoaded() {
+    background(bgRndm);
 };

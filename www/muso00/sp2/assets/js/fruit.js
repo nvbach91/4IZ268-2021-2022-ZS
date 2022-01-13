@@ -1,4 +1,4 @@
-// třídá fruit se stará o přidání potravy pro hada do hry.
+// třída fruit se stará o přidání potravy pro hada do hry.
 class Fruit {
     /**
      * Konstruktor inicializuje proměnné třídy 'Fruit'
@@ -6,13 +6,17 @@ class Fruit {
      * zarovnána s gridem
      */
     constructor() {
-        this.x = floor(random(0, width) / gap) * gap;
-        this.y = floor(random(0, height) / gap) * gap;
-        this.color = 'rgb(71,97,33)';
+        this.x = floor(random(0, width) / gap) * gap; // souřadnice x
+        this.y = floor(random(0, height) / gap) * gap; // souřadnice y
+        this.color = 'rgb(71,97,33)'; // barva potravy
     }
 
-    // metoda pro snězení potravy
+    /**
+     * Metoda se používá pro spawnutí potravy poté,
+     * co ji had sní.
+     */
     eat() {
+        // definování souřadnic pro potravu
         this.x = floor(random(0, width) / gap) * gap;
         this.y = floor(random(0, height) / gap) * gap;
 
@@ -23,12 +27,13 @@ class Fruit {
         }
     };
 
-    //TODO: animace
-    // metoda pro zobrazení potravy
+    /**
+     * Vestavěná funkce knihovny p5.js. Metoda je použita
+     * pro zobrazení potravy a dalších tvarů na herním poli.
+     */
     show() {
-        //fill(71,97,33);
-        fill(this.color);
-        noStroke();
-        rect(this.x, this.y, gap, gap, 4);
+        fill(this.color); // barva
+        noStroke(); // odstranění černého rámečku
+        rect(this.x, this.y, gap, gap, 4); // definování tvaru
     };
-};
+}
