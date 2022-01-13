@@ -4,7 +4,6 @@ let gap = 15; // mezery v grid lines
 let pLoc = {}; // předchozí pozice (previousLocation)
 
 var highscore = 0;
-//localStorage.setItem('highscore', 0); - možnost resetování nejvyššího skore po refreshi
 
 // sfx
 let gameOverSound = new Audio(src = 'assets/sfx/game_over.mp3');
@@ -212,7 +211,7 @@ function draw() {
         document.getElementById('btns').style.display = 'inline';
         // vypiš text pozastavené obrazovky  
         drawPaused();
-    }
+    };
 
     var i = snake.score;
     // pokud je skóre větší nebo rovno 10, tak...
@@ -251,10 +250,17 @@ function draw() {
     // uložení aktuálního nejvyššího skore do proměnné
     var storagedHighscore = localStorage.getItem('highscore');
 
-    // pokud je aktuální skóre vyšší než nejvyšší skóre, tak...
-    if (score > storagedHighscore) {
-        // ulož nové nejvyšší skóre do localStorage.
-        localStorage.setItem('highscore', score);
+    // pokud nejvyšší skóre není null, a...
+    if (storagedHighscore !== null) {
+        // pokud je aktuální skóre vyšší než nejvyšší skóre, tak...
+        if (score > storagedHighscore) {
+            // ulož nové nejvyšší skóre do highscore v localStorage.
+            localStorage.setItem('highscore', score);
+        }
+    } // jinak...
+    else {
+        // nastav highscore 0 v localStorage.
+        localStorage.setItem('highscore', 0);
     }
 
     // když dojde ke kolizi hada s jídlem, tak...
@@ -287,6 +293,7 @@ function draw() {
         fill(255, 255, 255);
     };
 
+    // zobrazení skóre
     drawScore();
 };
 
@@ -343,6 +350,11 @@ document.addEventListener('keydown', function (e) {
     var key = e.key;
     // pokud je stisknut mezerník nebo Esc
     if (key === ' ' || key === 'Escape') {
+        /**
+         * metoda preventDefault se používá v případě, 
+         * že pokud není Event explicitně zpracovaný, jeji výchozí 
+         * akce by neměla být provedena tak, jak by to bylo normálně.
+         */
         e.preventDefault();
         // spusť funkci.
         togglePause();
@@ -364,7 +376,7 @@ function drawScore() {
 };
 
 /**
- * funkce slouží l nastavení pozadí herního pole.
+ * funkce slouží k nastavení pozadí herního pole.
  * Tlačítka pro změnu herního pole spouští switche.
  * Pozadí se nastaví podle toho, jaký switch je
  * zapnutý. Po stisknutí tlačítka se nastaví focus

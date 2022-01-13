@@ -2,8 +2,7 @@
 class Head {
     /**
     * Konstruktor inicializuje proměnné třídy 'Head'
-    * Funkce floor, aby byla hlava
-    * zarovnána s gridem
+    * Funkce floor, aby byla hlava zarovnána s gridem.
     */
     constructor() {
         // spawnutí hada doprostřed herního pole

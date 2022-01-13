@@ -30,8 +30,6 @@ h2 {
 
 canvas {
     border-radius: 10px;
-    /*border: 1px solid rgb(154, 184, 95);*/
-    /*box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 12px;*/
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
