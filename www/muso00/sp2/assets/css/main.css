@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 2048px;
+    font-family: 'VT323', monospace;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    max-width: 1024px;
+}
+
+h1 {
+    font-size: 32pt;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+canvas {
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+button {
+    background-color: black;
+    border-radius: 5px;
+    font-size: 12pt;
+    padding: 5px;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+    margin: 5px;
+    width: 130px;
+}
+
+main>div:not(:nth-child(1)) {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+    margin: 10px;
+    max-width: 750px;
+}
+
+main>div:not(:nth-child(1)) {
+    padding: 14px;
+}
+
+main>div:nth-child(2) {
+    margin-top: 5px;
+}
+
+main>div:nth-child(3) {
+    padding-bottom: 1px;
+}
+
+#game-canvas {
+    text-align: center;
+}
+
+button:hover {
+    background-color: rgb(158, 195, 78);
+    color: white;
+}
+
+button:focus {
+    background-color: rgb(158, 195, 78);
+    color: rgb(23, 31, 10);
+}
+
+button:focus:hover {
+    background-color: rgb(175, 216, 86);
+}
+
+span:hover {
+    cursor: help;
+}
+
+.resHighscore {
+    color:grey;
+    text-align: center;
+}
+
+.resHighscore:hover {
+    color: rgb(158, 195, 78);
+}
