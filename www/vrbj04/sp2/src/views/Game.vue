@@ -8,14 +8,29 @@
     </v-fade-transition>
     <v-container v-if="this.connection !== null">
       <v-row v-if="game.finished">
-        <v-col>
+        <v-col cols="12">
           <div class="text-center mt-16">
-            <v-icon size="96">mdi-party-popper</v-icon>
             <h1 class="display-2 text-center mt-8">The game is over!</h1>
           </div>
-          <v-card class="my-8">
-            <v-card-text v-for="(entry, i) in game.scores" :key="i">{{ player(entry.player).username }} <strong>{{ entry.score }}</strong></v-card-text>
-          </v-card>
+          <v-row class="my-8 mx-16">
+            <v-col v-if="game.scores.length > 1" class="text-center d-flex flex-column">
+              <v-icon size="96" color="grey">mdi-medal</v-icon>
+              <h1 class="grey--text">{{ game.scores[1].score }}</h1>
+              <div class="display-1">{{ player(game.scores[1].player).username }}</div>
+            </v-col>
+            <v-col class="text-center d-flex flex-column">
+              <v-icon size="96" color="orange">mdi-trophy-variant</v-icon>
+              <h1 class="orange--text">{{ game.scores[0].score }}</h1>
+              <div class="display-1">{{ player(game.scores[0].player).username }}</div>
+            </v-col>
+            <v-col v-if="game.scores.length > 2" class="text-center">
+              <v-icon size="96" color="brown">mdi-medal</v-icon>
+              <h1 class="brown--text">{{ game.scores[2].score }}</h1>
+              <div class="display-1">{{ player(game.scores[2].player).username }}</div>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col class="text-center" cols="12">
           <v-btn :to="{name: 'Lobbies'}" dark color="black">Return to lobbies</v-btn>
         </v-col>
       </v-row>
@@ -38,10 +53,10 @@
             <v-divider/>
             <v-card-text style="height: 60vh; overflow: scroll">
               <v-fade-transition>
-                <v-overlay absolute opacity="0.85" v-if="game.round === null" class="text-center">
+                <v-alert v-if="game.round === null" class="text-center">
                   <v-icon class="mdi-spin mb-4" size="96">mdi-yin-yang</v-icon>
                   <h1>Waiting for a new round to start...</h1>
-                </v-overlay>
+                </v-alert>
               </v-fade-transition>
               <v-row>
                 <v-col v-for="(word, i) in words" :key="i" cols="12">
@@ -120,6 +135,7 @@ export default {
         case "game-updated":
           await this.$store.commit("setGame", message.game);
           this.words = [];
+          this.word = "";
           break;
         case "scored-word-submitted":
           this.words.push(message.word);
