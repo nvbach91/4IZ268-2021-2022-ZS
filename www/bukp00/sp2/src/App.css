@@ -1,0 +1,157 @@
+.header {
+  display: flex;
+  flex-flow: row;
+  gap: 1rem;
+}
+
+.title {
+  color: rgba(230, 230, 230, 0.8);
+}
+
+.subtitle {
+  color: rgba(200, 200, 200, 0.4);
+  line-height: 4.5rem;
+}
+
+.settings {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.select-list {
+  padding: 30px;
+}
+
+.select-list-loading {
+  min-height: calc(100vh - 64px - 82px);
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto 72px 1fr;
+  grid-template-columns: 100vw;
+  grid-template-areas: 'passings''sidebar''data';
+}
+
+.passings {
+  grid-area: passings;
+  max-height: 124px;
+  overflow-y: auto;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.data {
+  grid-area: data;
+  max-height: 70vh;
+}
+
+.list {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.list-item {
+  line-height: 1rem;
+  justify-content: center;
+}
+
+.list-item:hover {
+  font-size: larger;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.selected {
+  background-color: rgba(0, 0, 0, 0.1);
+  font-size: larger;
+}
+
+.empty-wrapper {
+  height: calc(100vh - 143px);
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.card {
+  display: flex;
+  flex-flow: column;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  text-align: start;
+}
+
+.odd {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.highlight {
+  background-color: rgba(222, 129, 0, 0.7);
+}
+
+.footer-container {
+  display: grid;
+  grid-auto-flow: column;
+  align-content: center;
+  justify-content: center;
+  grid-gap: 1rem;
+  text-align: center;
+}
+
+.footer-container div:first-of-type {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    display: grid;
+    grid-template-rows: 124px calc(100vh - 16.8rem);
+    grid-template-columns: 100px calc(100% - 100px);
+    grid-template-areas: 'passings passings''sidebar data';
+  }
+
+  .passings {
+    text-align: center;
+    max-height: none;
+  }
+
+  .list-item {
+    padding: 10px 10px !important;
+    line-height: 1.2rem;
+  }
+
+  .footer-container {
+    grid-gap: 5vw;
+  }
+
+  .data {
+    max-height: 100%;
+  }
+}
+
+@media (max-width: 678px) {
+  .footer-container {
+    grid-auto-flow: row;
+  }
+}
+
+@media (max-width: 1024px) {
+  .subtitle {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .title {
+    font-size: 5vw;
+  }
+}
+
+.filterWrapper {
+  display: grid;
+  padding: 20px;
+}

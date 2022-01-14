@@ -1,0 +1,75 @@
+@import '~antd/dist/antd.css';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #40a9ff;
+}
+
+.ant-layout-footer {
+  padding: 12px 40px;
+  box-shadow: inset 0 0 5px 0px #777;
+}
+
+.ant-list-item-meta-content {
+  display: grid;
+  place-items: center;
+}
+
+.ant-list-item {
+  cursor: pointer;
+}
+
+.ant-list-item:hover {
+  background: rgba(0,0,0,0.1);
+}
+
+@media (max-width: 1024px) {
+  .ant-layout-header {
+    padding: 0 4vw;
+  }
+
+  .ant-list-header {
+    padding: 3px;
+  }
+
+  .ant-list-header h3 {
+    margin: 0;
+  }
+
+  .ant-list-items {
+    display: flex;
+    flex-flow: row;
+    justify-content: left;
+    max-width: 100vw;
+    overflow-x: scroll;
+    height: 38px;
+  }
+
+  .ant-list-items li {
+    padding: 8px;
+    height: 35px;
+  }
+
+}
