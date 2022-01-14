@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { Table, Skeleton, Empty } from 'antd'
+import { Table, Skeleton, Empty, Input, Button } from 'antd'
 import { useLocation } from 'react-router-dom'
 
 import { getResults } from '../services/resultsApi'
 import { useDataStore, usePersonalSettings } from '../hooks/useStore'
+import useDebounce from '../hooks/useDebounce'
 
 const ResultsTable = (props) => {
 
@@ -19,6 +20,9 @@ const ResultsTable = (props) => {
     const setClubList = useDataStore((store) => store.setClubList)
     const autoRefetch = usePersonalSettings((state) => state.autoRefetch)
     const refetchInterval = usePersonalSettings((state) => state.refetchInterval)
+
+    const [nameFilter, setNameFilter] = useState('')
+    const [clubFilter, setClubFilter] = useState('')
 
     const { data, isLoading, isError } = useQuery(
         ['class', { comp: compId, type: selectedResults.type, value: selectedResults.value }],
@@ -69,7 +73,15 @@ const ResultsTable = (props) => {
         }, {
             title: 'Jméno',
             dataIndex: 'name',
-            key: 'name'
+            key: 'name',
+            filterDropdown: () => {
+                return (
+                    <div className='filterWrapper'>
+                        <span>Jméno: </span>
+                        <FilterInput onChange={(val) => setNameFilter(val)} />
+                    </div>
+                )
+            },
         }
     ]
 
@@ -78,6 +90,14 @@ const ResultsTable = (props) => {
             title: 'Klub',
             dataIndex: 'club',
             key: 'club',
+            filterDropdown: () => {
+                return (
+                    <div className='filterWrapper'>
+                        <span>Klub: </span>
+                        <FilterInput onChange={(val) => setClubFilter(val)} />
+                    </div>
+                )
+            },
             render: (text) => {
                 return (
                     <button onClick={() => setSelectedResults({ type: 'club', value: text })}>{text}</button>
@@ -144,7 +164,7 @@ const ResultsTable = (props) => {
         })
     }
 
-    const tableData = { ...data };
+    const tableData = {...data}
 
     if (data?.splitcontrols?.length) {
         tableData.results = data.results.map((obj) => {
@@ -163,6 +183,20 @@ const ResultsTable = (props) => {
     const keyData = tableData.results.map((obj, index) => {
         return { ...obj, key: index }
     })
+
+    const getFilteredData = () => {
+        if (Array.isArray(keyData)) {
+            let filteredData = [...keyData]
+            if (nameFilter.length) {
+                filteredData = [...filteredData.filter(obj => obj.name.includes(nameFilter))]
+            }
+            if (clubFilter.length) {
+                filteredData = [...filteredData.filter(obj => obj.club.includes(clubFilter))]
+            }
+            return filteredData
+        }
+        else return keyData
+    }
 
     const getRowClassName = (record, index) => {
         const isOdd = (num) => {
@@ -185,7 +219,7 @@ const ResultsTable = (props) => {
     return (
         <Table
             columns={columns}
-            dataSource={keyData}
+            dataSource={getFilteredData()}
             pagination={false}
             size='small'
             bordered
@@ -250,4 +284,33 @@ const translateFinishTime = (time) => {
     }
 
     return time
+}
+
+const FilterInput = (props) => {
+
+    const [value, setValue] = useState('')
+
+    const debouncedValue = useDebounce(value, 500)
+
+    useEffect(() => {
+        props.onChange(debouncedValue)
+    }, [debouncedValue, props])
+
+    const onSearch = (ev) => {
+        setValue(ev.target.value)
+    }
+
+    const onClear = () => {
+        setValue('')
+    }
+
+    return (
+        <div>
+            <Input value={value} onChange={onSearch} />
+            <Button type='default' onClick={onClear}>
+                Resetovat
+            </Button>
+        </div>
+
+    )
 }
