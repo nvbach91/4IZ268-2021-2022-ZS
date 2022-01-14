@@ -1,17 +1,28 @@
 $(document).ready(() => {
   apiKey = 'AIzaSyDPW_GBftKvB69Y-Xvqhb3ryz3_Li37UJU';
 
-  content = document.getElementById('content');
-  channelForm = document.getElementById('channel-form');
-  channelInput = document.getElementById('channel-input');
-  videoContainer = document.getElementById('video-container');
-  loadingIndicator = document.getElementById('progress-bar');
+  const channelForm = document.getElementById('channel-form');
+  const channelInput = document.getElementById('channel-input');
+  const videoContainer = document.getElementById('video-container');
+  const loadingIndicator = document.getElementById('progress-bar');
+  const channelsDiv = document.getElementById('channel-list');
+
+  const channels = JSON.parse(localStorage.channels);
+  console.log('Generate field ' + channels);
+  let output = '<p>Saved channels:</p>';
+  channels.forEach(item => {
+    output += `
+    <li id="${item}">${item}</li>`
+  });
+  channelsDiv.innerHTML = output;
+
 
   channelForm.addEventListener('submit', e => {
     e.preventDefault();
     const channel = channelInput.value;
     loadingIndicator.innerHTML = '<div class="indeterminate red"></div>';
     getChannel(channel);
+
   });
 
   function numberWithCommas(x) {
@@ -41,20 +52,73 @@ $(document).ready(() => {
           <p>${data["items"][0].snippet.description}</p>
           <hr>
           <a href="https://youtube.com/${data["items"][0].snippet.customUrl}" class="btn grey darken-2" target="_blank" >Visit channel</a>
+          <button class="btn grey darken-2" value="Save" id="btn-save">Save</button>
           `;
-          
+
           showChannelData(output);
-          loadingIndicator.innerHTML = '';       
+          $("#btn-save").click(saveChannel);
+          loadingIndicator.innerHTML = '';
           const playlistId = data["items"][0].contentDetails.relatedPlaylists.uploads;
           requestVideoPlaylist(playlistId);
-          
+
         }
       })
   }
 
-  function ShowHideDiv(checkbox) {
-    videoContainer.style.display = checkbox.checked ? "block" : "none";
-    
+  function saveChannel() {
+    const channel = channelInput.value;
+    var exists = false;
+
+    channels.forEach(item => {
+      if (item == channel) {
+        exists = true;
+      }
+    })
+    if (!exists) {
+      console.log('Saving channel ' + channel);
+      channels.push(channel);
+      showSavedChannels(channels);
+    }
+  }
+
+  function showSavedChannels(channels) {
+    localStorage.setItem('channels', JSON.stringify(channels));
+
+    let output = '<p>Saved channels:</p>';
+    channels.forEach(item => {
+      output += `
+      <li id="${item}">${item}</li>`
+    });
+    console.log(allStorage());
+    channelsDiv.innerHTML = output;
+  }
+
+
+  channelsDiv.addEventListener("click", function (e) {
+    if (e.target && e.target.nodeName == "LI") {
+      console.log(e.target.id + " was clicked");
+      showSavedChannelInfo(e.target.id);
+    }
+  });
+
+
+
+  function showSavedChannelInfo(channel) {
+    console.log(channel);
+    getChannel(channel);
+  }
+
+  function allStorage() {
+
+    var channels = [],
+      keys = Object.keys(localStorage),
+      i = keys.length;
+
+    while (i--) {
+      channels.push(localStorage.getItem(keys[i]));
+    }
+
+    return channels;
   }
 
   function showChannelData(data) {
@@ -72,7 +136,8 @@ $(document).ready(() => {
         const playListItems = data["items"];
         if (playListItems) {
           let output = '<br><h4 class="center-align">Videos</h4>'
-          //update DOM v forEach :(
+
+          //update DOM v forEach
           playListItems.forEach(item => {
             const videoId = item.snippet.resourceId.videoId;
             const videoTitle = item.snippet.title;
@@ -83,10 +148,16 @@ $(document).ready(() => {
             </div>
             `
           });
+
           videoContainer.innerHTML = output;
         } else {
           videoContainer.innerHTML = 'No uploaded videos';
         }
       })
-    }
+  }
 });
+
+function ShowHideDiv(checkbox) {
+  videoContainer.style.display = checkbox.checked ? "block" : "none";
+
+}

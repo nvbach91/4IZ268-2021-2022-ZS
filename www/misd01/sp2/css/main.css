@@ -1,6 +1,5 @@
 .btn {
     transition: all 0.2s;
-    cursor: pointer;
 }
 .btn:hover {
     border-radius: 10px;
@@ -27,3 +26,6 @@ main {
     margin-top: 0;
 }
 
+#channel-list > li {
+    cursor: pointer;
+}
