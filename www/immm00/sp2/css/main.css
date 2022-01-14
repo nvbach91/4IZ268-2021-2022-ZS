@@ -6,6 +6,10 @@ body{
     margin: 0;
 }
 
+h1{
+    display:inline;
+}
+
 header, footer{
     padding: 20px 300px;
     background-color:gold;

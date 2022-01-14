@@ -25,6 +25,9 @@ $(document).ready(() => {
     const collapseFormButton = $('#collapse-form-button');
     const collapseIcon = $('#collapse-icon');
     let criteriaCollapsed = false;
+    const BASE_URL = 'https://api.spoonacular.com/recipes/';
+    const API_KEY = 'db93c8e3543c4936b22193b19d496299';
+    const API_KEY_QUERY_ITEM = `apiKey=${API_KEY}`; 
 
     let savedRecipes = localStorage.getItem('savedRecipes');
     if (savedRecipes === null) {
@@ -98,6 +101,8 @@ $(document).ready(() => {
         navItem.removeClass("active");
     }
 
+    
+
     if (window.location.href.includes('?')) {
         loadFromUrl();
     }
@@ -105,7 +110,8 @@ $(document).ready(() => {
 
     function loadFromUrl() {
         const url = window.location.href;
-        const query = 'https://api.spoonacular.com/recipes/complexSearch' + url.substring(url.indexOf('?')) + '&apiKey=db93c8e3543c4936b22193b19d496299&addRecipeNutrition=true&fillIngredients=true';
+        //const query = BASE_URL + 'complexSearch' + url.substring(url.indexOf('?')) + '&apiKey=' + API_KEY + '&addRecipeNutrition=true&fillIngredients=true';
+        const query = `${BASE_URL}complexSearch${url.substring(url.indexOf('?'))}&${API_KEY_QUERY_ITEM}&addRecipeNutrition=true&fillIngredients=true`; 
         console.log(query);
         fetchAndDisplayRecipes(query, findRecipesResultContainer, 'find', true);
         loadFormInputsFromURL();
@@ -118,7 +124,6 @@ $(document).ready(() => {
         if (savedRecipes.length === 0) {
             savedRecipesResultContainer.text('You have no saved recipes.');
         } else {
-
             let IDs = '';
             for (let i = 0; i < savedRecipes.length; i++) {
                 IDs += savedRecipes[i];
@@ -126,7 +131,7 @@ $(document).ready(() => {
                     IDs += ',';
                 }
             }
-            const query = 'https://api.spoonacular.com/recipes/informationBulk?apiKey=db93c8e3543c4936b22193b19d496299&includeNutrition=true&ids=' + IDs;
+            const query = `${BASE_URL}informationBulk?${API_KEY_QUERY_ITEM}&includeNutrition=true&ids=${IDs}`;
 
             fetchAndDisplayRecipes(query, savedRecipesResultContainer, 'saved', false);
         }
@@ -138,12 +143,36 @@ $(document).ready(() => {
         if (ignoredRecipes.length === 0) {
             ignoredRecipesResultContainer.text('You have no ignored recipes.');
         } else {
-            const recipesToAppend = [];
+            let IDs = '';
             for (let i = 0; i < ignoredRecipes.length; i++) {
+                IDs += ignoredRecipes[i];
+                if (i != ignoredRecipes.length - 1) {
+                    IDs += ',';
+                }
+            }
+
+            let recipeNamesAndTitles = [];
+            query = `${BASE_URL}informationBulk?${API_KEY_QUERY_ITEM}&ids=${IDs}`;
+            fetch(query).then((resp) => {
+                return resp.json();
+            }).then((resp) => {
+                console.log(resp);
+                resp.forEach(recipe => {
+                    recipeNamesAndTitles.push([recipe.title, recipe.id]); 
+                });
+            });
+            console.log(recipeNamesAndTitles);
+            console.log(recipeNamesAndTitles.length);
+
+            const recipesToAppend = [];
+            for (let i = 0; i < recipeNamesAndTitles.length; i++) {
                 const ignoredRecipeContainer = $('<div>');
-                let recipeID = ignoredRecipes[i];
+                let recipeName = recipeNamesAndTitles[i][0];
+                let recipeID = recipeNamesAndTitles[i][1];
+                console.log(recipeName);
+                console.log(recipeID);
                 const recipeNameContainer = $('<div>');
-                recipeNameContainer.text(recipeID);
+                recipeNameContainer.text(recipeName);
                 recipeNameContainer.addClass("ignored-recipe-name");
                 const removeButton = $('<button>');
                 removeButton.text('Remove from ignored');
@@ -185,7 +214,8 @@ $(document).ready(() => {
 
 
         if (caloriesInputValue != '') {
-            query = + '&' + caloriesMinMaxValue + 'Calories=' + caloriesInputValue;
+            //query = + '&' + caloriesMinMaxValue + 'Calories=' + caloriesInputValue;
+            query += `&${caloriesMinMaxValue}Calories=${caloriesInputValue}`;
         }
         if (proteinInputValue != '') {
             query += '&' + proteinMinMaxValue + 'Protein=' + proteinInputValue;
@@ -210,7 +240,7 @@ $(document).ready(() => {
 
         const urlString = '?' + query.substring(1);
 
-        query = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=db93c8e3543c4936b22193b19d496299' + query + '&addRecipeNutrition=true&fillIngredients=true';
+        query = `${BASE_URL}complexSearch?${API_KEY_QUERY_ITEM}${query}&addRecipeNutrition=true&fillIngredients=true`;
 
         window.history.pushState({}, '', urlString);
 
@@ -248,7 +278,7 @@ $(document).ready(() => {
                     }
                     recipeArray.forEach(recipe => {
                         ignoredRecipes = JSON.parse(localStorage.getItem('ignoredRecipes'));
-                        if ((type === 'find' & !ignoredRecipes.includes(recipe.title)) | type === 'saved') {
+                        if ((type === 'find' & !ignoredRecipes.includes(recipe.id)) | type === 'saved') {
                             const ingredientList = [];
                             const extendedIngredients = recipe.extendedIngredients;
                             extendedIngredients.forEach(ingredient => {
@@ -353,8 +383,8 @@ $(document).ready(() => {
             ignoreButton.text('Dont show this recipe again');
             ignoreButton.click(() => {
                 ignoredRecipes = JSON.parse(localStorage.getItem('ignoredRecipes'));
-                if (!ignoredRecipes.includes(recipeData.tile)) {
-                    ignoredRecipes.push(recipeData.title);
+                if (!ignoredRecipes.includes(recipeData.id)) {
+                    ignoredRecipes.push(recipeData.id);
                     localStorage.setItem('ignoredRecipes', JSON.stringify(ignoredRecipes));
                     recipeContainer.remove();
                     if (findRecipesResultContainer.children().length === 0) {
