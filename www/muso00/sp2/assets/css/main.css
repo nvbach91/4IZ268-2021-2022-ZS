@@ -85,3 +85,12 @@ button:focus:hover {
 span:hover {
     cursor: help;
 }
+
+.resHighscore {
+    color:grey;
+    text-align: center;
+}
+
+.resHighscore:hover {
+    color: rgb(158, 195, 78);
+}

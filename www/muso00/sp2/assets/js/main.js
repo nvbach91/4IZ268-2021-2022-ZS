@@ -33,6 +33,8 @@ let bg02;
 let bg03;
 let bgRndm;
 
+let fps = vel;
+
 /**
  * Proměnné pro 'debounce'. Debounce donutí funkci čekat
  * zvolený čas předtím, než může být znovu spuštěna. Používá se
@@ -174,6 +176,7 @@ function draw() {
     if (!paused) {
         // skryj skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'none';
+        $('#resHighscore').css('display', 'none');
 
         /**
          * Posouvání článků ocasu spolu s hadem.
@@ -209,11 +212,12 @@ function draw() {
         background('rgba(0,0,0,0.1)');
         // zobraz skupinu tlačítek pro změnu pozadí plátna.
         document.getElementById('btns').style.display = 'inline';
+        $('#resHighscore').css('display', 'inline');
         // vypiš text pozastavené obrazovky  
         drawPaused();
     };
 
-    var i = snake.score;
+    /*var i = snake.score;
     // pokud je skóre větší nebo rovno 10, tak...
     if (i >= 10) {
         // nastav novou rychlost hry.
@@ -241,6 +245,34 @@ function draw() {
                         }
                     }
                 }
+            }
+        }
+    };*/
+
+    const obj = {
+        1: 2,
+        2: 5,
+        3: 8,
+        4: 10,
+        5: 12,
+        7: 13,
+        25: 15,
+        35: 25,
+        40: 35,
+        50: 45
+    };
+
+
+    for (const prop in obj) {
+        if (snake.score == prop) {
+            let newFps = vel + obj[prop];
+            if (fps !== newFps) {
+                fps = vel + obj[prop];
+                frameRate(fps);
+                console.log('true');
+                break;
+            } else {
+                break;
             }
         }
     };
@@ -438,3 +470,7 @@ function gameOver() {
 function bgLoaded() {
     background(bgRndm);
 };
+$('#resHighscore').click(function () {
+    localStorage.clear();
+});
+
