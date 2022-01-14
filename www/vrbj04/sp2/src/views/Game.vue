@@ -48,7 +48,14 @@
                     game.round.syllable
                   }}</strong></h2>
               </div>
-              <v-progress-linear :value="time" max="100"></v-progress-linear>
+              <v-row class="align-center mt-3">
+                <v-col cols="4" sm="6" md="3" lg="1" class="text-right">
+                  <h3 :class="`${timeColor}--text mr-3`">{{ timeString }}s</h3>
+                </v-col>
+                <v-col cols="8" sm="6" md="9" lg="11">
+                  <v-progress-linear :value="time" max="100" :color="timeColor"></v-progress-linear>
+                </v-col>
+              </v-row>
             </v-card-text>
             <v-divider/>
             <v-card-text style="height: 60vh; overflow: scroll">
@@ -115,6 +122,8 @@ export default {
     connection: null,
     hook: null,
     time: 0,
+    timeString: "-",
+    timeColor: "primary",
     word: "",
     words: []
   }),
@@ -145,7 +154,7 @@ export default {
       }
     });
 
-    this.hook = window.setInterval(this.updateTime, 500);
+    this.hook = window.setInterval(this.updateTime, 100);
   },
   beforeDestroy() {
     if (this.connection !== null) {
@@ -161,11 +170,21 @@ export default {
         return;
       }
 
+      const start = new Date(this.game.round.start);
+      const end = new Date(this.game.round.end);
       const now = new Date();
-      const diff = new Date(this.game.round.end) - now;
-      const total = new Date(this.game.round.end) - new Date(this.game.round.start);
 
-      this.time = Math.max((diff / total) * 100, 0);
+      const remaining = end - now;
+      const total = end - start;
+
+      this.total = total;
+      this.time = (Math.max(remaining / total, 0) % 1) * 100;
+      this.timeColor = this.time <= 30 ? "red" : "primary";
+      this.timeString = (Math.floor((total / 1000) * this.time) / 100)
+          .toString()
+          .split(".")
+          .map((part, i) => i === 0 ? part : part.padEnd(2, "0"))
+          .join(".")
     },
     submitWord() {
       if (this.word.trim() !== "") {
