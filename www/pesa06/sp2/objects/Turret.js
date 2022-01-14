@@ -25,7 +25,7 @@ export default class Turret extends Phaser.GameObjects.Image {
     fire() {
         let enemy = this.findTarget(this.x, this.y, this.range);
         if(enemy) {
-            var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+            let angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             let bullet = this.bullets.get();
             if (bullet) {
                 bullet.fire(this.x, this.y, angle, this.damage);

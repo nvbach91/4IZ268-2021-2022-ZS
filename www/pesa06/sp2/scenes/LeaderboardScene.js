@@ -1,4 +1,5 @@
 import {SceneEnum} from "../SceneEnum.js";
+import EscapeStringHelper from "../EscapeStringHelper.js";
 
 export class LeaderboardScene extends Phaser.Scene {
     constructor() {
@@ -23,23 +24,30 @@ export class LeaderboardScene extends Phaser.Scene {
         menu.on('pointerup', () => {
             this.scene.start(SceneEnum.MAIN_MENU);
         });
+        document.getElementById('gameDiv').style.cursor = 'progress';
         this.loadLeaderboards(this).catch(e => console.log(e));
     }
 
     async loadLeaderboards(that) {
         let response = await fetch('http://pesa06sem.cz/leaderboards/www/');
         if (!response.ok) {
+            document.getElementById('gameDiv').style.cursor = 'default';
             throw new Error(`HTTP error! status: ${response.status}`);
         } else {
             let parsed = JSON.parse(await response.text()).slice(0, 10);
+            document.getElementById('gameDiv').style.cursor = 'default';
             let position = 1;
             parsed.forEach((item) => {
                 let element = that.add.dom(position < 6 ? 50 : 550, 0).createFromCache('item');
                 element.setPerspective(800);
-                element.getChildByID('positionLabel').innerHTML = position;
-                element.getChildByID('nameLabel').innerHTML = item.name === '' ? 'no nickname' : item.name;
-                element.getChildByID('scoreLabel').innerHTML = item.score;
-                element.getChildByID('dateLabel').innerHTML = item.date;
+                element.getChildByID('positionLabel').innerText = position;
+                element.getChildByID('positionLabel').removeAttribute('id');
+                element.getChildByID('nameLabel').innerText = EscapeStringHelper.escapeString(item.name) === '' ? 'no nickname' : EscapeStringHelper.escapeString(item.name);
+                element.getChildByID('nameLabel').removeAttribute('id');
+                element.getChildByID('scoreLabel').innerText = item.score;
+                element.getChildByID('scoreLabel').removeAttribute('id');
+                element.getChildByID('dateLabel').innerText = item.date;
+                element.getChildByID('dateLabel').removeAttribute('id');
                 that.tweens.add({
                     targets: element,
                     y: 100 + ((position - 1) % 5) * 80,

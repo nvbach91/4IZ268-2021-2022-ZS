@@ -6,6 +6,7 @@ import Castle from "../objects/Castle.js";
 import {TurretEnum} from "../TurretEnum.js";
 import LongRangeTurret from "../objects/LongRangeTurret.js";
 import FastTurret from "../objects/FastTurret.js";
+import EscapeStringHelper from "../EscapeStringHelper.js";
 
 export class GameScene extends Phaser.Scene {
     constructor() {
@@ -16,6 +17,7 @@ export class GameScene extends Phaser.Scene {
         this.nextEnemy = 10000;
         this.enemies = null;
         this.selectedTurret = null;
+        this.selectedTurretHighlight = null;
         this.scoreText = null;
         this.blockedLocations = [[0, 9], [1, 9], [2, 9], [2, 8], [2, 7], [2, 6], [2, 5], [2, 4], [2, 3], [2, 2], [2, 1], [3, 1], [4, 1], [5, 1], [6, 1], [6, 2], [6, 3], [5, 3], [4, 3], [4, 4], [4, 5], [4, 6], [4, 7], [5, 7], [6, 7], [7, 7], [8, 7], [9, 7], [10, 7], [10, 6], [10, 5], [10, 4], [10, 3], [10, 2], [10, 1], [11, 1], [12, 1], [13, 1], [13, 2], [13, 3], [13, 4], [13, 5], [13, 6], [13, 7], [13, 8], [13, 9], [13, 10]];
     }
@@ -58,11 +60,20 @@ export class GameScene extends Phaser.Scene {
         this.path.lineTo(525, 75);
         this.path.lineTo(675, 75);
         this.path.lineTo(675, 525);
-        this.scoreText = this.add.text(815, 450, 'Score: 0', { fontSize: '28px', fill: '#fff'});
-        this.goldText = this.add.text(815, 500, `Gold: ${this.gold}`, { fontSize: '28px', fill: '#FFD700'});
-        let backToMenu = this.add.text(815, 550, 'Main menu', { fontSize: '28px', fill: '#fff'});
+        this.scoreText = this.add.text(815, 450, 'Score: 0', {fontSize: '28px', fill: '#fff'});
+        this.goldText = this.add.text(815, 500, `Gold: ${this.gold}`, {fontSize: '28px', fill: '#FFD700'});
+        let backToMenu = this.add.text(815, 550, 'Main menu', {fontSize: '28px', fill: '#fff'});
         backToMenu.setInteractive();
         backToMenu.on('pointerup', () => {
+            let date = new Date();
+            let xhr = new XMLHttpRequest();
+            let formData = new FormData();
+            let dateFormattedString = `${date.getFullYear()}-${(date.getMonth() + 1).toString(10).padStart(2, '0')}-${date.getDate().toString(10).padStart(2, '0')} ${date.getHours().toString(10).padStart(2, '0')}:${date.getMinutes().toString(10).padStart(2, '0')}:${date.getSeconds().toString(10).padStart(2, '0')}`;
+            formData.append('name', window.localStorage.getItem('name') === null ? '' : EscapeStringHelper.escapeString(window.localStorage.getItem('name')));
+            formData.append('score', this.score);
+            formData.append('date', dateFormattedString);
+            xhr.open('POST', 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
+            xhr.send(formData);
             sound.stop();
             this.scene.start(SceneEnum.MAIN_MENU);
         });
@@ -145,11 +156,14 @@ export class GameScene extends Phaser.Scene {
                 let circle = this.add.circle(newTurret.x, newTurret.y, newTurret.range);
                 circle.setStrokeStyle(1, 0xefc53f);
                 let price = newTurret.price * newTurret.level;
-                let upgrade = this.add.text(roundedX - 10, roundedY, `Upgrade (${price})`, {fontSize: '12px', fill: '#fff'})
+                let upgrade = this.add.text(roundedX - 10, roundedY, `Upgrade (${price})`, {
+                    fontSize: '12px',
+                    fill: '#fff'
+                })
                     .setOrigin(0.5)
                     .setPadding(10)
-                    .setStyle({ backgroundColor: '#111' })
-                    .setInteractive({ useHandCursor: true })
+                    .setStyle({backgroundColor: '#111'})
+                    .setInteractive({useHandCursor: true})
                     .on('pointerdown', () => {
                         if (this.gold < price) {
                             console.log('not enough gold');
@@ -168,8 +182,14 @@ export class GameScene extends Phaser.Scene {
                         level.destroy();
                         damage.destroy();
                     });
-                let level = this.add.text(roundedX - 30, roundedY - 45, `Level: ${newTurret.level}`, {fontSize: '12px', fill: '#fff'})
-                let damage = this.add.text(roundedX - 30, roundedY - 30, `Damage: ${newTurret.damage}`, {fontSize: '12px', fill: '#fff'})
+                let level = this.add.text(roundedX - 30, roundedY - 45, `Level: ${newTurret.level}`, {
+                    fontSize: '12px',
+                    fill: '#fff'
+                })
+                let damage = this.add.text(roundedX - 30, roundedY - 30, `Damage: ${newTurret.damage}`, {
+                    fontSize: '12px',
+                    fill: '#fff'
+                })
                 setTimeout(() => {
                     circle.destroy();
                     upgrade.destroy();
@@ -178,6 +198,8 @@ export class GameScene extends Phaser.Scene {
                 }, 2000);
             });
             this.selectedTurret = null;
+            this.selectedTurretHighlight.destroy();
+            this.selectedTurretHighlight = null;
             this.gold -= newTurret.price;
             this.goldText.setText(`Gold: ${this.gold}`);
         })
@@ -205,7 +227,7 @@ export class GameScene extends Phaser.Scene {
                 bullet.setActive(false);
                 bullet.setVisible(false);
                 if (enemy.receiveDamage(bullet.damage)) {
-                    this.gold+=10;
+                    this.gold += 10;
                     this.score++;
                     this.scoreText.setText(`Score: ${this.score}`);
                     this.goldText.setText(`Gold: ${this.gold}`);
@@ -221,8 +243,8 @@ export class GameScene extends Phaser.Scene {
                     let date = new Date();
                     let xhr = new XMLHttpRequest();
                     let formData = new FormData();
-                    let dateFormattedString = `${date.getFullYear()}-${(date.getMonth() + 1).toString(10).padStart(2, '0')}-${date.getDate().toString(10).padStart(2, '0')} ${date.getHours().toString(10).padStart(2, '0')}:${date.getMinutes().toString(10).padStart(2, '0') }:${date.getSeconds().toString(10).padStart(2, '0')}`;
-                    formData.append('name', window.localStorage.getItem('name') === null ? '' : window.localStorage.getItem('name'));
+                    let dateFormattedString = `${date.getFullYear()}-${(date.getMonth() + 1).toString(10).padStart(2, '0')}-${date.getDate().toString(10).padStart(2, '0')} ${date.getHours().toString(10).padStart(2, '0')}:${date.getMinutes().toString(10).padStart(2, '0')}:${date.getSeconds().toString(10).padStart(2, '0')}`;
+                    formData.append('name', window.localStorage.getItem('name') === null ? '' : EscapeStringHelper.escapeString(window.localStorage.getItem('name')));
                     formData.append('score', this.score);
                     formData.append('date', dateFormattedString);
                     xhr.open('POST', 'http://pesa06sem.cz/leaderboards/www/api.leaderboards/push', true);
@@ -257,36 +279,47 @@ export class GameScene extends Phaser.Scene {
         normalTurret.setInteractive();
         normalTurret.setScale(0.15);
         normalTurret.on('pointerup', () => {
+            if (this.selectedTurretHighlight !== null) {
+                this.selectedTurretHighlight.destroy();
+            }
+            this.selectedTurretHighlight = this.add.circle(820, 100, 25);
+            this.selectedTurretHighlight.setStrokeStyle(2, '0xffffff');
             this.selectedTurret = TurretEnum.NORMAL;
         });
-        this.add.text(860, 50, 'Damage: 50', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 75, 'Speed: 700ms', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 100, 'Range: 200', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 125, 'Price: 100', { fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 50, 'Damage: 50', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 75, 'Speed: 700ms', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 100, 'Range: 200', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 125, 'Price: 100', {fontSize: '18px', fill: '#fff'});
         let longRangeTurret = this.add.image(820, 200, 'longTurret');
         longRangeTurret.setScale(0.15);
         longRangeTurret.setInteractive();
         longRangeTurret.on('pointerup', () => {
+            if (this.selectedTurretHighlight !== null) {
+                this.selectedTurretHighlight.destroy();
+            }
+            this.selectedTurretHighlight = this.add.circle(820, 200, 25);
+            this.selectedTurretHighlight.setStrokeStyle(2, '0xffffff');
             this.selectedTurret = TurretEnum.SLOW;
         });
-        this.add.text(860, 175, 'Damage: 50', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 200, 'Speed: 1200ms', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 225, 'Range: 300', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 250, 'Price: 120', { fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 175, 'Damage: 50', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 200, 'Speed: 1200ms', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 225, 'Range: 300', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 250, 'Price: 120', {fontSize: '18px', fill: '#fff'});
         let fastTurret = this.add.image(820, 325, 'fastTurret');
         fastTurret.setScale(0.15);
         fastTurret.setInteractive();
         fastTurret.on('pointerup', () => {
+            if (this.selectedTurretHighlight !== null) {
+                this.selectedTurretHighlight.destroy();
+            }
+            this.selectedTurretHighlight = this.add.circle(820, 325, 25);
+            this.selectedTurretHighlight.setStrokeStyle(2, '0xffffff');
             this.selectedTurret = TurretEnum.FAST;
         });
-        this.add.text(860, 300, 'Damage: 20', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 325, 'Speed: 150ms', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 350, 'Range: 150', { fontSize: '18px', fill: '#fff'});
-        this.add.text(860, 375, 'Price: 300', { fontSize: '18px', fill: '#fff'});
-    }
-
-    dealDamage(enemy, bullet) {
-
+        this.add.text(860, 300, 'Damage: 20', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 325, 'Speed: 150ms', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 350, 'Range: 150', {fontSize: '18px', fill: '#fff'});
+        this.add.text(860, 375, 'Price: 300', {fontSize: '18px', fill: '#fff'});
     }
 
     drawGrid(graphics) {

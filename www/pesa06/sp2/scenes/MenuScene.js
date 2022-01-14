@@ -1,4 +1,5 @@
 import {SceneEnum} from "../SceneEnum.js";
+import EscapeStringHelper from "../EscapeStringHelper.js";
 
 export class MenuScene extends Phaser.Scene {
     constructor() {
@@ -27,6 +28,7 @@ export class MenuScene extends Phaser.Scene {
     }
 
     create() {
+        document.getElementById('gameDiv').style.cursor = 'default';
         this.add.image(500, 300, 'sky');
 
         let particles = this.add.particles('red');
@@ -61,14 +63,14 @@ export class MenuScene extends Phaser.Scene {
 
         let element = this.add.dom(525, 0).createFromCache('nameform');
         element.setPerspective(800);
-        element.addListener('click');
         let saveButton = element.getChildByName('saveNameButton');
         let input = element.getChildByName('textInput');
         if (window.localStorage.getItem('name') !== null && window.localStorage.getItem('name') !== undefined) {
             input.value = window.localStorage.getItem('name');
         }
         saveButton.addEventListener('click', (e) => {
-            if (input.value !== '') {
+            let escapedInput = EscapeStringHelper.escapeString(input.value);
+            if (escapedInput !== '') {
                 window.localStorage.setItem('name', input.value);
             }
         });
