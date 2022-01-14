@@ -5,7 +5,7 @@ import { useQerkoQuery } from '../../src/apiClient';
 
 import type { Table } from '../../src/@types/pos';
 
-export const TableCard = ({ table, showDetail }: { table: Table; showDetail: (props: { tableId: string; qrCode: string | null }) => void }) => {
+export const TableCard = ({ table, showDetail, countBill }: { countBill: number; table: Table; showDetail: (props: { tableId: string; qrCode: string | null }) => void }) => {
 
 	const { data: tableCode } = useQerkoQuery(
 		`table-${table.id}`,
@@ -29,6 +29,7 @@ export const TableCard = ({ table, showDetail }: { table: Table; showDetail: (pr
 				<Box display={'flex'} alignItems={'center'} justifyContent={'center'} flexDirection={'column'} height={140} width={140}>
 					<Typography variant={'h6'}>{table.name}</Typography>
 					<Typography variant={'caption'}>({table.id})</Typography>
+					<Typography variant={'caption'}>Count bill: {countBill}</Typography>
 				</Box>
 			</Card>
 		</CardActionArea>
