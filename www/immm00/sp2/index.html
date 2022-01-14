@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A website for finding recipes that fit all your needs.">
+    <meta name="author" content="Marek Immer, immm00">
+    <meta name="keywords" content="recipes, nutrition, nutritonal values, ingredients, diet">
+    <title>Deez Recipes</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+        integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+        integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="js/main.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <span class="header-title"><h1>Deez Recipes</h1></span>
+        <span class="header-tab">Find Recipes</span>
+    </header>
+
+    <div class="wrapper-nav-main">
+        <nav>
+            <div id="nav-find-recipes" class="active">Find recipes</div>
+            <div id="nav-saved-recipes">Saved recipes</div>
+            <div id="nav-ignored-recipes">Ignored recipes</div>
+        </nav>
+        <main>
+            <div id="find-recipes" class="active">
+                <div class="criteria">
+                    <h2>Criteria</h2>
+                    <button id="collapse-form-button"><i id="collapse-icon" class="fas fa-caret-up"></i></button>
+                    <form id="form">
+
+                        <div class="dropdowns">
+                            <div class="dropdown">
+                                <label>Food type</label>
+                                <select name="food-type" id="food-type-selector">
+                                    <option value="main+course">main course</option>
+                                    <option value="side+dish">side dish</option>
+                                    <option value="dessert">dessert</option>
+                                    <option value="appetizer">appetizer</option>
+                                    <option value="salad">salad</option>
+                                    <option value="bread">bread</option>
+                                    <option value="breakfast">breakfast</option>
+                                    <option value="soup">soup</option>
+                                    <option value="beverage">beverage</option>
+                                    <option value="sauce">sauce</option>
+                                    <option value="marinade">marinade</option>
+                                    <option value="fingerfood">fingerfood</option>
+                                    <option value="snack">snack</option>
+                                    <option value="drink">drink</option>
+                                </select>
+                            </div>
+                            <div class="dropdown">
+                                <label>Diet</label>
+                                <select name="diet" id="diet-selector">
+                                    <option value="none">none</option>
+                                    <option value="gluten+free">gluten free</option>
+                                    <option value="ketogenic">ketogenic</option>
+                                    <option value="vegetarian">vegetarian</option>
+                                    <option value="lacto-vegetarian">lacto-vegetarian</option>
+                                    <option value="ovo-vegetarian">ovo-vegetarian</option>
+                                    <option value="vegan">vegan</option>
+                                    <option value="pescetarian">pescetarian</option>
+                                    <option value="paleo">paleo</option>
+                                    <option value="primal">primal</option>
+                                    <option value="low+fodmap">low+fodmap</option>
+                                    <option value="whole30">whole30</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="nutritional-values">
+                            <div class="nutritional-value">
+                                <label>Calories (kcal)</label>
+                                <select name="calories-min-max" id="calories-min-max-selector">
+                                    <option value="min">min</option>
+                                    <option value="max">max</option>
+                                </select>
+                                <input type="number" id="calories" name="calories" min="0">
+                            </div>
+                            <div class="nutritional-value">
+                                <label>Protein (g)</label>
+                                <select name="protein-min-max" id="protein-min-max-selector">
+                                    <option value="min">min</option>
+                                    <option value="max">max</option>
+                                </select>
+                                <input type="number" id="protein" name="protein" min="0">
+                            </div>
+                            <div class="nutritional-value">
+                                <label>Carbs (g)</label>
+                                <select name="carbs-min-max" id="carbs-min-max-selector">
+                                    <option value="min">min</option>
+                                    <option value="max">max</option>
+                                </select>
+                                <input type="number" id="carbs" name="carbs" min="0">
+                            </div>
+                            <div class="nutritional-value">
+                                <label>Fat (g)</label>
+                                <select name="fat-min-max" id="fat-min-max-selector">
+                                    <option value="min">min</option>
+                                    <option value="max">max</option>
+                                </select>
+                                <input type="number" id="fat" name="fat" min="0">
+                            </div>
+                        </div>
+
+                        <div class="ingredients">
+                            <div class="ingredients-area">
+                                <label>Include ingredients (separate with comma)</label>
+                                <textarea rows="2" cols="35" id="included-ingredients-textarea"></textarea>
+                            </div>
+                            <div class="ingredients-area">
+                                <label>Exclude ingredients (separate with comma)</label>
+                                <textarea rows="2" cols="35" id="excluded-ingredients-textarea"></textarea>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Find Recipes!" class="submit">
+
+                    </form>
+                </div>
+                <div class="recipes">
+                    <h2>Recipes</h2>
+                    <div id="find-recipes-result-container" class="displayed-recipes">
+                        Recipes will appear here after searching for them.
+                        <div id="find-spinner" class="spinner inactive"></div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div id="saved-recipes" class="inactive">
+                <div class="recipes">
+                    <h2>Saved Recipes</h2>
+                    <div id="saved-recipes-result-container" class="displayed-recipes">
+                    </div>
+                </div>
+            </div>
+
+            <div id="ignored-recipes" class="inactive">
+                <div class="recipes">
+                    <h2>Ignored Recipes</h2>
+                    <div id="ignored-recipes-result-container" class="displayed-recipes">
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <span>Deez Recipes, Marek Immer, 2021&copy;</span>
+    </footer>
+
+</body>
+
+</html>
