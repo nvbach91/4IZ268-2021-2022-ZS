@@ -180,11 +180,7 @@ export default {
       this.total = total;
       this.time = (Math.max(remaining / total, 0) % 1) * 100;
       this.timeColor = this.time <= 30 ? "red" : "primary";
-      this.timeString = (Math.floor((total / 1000) * this.time) / 100)
-          .toString()
-          .split(".")
-          .map((part, i) => i === 0 ? part : part.padEnd(2, "0"))
-          .join(".")
+      this.timeString = (Math.floor((total / 1000) * this.time) / 100).toFixed(2);
     },
     submitWord() {
       if (this.word.trim() !== "") {
