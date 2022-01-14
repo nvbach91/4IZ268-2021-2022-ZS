@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Places library</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+        <link rel="icon" type="image/png" sizes="96x96" href="./img/fav-96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./img/fav-32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./img/fav-16.png">
+
+    </head>
+
+    <body>
+        <div class="body-wrapper">
+            <header>
+                <div class="pb-2 d-flex">
+                    <div class="text-center mx-auto">
+                        <h1 class="my-0">Places library</h1>
+                    </div>
+                    <div class="pe-2 me-1 d-flex align-items-end">
+                        <div class="dropdown">
+                            <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><button class="dropdown-item js-download-btn">Stáhnout</button></li>
+                                <li><button class="dropdown-item js-upload-btn">Nahrát</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="container-fluid py-3 page-container">
+                <div class="row">
+                    <main class="col-md-8">
+                        <div id="map"></div>
+                    </main>
+
+                    <aside class="col-md-4">
+                        <div class="text-end">
+                            <button class="btn btn-yellow text-uppercase js-add-place"><i class="bi bi-plus-lg"></i> přidat bod</button>
+                        </div>
+                        <div class="overflow-auto py-2 js-places-list places-list">
+                            <div class="card text-dark bg-light mb-2" id="place-card-prototype">
+                                <div class="card-header space-header">
+                                    <span class="js-card-name">name</span>
+                                    <div>
+                                        <input class="d-none form-control card-name-custom-edit js-name-edit" type="text">
+                                        <div class="invalid-feedback">
+                                            Název nesmí být prázdný
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-yellow js-btn-name-edit"><i class="bi bi-pencil-fill"></i></button>
+                                        <button type="button" class="btn btn-success d-none js-btn-name-save"><i class="bi bi-check-circle"></i></button>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-primary js-show-on-map"><i class="bi bi-eye-fill"></i></button>
+                                        &nbsp;
+                                        <button type="button" class="btn btn-secondary js-card-remove"><i class="bi bi-trash"></i></button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a class="js-card-clps-control" data-bs-toggle="collapse" href="#cardClps1" role="button" aria-expanded="false" aria-controls="cardClps1">
+                                        Popis
+                                    </a>
+                                    <div class="collapse" id="cardClps1">
+                                        <div class="js-card-desc">
+                                            Lorem ipsum atd.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <div id="info-window-prototype">
+                <div id="content">
+                    <h5>Zajímavosti v okolí</h5>
+                    <div id="bodyContent">
+                        <a class="js-info-window-item" href="#">
+                            <div class="item">
+                                <span class="name">Moravské doly</span>
+                                <span><i class="bi bi-chevron-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                Copyright © Martin Šesták
+
+                <div class="storage-usage position-absolute" tabindex="0" data-bs-toggle="tooltip" title="Využití úložiště ">
+                    <div class="progress">
+                        <div class="progress-bar bg-success js-storage-usage" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+
+                <!-- Scripts part -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnCkPEKO4_Nye-pbr3tw5Ju6zVGaCFF8g&libraries=places&v=weekly"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                <script src="js/classes.js"></script>
+                <script src="js/app.js"></script>
+            </footer>
+        </div>
+
+        <div class="modal fade" id="clickMapModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addPointModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Výběr bodu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Vyberte místo na mapě</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-100 js-map-point-confirm">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addPointModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addPointModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nový bod</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="modal-point-name" class="form-label">Název</label>
+                        <input type="text" class="form-control js-modal-point-name" id="modal-point-name">
+                        <div class="invalid-feedback">
+                            Název nesmí být prázdný
+                        </div>
+                        <label for="modal-point-desc" class="form-label">Popis</label>
+                        <textarea class="form-control js-modal-point-desc" id="modal-point-desc" rows="3"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary w-100 js-new-point-submit">
+                            <span class="js-modal-spinner d-none">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span class="visually-hidden">Loading...</span>
+                            </span>
+                            Přidat bod
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="dataModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addPointModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Nahrát / stáhnout data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <ul id="myTab" role="tablist" class="nav nav-tabs nav-justified">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="upload-tab" data-bs-toggle="tab" data-bs-target="#tab-upload" type="button" role="tab" aria-controls="tab-upload" aria-selected="true">Nahrání dat</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="download-tab" data-bs-toggle="tab" data-bs-target="#tab-download" type="button" role="tab" aria-controls="tab-download" aria-selected="false">Stažení dat</button>
+                        </li>
+                    </ul>
+                    <div class="modal-body">
+                        <div class="tab-content" id="dataTabsContent">
+                            <div class="tab-pane fade active show" id="tab-upload" role="tabpanel" aria-labelledby="upload-tab">
+                                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
+                                    Nahráním souboru dojde k přepsání stavajících dat
+                                </div>
+                                <div class="upload-container">
+                                    <div class="upload-area-info text-center">
+                                        <i class="bi bi-upload js-file-icon"></i><br>
+                                        <span>Soubor nahrajte přetažením nebo kliknutím</span><br>
+                                        <span class="js-filename"></span>
+                                        <input type="file" class="d-none js-upload-input">
+                                    </div>
+                                    <div class="upload-area js-upload-area"></div>
+                                </div>
+                                <button type="button" class="btn btn-primary mt-3 w-100 js-file-submit">Nahrát soubor</button>
+                            </div>
+                            <div class="tab-pane fade" id="tab-download" role="tabpanel" aria-labelledby="download-tab">
+                                <a class="btn btn-yellow w-100" id="download-data-btn" download="points-data.txt" href="#"><i class="bi bi-download"></i> Stáhnout data</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="position-fixed bottom-0 end-0 p-3 toast-container">
+            <div id="toastPrototype" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
+                <div class="toast-header">
+                    <img src="toast-icon" class="rounded me-2" alt="...">
+                    <strong class="me-auto">Bootstrap</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+</html>
