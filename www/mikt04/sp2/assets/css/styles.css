@@ -109,7 +109,7 @@ input {
     border-radius: 15px;
 }
 
-.button{
+#button-search, #button-add{
     font-size: medium;
     padding: 15px 20px;
     background-color:#272635;
@@ -119,7 +119,7 @@ input {
     width: 50%;
 }
 
-.button:hover{
+#button-search:hover{
     background-color:#a6a6a8;
     border-radius: 15px;
     color: white;
@@ -184,6 +184,13 @@ input {
 
 .non-active {
     display: none;
+}
+
+#main-content-results {
+    padding: 50px;
+    background-color: hotpink;
+    flex-direction: column;
+    align-items: center;
 }
 
 #collection-content {
