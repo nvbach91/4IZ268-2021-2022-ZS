@@ -166,7 +166,7 @@ input {
     border-top-left-radius: 5px;
 }
 
-.search-box {
+#search-box {
     padding: 50px;
     background-color: #fd5f00;
     display: flex;
@@ -182,16 +182,21 @@ input {
     align-items: center;
 }
 
+.main-content-results {
+    padding: 50px;
+    background-color: hotpink;
+    align-items: center;
+}
+
+#results{
+    display: flex;
+    justify-content: space-around;
+}
+
 .non-active {
     display: none;
 }
 
-#main-content-results {
-    padding: 50px;
-    background-color: hotpink;
-    flex-direction: column;
-    align-items: center;
-}
 
 #collection-content {
     margin: 0 150px;
@@ -261,6 +266,10 @@ input {
 .really-box {
     padding: 100px;
     background-color: greenyellow;
+}
+
+.movie-image{
+    width: 100px;
 }
 
 /*----Dissolve and animation----*/
