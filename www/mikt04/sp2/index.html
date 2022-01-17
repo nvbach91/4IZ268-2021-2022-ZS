@@ -41,7 +41,7 @@
                 </form>
             </div>
             <div id="main-content-add" class="non-active">
-                <form class="add-box">
+                <form id="add-box">
                     <input name="add" placeholder="Přidej název filmu" /> 
                     <button id="button-add">Přidat</button>
                 </form>
@@ -59,23 +59,23 @@
         <div id="main-content-infobar">
             <div id="main-content-infobar-menu">
                 <ul>
-                    <li class="click active" data-content="0">Info</li>
+                    <li class="click active" data-content="0">Popis</li>
                     <li class="click" data-content="1">Random</li>
                     <li class="click" data-content="2">Really</li>
                 </ul>
             </div>
             <div id="main-content-infobar-info" class="">
-                <div class="info-box"></div>
+                <div id="info-box"></div>
             </div>
             <div id="main-content-infobar-random" class="non-active">
-                <div class="random-box"></div>
+                <div id="random-box"></div>
             </div>
             <div id="main-content-infobar-really" class="non-active">
-                <div class="really-box"></div>
+                <div id="really-box"></div>
             </div>
         </div>
     </main>
-    <footer>Tomáš Mikulenka &copy; 2021</footer>
+    <footer>Tomáš Mikulenka &copy; <span id="year"></span></footer>
     <script src="./assets/js/main.js"></script>
 </body>
 

@@ -77,7 +77,7 @@ main{
 }
 
 span{
-    color: #fd5f00;
+    color: white;
 }
 
 .articles{
@@ -120,7 +120,7 @@ input {
     width: 50%;
 }
 
-#button-search:hover{
+#button-search:hover, #button-add:hover{
     background-color:#a6a6a8;
     border-radius: 15px;
     color: white;
@@ -175,7 +175,7 @@ input {
     align-items: center;
 }
 
-.add-box {
+#add-box {
     padding: 50px;
     background-color: aquamarine;
     display: flex;
@@ -203,11 +203,10 @@ input {
     margin: 0 150px;
     margin-top: 20px;
     height: 700px;
-
     background-color: cornflowerblue;
     width: 100%;
     display: flex;
-
+    flex-wrap: wrap;
 }
 
 #main-content-infobar {
@@ -257,17 +256,17 @@ input {
     border-top-left-radius: 5px;
 }
 
-.info-box {
+#info-box {
     padding: 100px;
     background-color: crimson;
 }
 
-.random-box {
+#random-box {
     padding: 100px;
     background-color: blueviolet;
 }
 
-.really-box {
+#really-box {
     padding: 100px;
     background-color: greenyellow;
 }
@@ -280,6 +279,15 @@ input {
     width: 100px;
 }
 
+.movie:hover {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.active-movie {
+    background-color: grey;
+}
+
 /*----Dissolve and animation----*/
 /* Used from cv06 */
 
@@ -289,5 +297,26 @@ input {
     }
     to{
         opacity: 100;
+    }
+}
+
+/*----Spinner and animation----*/
+/* Used from cv06 */
+
+.spinner{
+    border: 5px solid grey;
+    height: 30px;
+    width: 30px;
+    border-radius: 100px;
+    border-left-color: white;
+    animation: spinning 1s ease infinite;
+}
+
+@keyframes spinning {
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg)
     }
 }
