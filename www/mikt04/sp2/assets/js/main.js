@@ -1,16 +1,6 @@
 /** MAIN CONTENT MENU - SEARCH ADD CLICK */
 $('#main-content-menu .click').click(function () {
-  if ($(this).hasClass('active')) {
-    return;
-  }
-
   var index = $(this).attr('data-content');
-
-  /**
-  $('#main-content-search').fadeOut(200,function(){
-      $(this).text(data[index]).fadeIn(200);
-  });
-   */
 
   $('#main-content-menu .click').removeClass('active');
   $(this).addClass('active');
@@ -55,12 +45,14 @@ $('#main-content-infobar-menu .click').click(function () {
 
 $(document).ready(function () {
 
-  // Svatky //
+  // date and time //
 
   var strDate = $.datepicker.formatDate('dd.mm.yy', new Date());
   var strYear = $.datepicker.formatDate('yy', new Date());
   $('#date').append(strDate);
   $('#year').append(strYear);
+
+  // Svatky //
 
   $.ajax({
     url: "https://svatky.adresa.info/json",
@@ -76,22 +68,27 @@ $(document).ready(function () {
 
   // Movie database API //
 
+  // variables for searching
   const searchForm = $('#search-box');
-  const addForm = $('#add-box');
   const movieContainer = $('#results');
   const collectionContainer = $('#collection-content');
   const movieNameInput = $('input[name="search"]');
-  const jsonInput = [];
   let searchColl = [];
   let libraryColl = [];
 
+  // variables for custom adding
+  const addForm = $('#add-box');
+  const customMovieNameInput = $('input[name="add-name"]');
+  const customMoviePictureInput = $('input[name="add-picture"]');
+  
+  // spinner loading
   const showSpinner = () => {
     const spinner = $('<div>').addClass('spinner');
     searchForm.append(spinner);
-    console.log(spinner);
     return spinner;
   };
 
+  // handling search button
   searchForm.submit((e) => {
     e.preventDefault();
     movieContainer.empty();
@@ -101,7 +98,10 @@ $(document).ready(function () {
       return;
     }
 
+    // Creates spinner
     spinner = showSpinner();
+
+    // Ajax
     $.ajax({
       statusCode: {
         500: function() {
@@ -129,13 +129,34 @@ $(document).ready(function () {
         console.log(searchColl);
       },
       error: function (data) {
-
         console.log('ajax error' + data);
       }
     });
   });
 
-  function insertMovie(movie) {
+  addForm.submit((e) => {
+    e.preventDefault();
+    const customMovieName = customMovieNameInput.val();
+    const customMoviePicture = customMoviePictureInput.val();
+    const movieData = {
+      id: 'none',
+      name: customMovieName,
+      description: 'Tento film byl přidán ručně',
+      year: '----',
+      image: customMoviePicture,
+    };
+    insertMovie(movieData);
+  });
+
+  // appends movie to search collection div 
+  const showMovie = (collection) => {
+    collection.forEach(function (element) {
+      movieContainer.append(createMovie(element));
+    });
+  }
+
+  // ads movie to library collection array and html
+  const insertMovie = (movie) => {
     let idExists = false;
     libraryColl.forEach(function (element) {
       if (element.id == movie.id) {
@@ -149,14 +170,9 @@ $(document).ready(function () {
     }
   }
 
-  function deleteMovie(movie) {
+  // removes movie from library collection array
+  const deleteMovie = (movie) => {
     libraryColl.splice(libraryColl.findIndex(element => element.id == movie.id), 1);
-  }
-
-  const showMovie = (collection) => {
-    collection.forEach(function (element) {
-      movieContainer.append(createMovie(element));
-    });
   }
 
   // Creates movie html structure for search sellection
@@ -222,10 +238,13 @@ $(document).ready(function () {
     return movieInfoContainer;
   };
 
-  function saveData(){
+  /// SAVING DATA
+  // saving data to localStorage
+  const saveData = () => {
     localStorage["libraryCollection"] = JSON.stringify(libraryColl);
   };
 
+  // loading data from localStorage
   const lib = localStorage.getItem("libraryCollection");
   if (lib) {
     libraryColl = JSON.parse(lib);
@@ -234,20 +253,6 @@ $(document).ready(function () {
       collectionContainer.append(addMovie(element));
     });
   }
-
-  // active library 
-  /*
-  const movie = $(document).on('click', '.movie', function(){
-    $(".movie").removeClass("active-movie");
-    $(this).addClass("active-movie");
-    console.log(this);
-  });
-  */
-
-  addForm.submit((e) => {
-    e.preventDefault();
-
-  });
 
 
 
