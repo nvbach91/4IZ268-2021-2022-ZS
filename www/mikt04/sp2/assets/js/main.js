@@ -1,48 +1,3 @@
-/** MAIN CONTENT MENU - SEARCH ADD CLICK */
-$('#main-content-menu .click').click(function () {
-  var index = $(this).attr('data-content');
-
-  $('#main-content-menu .click').removeClass('active');
-  $(this).addClass('active');
-
-  if (index == 0) {
-    $('#main-content-search').removeClass('non-active');
-    $('#main-content-add').addClass('non-active');
-  }
-
-  if (index == 1) {
-    $('#main-content-add').removeClass('non-active');
-    $('#main-content-search').addClass('non-active');
-    $('.main-content-results').addClass('non-active');
-  }
-});
-
-/**MAIN CONTENT INFOBOX - SEARCH ADD CLICK */
-$('#main-content-infobar-menu .click').click(function () {
-  var index = $(this).attr('data-content');
-
-  $('#main-content-infobar-menu .click').removeClass('active');
-  $(this).addClass('active');
-
-  if (index == 0) {
-    $('#main-content-infobar-info').removeClass('non-active');
-    $('#main-content-infobar-random').addClass('non-active');
-    $('#main-content-infobar-really').addClass('non-active');
-  }
-
-  if (index == 1) {
-    $('#main-content-infobar-random').removeClass('non-active');
-    $('#main-content-infobar-info').addClass('non-active');
-    $('#main-content-infobar-really').addClass('non-active');
-  }
-  if (index == 2) {
-    $('#main-content-infobar-really').removeClass('non-active');
-    $('#main-content-infobar-random').addClass('non-active');
-    $('#main-content-infobar-info').addClass('non-active');
-  }
-});
-
-
 $(document).ready(function () {
 
   // date and time //
@@ -202,13 +157,14 @@ $(document).ready(function () {
   // creates movie html structure for library collection
   const addMovie = (movie) => {
     const infoBox = $('#info-box');
+    
     const movieContainer = $('<div>').addClass('movie').click(() => {
       infoBox.empty();
       infoBox.append(addMovieInfo(movie));
       $('.movie').removeClass('active-movie');
       movieContainer.addClass('active-movie');
     });
-    const movieNameContainer = $('<div>').addClass('movie-name').text(movie.name);
+
     const movieImageContainer = $('<img>').addClass('movie-image').attr('src', movie.image).attr('alt', 'movie-image');
 
     const movieAddButton = $('<button>').text('Odebrat').click(() => {
@@ -218,7 +174,7 @@ $(document).ready(function () {
     });
 
     movieContainer.append(
-      movieNameContainer,
+      //movieNameContainer,
       movieImageContainer,
       movieAddButton,
     );
@@ -229,9 +185,11 @@ $(document).ready(function () {
   // creates movie html structure for movie information
   const addMovieInfo = (movie) => {
     const movieInfoContainer = $('<div>').addClass('movie-info');
+    const movieInfoNameContainer = $('<div>').addClass('movie-info-name').text(movie.name);
     const movieInfoDescriptionContainer = $('<div>').addClass('movie-description').text(movie.description);
 
     movieInfoContainer.append(
+      movieInfoNameContainer,
       movieInfoDescriptionContainer,
     );
 
@@ -255,11 +213,55 @@ $(document).ready(function () {
   }
 
 
+  // MAIN CONTENT MENU - SEARCH ADD CLICK //
+  $('#main-content-menu .click').click(function () {
+    const mainContentSearch = $('#main-content-search');
+    const mainConntentAdd = $('#main-content-add');
+    const index = $(this).attr('data-content');
 
+    $('#main-content-menu .click').removeClass('active');
+    $(this).addClass('active');
 
-  /**
+    if (index == 0) {
+      mainContentSearch.removeClass('non-active');
+      mainConntentAdd.addClass('non-active');
+    }
 
-   */
+    if (index == 1) {
+      mainConntentAdd.removeClass('non-active');
+      mainContentSearch.addClass('non-active');
+      $('.main-content-results').addClass('non-active');
+    }
+  });
+
+    // MAIN CONTENT INFOBOX - SEARCH ADD CLICK //
+  $('#main-content-infobar-menu .click').click(function () {
+    const mainContentInfo = $('#main-content-infobar-info');
+    const mainContentRandom = $('#main-content-infobar-random');
+    const mainContentReally = $('#main-content-infobar-really');
+    var index = $(this).attr('data-content');
+
+    $('#main-content-infobar-menu .click').removeClass('active');
+    $(this).addClass('active');
+
+    if (index == 0) {
+      mainContentInfo.removeClass('non-active');
+      mainContentRandom.addClass('non-active');
+      mainContentReally.addClass('non-active');
+    }
+
+    if (index == 1) {
+      mainContentRandom.removeClass('non-active');
+      mainContentInfo.addClass('non-active');
+      mainContentReally.addClass('non-active');
+    }
+    if (index == 2) {
+      mainContentReally.removeClass('non-active');
+      mainContentRandom.addClass('non-active');
+      mainContentInfo.addClass('non-active');
+    }
+  });
+
 
 
 });

@@ -169,7 +169,7 @@ input {
 
 #search-box {
     padding: 50px;
-    background-color: #fd5f00;
+    background-color: #9a031e;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -177,7 +177,7 @@ input {
 
 #add-box {
     padding: 50px;
-    background-color: aquamarine;
+    background-color: #5f0f40;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,7 +185,7 @@ input {
 
 .main-content-results {
     padding: 50px;
-    background-color: hotpink;
+    background-color: #e4e4e4;
     align-items: center;
 }
 
@@ -202,8 +202,8 @@ input {
 #collection-content {
     margin: 0 150px;
     margin-top: 20px;
-    height: 700px;
-    background-color: cornflowerblue;
+    max-height: 700px;
+    background-color: grey;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -258,7 +258,8 @@ input {
 
 #info-box {
     padding: 100px;
-    background-color: crimson;
+    background-color: #b41734;
+    color: white;
 }
 
 #random-box {
@@ -271,21 +272,40 @@ input {
     background-color: greenyellow;
 }
 
-.movie-result-image{
-    width: 100px;
+.movie-result {
+    margin: 5px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
 }
 
-.movie-image{
-    width: 100px;
+.movie-result-image{
+    max-width: 100%
+}
+
+.movie {
+    margin: 5px;
+    padding: 5px;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
 }
 
 .movie:hover {
-    background-color: yellow;
+    background-color: #e4e4e4;
     cursor: pointer;
 }
 
+.movie-image{
+    max-width: 100%
+}
+
+.movie-info-name {
+    font-weight: bold;
+}
+
 .active-movie {
-    background-color: grey;
+    background-color: #9a031e;
 }
 
 /*----Dissolve and animation----*/
