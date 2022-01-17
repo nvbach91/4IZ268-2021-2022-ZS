@@ -83,7 +83,7 @@ $(document).ready(function () {
   const movieNameInput = $('input[name="search"]');
   const jsonInput = [];
   let searchColl = [];
-  const libraryColl = [];
+  let libraryColl = [];
 
   const showSpinner = () => {
     const spinner = $('<div>').addClass('spinner');
@@ -92,16 +92,19 @@ $(document).ready(function () {
     return spinner;
   };
 
-
   searchForm.submit((e) => {
     e.preventDefault();
     movieContainer.empty();
     const movieName = movieNameInput.val();
+
+    if(movieName.length < 3){
+      return;
+    }
+
     spinner = showSpinner();
     $.ajax({
       statusCode: {
         500: function() {
-          
         }
       },
       url: "https://api.themoviedb.org/3/search/movie?api_key=ac508bc638f7b6f9435980b8c95da7f2&language=cs-CZ&query=" + movieName + "&page=1&include_adult=true",
@@ -109,7 +112,8 @@ $(document).ready(function () {
       dataType: 'json',
       success: function (res) {
         searchColl.length = 0;
-        for (let i = 0; i < 4; i += 1) {
+        const n = Math.min(4, res.total_results);
+        for (let i = 0; i < n; i += 1) {
           const movieData = {
             id: res.results[i].id,
             name: res.results[i].original_title,
@@ -125,10 +129,10 @@ $(document).ready(function () {
         console.log(searchColl);
       },
       error: function (data) {
+
         console.log('ajax error' + data);
       }
     });
-
   });
 
   function insertMovie(movie) {
@@ -164,6 +168,7 @@ $(document).ready(function () {
 
     const movieAddButton = $('<button>').text('Přidat').click(() => {
       insertMovie(movie);
+      saveData();
       console.log(libraryColl);
       movieAddButton.remove();
       movieContainer.append(movieMessageContainer);
@@ -193,6 +198,7 @@ $(document).ready(function () {
     const movieAddButton = $('<button>').text('Odebrat').click(() => {
       movieContainer.remove();
       deleteMovie(movie);
+      saveData();
     });
 
     movieContainer.append(
@@ -215,6 +221,19 @@ $(document).ready(function () {
 
     return movieInfoContainer;
   };
+
+  function saveData(){
+    localStorage["libraryCollection"] = JSON.stringify(libraryColl);
+  };
+
+  const lib = localStorage.getItem("libraryCollection");
+  if (lib) {
+    libraryColl = JSON.parse(lib);
+    if (libraryColl.length > 0)
+    libraryColl.forEach(function (element) {
+      collectionContainer.append(addMovie(element));
+    });
+  }
 
   // active library 
   /*
