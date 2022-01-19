@@ -262,14 +262,16 @@ input {
     color: white;
 }
 
-#random-box {
+#param-box {
     padding: 100px;
-    background-color: blueviolet;
+    background-color: #da1f41;
+    color: white;
 }
 
-#really-box {
+#random-box {
     padding: 100px;
-    background-color: greenyellow;
+    background-color: #ff3b5f;
+    color: white;
 }
 
 .movie-result {

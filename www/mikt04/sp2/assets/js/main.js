@@ -78,7 +78,18 @@ $(document).ready(function () {
             rating: res.results[i].vote_average,
             image: 'https://image.tmdb.org/t/p/original' + res.results[i].poster_path,
           };
-          searchColl.push(movieData);
+        // Ajax
+        $.ajax({
+          url: "https://api.themoviedb.org/3/movie/" + res.results[i].id +"?api_key=ac508bc638f7b6f9435980b8c95da7f2&language=cs-CZ",
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            movieData.budget = response.budget;
+            movieData.revenue = response.revenue;
+          },
+        });
+        searchColl.push(movieData);
+        console.log(searchColl);
         }
         $('.main-content-results').removeClass('non-active');
         spinner.remove();
@@ -168,10 +179,13 @@ $(document).ready(function () {
   // creates movie html structure for library collection
   const addMovie = (movie) => {
     const infoBox = $('#info-box');
+    const paramBox = $('#param-box')
     
     const movieContainer = $('<div>').addClass('movie').click(() => {
       infoBox.empty();
+      paramBox.empty();
       infoBox.append(addMovieInfo(movie));
+      paramBox.append(addMovieParam(movie));
       $('.movie').removeClass('active-movie');
       movieContainer.addClass('active-movie');
     });
@@ -206,6 +220,20 @@ $(document).ready(function () {
 
     return movieInfoContainer;
   };
+
+  const addMovieParam  = (movie) => {
+    const movieParamContainer = $('<div>').addClass('movie-param');
+    const movieParamBudget = $('<div>').addClass('movie-param-budget').text('Rozpočet: $' + movie.budget);
+    const movieParamRevenue = $('<div>').addClass('movie-param-revenue').text('Tržby: $' + movie.revenue);
+
+    movieParamContainer.append(
+      movieParamBudget,
+      movieParamRevenue,
+    );
+
+    return movieParamContainer;
+
+  }
 
   /// SAVING DATA
   // saving data to localStorage
@@ -248,8 +276,8 @@ $(document).ready(function () {
     // MAIN CONTENT INFOBOX - SEARCH ADD CLICK //
   $('#main-content-infobar-menu .click').click(function () {
     const mainContentInfo = $('#main-content-infobar-info');
+    const mainContentParam = $('#main-content-infobar-param');
     const mainContentRandom = $('#main-content-infobar-random');
-    const mainContentReally = $('#main-content-infobar-really');
     var index = $(this).attr('data-content');
 
     $('#main-content-infobar-menu .click').removeClass('active');
@@ -257,18 +285,18 @@ $(document).ready(function () {
 
     if (index == 0) {
       mainContentInfo.removeClass('non-active');
+      mainContentParam.addClass('non-active');
       mainContentRandom.addClass('non-active');
-      mainContentReally.addClass('non-active');
     }
 
     if (index == 1) {
-      mainContentRandom.removeClass('non-active');
+      mainContentParam.removeClass('non-active');
       mainContentInfo.addClass('non-active');
-      mainContentReally.addClass('non-active');
+      mainContentRandom.addClass('non-active');
     }
     if (index == 2) {
-      mainContentReally.removeClass('non-active');
-      mainContentRandom.addClass('non-active');
+      mainContentRandom.removeClass('non-active');
+      mainContentParam.addClass('non-active');
       mainContentInfo.addClass('non-active');
     }
   });
