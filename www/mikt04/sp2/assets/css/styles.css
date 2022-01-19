@@ -257,19 +257,19 @@ input {
 }
 
 #info-box {
-    padding: 100px;
+    padding: 80px;
     background-color: #b41734;
     color: white;
 }
 
 #param-box {
-    padding: 100px;
+    padding: 80px;
     background-color: #da1f41;
     color: white;
 }
 
-#random-box {
-    padding: 100px;
+#rating-box {
+    padding: 80px;
     background-color: #ff3b5f;
     color: white;
 }
@@ -304,6 +304,13 @@ input {
 
 .movie-info-name {
     font-weight: bold;
+}
+
+
+.movie-rating {
+    font-weight: bold;
+    font-size: larger;
+    text-align: center;
 }
 
 .active-movie {

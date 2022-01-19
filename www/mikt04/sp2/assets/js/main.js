@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  // date and time //
+  // date and time from jQueryUI//
 
   var strDate = $.datepicker.formatDate('dd.mm.yy', new Date());
   var strYear = $.datepicker.formatDate('yy', new Date());
@@ -86,6 +86,9 @@ $(document).ready(function () {
           success: function (response) {
             movieData.budget = response.budget;
             movieData.revenue = response.revenue;
+            movieData.language = response.original_language;
+            movieData.status = response.status;
+            movieData.imdb= response.imdb_id;
           },
         });
         searchColl.push(movieData);
@@ -120,9 +123,16 @@ $(document).ready(function () {
       name: customMovieName,
       description: 'Tento film byl přidán ručně',
       year: '----',
+      rating: 0,
       image: customMoviePicture,
+      budget: '----',
+      revenue: '----',
+      language: 'Tento film byl přidán ručně',
+      status: 'Tento film byl přidán ručně',
+      imdb: 'Tento film byl přidán ručně',
     };
     insertMovie(movieData);
+    saveData();
   });
 
   // appends movie to search collection div 
@@ -143,6 +153,7 @@ $(document).ready(function () {
     if (idExists == false) {
       libraryColl.push(movie);
       collectionContainer.append(addMovie(movie));
+      console.log(libraryColl);
       return true;
     }
   }
@@ -179,13 +190,16 @@ $(document).ready(function () {
   // creates movie html structure for library collection
   const addMovie = (movie) => {
     const infoBox = $('#info-box');
-    const paramBox = $('#param-box')
+    const paramBox = $('#param-box');
+    const ratingBox = $('#rating-box');
     
     const movieContainer = $('<div>').addClass('movie').click(() => {
       infoBox.empty();
       paramBox.empty();
+      ratingBox.empty();
       infoBox.append(addMovieInfo(movie));
       paramBox.append(addMovieParam(movie));
+      ratingBox.append(addMovieRating(movie));
       $('.movie').removeClass('active-movie');
       movieContainer.addClass('active-movie');
     });
@@ -225,15 +239,35 @@ $(document).ready(function () {
     const movieParamContainer = $('<div>').addClass('movie-param');
     const movieParamBudget = $('<div>').addClass('movie-param-budget').text('Rozpočet: $' + movie.budget);
     const movieParamRevenue = $('<div>').addClass('movie-param-revenue').text('Tržby: $' + movie.revenue);
+    const movieParamLanguage = $('<div>').addClass('movie-param-language').text('Původní jazyk: '+ movie.language);
+    const movieParamStatus = $('<div>').addClass('movie-param-status').text('Stav: '+ movie.status);
+    const movieParamImdb = $('<div>').addClass('movie-param-imdb').text('ID v IMDB: '+ movie.imdb);
 
     movieParamContainer.append(
       movieParamBudget,
       movieParamRevenue,
+      movieParamLanguage,
+      movieParamStatus,
+      movieParamImdb,
     );
 
-    return movieParamContainer;
 
-  }
+    return movieParamContainer;
+  };
+
+  const addMovieRating = (movie) => {
+    const movieRatingContainer = $('<div>').addClass('movie-rating');
+    const movieRatingNumber = $('<div>').addClass('movie-rating-number').text((movie.rating*10) + '%');
+    const movieRatingBar = $('<div>').addClass('movie-rating-bar').progressbar({value: movie.rating*10});
+
+    movieRatingContainer.append(
+      movieRatingNumber,
+      movieRatingBar,
+    );
+
+
+    return movieRatingContainer;
+  };
 
   /// SAVING DATA
   // saving data to localStorage
@@ -277,7 +311,7 @@ $(document).ready(function () {
   $('#main-content-infobar-menu .click').click(function () {
     const mainContentInfo = $('#main-content-infobar-info');
     const mainContentParam = $('#main-content-infobar-param');
-    const mainContentRandom = $('#main-content-infobar-random');
+    const mainContentRating = $('#main-content-infobar-rating');
     var index = $(this).attr('data-content');
 
     $('#main-content-infobar-menu .click').removeClass('active');
@@ -286,21 +320,19 @@ $(document).ready(function () {
     if (index == 0) {
       mainContentInfo.removeClass('non-active');
       mainContentParam.addClass('non-active');
-      mainContentRandom.addClass('non-active');
+      mainContentRating.addClass('non-active');
     }
 
     if (index == 1) {
       mainContentParam.removeClass('non-active');
       mainContentInfo.addClass('non-active');
-      mainContentRandom.addClass('non-active');
+      mainContentRating.addClass('non-active');
     }
     if (index == 2) {
-      mainContentRandom.removeClass('non-active');
+      mainContentRating.removeClass('non-active');
       mainContentParam.addClass('non-active');
       mainContentInfo.addClass('non-active');
     }
   });
-
-
 
 });
