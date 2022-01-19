@@ -105,6 +105,7 @@ $(document).ready(function () {
     });
   });
 
+  // handling add button
   addForm.submit((e) => {
     e.preventDefault();
     
@@ -221,7 +222,7 @@ $(document).ready(function () {
     return movieContainer;
   };
 
-  // creates movie html structure for movie description
+  // creates html structure for movie description
   const addMovieInfo = (movie) => {
     const movieInfoContainer = $('<div>').addClass('movie-info');
     const movieInfoNameContainer = $('<div>').addClass('movie-info-name').text(movie.name);
@@ -235,6 +236,7 @@ $(document).ready(function () {
     return movieInfoContainer;
   };
 
+  // creates html structure for movie facts
   const addMovieParam  = (movie) => {
     const movieParamContainer = $('<div>').addClass('movie-param');
     const movieParamBudget = $('<div>').addClass('movie-param-budget').text('Rozpočet: $' + movie.budget);
@@ -255,6 +257,7 @@ $(document).ready(function () {
     return movieParamContainer;
   };
 
+  // creates movie html structure for movie rating
   const addMovieRating = (movie) => {
     const movieRatingContainer = $('<div>').addClass('movie-rating');
     const movieRatingNumber = $('<div>').addClass('movie-rating-number').text((movie.rating*10) + '%');
