@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=en>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
-
     <title>Ear Pitch Trainer</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <meta name="description" content="Simple ear training application for recognizing notes by pitch.">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Ear, Pitch, Training">
+    <meta name="author" content="kosr04">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="img/android-chrome-512x512.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
 </head>
 
-<body>
-    <div class="wrapper">
-        <input type="button" value="Reload Game" onClick="location.href=location.href">
-        <button type="button">Enable sound</button>
-        <h1>Ear Pitch Trainer</h1>
-        <h2>Points: <strong id="points">0</strong></h2>
-        <!-- zde placeholder pro jednotlivé klávesy-->
-        <div id="keyboard"></div>
+<body onload="prepareScreen();">
+    <main>
+        <div id="container">
+            <div id="startArea">
+                <h1>Ear Pitch Trainer</h1>
+                <h2>How many questions would you like to go through?</h2>
+                <input id="questionSetter" type="number" value="5" step="5" min="5" onkeydown="return false">
+                <button id="startButton" class="button" onclick="allowPlayback(); generateTest();">Start Test</button>
+                <button id="clearButton" class="button" onclick="scoreClear();">Delete High Score</button>
+            </div>
 
+            <div id="questionArea">
+                <button id="stopButton" class="button" onclick="finishTest();">Stop Test</button>
+                <h3 id="questionIndex"></h3>
+                <button class="button" onclick="replayNote();">Replay Note</button>
+                <select id="answer">
+                    <option value="0">C</option>
+                    <option value="1">D</option>
+                    <option value="2">E</option>
+                    <option value="3">F</option>
+                    <option value="4">G</option>
+                    <option value="5">A</option>
+                    <option value="6">H</option>
+                </select>
+                <button class="button" onclick="confirmAnswer();">Confirm Answer</button>
+            </div>
+            <div id="message"></div>
+        </div>
+
+    </main>
+    <div class="footer">
+        <footer>
+            <p>Tato aplikace byla vytvořena jako druhá semestrální práce z předmětu Webové Technologie.</p>
+            <p>ZS 2021/2022 by kosr04</p>
+        </footer>
     </div>
-
-    <script src="js/main.js"></script>
 </body>
 
 </html>
