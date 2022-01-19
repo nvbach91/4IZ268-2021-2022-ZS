@@ -60,6 +60,7 @@ $(document).ready(function () {
     $.ajax({
       statusCode: {
         500: function() {
+          console.log('error status code 500');
         }
       },
       url: "https://api.themoviedb.org/3/search/movie?api_key=ac508bc638f7b6f9435980b8c95da7f2&language=cs-CZ&query=" + movieName + "&page=1&include_adult=true",
@@ -74,6 +75,7 @@ $(document).ready(function () {
             name: res.results[i].original_title,
             description: res.results[i].overview,
             year: res.results[i].release_date,
+            rating: res.results[i].vote_average,
             image: 'https://image.tmdb.org/t/p/original' + res.results[i].poster_path,
           };
           searchColl.push(movieData);
@@ -91,10 +93,19 @@ $(document).ready(function () {
 
   addForm.submit((e) => {
     e.preventDefault();
+    
     const customMovieName = customMovieNameInput.val();
     const customMoviePicture = customMoviePictureInput.val();
+
+    // validation of user input checks url img format
+    const picture = new RegExp('(https?:\/\/.*\.(?:png|jpg?g))');
+    if (!customMoviePicture.match(picture) || customMovieName.length >= 50) {
+      console.log('vlozte spravny fomat obrazku jpe?g,png')
+      return false;
+    }
+
     const movieData = {
-      id: 'none',
+      id: customMovieName,
       name: customMovieName,
       description: 'Tento film byl přidán ručně',
       year: '----',
@@ -182,7 +193,7 @@ $(document).ready(function () {
     return movieContainer;
   };
 
-  // creates movie html structure for movie information
+  // creates movie html structure for movie description
   const addMovieInfo = (movie) => {
     const movieInfoContainer = $('<div>').addClass('movie-info');
     const movieInfoNameContainer = $('<div>').addClass('movie-info-name').text(movie.name);
