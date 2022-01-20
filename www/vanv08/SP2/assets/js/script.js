@@ -33,7 +33,6 @@ const SHUFFLE = "https://api.spotify.com/v1/me/player/shuffle";
 function onPageLoad() {
     client_id = localStorage.getItem("client_id");
     client_secret = localStorage.getItem("client_secret");
-    console.log(access_token);
     if (window.location.search.length > 0) { // looking at querry param
         handleRedirect();
     }
@@ -98,8 +97,6 @@ function callAuthorizationApi(body) {
 // Understanding response from server
 function handleAuthorizationResponse() {
     if (this.status == 200) {
-        var data = JSON.parse(this.responseText);
-        console.log(data);
         var data = JSON.parse(this.responseText);
         if (data.access_token != undefined) {
             access_token = data.access_token;
