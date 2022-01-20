@@ -11,9 +11,17 @@
 <body>
 <div id="map"></div>
 <div class="controls">
-
+    <div id="list">
+        <div class="loader"></div>
+    </div>
+    <button id="loadMore">Load More</button>
 </div>
-<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"></script>
+<script src="https://apis.google.com/js/api.js" type="text/javascript"></script>
+
 <script src="index.js"></script>
+<script async
+        src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAVkSo1iq9U0FIplqLbNsHyMAHHqtNd7No&callback=initMap&v=weekly&libraries=places'></script>
 </body>
 </html>

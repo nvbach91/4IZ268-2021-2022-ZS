@@ -1,8 +1,91 @@
 #map {
     height: 100%;
 }
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+.controls {
+    position: fixed;
+    top: 60px;
+    left: 10px;
+    width: 315px;
+    height: calc(100vh - 70px);
+    border: 1px solid #777;
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#list {
+    height: calc(100vh - 130px);
+    padding: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#loadMore {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #777;
+    background-color: #88ccee;
+    margin: 5px;
+    width: calc(100% - 10px);
+}
+
+.place {
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #777;
+    width: 278px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    overflow: hidden;
+    z-index: 500;
+}
+
+.place-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.info {
+    padding-left: 5px;
+}
+
+.info h3, p {
+    margin: 0;
+    padding: 5px 0 0 2px;
+}
+
+.info a {
+    text-decoration: none;
+    color: black;
+    border: 1px solid blue;
+    border-radius: 15px;
+    padding: 2px 5px;
+    white-space: nowrap;
+    margin: 3px 0;
+}
+
+.loader {
+    margin: 10px auto;
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
