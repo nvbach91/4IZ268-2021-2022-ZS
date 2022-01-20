@@ -137,7 +137,7 @@ function handleDevicesResponse() {
 function addDevice(item) {
     let node = document.createElement("option");
     node.value = item.id;
-    node.innerHTML = item.name;
+    node.innerText = item.name;
     document.getElementById("devices").appendChild(node);
 }
 
@@ -172,7 +172,7 @@ function handlePlaylistsResponse() {
 function addPlaylist(item) {
     let node = document.createElement("option");
     node.value = item.id;
-    node.innerHTML = item.name + " (" + item.tracks.total + ")";
+    node.innerText = item.name + " (" + item.tracks.total + ")";
     document.getElementById("playlists").appendChild(node);
 }
 
@@ -258,6 +258,13 @@ function handleTracksResponse() {
     }
 }
 
+function addTrack(item, index) {
+    let node = document.createElement("option");
+    node.value = index;
+    node.innerText = item.track.name + " (" + item.track.artists[0].name + ")";
+    document.getElementById("tracks").appendChild(node);
+}
+
 function currentlyPlaying() {
     callApi("GET", PLAYER + "?market=US", null, handleCurrentlyPlayingResponse);
 }
@@ -268,8 +275,8 @@ function handleCurrentlyPlayingResponse() {
         console.log(data);
         if (data.item != null) {
             document.getElementById("albumImage").src = data.item.album.images[0].url;
-            document.getElementById("trackTitle").innerHTML = data.item.name;
-            document.getElementById("trackArtist").innerHTML = data.item.artists[0].name;
+            document.getElementById("trackTitle").innerText = data.item.name;
+            document.getElementById("trackArtist").innerText = data.item.artists[0].name;
         }
 
 
@@ -294,3 +301,36 @@ function handleCurrentlyPlayingResponse() {
 
     }
 }
+
+const loginButton = document.getElementById("loginButton");
+loginButton.addEventListener("click", requestAuthorization, true);
+
+const refreshDevicesButton = document.getElementById("refreshDevicesButton");
+refreshDevicesButton.addEventListener("click", refreshDevices, true);
+
+const changeDeviceButton = document.getElementById("changeDeviceButton");
+changeDeviceButton.addEventListener("click", changeDevice, true);
+
+const refreshPlaylistsButton = document.getElementById("refreshPlaylistsButton");
+refreshPlaylistsButton.addEventListener("click", refreshPlaylists, true);
+
+const fetchTracksButton = document.getElementById("fetchTracksButton");
+fetchTracksButton.addEventListener("click", fetchTracks, true);
+
+const previousButton = document.getElementById("previousButton");
+previousButton.addEventListener("click", previous, true);
+
+const playButton = document.getElementById("playButton");
+playButton.addEventListener("click", play, true);
+
+const shuffleButton = document.getElementById("shuffleButton");
+shuffleButton.addEventListener("click", shuffle, true);
+
+const pauseButton = document.getElementById("pauseButton");
+pauseButton.addEventListener("click", pause, true);
+
+const nextButton = document.getElementById("nextButton");
+nextButton.addEventListener("click", next, true);
+
+const currentlyPlayingButton = document.getElementById("currentlyPlayingButton");
+currentlyPlayingButton.addEventListener("click", currentlyPlaying, true);
