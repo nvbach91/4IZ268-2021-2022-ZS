@@ -258,13 +258,6 @@ function handleTracksResponse() {
     }
 }
 
-function addTrack(item, index) {
-    let node = document.createElement("option");
-    node.value = index;
-    node.innerHTML = item.track.name + " (" + item.track.artists[0].name + ")";
-    document.getElementById("tracks").appendChild(node);
-}
-
 function currentlyPlaying() {
     callApi("GET", PLAYER + "?market=US", null, handleCurrentlyPlayingResponse);
 }
