@@ -2,8 +2,8 @@ $(document).ready(function () {
 
   // date and time from jQueryUI//
 
-  var strDate = $.datepicker.formatDate('dd.mm.yy', new Date());
-  var strYear = $.datepicker.formatDate('yy', new Date());
+  const strDate = $.datepicker.formatDate('dd.mm.yy', new Date());
+  const strYear = $.datepicker.formatDate('yy', new Date());
   $('#date').append(strDate);
   $('#year').append(strYear);
 
@@ -14,11 +14,11 @@ $(document).ready(function () {
     type: 'GET',
     dataType: 'json',
     success: function (res) {
-      var parsed = JSON.parse(JSON.stringify(res));
-      $.each(parsed, function (key, val) {
-        $('#svatek').append(val.name);
-      });
-    }
+      $('#svatek').append(res[0].name);
+    },
+    error: function(data){
+      console.log('ajax svatky error' + data);
+  }
   });
 
   // Movie database API //
@@ -280,12 +280,17 @@ $(document).ready(function () {
 
   // loading data from localStorage
   const lib = localStorage.getItem("libraryCollection");
+  let data = [];
+  let result;
+
   if (lib) {
     libraryColl = JSON.parse(lib);
     if (libraryColl.length > 0)
     libraryColl.forEach(function (element) {
-      collectionContainer.append(addMovie(element));
+      result = addMovie(element);
+      data.push(result);
     });
+    collectionContainer.append(data);
   }
 
 
