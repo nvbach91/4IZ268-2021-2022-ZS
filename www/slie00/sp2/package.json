@@ -2,6 +2,7 @@
   "name": "marketplace",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://eso.vse.cz/~slie00/sp2/build",
   "dependencies": {
     "firebase": "^9.6.1",
     "history": "5",

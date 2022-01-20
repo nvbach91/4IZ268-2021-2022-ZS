@@ -168,9 +168,9 @@ function App() {
 	return (<main className="overflow-auto max-h-screen">
 		<nav className="p-2 bordered border-2 full-width flex justify-between rounded-2xl m-2 ">
 			<div className="p-1">
-				<Link to="/" onClick={() => onTabChange("home")} className="font-bold p-2 text-2xl">Home</Link>
+				<Link to="./" onClick={() => onTabChange("home")} className="font-bold p-2 text-2xl">Home</Link>
 				{user !== null &&
-					<Link to="/mine" onClick={() => onTabChange("mine")} className="font-bold p-2 text-2xl">My Items</Link>}
+					<Link to="./mine" onClick={() => onTabChange("mine")} className="font-bold p-2 text-2xl">My Items</Link>}
 			</div>
 			{user !== null ?
 				<button className="bg-red-500 text-white font-bold py-2 px-4 rounded-xl w-28" onClick={logOut}>Log out</button>
