@@ -18,7 +18,7 @@ body {
     height: 100%;
 }
 
-.flights {
+.flight-list {
     display: flex;
     flex-direction: column;
     width: 25%;

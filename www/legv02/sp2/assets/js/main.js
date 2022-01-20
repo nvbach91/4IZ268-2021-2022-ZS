@@ -4,12 +4,12 @@ $(document).ready(() => {
     const timeStart = $('#time-start');
     const timeEnd = $('#time-end');
     const flightContainer = $('#flight-container');
-    const spinner = document.getElementById('spinner');
+    //const spinner = $('#spinner');
     let flightList = null;
     let timeStartUnix = null;
     let timeEndUnix = null;
 
-    const button = document.getElementById('submit');
+
     /*
     const home = { template: '<div>home</div>' }
     const saved = { template: '<div>saved</div>' }
@@ -29,15 +29,19 @@ $(document).ready(() => {
         //data: {}
     }).$mount('#app')
     */
-    ApiUrl = 'https://opensky-network.org/api';
-    UnixTimeApiUtl = 'https://showcase.api.linx.twenty57.net/UnixTime/tounix?date='
 
-    button.addEventListener('click', function () {
+    const ApiUrl = 'https://opensky-network.org/api';
+    const UnixTimeApiUtl = 'https://showcase.api.linx.twenty57.net/UnixTime/tounix?date=';
+
+    $('#submit').on("click", function () {
         /*
         if(spinner.nextSibling != spinner) {
             spinner.nextSibling.remove();
         }
         */
+
+        $('#flight-container').siblings().remove();
+
         const departureVal = departure.val();
         const timeStartVal = timeStart.val();
         const timeEndVal = timeEnd.val();
@@ -76,7 +80,6 @@ $(document).ready(() => {
                             "</div>");
                     }
                 });
-                //displayFlights();
                 drawFlights();
             },
             error: function () {
