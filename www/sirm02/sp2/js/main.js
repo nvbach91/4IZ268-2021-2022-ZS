@@ -1,34 +1,39 @@
 $(document).ready(() => {
 
     //whet reset, set url to default
-    history.pushState(null, 'Flicker recent' ,'../sp2/' );
-    
-    
+    history.pushState(null, 'Flicker recent', '../sp2/');
+
+
     const appContainer = $(`#app`);
+    const tagsContainer = $('<nav>').addClass('tags');
 
-    // building tag buttons
-    const tags = $(`
-<nav class="tags">
-<button class="tagButton" id="airport">#airport</button>
-<button class="tagButton" id="apple">#apple</button>
-<button class="tagButton" id="bridge">#bridge</button>
-<button class="tagButton" id="car">#car</button>
-<button class="tagButton" id="cat">#cat</button>
-<button class="tagButton" id="czechia">#czechia</button>
-<button class="tagButton" id="dog">#dog</button>
-<button class="tagButton" id="landscape">#landscape</button>
-<button class="tagButton" id="smartphone">#smartphone</button>
-<button class="tagButton" id="winter">#winter</button>
-</nav>;
-`);
+    const tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
 
-    const photosContainer = $(`<div id=photos>`);
 
-    const footer = $(`<footer> Martin Šír &copy; 2022</footer>`);
+    //deal with array with tags and creates buttons
+    const createButtons = (tags) => {
+        tags.forEach(element => {
+            tagsContainer.append(createButton(element));
+        });
+    };
+
+
+    //creates html button from tag on input
+    const createButton = (tag) => {
+        const tagButton = $('<button>').addClass('tagButton').attr('id', tag).text('#' + tag);
+        tagsContainer.append(tagButton);
+    };
+
+    createButtons(tags);
+
+    const photosContainer = $('<div>').attr('id', 'photos');
+
+    const footer = $('<footer>').text('Martin Šír © 2022');
+
 
     let photosCollection = [];
 
-    tags.appendTo(appContainer);
+    tagsContainer.appendTo(appContainer);
     photosContainer.appendTo(appContainer);
     footer.appendTo(appContainer);
 
@@ -36,48 +41,19 @@ $(document).ready(() => {
     window.addEventListener('popstate', function () {
         if (history.state === null) {
             $('#photos').empty();
-        }else {
+        } else {
             whatPicturesGet(history.state);
         };
     });
 
     //adding actions to buttons
-    $('#cat').click(function () {
-        whatPicturesGet('cat');
-
-    });
-    $('#airport').click(function () {
-        whatPicturesGet('airport');
-
-    });
-    $('#apple').click(function () {
-        whatPicturesGet('apple');
-    });
-    $('#winter').click(function () {
-        whatPicturesGet('winter');
-    });
-    $('#czechia').click(function () {
-        whatPicturesGet('czechia');
-    });
-    $('#smartphone').click(function () {
-        whatPicturesGet('smartphone');
-    });
-    $('#dog').click(function () {
-        whatPicturesGet('dog');
-    });
-    $('#landscape').click(function () {
-        whatPicturesGet('landscape');
-    });
-    $('#car').click(function () {
-        whatPicturesGet('car');
-    });
-    $('#bridge').click(function () {
-        whatPicturesGet('bridge');
+    $('.tagButton').click(function () {
+        whatPicturesGet($(this).attr('id'));
     });
 
 
     //click action on title h1
-    $('#title').click( function() {
+    $('#title').click(function () {
         window.history.go();
     });
 
