@@ -29,8 +29,6 @@ function WorldClock({ handleSwitch }) {
       )
   }, [])
 
-  console.log(timezones)
-
   if (error) {
     return <div>Error: {error.message}</div>
   } else if (!isLoaded) {
