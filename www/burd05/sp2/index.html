@@ -1,55 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My To Do List Application</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@200&family=Roboto:wght@300&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <script src="js/main.js" defer></script>
 </head>
+
 <body>
     <header>
-        <div class="h1"><h1>My To Do List Application</h1></div>
+        <h1>My To Do List Application</h1>
     </header>
-
-    <div>
-        <aside>
-            <h2>My Task List</h2>
-            <div>
-                <input type="text" placeholder="Search..">
+    <main>
+        <div class="alert">
+            <span>&times;</span>
+            <p>This is an alert box.</p>
+        </div>
+        <div class="tasks">
+            <aside>
+                <h2>My Task List</h2>
+                <input id="search" type="text" onkeypress="clickPress(event)" placeholder="Search..">
                 <div class="filter">
-                    <button>Priority</button>
-                    <button>Date</button>
+                    <div><button class="sortNameBtn"><img src="img/sort.png" alt="sort-icon"></button></div>
+                    <div><button class="sortPriorityBtn">Priority</button></div>
+                    <div><button class="sortDateBtn">Date</button></div>
                 </div>
-                <div class="task-list"></div>
-            </div>
-        </aside>
-        <main>
-            <div class="new-task">
-                <button>New Task</button>
-            </div>
-            <div>
-                <h3>Task 1</h3>
-                <p>description of the note</p>
-                <div>
-                    <img src="img/date-picker.png">
-                    <img src="img/time-picker.png">
-                    <img src="img/repeat.jpg">
+                <ul class="taskList">
+                    <!-- data comes from local storage -->
+                </ul>
+            </aside>
+            <div class="main">
+                <div class="newTaskBtn">
+                    <button>New Task</button>
                 </div>
-                <div class="down">
-                    <p>Priority:</p>
-                    <button>Delete Task <img src="img/trash.png"></button>
+                <div class="taskDescriptionDiv">
+                    <div>
+                        <h3 class="taskName">Select a task</h3>
+                        <p class="taskDescription"></p>
+                    </div>
+                    <div class="middle">
+                        <div>
+                            <img src="img/date-picker.png" alt="date-picker-icon">
+                            <div class="box">
+                                <p class="taskDate"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="img/time-picker.png" alt="time-picker-icon">
+                            <div class="box">
+                                <p class="taskTime"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="img/repeat.jpg" alt="repeat-icon">
+                            <div class="box">
+                                <p class="taskFrequency"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down">
+                        <div>
+                            <div class="box">
+                                <p class="taskPriority"></p>
+                            </div>
+                            <div class="box blue-color">
+                                <p><b>Priority:</b></p>
+                            </div>
+                        </div>
+                        <button class="deleteAllBtn">Delete All</button>
+                    </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="newTask">
+            <h3>New Task</h3>
+            <form method="post">
+                <div class="formLeft">
+                    <label for="name">Fill task name:</label>
+                    <input id="name" type="text" placeholder="Name"><br>
+
+                    <label for="description">Fill task description:</label><br>
+                    <textarea id="description" rows="10"></textarea><br>
+                </div>
+                <div class="formRight">
+                    <label for="datetime">Select the date of the task:</label><br>
+                    <input id="datetime" type="datetime-local">
+
+                    <label for="frequency">Select the frequency:</label>
+                    <select id="frequency">
+                        <option value="None">None</option>
+                        <option value="Daily">Daily</option>
+                        <option value="Monthly" selected>Monthly</option>
+                        <option value="Yearly">Yearly</option>
+                    </select><br>
+
+                    <label for="priority">Select a task priority:</label>
+                    <select id="priority">
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                    </select><br><br>
+                </div>
+            </form>
+            <button class="createTaskBtn">Create task</button>
+        </div>
+    </main>
+    <div class="clear"></div>
 
     <footer>
-        <div>&copy; 2021 Diana Burdová</div>
+        <div>&copy; 2021 Diana Burdova</div>
     </footer>
 </body>
+
 </html>
