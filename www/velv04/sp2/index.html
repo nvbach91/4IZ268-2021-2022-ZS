@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,14 +9,113 @@
     <meta name="keywords" content="Trivia, Game, Semestral work, VSE, Fun, Brain teaser, Full marks please">
     <meta name="language" content="CS">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./assets/js/main.js"></script>
     <link rel="stylesheet" href="./assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" 
+        integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>Big Brainiac</title>
 </head>
-<body>
-    <h1>Big Brainiac</h1>    
 
+<body>
+    <div class="heading">
+        <h1>Big Brainiac</h1>
+    </div>
+    <div class="screen" id="screen--main-menu">
+        <div class="button" id="button--start">Start</div>
+        <div class="button" id="button--leaderboard">Leaderboards</div>
+        <div class="button" id="button--credits">Credits</div>
+    </div>
+    <div class="screen screen--hidden" id="screen--start">
+        <div class="top">
+            <h2 class="topHeading">Please select a category</h2>
+            <div class="button back" id="button--category-back">Back</div>
+        </div>
+        <div class="line"></div>
+        <div class="buttonContainer">
+            <div class="button catItem" id="button--gener-category">General knowledge</div>
+            <div class="button catItem" id="button--movie-category">Movies</div>
+            <div class="button catItem" id="button--video-category">Video Games</div>
+            <div class="button catItem" id="button--geogr-category">Geography</div>
+            <div class="button catItem" id="button--histo-category">History</div>
+            <div class="button catItem" id="button--mytho-category">Mythology</div>
+            <div class="button catItem" id="button--scien-category">Science and Nature</div>
+            <div class="button catItem" id="button--music-category">Music</div>
+            <div class="button catItem" id="button--sport-category">Sports</div>
+        </div>
+    </div>
+    <div class="screen screen--hidden" id="screen--round">
+        <div class="top">
+            <div class="left topHeading questionText" id="lives-text">Lives: </div>
+            <div class="center topHeading questionText" id="timer-text">Timer: </div>
+            <div class="right topHeading questionText" id="score-text">Score: </div>
+        </div>
+        <div class="space"></div>
+        <div class="center topHeading questionText" id="question-text"></div>
+        <div class="line"></div>
+        <div class="buttonContainer" id="answers-container">
+            <div class="button ansItem" id="answer1"></div>
+            <div class="button ansItem" id="answer2"></div>
+            <div class="button ansItem" id="answer3"></div>
+            <div class="button ansItem" id="answer4"></div>
+        </div>
+    </div>
+    <div class="screen screen--hidden" id="screen--round-result">
+        <div class="top">
+            <div class="center topHeading questionText" id="score-text2">Score: </div>
+        </div>
+        <div class="space"></div>
+        <div class="center topHeading questionText" id="question-text2"></div>
+        <div class="line"></div>
+        <div class="button" id="button--continue">Continue</div>
+    </div>
+    <div class="screen screen--hidden" id="screen--game-over">
+        <div class="top">
+            <div class="center topHeading questionText" id="score-text3">Score: </div>
+        </div>
+        <div class="space"></div>
+        <div class="center topHeading questionText" id="game-over-text"></div>
+        <div class="line"></div>
+        <div class="buttonContainer endContainer">
+            <div class="button endItem" id="button--submit">Submit</div>
+            <div class="button endItem" id="button--try-again">Try Again</div>
+            <div class="button endItem" id="button--main-menu-back">Main Menu</div>
+        </div>
+    </div>
+    <div class="screen screen--hidden" id="screen--leaderboard">
+        <div class="top">
+            <h2 class="topHeading">Leaderboards</h2>
+            <div class="button back" id="button--leaderboards-back">Back</div>
+        </div>
+        <div class="line"></div>
+        <div class="leaderContainer buttonContainer" id="leaderboards-container">
+            <div class="button leaderItem" id="firstPos"></div>
+            <div class="button leaderItem" id="secondPos"></div>
+            <div class="button leaderItem" id="thirdPos"></div>
+            <div class="button leaderItem" id="fourthPos"></div>
+            <div class="button leaderItem" id="fifthPos"></div>
+        </div>
+    </div>
+    <div class="screen screen--hidden" id="screen--credits">
+        <div class="top">
+            <h2 class="topHeading">Credits</h2>
+            <div class="button back" id="button--credits-back">Back</div>
+        </div>
+        <div class="line"></div>
+        <div class="text">
+            <p>Thank you all for playing my game.</p>
+            <p>This game was made as a term assignment for class <b>4IZ268</b>.</p>
+            <p><b>Author:</b> Vojtěch Velfl</p>
+            <p><b>Date:</b> 2022</p>
+            <p><b>Used APIs:</b> Open Trivia Database (opentdb.com)</p>
+            <p><b>Used libraries:</b> jQuery and Animate.css</p>
+        </div>
+    </div>
+    <div class="version">Beta 1.0.3 © 2022 Vojtěch Velfl</div>
 </body>
+
 </html>

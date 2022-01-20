@@ -1,76 +1,80 @@
+/**
+ * This javascript file is unused, to see the used code, please go to: main.js
+ */
+
 $(document).ready(() => {
         
     const showScreen = (name) => {
-        document.querySelectorAll(".screen").forEach(screen => screen.classList.add("screen--hidden"));
-        document.getElementById(`screen--${name}`).classList.remove("screen--hidden");
+        document.querySelectorAll(".screen").forEach(screen => screen.addClass("screen--hidden"));
+        $(`screen--${name}`).removeClass("screen--hidden");
     };
     
     const registerEventListeners = () => {
-        document.getElementById("button--start").addEventListener("click", () => showScreen("start"));
-        document.getElementById("button--category-back").addEventListener("click", () => showScreen("main-menu"));
+        $("button--start").on('click',(e) => showScreen("start"));
+        $("button--category-back").on('click',(e) => showScreen("main-menu"));
 
-        document.getElementById("button--gener-category").addEventListener("click", () => {
+        $("button--gener-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Gener"; gametime();
         });
-        document.getElementById("button--movie-category").addEventListener("click", () => {
+        $("button--movie-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Movie"; gametime();
         });
-        document.getElementById("button--video-category").addEventListener("click", () => {
+        $("button--video-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Video"; gametime();
         });
-        document.getElementById("button--geogr-category").addEventListener("click", () => {
+        $("button--geogr-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Geogr"; gametime();
         });
-        document.getElementById("button--histo-category").addEventListener("click", () => {
+        $("button--histo-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Histo"; gametime();
         });
-        document.getElementById("button--mytho-category").addEventListener("click", () => {
+        $("button--mytho-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Mytho"; gametime();
         });
-        document.getElementById("button--scien-category").addEventListener("click", () => {
+        $("button--scien-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Scien"; gametime();
         });
-        document.getElementById("button--music-category").addEventListener("click", () => {
+        $("button--music-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Music"; gametime();
         });
-        document.getElementById("button--sport-category").addEventListener("click", () => {
+        $("button--sport-category").on('click',(e) => {
             showScreen("round"); selectedCategory = "Sport"; gametime();
         });
 
-        document.getElementById("answer1").addEventListener("click", () => {
+        $("answer1").on('click',(e) => {
             showScreen("round-result");
-            if(document.getElementById("answer1").innerText === question.correct_answer){
+            if($("answer1").text() === question.correct_answer){
                 roundResults(true);
             } else {
                 roundResults(false);
             }
         });
-        document.getElementById("answer2").addEventListener("click", () => {
+        $("answer2").on('click',(e) => {
             showScreen("round-result");
-            if(document.getElementById("answer2").innerText === question.correct_answer){
+            if($("answer2").text() === question.correct_answer){
                 roundResults(true);
             } else {
                 roundResults(false);
             }
         });  
-        document.getElementById("answer3").addEventListener("click", () => {
+        $("answer3").on('click',(e) => {
             showScreen("round-result");
-            if(document.getElementById("answer3").innerText === question.correct_answer){
+            if($("answer3").text() === question.correct_answer){
                 roundResults(true);
             } else {
                 roundResults(false);
             }
         });    
-        document.getElementById("answer4").addEventListener("click", () => {
+        $("answer4").on('click',(e) => {
             showScreen("round-result");
-            if(document.getElementById("answer4").innerText === question.correct_answer){
+            if($("answer4").text() === question.correct_answer){
                 roundResults(true);
             } else {
                 roundResults(false);
             }
         });
 
-        document.getElementById("button--continue").addEventListener("click", () => {
+        $("button--continue").on('click',(e) => {
             roundNum = roundNum + 1;
             if(roundNum <= 4) {
                 showScreen("round");
@@ -81,38 +85,39 @@ $(document).ready(() => {
             }
         });
 
-        document.getElementById("button--submit").addEventListener("click", () => {
+        $("button--submit").on('click',(e) => {
+            //TODO localStorage
             saveScore();
             resetStats();
             showScreen("main-menu");
         });
-        document.getElementById("button--try-again").addEventListener("click", () => {
+        $("button--try-again").on('click',(e) => {
             resetStats();
             showScreen("start");
         });
-        document.getElementById("button--main-menu-back").addEventListener("click", () => {
+        $("button--main-menu-back").on('click',(e) => {
             resetStats();
             showScreen("main-menu");
         });
 
 
-        document.getElementById("button--leaderboard").addEventListener("click", () => {
+        $("button--leaderboard").on('click',(e) => {
             loadScores();
             showScreen("leaderboard");
         });
-        document.getElementById("button--leaderboards-back").addEventListener("click", () => {
-            document.getElementById("firstPos").classList.remove("button--hidden");
-            document.getElementById("secondPos").classList.remove("button--hidden");
-            document.getElementById("thirdPos").classList.remove("button--hidden");
-            document.getElementById("fourthPos").classList.remove("button--hidden");
-            document.getElementById("fifthPos").classList.remove("button--hidden");
+        $("button--leaderboards-back").on('click',(e) => {
+            $("firstPos").removeClass("button--hidden");
+            $("secondPos").removeClass("button--hidden");
+            $("thirdPos").removeClass("button--hidden");
+            $("fourthPos").removeClass("button--hidden");
+            $("fifthPos").removeClass("button--hidden");
 
             showScreen("main-menu");
         });
 
         
-        document.getElementById("button--credits").addEventListener("click", () => showScreen("credits"));
-        document.getElementById("button--credits-back").addEventListener("click", () => showScreen("main-menu"));
+        $("button--credits").on('click',(e) => showScreen("credits"));
+        $("button--credits-back").on('click',(e) => showScreen("main-menu"));
     };
 
     const gametime = () => {
@@ -133,6 +138,9 @@ $(document).ready(() => {
         else if (questionNum >= 15) { url += 'difficulty=medium&'; }
         else { url += 'difficulty=easy&'; }
         url += 'type=multiple';
+        /*
+        if (questionNum % 2 === 0) { url += 'type=multiple'; } 
+        else { url += 'type=boolean'; }*/
 
         roundNum = 0;
 
@@ -148,18 +156,18 @@ $(document).ready(() => {
     
     const round = (Aquestion) => {
         question = Aquestion;
-        document.getElementById("lives-text").innerText = 'Lives: ';
+        $("lives-text").text('Lives: ');
         switch(player.health) {
-            case 3: document.getElementById("lives-text").innerText += ' ♥ ♥ ♥'; break;
-            case 2: document.getElementById("lives-text").innerText += ' ♥ ♥ ♡'; break;
-            case 1: document.getElementById("lives-text").innerText += ' ♥ ♡ ♡'; break;
-            case 0: document.getElementById("lives-text").innerText += ' ♡ ♡ ♡'; break;
+            case 3: $("lives-text").text() += ' ♥ ♥ ♥'; break;
+            case 2: $("lives-text").text() += ' ♥ ♥ ♡'; break;
+            case 1: $("lives-text").text() += ' ♥ ♡ ♡'; break;
+            case 0: $("lives-text").text() += ' ♡ ♡ ♡'; break;
         }
-        document.getElementById("timer-text").innerText = 'Timer: ' + timer;
-        document.getElementById("score-text").innerText = 'Score: ' + player.score;
+        $("timer-text").text('Timer: ' + timer);
+        $("score-text").text('Score: ' + player.score);
 
         console.log(question);
-        document.getElementById("question-text").innerText = 'Question: ' + question.question;
+        $("question-text").text('Question: ' + question.question);
 
         let answers = [];
         answerType = [];
@@ -170,7 +178,7 @@ $(document).ready(() => {
         answers = shuffle(answers);
 
         for(let i = 1; i<=4;i++){
-            document.getElementById(`answer${i}`).innerText = answers[i-1];
+            $(`answer${i}`).text(answers[i-1]);
         }
 
         intervalId = setInterval(interval,1000);
@@ -178,7 +186,7 @@ $(document).ready(() => {
 
     function interval () {
         timer = timer-1;
-        document.getElementById("timer-text").innerText = 'Timer: ' + timer;
+        $("timer-text").text('Timer: ' + timer);
 
         if(timer === 0) {
             roundResults(false);
@@ -193,16 +201,16 @@ $(document).ready(() => {
         if(bool === false) {
             player.health -= 1;
             if(player.health === 0) {
-                document.getElementById("game-over-text").innerText = "GAME OVER!";
-                document.getElementById("score-text3").innerText = "Score: "+player.score;
+                $("game-over-text").text("GAME OVER!");
+                $("score-text3").text("Score: "+player.score);
                
                 showScreen("game-over");
             } else {
-                document.getElementById("question-text2").innerText = "INCORRECT!";
+                $("question-text2").text("INCORRECT!");
             }
             
         } else {
-            document.getElementById("question-text2").innerText = "CORRECT!";
+            $("question-text2").text("CORRECT!");
             if(questionNum <= 15) {
                 player.score += 5; 
             } else if (questionNum <= 30) {
@@ -210,8 +218,8 @@ $(document).ready(() => {
             } else {
                 player.score += 25;
             }
+            $("score-text2").text("Score: " + player.score); 
         }
-        document.getElementById("score-text2").innerText = "Score: " + player.score; 
     };
 
     // Using a Fisher-Yates shuffle to randomize order of answers
@@ -259,39 +267,39 @@ $(document).ready(() => {
         if(numOfScores != 0) { locStoScores.sort((a,b) => b.scoreScore - a.scoreScore )}
         
         if(numOfScores > 0) {
-            document.getElementById("firstPos").innerText = "1.) "+"name: "+locStoScores[0].scoreName+", score: "+locStoScores[0].scoreScore;
+            $("firstPos").text("1.) "+"name: "+locStoScores[0].scoreName+", score: "+locStoScores[0].scoreScore);
             if(numOfScores > 1 ) {
-                document.getElementById("secondPos").innerText = "2.) "+"name: "+locStoScores[1].scoreName+", score: "+locStoScores[1].scoreScore;
+                $("secondPos").text("2.) "+"name: "+locStoScores[1].scoreName+", score: "+locStoScores[1].scoreScore);
                 if(numOfScores > 2) {
-                    document.getElementById("thirdPos").innerText = "3.) "+"name: "+locStoScores[2].scoreName+", score: "+locStoScores[2].scoreScore;
+                    $("thirdPos").text("3.) "+"name: "+locStoScores[2].scoreName+", score: "+locStoScores[2].scoreScore);
                     if(numOfScores > 3) {
-                        document.getElementById("fourthPos").innerText = "4.) "+"name: "+locStoScores[3].scoreName+", score: "+locStoScores[3].scoreScore;
+                        $("fourthPos").text("4.) "+"name: "+locStoScores[3].scoreName+", score: "+locStoScores[3].scoreScore);
                         if(numOfScores > 4) {
-                            document.getElementById("fourthPos").innerText = "5.) "+"name: "+locStoScores[4].scoreName+", score: "+locStoScores[4].scoreScore;
+                            $("fourthPos").text("5.) "+"name: "+locStoScores[4].scoreName+", score: "+locStoScores[4].scoreScore);
                         } else {
-                            document.getElementById("fifthPos").classList.add("button--hidden"); 
+                            $("fifthPos").addClass("button--hidden"); 
                         }
                     } else {
-                        document.getElementById("fourthPos").classList.add("button--hidden");
-                        document.getElementById("fifthPos").classList.add("button--hidden"); 
+                        $("fourthPos").addClass("button--hidden");
+                        $("fifthPos").addClass("button--hidden"); 
                     }
                 } else {
-                    document.getElementById("thirdPos").classList.add("button--hidden");
-                    document.getElementById("fourthPos").classList.add("button--hidden");
-                    document.getElementById("fifthPos").classList.add("button--hidden");
+                    $("thirdPos").addClass("button--hidden");
+                    $("fourthPos").addClass("button--hidden");
+                    $("fifthPos").addClass("button--hidden");
                 }
             } else {
-                document.getElementById("secondPos").classList.add("button--hidden");
-                document.getElementById("thirdPos").classList.add("button--hidden");
-                document.getElementById("fourthPos").classList.add("button--hidden");
-                document.getElementById("fifthPos").classList.add("button--hidden");    
+                $("secondPos").addClass("button--hidden");
+                $("thirdPos").addClass("button--hidden");
+                $("fourthPos").addClass("button--hidden");
+                $("fifthPos").addClass("button--hidden");    
             }
         } else {
-            document.getElementById("firstPos").innerText = "There are no saved highscores yet.";
-            document.getElementById("secondPos").classList.add("button--hidden");
-            document.getElementById("thirdPos").classList.add("button--hidden");
-            document.getElementById("fourthPos").classList.add("button--hidden");
-            document.getElementById("fifthPos").classList.add("button--hidden");
+            $("firstPos").text("There are no saved highscores yet.");
+            $("secondPos").addClass("button--hidden");
+            $("thirdPos").addClass("button--hidden");
+            $("fourthPos").addClass("button--hidden");
+            $("fifthPos").addClass("button--hidden");
         }
     };
 
