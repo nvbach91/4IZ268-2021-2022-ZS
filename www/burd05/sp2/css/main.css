@@ -201,12 +201,16 @@ h3 {
 .box {
     height: 50px;
     line-height: 50px;
-    width: 110px;
+    width: 120px;
     margin-left: 10px;
     text-align: center;
     float: right;
     background-color: #f2f2f2;
     border-radius: 4px;
+}
+
+.weather {
+    margin-bottom: 30px;
 }
 
 .down {
