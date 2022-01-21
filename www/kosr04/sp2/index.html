@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="en">
 
 <head>
     <title>Ear Pitch Trainer</title>
@@ -17,24 +17,24 @@
     <link rel="icon" type="image/png" sizes="512x512" href="img/android-chrome-512x512.png">
     <link rel="manifest" href="img/site.webmanifest">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/main.js"></script>
+
 </head>
 
-<body onload="prepareScreen();">
+<body>
     <main>
         <div id="container">
             <div id="startArea">
                 <h1>Ear Pitch Trainer</h1>
                 <h2>How many questions would you like to go through?</h2>
-                <input id="questionSetter" type="number" value="5" step="5" min="5" onkeydown="return false">
-                <button id="startButton" class="button" onclick="allowPlayback(); generateTest();">Start Test</button>
-                <button id="clearButton" class="button" onclick="scoreClear();">Delete High Score</button>
+                <input id="questionSetter" type="number" value="5" step="5" min="5">
+                <button id="startButton" class="button">Start Test</button>
+                <button id="clearButton" class="button">Delete High Score</button>
             </div>
 
             <div id="questionArea">
-                <button id="stopButton" class="button" onclick="finishTest();">Stop Test</button>
+                <button id="stopButton" class="button">Stop Test</button>
                 <h3 id="questionIndex"></h3>
-                <button class="button" onclick="replayNote();">Replay Note</button>
+                <button id="replayButton" class="button">Replay Note</button>
                 <select id="answer">
                     <option value="0">C</option>
                     <option value="1">D</option>
@@ -44,18 +44,17 @@
                     <option value="5">A</option>
                     <option value="6">H</option>
                 </select>
-                <button class="button" onclick="confirmAnswer();">Confirm Answer</button>
+                <button id="confirmButton" class="button">Confirm Answer</button>
             </div>
             <div id="message"></div>
+            <div id="searchArea">
+                <h1>Well done! Get yourself a cute picture as a reward.</h1>
+                <button id="searchButton">I WANT CUTENESS</button>
+                <div id="searchResult"></div>
+            </div>
         </div>
-
     </main>
-    <div class="footer">
-        <footer>
-            <p>Tato aplikace byla vytvořena jako druhá semestrální práce z předmětu Webové Technologie.</p>
-            <p>ZS 2021/2022 by kosr04</p>
-        </footer>
-    </div>
+    <script src="js/main.js"></script>
 </body>
 
 </html>

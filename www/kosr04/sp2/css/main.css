@@ -15,13 +15,6 @@
       background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
     }
   
-    .footer {
-      position: absolute;
-      bottom: 0;
-      width:100%;
-     height:100px;
-    }
-  
     #container {
         border: 5px solid black;
         border-radius: 10px;
@@ -48,6 +41,7 @@
       border-radius: 15px;
       box-shadow: 0 5px #999;
       margin-top: 25px;
+      margin-bottom: 25px;
     }
     
     .button:hover {background-color: #c5cad4}
@@ -66,5 +60,10 @@
       font-size: 20px;
       border: 2px solid #CCC;
       height: 50px;
+    }
+
+    #image {
+      max-width: 300px; 
+      height: auto;
     }
    

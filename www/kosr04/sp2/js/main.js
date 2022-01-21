@@ -16,14 +16,14 @@ const App = {
 };
 
 //funkce allowPlayback se stará o povolení přehrání audia ve web. prohlížeči
-let allowPlayback = function () {
+let allowPlayback = document.getElementById('startButton').addEventListener('click', function () {
     // Audio context MUSÍ být povolen gestem uživatele,
     //je napojena na tlačítko startButton (spustí se spolu s generováním testu).
     App.audioCtx.resume().then(() => {
         console.log('Playback resumed successfully');
 
     });
-}
+});
 
 //funkce hide vezme jako parametr id HTML div/elementu a schová jej pomocí display='none'
 let hide = function (id) {
@@ -56,7 +56,7 @@ let getRandomNote = function () {
 // Objekt má vlastnosti code, name, hz. Code odpovídá názvu noty bez přiloženého čísla oktávy, hz je frekvence tónu.
 //Samotný code poté slouží k porovnání s uživatelským vstupem, nakládá s ním funkce evaluateAnswer, hz používá oscilátor.
 //Name slouží POUZE pro účely identifikace jednotlivých tónů v kódu.
-// -> Při případném rozšíření o další tóny z jiných oktáv přijde "index" k užitku v rámci lepšího rozlišení tónů.
+// -> Při případném rozšíření o další tóny z jiných oktáv přijde 'index' k užitku v rámci lepšího rozlišení tónů.
 let getNote = function (noteNumber) {
     noteNumber = noteNumber.toString();
     let searchedNote = {
@@ -123,18 +123,20 @@ let getNote = function (noteNumber) {
 }
 
 //tato funkce se volá, když je potřeba zobrazit úvodní obrazovku
-function prepareScreen() {
+window.onload = function prepareScreen() {
     hide('questionArea');
+    hide('searchArea');
 }
 
 //funkce pro generování testu, napojena na tlačítko startButton, 
-let generateTest = function () {
+let generateTest = document.getElementById('startButton').addEventListener('click', function () {
     //zobrazení obrazovky pro otázky
     show('questionArea');
     show('message', 'Training started.');
 
     //shování úvodní obrazovky
     hide('startArea');
+    hide('searchArea');
 
     //načtení deklarovaných arrays questions a answers, nastavení výchozích hodnot proměnných 
     App.questions = [];
@@ -144,18 +146,32 @@ let generateTest = function () {
     //zde se načte uživatelem zvolený počet otázek
     App.questionCount = document.getElementById('questionSetter').value
 
+    if (App.questionCount < 5) {
+        show('message', 'You must set at least 5 questions in order to start the training.');
+        hide('questionArea');
+        show('startArea');
+        document.getElementById('questionSetter').value = 5;
+        //little easter egg
+    } else if (App.questionCount > 1000) {
+        show('message', 'Do yourself a favor, do not play this game for eternity.')
+        hide('questionArea');
+        show('startArea');
+    } else {
 
-    for (let question = 0; question < App.questionCount; question++) {
 
-        //generování náhodné otázky
-        let searchedNote = getRandomNote();
-        App.questions[question] = searchedNote.code;
-        App.answers[question] = searchedNote;
+        for (let question = 0; question < App.questionCount; question++) {
+
+            //generování náhodné otázky
+            let searchedNote = getRandomNote();
+            App.questions[question] = searchedNote.code;
+            App.answers[question] = searchedNote;
+        }
+
+        App.beginTime = Date.now().toString(); //počátek testu//
+        nextQuestion();
     }
-
-    App.beginTime = Date.now().toString(); //počátek testu//
-    nextQuestion();
 }
+);
 
 //funkce nextQuestion se stará o aktualizaci počítadla otázek umístěného v questionArea, 
 //zároveň volá playNote pro přehrání další noty
@@ -171,7 +187,7 @@ let nextQuestion = function () {
 
 //funkce confirmAnswer je napojena na tlačítko Confirm Answer, volá evaluateAnswer pro ověření odpovědi, 
 //aktualizuje číslo otázky, ověřuje jestli je otázka poslední, nebo ještě nějaká zbývá 
-let confirmAnswer = function () {
+let confirmAnswer = document.getElementById('confirmButton').addEventListener('click', function () {
     evaluateAnswer();
     App.questionIndex++;
     if (App.questionIndex < App.questionCount) {
@@ -180,7 +196,7 @@ let confirmAnswer = function () {
     else {
         finishTest();
     }
-}
+});
 
 //funkce evaluateAnswer ověřuje odpověď pomocí porovnání stringů
 let evaluateAnswer = function () {
@@ -204,13 +220,17 @@ let evaluateAnswer = function () {
     }
 }
 
+let stopTest = document.getElementById('stopButton').addEventListener('click', function () {
+    return finishTest();
+});
+
 //funkce finishTest vrací úvodní obrazovku + uživatele informuje, jestli pokořil předchozí rekord, nebo ne
 // zároveň od času dokončení všech otázek odečte čas začátku tréninku, čímž dostane celkovou délku hry (v sekundách)
 let finishTest = function () {
     show('startArea');
     hide('questionArea');
 
-    let highScoreMessage = "You didn't beat your high score.";
+    let highScoreMessage = 'You did not beat your high score.';
     let delta = Date.now() - parseInt(App.beginTime); // výsledek = milisekundy od startu
     let completionSeconds = Math.floor(delta / 1000); //přepočet na sekundy
     if (saveHighScore(completionSeconds)) {
@@ -237,24 +257,25 @@ let saveHighScore = function (completionSeconds) {
 
         //AJAX
         successSound();
+        show('searchArea');
     }
     return highScore;
 }
 
 //volá funkci playnote pro potřebu znovu přehrání noty v aktuální otázce
-let replayNote = function () {
+let replayNote = document.getElementById('replayButton').addEventListener('click', function () {
     playNote(App.answers[App.questionIndex].hz);
-};
+});
 
 //funkce scoreClear vymaže záznam o rekordu v local storage, napojena na tlačítko clearButton, informuje uživatele
-let scoreClear = function () {
+let scoreClear = document.getElementById('clearButton').addEventListener('click', function () {
     if (confirm('Do you really want to delete High Score record?')) {
         localStorage.clear();
         show('message', 'High Score record deleted.');
     } else {
         return;
     }
-}
+});
 
 //AJAX funkce, která načte a následně přehraje zvukový efekt cymbálu, 
 //volá se pouze v případě, že uživatel vytvoří nové nejvyšší high score.
@@ -290,3 +311,12 @@ let playNote = function (notePitch) {
     oscillator.start(audioCtx.currentTime);
     oscillator.stop(audioCtx.currentTime + 0.5);
 }
+
+let getRandomCat = document.getElementById('searchButton').addEventListener('click', function () {
+    fetch('https://aws.random.cat/meow')
+        .then(res => res.json())
+        .then(data => {
+
+            searchResult.innerHTML = `<img src=${data.file} alt="cat" id="image"/>`
+        });
+});
