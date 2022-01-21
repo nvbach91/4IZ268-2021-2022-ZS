@@ -234,10 +234,12 @@ function deviceId() {
 }
 
 function fetchTracks() {
+    document.getElementById("trackListExtract").innerText = "";
     let playlist_id = document.getElementById("playlists").value;
     if (playlist_id.length > 0) {
         url = TRACKS.replace("{{PlaylistId}}", playlist_id);
         callApi("GET", url, null, handleTracksResponse);
+
     }
 }
 
@@ -247,6 +249,7 @@ function handleTracksResponse() {
         console.log(data);
         removeAllItems("tracks");
         data.items.forEach((item, index) => addTrack(item, index));
+        data.items.forEach((item, index) => addTrackExtract(item, index));
     } else if (this.status == 401) {
         refreshAccessToken()
     } else {
@@ -331,3 +334,42 @@ nextButton.addEventListener("click", next, true);
 
 const currentlyPlayingButton = document.getElementById("currentlyPlayingButton");
 currentlyPlayingButton.addEventListener("click", currentlyPlaying, true);
+
+
+// OBAHJOBA - vypis CLICKABLE SONGS
+
+function addTrackExtract(item, index) {
+    let node = document.createElement("span");
+    node.value = index;
+    node.id = "track-" + index;
+
+    var minutes = Math.floor(item.track.duration_ms / 60000);
+    var seconds = ((item.track.duration_ms % 60000) / 1000).toFixed(0);
+    var time = null;
+    time = minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+
+    node.innerText = item.track.name + " (" + item.track.artists[0].name + ")" + time;
+
+    document.getElementById("trackListExtract").appendChild(node);
+    const playLink = document.getElementById(node.id);
+    playLink.addEventListener("click", playClickedSong, true);
+
+    function playClickedSong() {
+        document.getElementById("tracks").value = node.value;
+        let playlist_id = document.getElementById("playlists").value;
+        let trackindex = document.getElementById("tracks").value;
+
+
+        let body = {};
+        body.context_uri = "spotify:playlist:" + playlist_id;
+        body.offset = {};
+        body.offset.position = trackindex.length > 0 ? Number(trackindex) : 0;
+        body.offset.position_ms = 0;
+        callApi("PUT", PLAY + "?device_id=" + deviceId(), JSON.stringify(body), handleApiResponse);
+        console.log(trackindex);
+        console.log(node.value);
+    }
+
+}
+
+playlists.onchange = fetchTracks;

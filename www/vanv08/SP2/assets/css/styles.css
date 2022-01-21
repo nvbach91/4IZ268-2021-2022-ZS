@@ -7,3 +7,8 @@
     color: #20202f;
     font-family: 'Courier New', monospace;
 }
+
+span:hover {
+    background-color: antiquewhite;
+    cursor: pointer;
+}
