@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API PROJECT 4IZ268</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="assets/css/styles.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/imgs/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/imgs/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/imgs/icons/favicon-16x16.png">
+
+</head>
+
+<body onload="onPageLoad()">
+    <div class="container">
+        <div id="loginSection" class="col-md-12 text-center ">
+            <div class="col">
+                <input id="loginButton" class="btn btn-primary btn-lg mr-5" type="button" value="Log in"><br/>
+            </div>
+        </div>
+
+        <div id="mediaSection" class="row">
+
+            <div class="col">
+                <div class="mb-2">
+                    <label for="devices" class="form-label">Devices</label>
+                    <select id="devices" class="form-control">
+                    </select>
+                    <input id="refreshDevicesButton" class="btn btn-primary btn-sm mt-3" type="button" value="Refresh Devices">
+                    <input id="changeDeviceButton" type="button" class="btn btn-secondary btn-sm  mt-3" value="Change device">
+                </div>
+
+                <div class="mb-2">
+                    <label for="playlists" class="form-label">Playlists</label>
+                    <select id="playlists" class="form-control">
+                    </select>
+                    <input id="refreshPlaylistsButton" class="btn btn-primary btn-sm mt-3" type="button" value="Refresh Playlists">
+
+                </div>
+
+                <div class="mb-2 trackSection">
+                    <label for="tracks" class="form-label">Currently playing</label>
+                    <select id="tracks" class="form-control">
+                    </select>
+                    <input id="fetchTracksButton" class="btn btn-primary btn-sm mt-3" type="button" value="Fetch Tracks">
+                    <h2>Tracks in playlist:</h2>
+                    <div id="trackListExtract" class="row">
+
+                    </div>
+                </div>
+
+                <div class="row text-center">
+                    <div class="col">
+                        <input id="previousButton" type="button" class="btn btn-sm btn-dark mb-2" value="Prev">
+                        <input id="playButton" type="button" class="btn btn-sm btn-dark mb-2" value="Play">
+                        <input id="shuffleButton" type="button" class="btn btn-sm btn-dark mb-2" value="Shuffle">
+                        <input id="pauseButton" type="button" class="btn btn-sm btn-dark mb-2" value="Pause">
+                        <input id="nextButton" type="button" class="btn btn-sm btn-dark mb-2" value="Next">
+                    </div>
+                </div>
+
+                <div class="row  text-center">
+                    <div class="col">
+                        <h1> Now playing</h1>
+                        <input id="currentlyPlayingButton" type="button" class="btn btn-primary btn-sm mt-3 mb-5" o value="Refresh Currently Playing">
+                        <div>
+                            <img id="albumImage" src="">
+                            <div id="trackTitle"></div>
+                            <div id="trackArtist"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/script.js "></script>
+</body>
+
+</html>
