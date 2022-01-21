@@ -1,4 +1,8 @@
 $(document).ready(() => {
+    if (localStorage.getItem('users') == null) {
+        localStorage.setItem('users', '[]');
+    };
+
     $.ajax({
         "type": "POST",
         "url": "https://us.battle.net/oauth/token",
@@ -40,8 +44,8 @@ $(document).ready(() => {
         }
     });
 
-    var canvas = document.getElementById('canvas-image-blending');
-    var heightRatio = 1.5;
+    let canvas = document.getElementById('canvas-image-blending');
+    let heightRatio = 1.5;
     canvas.height = canvas.width * heightRatio;
 
 
@@ -66,7 +70,7 @@ $(document).ready(() => {
 
     const centerBar = $(`
     <div class="center-bar" id="center-bar">
-    <input type="text" class="search-bar" id="search-bar" onkeyup = "searchBar()"  placeholder="Search..">
+    <input type="text" class="search-bar" id="search-bar"  placeholder="Search..">
     <button class="center-button" id="action1">A-Z</button>
     <button class="center-button" id="action2">Z-A</button>
     <button class="center-button" id="action3">Your PvP stats</button>
@@ -84,16 +88,17 @@ $(document).ready(() => {
     mainBox.appendTo(appContainer);
     nav.appendTo(appContainer);
 
-    $('#race').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
-        pageHeader.empty();
-        mainBox.empty();
+    let mainBoxRes = $('#main-box');
+    let pageHeader = $('#page-header');
 
-        mainBox.LoadingOverlay('show', {
+    $('#race').click(async function () {
+        pageHeader.empty();
+        mainBoxRes.empty();
+
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
-        mainBox.LoadingOverlay('show');
+        mainBoxRes.LoadingOverlay('show');
 
         let apiRes = await callApi('https://us.api.blizzard.com/data/wow/playable-race/index?namespace=static-us&locale=en_US&access_token=' + token);
         const head = $('<div>').addClass('head');
@@ -129,20 +134,18 @@ $(document).ready(() => {
             setBox.append(setID);
             setBox.append(setFaction);
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
         };
     });
 
 
 
     $('#class').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
-        mainBox.LoadingOverlay('show', {
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
 
@@ -156,11 +159,11 @@ $(document).ready(() => {
             setBox.append(newContent);
 
             setBox.click(async function () {
-                mainBox.LoadingOverlay('show', {
+                mainBoxRes.LoadingOverlay('show', {
                     background: 'rgba(0, 0, 255, 0.5)',
                 });
 
-                mainBox.empty();
+                mainBoxRes.empty();
                 let classID = apiRes.classes[i].id;
 
                 let classRes = await callApi('https://us.api.blizzard.com/data/wow/playable-class/' + classID.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
@@ -197,22 +200,20 @@ $(document).ready(() => {
                 setDetail.append(setImg);
 
 
-                mainBox.append(setDetail);
-                mainBox.LoadingOverlay('hide', true);
+                mainBoxRes.append(setDetail);
+                mainBoxRes.LoadingOverlay('hide', true);
             });
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
         };
     });
 
     $('#profession').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
-        mainBox.LoadingOverlay('show', {
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
 
@@ -224,11 +225,11 @@ $(document).ready(() => {
             setBox.append(newContent);
 
             setBox.click(async function () {
-                mainBox.LoadingOverlay('show', {
+                mainBoxRes.LoadingOverlay('show', {
                     background: 'rgba(0, 0, 255, 0.5)',
                 });
 
-                mainBox.empty();
+                mainBoxRes.empty();
                 let professionID = apiRes.professions[i].id;
 
                 let professionRes = await callApi('https://us.api.blizzard.com/data/wow/profession/' + professionID.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
@@ -271,22 +272,20 @@ $(document).ready(() => {
                 setDetail.append(setDescription);
                 setDetail.append(setImg);
 
-                mainBox.append(setDetail);
-                mainBox.LoadingOverlay('hide', true);
+                mainBoxRes.append(setDetail);
+                mainBoxRes.LoadingOverlay('hide', true);
             });
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
         };
     });
 
     $('#mounts').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
-        mainBox.LoadingOverlay('show', {
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
 
@@ -298,11 +297,11 @@ $(document).ready(() => {
             setBox.append(newContent);
 
             setBox.click(async function () {
-                mainBox.LoadingOverlay('show', {
+                mainBoxRes.LoadingOverlay('show', {
                     background: 'rgba(0, 0, 255, 0.5)',
                 });
 
-                mainBox.empty();
+                mainBoxRes.empty();
                 let mountID = apiRes.mounts[i].id;
 
                 let mountRes = await callApi('https://us.api.blizzard.com/data/wow/mount/' + mountID.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
@@ -335,42 +334,40 @@ $(document).ready(() => {
                 setDetail.append('<h2>Description</h2>');
                 setDetail.append(setDescription);
 
-                mainBox.append(setDetail);
-                mainBox.LoadingOverlay('hide', true);
+                mainBoxRes.append(setDetail);
+                mainBoxRes.LoadingOverlay('hide', true);
             });
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
         };
     });
 
     $('#pets').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
-        mainBox.LoadingOverlay('show', {
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
 
         let apiRes = await callApi('https://us.api.blizzard.com/data/wow/pet/index?namespace=static-us&locale=en_US&access_token=' + token);
-      
+
         for (let i = 0; i < apiRes.pets.length; i++) {
             const setBox = $('<div class="setBox">').addClass('sort').addClass('list');
             const newContent = document.createTextNode(apiRes.pets[i].name);
             setBox.append(newContent);
 
             setBox.click(async function () {
-                mainBox.LoadingOverlay('show', {
+                mainBoxRes.LoadingOverlay('show', {
                     background: 'rgba(0, 0, 255, 0.5)'
                 });
 
-                mainBox.empty();
+                mainBoxRes.empty();
                 let petID = apiRes.pets[i].id;
 
                 let petRes = await callApi('https://us.api.blizzard.com/data/wow/pet/' + petID.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
-               
+
                 const setDetail = $('<div>').addClass('information');
                 const setName = $('<div>').addClass('detail');
                 setName.append(petRes.name);
@@ -404,23 +401,21 @@ $(document).ready(() => {
                 setDetail.append(setDescription);
                 setDetail.append(setImg);
 
-                mainBox.append(setDetail);
-                mainBox.LoadingOverlay('hide', true);
+                mainBoxRes.append(setDetail);
+                mainBoxRes.LoadingOverlay('hide', true);
             });
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
         };
 
     });
 
     $('#items').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
-        mainBox.LoadingOverlay('show', {
+        mainBoxRes.LoadingOverlay('show', {
             background: 'rgba(0, 0, 255, 0.5)',
         });
 
@@ -432,11 +427,11 @@ $(document).ready(() => {
             setBox.append(newContent);
 
             setBox.click(async function () {
-                mainBox.LoadingOverlay('show', {
+                mainBoxRes.LoadingOverlay('show', {
                     background: 'rgba(0, 0, 255, 0.5)',
                 });
 
-                mainBox.empty();
+                mainBoxRes.empty();
                 let itemID = apiRes.item_sets[i].id
 
                 let itemRes = await callApi('https://us.api.blizzard.com/data/wow/item-set/' + itemID.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
@@ -455,7 +450,7 @@ $(document).ready(() => {
 
                     let itemsImage = await callApi('https://us.api.blizzard.com/data/wow/media/item/' + img.toString() + '?namespace=static-us&locale=en_US&access_token=' + token);
                     const itemImage = $('<img>').attr('src', itemsImage.assets[0].value).attr('alt', 'item image').width('50px').height('50px');
-                   
+
                     setItems.append(items);
                     setItems.append(itemImage);
                 }
@@ -477,17 +472,22 @@ $(document).ready(() => {
                 setDetail.append('<h2>Effects</h2>');
                 setDetail.append(setEffects);
 
-                mainBox.append(setDetail);
-                mainBox.LoadingOverlay('hide', true);
+                mainBoxRes.append(setDetail);
+                mainBoxRes.LoadingOverlay('hide', true);
             });
 
-            mainBox.append(setBox);
-            mainBox.LoadingOverlay('hide', true);
+            mainBoxRes.append(setBox);
+            mainBoxRes.LoadingOverlay('hide', true);
 
         };
 
 
     });
+
+    document.getElementById('search-bar').onkeyup = function () {
+        searchBar();
+    };
+
 
     $('#action1').click(function () {
         $('.sort').sort(function (a, b) {
@@ -510,17 +510,15 @@ $(document).ready(() => {
     });
 
     $('#action3').click(async function () {
-        let mainBox = $('#main-box');
-        let pageHeader = $('#page-header');
         pageHeader.empty();
-        mainBox.empty();
+        mainBoxRes.empty();
 
         const playerForm = $(`
         <div class="player-form">
 
         <div class="form-input">
         <label>Name :</label>
-        <input type="text" name="name" id="name" placeholder="name" value="procesor"/></div>
+        <input type="text" name="name" id="name" placeholder="name" value="chiquitta"/></div>
 
         <div class="form-input">
         <label>Realm :</label>
@@ -538,13 +536,32 @@ $(document).ready(() => {
         <label>Locale :</label>
         <input type="text" name="locale" id="locale" placeholder="en_gb, en_us, ..." value="en_gb"/></div>
 
-        <div class="form-input"><input type="button" name="submit_id" id="btn_id" value="Submit" onclick="submit_by_id()"/></div>
+        <div class="form-input"><input type="button" name="submitId" id="btnId" value="Submit" onclick="submitById()"/></div>
+
+        <div class="form-input"><input type="button" name="savePlayer" id="btnId" value="Save my profile" onclick="savePlayer()"/></div>
+
+        <div class="form-input"><input type="button" name="myPlayer" id="btnId" value="My Profile" onclick="myPlayer()"/></div>
 
         </div>
 
         `);
 
-        mainBox.append(playerForm);
+        mainBoxRes.append(playerForm);
+
+        let users = JSON.parse((localStorage.getItem('users')));
+        if (users != null) {
+            for (let i = 0; i < users.length; i++) {
+                const button = $('<button name="user.name" id="btnId" data-username="' + users[i].name + '">' + users[i].name + '</button>').click(function () {
+                    myPlayer(users[i].name);
+
+                });
+
+                mainBoxRes.append(button);
+
+            }
+        }
+
+        
 
     });
 
@@ -561,9 +578,9 @@ function callApi(address) {
 };
 
 function searchBar() {
-    var input = document.getElementById('search-bar');
-    var filter = input.value.toLowerCase();
-    var nodes = $('.setBox');
+    let input = document.getElementById('search-bar');
+    let filter = input.value.toLowerCase();
+    let nodes = $('.setBox');
 
     for (i = 0; i < nodes.length; i++) {
         if (nodes[i].innerText.toLowerCase().includes(filter)) {
@@ -574,12 +591,11 @@ function searchBar() {
     }
 }
 
-async function submit_by_id() {
-    let mainBox = $('#main-box');
-
-    var elementExist = document.getElementById('information')
+async function submitById() {
+    let mainBoxRes = $('#main-box');
+    let elementExist = document.getElementById('information')
     if (!!elementExist) {
-        var child = elementExist.lastElementChild;
+        let child = elementExist.lastElementChild;
         while (child) {
             elementExist.removeChild(child);
             child = elementExist.lastElementChild;
@@ -650,6 +666,7 @@ async function submit_by_id() {
             setMaps.append(map);
         };
 
+        
         setDetail.append('<h2>Name</h2>');
         setDetail.append(setName);
         setDetail.append('<h2>Realm</h2>');
@@ -661,11 +678,64 @@ async function submit_by_id() {
         setDetail.append('<h2>Win-loss ratio</h2>');
         setDetail.append(chartBox);
 
-        mainBox.append(setDetail);
+        mainBoxRes.append(setDetail);
     } catch (e) {
         const setDetail = $('<div id="information">').addClass('information');
         setDetail.append('<h2>Not found</h2>');
-        mainBox.append(setDetail);
+        mainBoxRes.append(setDetail);
     }
+
+};
+
+
+function savePlayer() {
+
+    let mainBoxRes = $('#main-box');
+    const user = {
+        name: document.getElementById('name').value,
+        realm: document.getElementById('realm').value,
+        region: document.getElementById('region').value,
+        profile: document.getElementById('profile').value,
+        locale: document.getElementById('locale').value,
+    };
+
+    //načíst z localstorage pole
+    let users = JSON.parse((localStorage.getItem('users')));
+    //přidat noveho user
+    users.push(user);
+    //pushnout user do pole
+    localStorage.setItem("users", JSON.stringify(users));
+
+
+
+    const button = $('<button name="user.name" id="btnId" data-username="' + user.name + '">' + user.name + '</button>').click(function () {
+        myPlayer(user.name);
+    });
+    mainBoxRes.append(button);
+
+};
+
+
+
+function myPlayer(name) {
+    let users = JSON.parse((localStorage.getItem('users')));
+
+    for (let i = 0; i < users.length; i++) {
+        if (users[i].name == name) {
+
+            document.getElementById('name').value = users[i].name;
+            document.getElementById('realm').value = users[i].realm;
+            document.getElementById('region').value = users[i].region;
+            document.getElementById('profile').value = users[i].profile;
+            document.getElementById('locale').value = users[i].locale;
+
+            submitById();
+        }
+    }
+
+
+
+
+
 
 };
