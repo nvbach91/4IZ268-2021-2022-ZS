@@ -372,4 +372,4 @@ function addTrackExtract(item, index) {
 
 }
 
-playlists.onchange = fetchTracks;
+playlists.addEventListener("onchange", fetchTracks, true);
