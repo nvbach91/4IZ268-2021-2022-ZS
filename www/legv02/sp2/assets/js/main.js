@@ -4,43 +4,26 @@ $(document).ready(() => {
     const timeStart = $('#time-start');
     const timeEnd = $('#time-end');
     const flightContainer = $('#flight-container');
-    //const spinner = $('#spinner');
+    const spinner = $('#spinner');
+    const flights = $('#flights');
     let flightList = null;
     let timeStartUnix = null;
     let timeEndUnix = null;
 
+    let vectorLineLayer = null;
+    let vectorLine = null;
+    let featureLine = null;
+    let points = null;
 
-    /*
-    const home = { template: '<div>home</div>' }
-    const saved = { template: '<div>saved</div>' }
-
-    const routes = [
-        { path: '/', component: home },
-        { path: '/saved', component: saved }
-    ]
-
-    const router = new VueRouter({
-        routes: routes
-    })
-
-    const App = new Vue({
-        el: '#app',
-        router
-        //data: {}
-    }).$mount('#app')
-    */
-
-    const ApiUrl = 'https://opensky-network.org/api';
-    const UnixTimeApiUtl = 'https://showcase.api.linx.twenty57.net/UnixTime/tounix?date=';
+    const apiUrl = 'https://opensky-network.org/api';
+    const unixTimeApiUtl = 'https://showcase.api.linx.twenty57.net/UnixTime/tounix?date=';
+    const airportApi = 'https://www.airport-data.com/api/ap_info.json?icao=';
 
     $('#submit').on("click", function () {
-        /*
-        if(spinner.nextSibling != spinner) {
-            spinner.nextSibling.remove();
-        }
-        */
 
-        $('#flight-container').siblings().remove();
+        spinner.removeClass('hidden');
+
+        flightContainer.siblings().remove();
 
         const departureVal = departure.val();
         const timeStartVal = timeStart.val();
@@ -48,16 +31,16 @@ $(document).ready(() => {
 
         $.ajax({
             method: 'GET',
-            url: UnixTimeApiUtl + timeStartVal,
-            //url: UnixTimeApiUtl + '2019-02-11 13:38:00',
+            url: 'https://cors-proxy.itake.cz/get?url=' + encodeURIComponent(unixTimeApiUtl + timeStartVal),
             success: function (result) {
                 timeStartUnix = result;
+                console.log(timeStartUnix);
             }
         });
 
         $.ajax({
             method: 'GET',
-            url: UnixTimeApiUtl + timeEndVal,
+            url: 'https://cors-proxy.itake.cz/get?url=' + encodeURIComponent(unixTimeApiUtl + timeEndVal),
             success: function (result) {
                 timeEndUnix = result;
             }
@@ -65,25 +48,62 @@ $(document).ready(() => {
 
         $.ajax({
             method: 'GET',
-            url: ApiUrl + '/flights/departure?airport=' + departureVal + '&begin=' + timeStartUnix + '&end=' + timeEndUnix,
-            //url: ApiUrl + '/flights/departure?airport=EGPF&begin=1517227200&end=1517237500',
-            //url: ApiUrl + '/flights/departure?airport=EGPF&begin=1517227200&end=1517227201',
+            url: apiUrl + '/flights/departure?airport=' + departureVal + '&begin=' + timeStartUnix + '&end=' + timeEndUnix,
             dataType: 'json',
             success: function (results) {
                 flightList = results;
-                results.forEach(function (element) {
-                    if (element.estDepartureAirport && element.estArrivalAirport) {
-                        flights.insertAdjacentHTML('beforeend', "<div>" +
-                            "<p>" + "Callsing: " + element.callsign + "</p>" +
-                            "<p>" + "Departure: " + element.estDepartureAirport + " </p>" +
-                            "<p>" + "Destination: " + element.estArrivalAirport + " </p>" +
-                            "</div>");
+                let flightString = '';
+                let depPort = '';
+                let arrPort = '';
+                for(let i = 0; i < 4; i++) {
+                    const urlA = encodeURIComponent(airportApi + results[i].estDepartureAirport);
+                    const urlB = encodeURIComponent(airportApi + results[i].estArrivalAirport);
+                    if (results[i].estDepartureAirport && results[i].estArrivalAirport && ICAO_CODES[results[i].estDepartureAirport] != undefined) {
+                        $.ajax({
+                            method: 'GET',
+                            url: 'https://airport-info.p.rapidapi.com/airport?icao=' + results[i].estDepartureAirport,
+                            headers: {
+                                'x-rapidapi-host': 'airport-info.p.rapidapi.com',
+                                'x-rapidapi-key': '19791debe9msh5886a156b6807d4p1c84e2jsnec0f2755f756'
+                            },
+                            async: true,
+                            crossDomain: true,
+                            dataType: 'json',
+                            success: function (result) {
+                                $("[data-airport=" + results[i].estDepartureAirport + "]").html("Departure: " + result.name);
+                                depPort += result.name;
+                                console.log(depPort);
+                            }
+                        });
+                        $.ajax({
+                            method: 'GET',
+                            url: 'https://airport-info.p.rapidapi.com/airport?icao=' + results[i].estArrivalAirport,
+                            headers: {
+                                'x-rapidapi-host': 'airport-info.p.rapidapi.com',
+                                'x-rapidapi-key': '19791debe9msh5886a156b6807d4p1c84e2jsnec0f2755f756'
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                $("[data-airport=" + results[i].estArrivalAirport + "]").html("Destination: " + result.name);
+                                arrPort += result.name;
+                                console.log(arrPort);
+                            }
+                        });
+                        spinner.addClass('hidden');
+                        flightString += "<div>" +
+                        "<p>" + "Callsing: " + results[i].callsign + "</p>" +
+                        "<p data-airport='" + results[i].estDepartureAirport + "'>" + "Departure: " + depPort + "</p>" +
+                        "<p data-airport='" + results[i].estArrivalAirport + "'>" + "Departure: " + depPort + "</p>" +
+                        "<hr>" + "</div>";
                     }
-                });
+                }
+                flights.append(flightString);
                 drawFlights();
             },
             error: function () {
-                flights.insertAdjacentHTML('beforeend', "<div><p>No flights found</p></div>");
+                spinner.addClass('hidden');
+                flights.append("<div><p>No flights found</p></div>");
+                map.removeLayer(vectorLineLayer);
             }
         });
     });
@@ -117,36 +137,43 @@ $(document).ready(() => {
         })
     });
 
-    drawFlights = function () {
+    var drawFlights = function () {
 
-        flightList.forEach(function (element) {
-            if (element.estDepartureAirport && element.estArrivalAirport) {
-                let depart = element.estDepartureAirport;
-                let arrive = element.estArrivalAirport;
-                let points = [[ICAO_CODES[depart][1], ICAO_CODES[depart][0]], [ICAO_CODES[arrive][1], ICAO_CODES[arrive][0]]];
-                for (let i = 0; i < points.length; i++) {
-                    points[i] = ol.proj.transform(points[i], 'EPSG:4326', 'EPSG:3857');
+        map.removeLayer(vectorLineLayer);
+        points = null;
+
+        for(let i = 0; i < 10; i++) {
+            if (flightList[i].estDepartureAirport && flightList[i].estArrivalAirport) {
+                let depart = flightList[i].estDepartureAirport;
+                let arrive = flightList[i].estArrivalAirport;
+                if(ICAO_CODES[depart] != undefined && ICAO_CODES[arrive] != undefined) {
+                    points = [[ICAO_CODES[depart][1], ICAO_CODES[depart][0]], [ICAO_CODES[arrive][1], ICAO_CODES[arrive][0]]];
+                    for (let i = 0; i < points.length; i++) {
+                        points[i] = ol.proj.transform(points[i], 'EPSG:4326', 'EPSG:3857');
+                    }
                 }
 
-                let featureLine = new ol.Feature({
+                let distance = flightList[i].estDepartureAirportHorizDistance / (flightList[i].estDepartureAirportHorizDistance + flightList[i].estArrivalAirportHorizDistance);
+
+                let colorString = 'rgba(0, 0, 0,' + distance +')';;
+
+                featureLine = new ol.Feature({
                     geometry: new ol.geom.LineString(points)
                 });
 
-                let vectorLine = new ol.source.Vector({});
+                vectorLine = new ol.source.Vector({});
                 vectorLine.addFeature(featureLine);
 
-                let vectorLineLayer = new ol.layer.Vector({
+                vectorLineLayer = new ol.layer.Vector({
                     source: vectorLine,
                     style: new ol.style.Style({
-                        fill: new ol.style.Fill({ color: '#00FF00', weight: 4 }),
-                        stroke: new ol.style.Stroke({ color: '#00FF00', width: 2 })
+                        fill: new ol.style.Fill({ color: colorString, weight: 4 , opacity: distance}),
+                        stroke: new ol.style.Stroke({ color: colorString, width: 2, opacity: distance})
                     })
                 });
                 map.addLayer(vectorLineLayer);
             }
-        });
-
-
+        }
     }
 
 });
