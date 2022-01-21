@@ -1,0 +1,339 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.clear {
+    clear: both;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.5;
+    padding: 30px 150px;
+}
+
+h1 {
+    padding: 15px 20px 15px 25px;
+    border: solid 1px #014955;
+    border-radius: 4px;
+    background-color:#D6E5FA;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+aside {
+    width: 30%;
+    float: left;
+    border: solid 1px #014955;
+    border-radius: 4px;
+    padding: 30px;
+}
+
+.main {
+    width: 70%;
+    float: right;
+}
+
+.newTask {
+    display: none;
+}
+
+aside input[type="text"] {
+    font-size: 14px;
+    padding: 6px;
+    width: 100%;
+    margin: 15px 0px;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sortPriorityBtn, .sortDateBtn, .sortNameBtn {
+    height: 45px;
+    width: 80px;
+    border: none;
+    font-size: 16px;
+    padding: 12px;
+    border: solid 1px #014955;
+    border-radius: 4px;
+    background-color: #D6E5FA;
+}
+
+.sortPriorityBtn:hover, .sortDateBtn:hover {
+    transition-duration: 0.3s;
+    background-color: #5DAE8B;
+    cursor: pointer;
+}
+
+.sortNameBtn {
+    background-color: white;
+    border:none;
+    width: 50px;
+    padding: 5px;
+}
+
+.sortNameBtn:hover img {
+    max-width: 33px;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.sortNameBtn img {
+    max-width: 30px;
+}
+
+.sortPriorityBtn {
+    margin: 0 auto;
+}
+
+.sortDateBtn {
+    float: right;
+}
+
+ul {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 30px;
+}
+
+ul li {
+    list-style: none;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    padding: 0 15px;
+    background-color: #f2f2f2;
+    position: relative;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+}
+
+ul li:hover {
+    background-color: #D6E5FA;
+}
+
+ul li span {
+    position: absolute;
+    right: -40px;
+    width: 40px;
+    background-color: #DD0A35;
+    text-align: center;
+    transition-duration: 0.3s;
+}
+
+ul li:hover span {
+    right: 0px;
+}
+
+ul li span img {
+    max-width: 23px;
+    vertical-align: middle;
+}
+
+.disableLi {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.disableLi:hover {
+    background-color: #f2f2f2;
+}
+
+.newTaskBtn {
+    height: 80px;
+}
+
+.newTaskBtn button{
+    float: right;
+    background-color: #DD0A35;
+    padding: 16px 22px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.newTaskBtn button:hover {
+    transition-duration: 0.3s;
+    background-color: #5DAE8B;
+    color: black;
+    cursor: pointer;
+}
+
+.taskDescriptionDiv {
+    margin-left: 50px;
+}
+
+h3 {
+    padding: 10px 15px;
+    border: solid 1px #014955;
+    border-radius: 4px;
+    background-color:#D6E5FA;
+    margin-bottom: 20px;
+}
+
+.taskDescription {
+    height: 150px;
+    padding: 15px;
+    overflow-y: auto;
+    margin-bottom: 50px;
+    border: solid 1px #014955;
+    border-radius: 4px;
+}
+
+.middle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.middle img {
+    max-height: 50px;
+}
+
+.box {
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    margin-left: 10px;
+    text-align: center;
+    float: right;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+}
+
+.weather {
+    margin-bottom: 30px;
+}
+
+.down {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deleteAllBtn {
+    display: flex;
+    align-items: center;
+    background-color: #DD0A35;
+    color: white;
+    font-size: 16px;
+    padding: 16px 22px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteAllBtn:hover {
+    transition-duration: 0.3s;
+    background-color: #5DAE8B;
+    color: black;
+}
+
+.blue-color {
+    background-color: #D6E5FA;
+}
+
+footer {
+    width: 100%;
+    border-top: solid 1px #014955;
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 30px;
+}
+
+.formLeft {
+    width: 45%;
+    margin-right: 5%;
+    float: left;
+}
+
+.formRight {
+    width: 45%;
+    margin-left: 5%;
+    float: right;
+}
+
+form input, textarea, select {
+    font-family: 'Roboto', sans-serif;
+    border: solid 1px #014955;
+    border-radius: 4px;
+    padding: 5px 10px;
+    background-color: #f2f2f2;
+}
+
+form input[type="text"] {
+    margin: 10px;
+    margin-right: 0;
+    width: 73%;
+}
+
+form textarea {
+    overflow-y: auto;
+    margin-top: 10px;
+    width: 100%;
+}
+
+form input[type="datetime-local"] {
+    margin: 15px 0px;
+    width: 100%;
+}
+
+form select {
+    width: 30%;
+    margin: 10px;
+    cursor: pointer;
+}
+
+form label {
+    font-weight: bold;
+}
+
+.createTaskBtn {
+    float: right;
+    background-color: #DD0A35;
+    padding: 16px 22px;
+    height: 50px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.createTaskBtn:hover {
+    transition-duration: 0.3s;
+    background-color: #5DAE8B;
+    color: black;
+}
+
+.alert {
+    padding: 20px;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 25px;
+    display: none;
+  }
+  
+.alert span {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+}
+  
+.alert span:hover {
+    transition-duration: 0.3s;
+    color: black;
+}
