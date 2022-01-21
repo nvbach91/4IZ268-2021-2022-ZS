@@ -1,0 +1,194 @@
+* {
+    box-sizing: border-box;
+    background-color: rgb(0, 0, 51);
+    font-family: RobotoRegular;
+}
+
+h1, h2 {
+    margin: auto;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+    padding: 10px;
+    width: 300px;
+    background-color: rgb(0, 102, 102);
+    border-radius: 30px;
+    font-size: 45px;
+    color: rgb(0, 0, 51);
+    animation: jackInTheBox ;
+    animation-duration: 3s;
+}
+
+h2 {
+    font-size: 35px;
+    color: rgb(0, 102, 102);
+    background-color: transparent;
+    padding-bottom: 5px;
+    position: relative;
+    left: 4%;
+}
+
+.questionText {
+    font-size: 30px;
+    color: rgb(0, 102, 102);
+    background-color: transparent;
+    padding-bottom: 5px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.left {
+    text-align: left;
+    margin-left: 75px;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+    margin-right: 75px;
+}
+
+.space {
+    height: 20px;
+}
+
+.line {
+    padding-top: 10px;
+    border-top: 5px solid rgb(0, 102, 102);
+}
+
+p {
+    color: rgb(0, 102, 102);
+    text-align: center;
+    font-size: 25px;
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 30px;
+    margin-bottom: 5px;
+    border: 5px solid rgb(0, 102, 102);
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.screen, .screen * {
+    background-color: rgb(1, 25, 50);
+}
+
+.screen.screen--hidden {
+    display: none;
+}
+
+.button--hidden {
+    display: none;
+}
+
+.button {
+    align-self: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: rgb(0, 102, 102);
+    color: rgb(0, 0, 51);
+    border-radius: 16px;
+    padding: 12px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    width: 225px;
+    height: 60px;
+    animation: bounceIn;
+    animation-duration: 0.75s;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+}
+
+.topHeading {
+    width: 100%;
+}
+
+.back {
+    align-self: flex-end;
+    margin-bottom: 10px;
+    width: 100px;
+    font-size: 20px;
+    height: 50px;
+    z-index: 1;
+}
+
+.button:hover {
+    border: 5px solid rgb(0, 102, 102);
+    background-color: rgb(0, 0, 51);
+    color: rgb(0, 102, 102);
+    padding: 7px;
+    cursor: pointer;
+    animation: pulse;
+    animation-duration: 0.5s;
+}
+
+.buttonContainer {
+    display: flexbox;
+}
+
+.endContainer, .leaderContainer {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.catItem {
+    width: calc(100%/3 - 30px);
+    min-width: 225px;
+    float: left;
+    font-size: 25px;
+    padding: 12px;
+    margin: 15px;
+}
+
+.ansItem {
+    width: calc(100%/2 - 40px);
+    min-width: 225px;
+    float: left;
+    font-size: 25px;
+    padding: 12px;
+    margin: 15px;
+}
+
+.endItem, .leaderItem {
+    width: calc(85% - 250px);
+    min-width: 100px;
+    font-size: 25px;
+    padding: 12px;
+    margin: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.leaderItem {
+    width: calc(100% - 70px);
+    margin: 30px;
+    text-align: left;
+}
+
+.version {
+    color: rgb(0, 102, 102);
+    text-align: end;
+    font-size: 20px;
+    margin-right: 50px;
+    animation: zoomInRight;
+    animation-duration: 5s;
+}
+
+@font-face {
+    font-family: RobotoRegular;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
