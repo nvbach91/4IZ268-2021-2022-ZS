@@ -10,6 +10,34 @@ $(document).ready(() => {
     const tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
 
 
+    const tagsForm = $('#tagsForm');
+    const tagsInput = $('input[name="tagsInput"]');
+
+    tagsForm.submit((event) => {
+        event.preventDefault();
+        const inputValue = tagsInput.val();
+        const tagsNames = inputValue.replace(' ', ',');
+
+
+        if (!tags.includes(tagsNames)) {
+            tags.push(tagsNames);
+            createButton(tagsNames);
+
+            $('.tagButton').unbind();
+
+            $('.tagButton').click(function () {
+                whatPicturesGet($(this).attr('id'));
+            });
+
+        };
+
+        whatPicturesGet(tagsNames);
+
+
+    });
+
+
+
     //deal with array with tags and creates buttons
     const createButtons = (tags) => {
         tags.forEach(element => {
@@ -22,6 +50,7 @@ $(document).ready(() => {
     const createButton = (tag) => {
         const tagButton = $('<button>').addClass('tagButton').attr('id', tag).text('#' + tag);
         tagsContainer.append(tagButton);
+        return tagButton;
     };
 
     createButtons(tags);
@@ -47,6 +76,7 @@ $(document).ready(() => {
     });
 
     //adding actions to buttons
+
     $('.tagButton').click(function () {
         whatPicturesGet($(this).attr('id'));
     });
@@ -61,8 +91,8 @@ $(document).ready(() => {
     // do the magic with ajax
     const whatPicturesGet = (tag) => {
 
-        //first of all empty website from older search
-        $('#photos').empty();
+
+
 
         //spinner, user needs to know that something is happening
         spinner = showSpinner();
@@ -86,12 +116,14 @@ $(document).ready(() => {
                     const photoResult = {
 
                         url: 'https://live.staticflickr.com/' + res.photos.photo[i].server + '/' + res.photos.photo[i].id + '_' + res.photos.photo[i].secret + '_n.jpg',
+                        title: res.photos.photo[i].title
                     };
                     photosCollection.push(photoResult);
 
 
                 }
                 spinner.remove();
+                $('#photos').empty();
                 createPhotos(photosCollection);
 
             },
@@ -113,14 +145,14 @@ $(document).ready(() => {
 
     //creates html img with picture and append to container on page
     const createPhoto = (photo) => {
-        const recievedPhoto = $('<img>').addClass('result-image').attr('src', photo.url).attr('alt', 'recieved-recent-image');
+        const recievedPhoto = $('<img>').addClass('result-image').attr('src', photo.url).attr('alt', 'recieved-recent-image').attr('title', photo.title);
         photosContainer.append(recievedPhoto);
     };
 
     //creates loading spinner
     const showSpinner = () => {
         const spinner = $('<div>').addClass('spinner');
-        spinner.appendTo(appContainer);
+        spinner.appendTo(tagsContainer);
         return spinner;
     };
 

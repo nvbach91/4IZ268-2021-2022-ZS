@@ -29,6 +29,7 @@ h1 {
     background-color: burlywood;
     border: 3px solid white;
     font-weight: 700;
+    cursor: pointer;
 }
 
 nav {
@@ -49,6 +50,8 @@ footer {
 
 }
 
+
+
 .spinner {
     border: 5px solid blue;
     height: 50px;
@@ -56,7 +59,7 @@ footer {
     border-radius: 100px;
     border-left-color: transparent;
     animation: spinning 1s ease infinite;
-    margin-left: 50%;
+    
 
 }
 
