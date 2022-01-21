@@ -6,9 +6,20 @@ $(document).ready(() => {
 
     const appContainer = $(`#app`);
     const tagsContainer = $('<nav>').addClass('tags');
+    const deleteTags = $('<button>').attr('id', 'delete').text('delete own tags from history after refresh');
 
-    const tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
+    //let buttonClass = $('.tagButton');
 
+
+    let tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
+
+    if (!localStorage.getItem('tags')) {
+        localStorage.setItem('tags', JSON.stringify(tags));
+    } else {
+        tags = JSON.parse(localStorage.getItem('tags'));
+    };
+
+    console.log(JSON.parse(localStorage.getItem('tags')));
 
     const tagsForm = $('#tagsForm');
     const tagsInput = $('input[name="tagsInput"]');
@@ -17,16 +28,27 @@ $(document).ready(() => {
         event.preventDefault();
         const inputValue = tagsInput.val();
         const tagsNames = inputValue.replace(' ', ',');
+        const col = [];
 
 
         if (!tags.includes(tagsNames)) {
             tags.push(tagsNames);
-            createButton(tagsNames);
+            col.push(tagsNames);
+            createButtons(col);
+            localStorage.setItem('tags', JSON.stringify(tags));
+
+            console.log(JSON.parse(localStorage.getItem('tags')));
+
+
 
             $('.tagButton').unbind();
 
             $('.tagButton').click(function () {
                 whatPicturesGet($(this).attr('id'));
+
+                /* $('.tagButton').click(function () {
+                     whatPicturesGet($(this).attr('id'));
+                 });*/
             });
 
         };
@@ -39,21 +61,29 @@ $(document).ready(() => {
 
 
     //deal with array with tags and creates buttons
+
     const createButtons = (tags) => {
+
+        const col = [];
+        let tempTag;
+
         tags.forEach(element => {
-            tagsContainer.append(createButton(element));
+            tempTag = createButton(element);
+            col.push(tempTag);
         });
+        tagsContainer.append(col);
     };
 
 
     //creates html button from tag on input
     const createButton = (tag) => {
         const tagButton = $('<button>').addClass('tagButton').attr('id', tag).text('#' + tag);
-        tagsContainer.append(tagButton);
         return tagButton;
     };
 
-    createButtons(tags);
+    //let storageTags  = JSON.parse(localStorage.getItem('tags'));
+
+    createButtons(JSON.parse(localStorage.getItem('tags')));
 
     const photosContainer = $('<div>').attr('id', 'photos');
 
@@ -63,6 +93,7 @@ $(document).ready(() => {
     let photosCollection = [];
 
     tagsContainer.appendTo(appContainer);
+    deleteTags.appendTo(appContainer);
     photosContainer.appendTo(appContainer);
     footer.appendTo(appContainer);
 
@@ -75,7 +106,16 @@ $(document).ready(() => {
         };
     });
 
+    //delete button
+
+    $('#delete').click(function () {
+        tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
+        localStorage.setItem('tags', JSON.stringify(tags));
+
+    })
+
     //adding actions to buttons
+
 
     $('.tagButton').click(function () {
         whatPicturesGet($(this).attr('id'));
@@ -136,17 +176,22 @@ $(document).ready(() => {
 
     //deal with array with info about photos
     const createPhotos = (photos) => {
-        photos.forEach(element => {
-            photosContainer.append(createPhoto(element));
-        });
+        const col = [];
+        let tempPhoto;
 
+        photos.forEach(element => {
+            tempPhoto = createPhoto(element);
+            col.push(tempPhoto);
+
+        });
+        photosContainer.append(col);
     };
 
 
     //creates html img with picture and append to container on page
     const createPhoto = (photo) => {
         const recievedPhoto = $('<img>').addClass('result-image').attr('src', photo.url).attr('alt', 'recieved-recent-image').attr('title', photo.title);
-        photosContainer.append(recievedPhoto);
+        return recievedPhoto;
     };
 
     //creates loading spinner
