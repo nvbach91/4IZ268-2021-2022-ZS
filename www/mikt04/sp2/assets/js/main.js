@@ -18,7 +18,7 @@ $(document).ready(function () {
     },
     error: function(data){
       console.log('ajax svatky error' + data);
-  }
+    }
   });
 
   // Movie database API //
@@ -28,8 +28,11 @@ $(document).ready(function () {
   const movieContainer = $('#results');
   const collectionContainer = $('#collection-content');
   const movieNameInput = $('input[name="search"]');
+  const nextButton = $('#button-next');
   let searchColl = [];
   let libraryColl = [];
+  let numberToShow = 5;
+  let startNumber = 0;
 
   // variables for custom adding
   const addForm = $('#add-box');
@@ -68,7 +71,7 @@ $(document).ready(function () {
       dataType: 'json',
       success: function (res) {
         searchColl.length = 0;
-        const n = Math.min(4, res.total_results);
+        const n = Math.min(20, res.total_results);
         for (let i = 0; i < n; i += 1) {
           const movieData = {
             id: res.results[i].id,
@@ -96,7 +99,9 @@ $(document).ready(function () {
         }
         $('.main-content-results').removeClass('non-active');
         spinner.remove();
-        showMovie(searchColl);
+        numberToShow = 5;
+        startNumber = 0;
+        showMovie(searchColl, startNumber);
         console.log(searchColl);
       },
       error: function (data) {
@@ -136,11 +141,41 @@ $(document).ready(function () {
     saveData();
   });
 
+  nextButton.click(function()
+  {
+    numberToShow = numberToShow + 5;
+    startNumber = startNumber + 5;
+
+    if (!(numberToShow > 20)) {
+      showMovie(searchColl, startNumber);
+    }
+    else {
+      return false;
+    }
+  });
+
   // appends movie to search collection div 
-  const showMovie = (collection) => {
+  const showMovie = (collection, startNumber) => {
+    let data = [];
+    let result;
+    let i = startNumber;
+
+    const n = Math.min(numberToShow, collection.length);
+
+    for (startNumber; i < n; i += 1) {
+        result = createMovie(collection[i]);
+        data.push(result);
+    }
+    movieContainer.empty();
+    movieContainer.append(data);
+
+    /*
     collection.forEach(function (element) {
-      movieContainer.append(createMovie(element));
+      result = createMovie(element);
+      data.push(result);
     });
+    movieContainer.append(data);
+    */
   }
 
   // ads movie to library collection array and html

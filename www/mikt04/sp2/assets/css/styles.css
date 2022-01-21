@@ -317,6 +317,10 @@ input {
     background-color: #9a031e;
 }
 
+#button-next {
+    padding: 10px;
+}
+
 /*----Dissolve and animation----*/
 /* Used from cv06 */
 
