@@ -14,7 +14,7 @@ const firebaseConfig = {
 	messagingSenderId: "664230584819",
 	appId: "1:664230584819:web:770e6e8a0a6fd62a053286",
 	measurementId: "G-109J05KX1M"
-  };
+};
 
 const app = initializeApp(firebaseConfig);
 
@@ -59,9 +59,11 @@ function App() {
 		if (tab === "mine" && user !== null) {
 			const data = await getDocs(query(collection(getFirestore(app), "items"), where("user", "==", user.uid), orderBy("createdAt", "desc")))
 			setItems(data.docs.map(e => ({...e.data(), id: e.id})))
+		} else if (tab === "liked" && user !== null) {
+			const data = await getDocs(query(collection(getFirestore(app), "items"), where("liked", "array-contains", user.uid), orderBy("createdAt", "desc")))
+			setItems(data.docs.map(e => ({...e.data(), id: e.id})))
 		} else {
 			const data = await getDocs(query(collection(getFirestore(app), "items"), orderBy("createdAt", "desc")))
-			console.log(data);
 			setItems(data.docs.map(e => ({...e.data(), id: e.id})))
 		}
 		setSpinner(false)
@@ -170,7 +172,11 @@ function App() {
 			<div className="p-1">
 				<Link to="./" onClick={() => onTabChange("home")} className="font-bold p-2 text-2xl">Home</Link>
 				{user !== null &&
-					<Link to="./mine" onClick={() => onTabChange("mine")} className="font-bold p-2 text-2xl">My Items</Link>}
+					<Link to="./mine" onClick={() => onTabChange("mine")} className="font-bold p-2 text-2xl">My Items</Link>
+				}
+				{user !== null &&
+					<Link to="./liked" onClick={() => onTabChange("liked")} className="font-bold p-2 text-2xl">Liked</Link>
+				}
 			</div>
 			{user !== null ?
 				<button className="bg-red-500 text-white font-bold py-2 px-4 rounded-xl w-28" onClick={logOut}>Log out</button>

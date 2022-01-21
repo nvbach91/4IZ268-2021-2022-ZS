@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {getDownloadURL, getStorage, ref} from "firebase/storage";
 import {getAuth} from "firebase/auth";
-import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc} from "firebase/firestore";
 
 export default function Item(props) {
 	const [url, setUrl] = useState("");
@@ -56,6 +56,15 @@ export default function Item(props) {
 		setLoading(false)
 	}
 
+	async function toggleLike() {
+		if ((props.item.liked || []).includes(currentUser.uid)) {
+			await updateDoc(doc(getFirestore(), "items", id), {liked: props.item.liked.filter(uid => uid !== currentUser.uid)});
+		} else {
+			await updateDoc(doc(getFirestore(), "items", id), {liked: [...(props.item.liked || []), currentUser.uid]});
+		}
+		await props.update()
+	}
+
 	return (<div className="m-2 item-box bordered border-2 rounded-xl h-96">
 		<div className="relative m-0 flex bg-white flex-col w-full flex flex-row justify-between h-full">
 			<div className="flex-no-shrink w-full">
@@ -69,9 +78,17 @@ export default function Item(props) {
 				</div>
 			</div>
 			{currentUser.email && currentUser.uid !== user &&
-				<button className="bordered border-2 border-black m-1 p-2 rounded-xl bg-green-500"
-				        onClick={() => setModal(true)}>
-					Contact</button>}
+				<div className="flex flex-row w-full">
+					<button className="bordered border-2 border-black w-1/2 m-1 p-2 rounded-xl bg-green-500"
+					        onClick={() => setModal(true)}>
+						Contact
+					</button>
+					<button className="bordered border-2 border-black w-1/2 m-1 p-2 rounded-xl bg-red-500"
+					        onClick={toggleLike}>
+						{(props.item.liked || []).includes(currentUser.uid) ? "Unlike" : "Like"}
+					</button>
+				</div>
+			}
 			{currentUser.uid === user && <div className="flex flex-row w-full">
 				<button className={"bordered border-2 border-black m-1 p-2 rounded-xl bg-blue-500 w-1/3"}
 				        onClick={see}>See applicants

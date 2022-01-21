@@ -22,5 +22,5 @@ code {
     monospace;
 }
 .item-box {
-  width: calc(50% - 16px);
+  width: calc(30% - 16px);
 }
