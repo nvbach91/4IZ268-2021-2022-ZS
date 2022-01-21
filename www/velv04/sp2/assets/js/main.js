@@ -36,7 +36,7 @@ $(document).ready(() => {
         document.getElementById("button--sport-category").addEventListener("click", () => {
             showScreen("round"); selectedCategory = "Sport"; gametime();
         });
-
+/*
         document.getElementById("answer1").addEventListener("click", () => {
             showScreen("round-result");
             if (document.getElementById("answer1").innerText === question.correct_answer) {
@@ -59,14 +59,42 @@ $(document).ready(() => {
                 roundResults(true);
             } else {
                 roundResults(false);
-            }
+            } 
         });
+
         document.getElementById("answer4").addEventListener("click", () => {
             showScreen("round-result");
             if (document.getElementById("answer4").innerText === question.correct_answer) {
                 roundResults(true);
             } else {
                 roundResults(false);
+            }
+        });*/
+
+        for(let i =1;i<=4;i++) {
+            document.getElementById(`answer${i}`).addEventListener("click", () => {
+                showScreen("round-result");
+                if (document.getElementById(`answer${i}`).innerText === question.correct_answer) {
+                    roundResults(true);
+                } else {
+                    roundResults(false);
+                }   
+            });
+
+                    
+        }
+
+        document.addEventListener("keypress", (e) => {
+            if(!document.getElementById("screen--round").classList.contains("screen--hidden")) {
+                if(e.which === 49 || e.which === 97 ) {
+                    document.getElementById("answer1").click();
+                } else if (e.which === 50 || e.which === 98 ) {
+                    document.getElementById("answer2").click();
+                } else if (e.which === 51 || e.which === 99 ) {
+                    document.getElementById("answer3").click();
+                } else if (e.which === 52 || e.which === 100 ) {
+                    document.getElementById("answer4").click();
+                } 
             }
         });
 
@@ -100,6 +128,7 @@ $(document).ready(() => {
             loadScores();
             showScreen("leaderboard");
         });
+
         document.getElementById("button--leaderboards-back").addEventListener("click", () => {
             document.getElementById("firstPos").classList.remove("button--hidden");
             document.getElementById("secondPos").classList.remove("button--hidden");
@@ -148,19 +177,23 @@ $(document).ready(() => {
 
     const round = (Aquestion) => {
         question = Aquestion;
-        document.getElementById("lives-text").innerText = 'Lives: ';
+
+        let tmpLives = document.getElementById("lives-text");
+        let tmpTime = document.getElementById("timer-text");
+
+        tmpLives.innerText = 'Lives: ';
         switch (player.health) {
-            case 3: document.getElementById("lives-text").innerText += ' ♥ ♥ ♥'; break;
-            case 2: document.getElementById("lives-text").innerText += ' ♥ ♥ ♡'; break;
-            case 1: document.getElementById("lives-text").innerText += ' ♥ ♡ ♡'; break;
-            case 0: document.getElementById("lives-text").innerText += ' ♡ ♡ ♡'; break;
+            case 3: tmpLives.innerText += ' ♥ ♥ ♥'; break;
+            case 2: tmpLives.innerText += ' ♥ ♥ ♡'; break;
+            case 1: tmpLives.innerText += ' ♥ ♡ ♡'; break;
+            case 0: tmpLives.innerText += ' ♡ ♡ ♡'; break;
         }
-        document.getElementById("timer-text").innerText = 'Timer: ' + timer;
+        tmpTime.innerText = 'Timer: ' + timer;
         document.getElementById("score-text").innerText = 'Score: ' + player.score;
 
         console.log(question);
+        /*document.getElementById("question-text").innerHTML = 'Question: ' + question.question;*/
         document.getElementById("question-text").innerText = 'Question: ' + question.question;
-
         let answers = [];
         answerType = [];
         correctAnswer = question.correct_answer;
@@ -190,6 +223,8 @@ $(document).ready(() => {
         questionNum = questionNum + 1;
         timer = 60;
 
+        let tmpResText = document.getElementById("question-text2");
+
         if (bool === false) {
             player.health -= 1;
             if (player.health === 0) {
@@ -198,11 +233,11 @@ $(document).ready(() => {
 
                 showScreen("game-over");
             } else {
-                document.getElementById("question-text2").innerText = "INCORRECT!";
+                tmpResText.innerText = "INCORRECT!";
             }
 
         } else {
-            document.getElementById("question-text2").innerText = "CORRECT!";
+            tmpResText.innerText = "CORRECT!";
             if (questionNum <= 15) {
                 player.score += 5;
             } else if (questionNum <= 30) {
@@ -258,40 +293,46 @@ $(document).ready(() => {
         };
         if (numOfScores !== 0) { locStoScores.sort((a, b) => b.scoreScore - a.scoreScore) }
 
+        let tmp1pos = document.getElementById("firstPos");
+        let tmp2pos = document.getElementById("secondPos");
+        let tmp3pos = document.getElementById("thirdPos");
+        let tmp4pos = document.getElementById("fourthPos");
+        let tmp5pos = document.getElementById("fifthPos");
+
         if (numOfScores > 0) {
-            document.getElementById("firstPos").innerText = "1.) " + "name: " + locStoScores[0].scoreName + ", score: " + locStoScores[0].scoreScore;
+            tmp1pos.innerText = "1.) " + "name: " + locStoScores[0].scoreName + ", score: " + locStoScores[0].scoreScore;
             if (numOfScores > 1) {
-                document.getElementById("secondPos").innerText = "2.) " + "name: " + locStoScores[1].scoreName + ", score: " + locStoScores[1].scoreScore;
+                tmp2pos.innerText = "2.) " + "name: " + locStoScores[1].scoreName + ", score: " + locStoScores[1].scoreScore;
                 if (numOfScores > 2) {
-                    document.getElementById("thirdPos").innerText = "3.) " + "name: " + locStoScores[2].scoreName + ", score: " + locStoScores[2].scoreScore;
+                    tmp3pos.innerText = "3.) " + "name: " + locStoScores[2].scoreName + ", score: " + locStoScores[2].scoreScore;
                     if (numOfScores > 3) {
-                        document.getElementById("fourthPos").innerText = "4.) " + "name: " + locStoScores[3].scoreName + ", score: " + locStoScores[3].scoreScore;
+                        tmp4pos.innerText = "4.) " + "name: " + locStoScores[3].scoreName + ", score: " + locStoScores[3].scoreScore;
                         if (numOfScores > 4) {
-                            document.getElementById("fourthPos").innerText = "5.) " + "name: " + locStoScores[4].scoreName + ", score: " + locStoScores[4].scoreScore;
+                            tmp5pos.innerText = "5.) " + "name: " + locStoScores[4].scoreName + ", score: " + locStoScores[4].scoreScore;
                         } else {
-                            document.getElementById("fifthPos").classList.add("button--hidden");
+                            tmp5pos.classList.add("button--hidden");
                         }
                     } else {
-                        document.getElementById("fourthPos").classList.add("button--hidden");
-                        document.getElementById("fifthPos").classList.add("button--hidden");
+                        tmp4pos.classList.add("button--hidden");
+                        tmp5pos.classList.add("button--hidden");
                     }
                 } else {
-                    document.getElementById("thirdPos").classList.add("button--hidden");
-                    document.getElementById("fourthPos").classList.add("button--hidden");
-                    document.getElementById("fifthPos").classList.add("button--hidden");
+                    tmp3pos.classList.add("button--hidden");
+                    tmp4pos.classList.add("button--hidden");
+                    tmp5pos.classList.add("button--hidden");
                 }
             } else {
-                document.getElementById("secondPos").classList.add("button--hidden");
-                document.getElementById("thirdPos").classList.add("button--hidden");
-                document.getElementById("fourthPos").classList.add("button--hidden");
-                document.getElementById("fifthPos").classList.add("button--hidden");
+                tmp2pos.classList.add("button--hidden");
+                tmp3pos.classList.add("button--hidden");
+                tmp4pos.classList.add("button--hidden");
+                tmp5pos.classList.add("button--hidden");
             }
         } else {
-            document.getElementById("firstPos").innerText = "There are no saved highscores yet.";
-            document.getElementById("secondPos").classList.add("button--hidden");
-            document.getElementById("thirdPos").classList.add("button--hidden");
-            document.getElementById("fourthPos").classList.add("button--hidden");
-            document.getElementById("fifthPos").classList.add("button--hidden");
+            tmp1pos.innerText = "There are no saved highscores yet.";
+            tmp2pos.classList.add("button--hidden");
+            tmp3pos.classList.add("button--hidden");
+            tmp4pos.classList.add("button--hidden");
+            tmp5pos.classList.add("button--hidden");
         }
     };
 
