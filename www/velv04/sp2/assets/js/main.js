@@ -9,84 +9,32 @@ $(document).ready(() => {
         document.getElementById("button--start").addEventListener("click", () => showScreen("start"));
         document.getElementById("button--category-back").addEventListener("click", () => showScreen("main-menu"));
 
-        document.getElementById("button--gener-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Gener"; gametime();
-        });
-        document.getElementById("button--movie-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Movie"; gametime();
-        });
-        document.getElementById("button--video-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Video"; gametime();
-        });
-        document.getElementById("button--geogr-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Geogr"; gametime();
-        });
-        document.getElementById("button--histo-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Histo"; gametime();
-        });
-        document.getElementById("button--mytho-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Mytho"; gametime();
-        });
-        document.getElementById("button--scien-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Scien"; gametime();
-        });
-        document.getElementById("button--music-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Music"; gametime();
-        });
-        document.getElementById("button--sport-category").addEventListener("click", () => {
-            showScreen("round"); selectedCategory = "Sport"; gametime();
-        });
-/*
-        document.getElementById("answer1").addEventListener("click", () => {
-            showScreen("round-result");
-            if (document.getElementById("answer1").innerText === question.correct_answer) {
-                roundResults(true);
-            } else {
-                roundResults(false);
-            }
-        });
-        document.getElementById("answer2").addEventListener("click", () => {
-            showScreen("round-result");
-            if (document.getElementById("answer2").innerText === question.correct_answer) {
-                roundResults(true);
-            } else {
-                roundResults(false);
-            }
-        });
-        document.getElementById("answer3").addEventListener("click", () => {
-            showScreen("round-result");
-            if (document.getElementById("answer3").innerText === question.correct_answer) {
-                roundResults(true);
-            } else {
-                roundResults(false);
-            } 
-        });
+        const catArray = ["gener","movie","video","geogr","histo","mytho","scien","music","sport",];
 
-        document.getElementById("answer4").addEventListener("click", () => {
-            showScreen("round-result");
-            if (document.getElementById("answer4").innerText === question.correct_answer) {
-                roundResults(true);
-            } else {
-                roundResults(false);
-            }
-        });*/
+        for (let i = 0; i < 9; i++) {
+            document.getElementById(`button--${catArray[i].toLowerCase()}-category`).addEventListener("click", function() {
+                let stringC = this.id.slice(8,13);
+                console.log(stringC);
+                showScreen("round"); selectedCategory = stringC; gametime();
+            });
+        }
+
 
         for(let i =1;i<=4;i++) {
-            document.getElementById(`answer${i}`).addEventListener("click", () => {
+            let tmp = document.getElementById(`answer${i}`);
+            tmp.addEventListener("click", () => {
                 showScreen("round-result");
-                if (document.getElementById(`answer${i}`).innerText === question.correct_answer) {
+                if (tmp.innerText === question.correct_answer) {
                     roundResults(true);
                 } else {
                     roundResults(false);
                 }   
-            });
-
-                    
+            })  
         }
 
         document.addEventListener("keypress", (e) => {
             if(!document.getElementById("screen--round").classList.contains("screen--hidden")) {
-                if(e.which === 49 || e.which === 97 ) {
+                if(e.keyCode === 49 || e.which === 97 ) {
                     document.getElementById("answer1").click();
                 } else if (e.which === 50 || e.which === 98 ) {
                     document.getElementById("answer2").click();
@@ -146,16 +94,17 @@ $(document).ready(() => {
 
     const gametime = () => {
         let url = 'https://opentdb.com/api.php?amount=5&';
+        console.log(selectedCategory);
         switch (selectedCategory) {
-            case 'Gener': url += 'category=9&'; break;
-            case 'Movie': url += 'category=11&'; break;
-            case 'Video': url += 'category=15&'; break;
-            case 'Geogr': url += 'category=22&'; break;
-            case 'Histo': url += 'category=23&'; break;
-            case 'Mytho': url += 'category=20&'; break;
-            case 'Scien': url += 'category=17&'; break;
-            case 'Music': url += 'category=12&'; break;
-            case 'Sport': url += 'category=21&'; break;
+            case 'gener': url += 'category=9&'; break;
+            case 'movie': url += 'category=11&'; break;
+            case 'video': url += 'category=15&'; break;
+            case 'geogr': url += 'category=22&'; break;
+            case 'histo': url += 'category=23&'; break;
+            case 'mytho': url += 'category=20&'; break;
+            case 'scien': url += 'category=17&'; break;
+            case 'music': url += 'category=12&'; break;
+            case 'sport': url += 'category=21&'; break;
         }
 
         if (questionNum >= 30) { url += 'difficulty=hard&'; }
@@ -192,8 +141,8 @@ $(document).ready(() => {
         document.getElementById("score-text").innerText = 'Score: ' + player.score;
 
         console.log(question);
-        /*document.getElementById("question-text").innerHTML = 'Question: ' + question.question;*/
-        document.getElementById("question-text").innerText = 'Question: ' + question.question;
+        document.getElementById("question-text").innerHTML = 'Question: ' + question.question;
+
         let answers = [];
         answerType = [];
         correctAnswer = question.correct_answer;
@@ -211,7 +160,7 @@ $(document).ready(() => {
 
     function interval() {
         timer = timer - 1;
-        document.getElementById("timer-text").innerText = 'Timer: ' + timer;
+        tmpTime.innerText = 'Timer: ' + timer;
 
         if (timer === 0) {
             roundResults(false);
