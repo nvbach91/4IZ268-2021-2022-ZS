@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/~slie00/sp2/build/static/css/main.6eb08eaf.css",
+    "main.js": "/~slie00/sp2/build/static/js/main.7a9fb70b.js",
+    "index.html": "/~slie00/sp2/build/index.html",
+    "main.6eb08eaf.css.map": "/~slie00/sp2/build/static/css/main.6eb08eaf.css.map",
+    "main.7a9fb70b.js.map": "/~slie00/sp2/build/static/js/main.7a9fb70b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6eb08eaf.css",
+    "static/js/main.7a9fb70b.js"
+  ]
+}
