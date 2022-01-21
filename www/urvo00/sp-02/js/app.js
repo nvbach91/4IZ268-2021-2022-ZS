@@ -4,7 +4,7 @@ const App = {
 };
 
 App.init = () => {
-    App.app = $('#app'),
+        App.app = $('#app'),
         App.searchForm = $('#search-form'),
         App.titleInput = $('input[name="title-input"]'),
         App.yearInput = $('input[name="year-input"]'),
@@ -46,14 +46,28 @@ App.getMovie = (title, year) => {
     });
 };
 
-App.createMovies = (data) => {
+App.createMovies = async (data) => {
     let moviesContainer = $(`
     <div class ="movies-container"></div>
   `);
     Object.keys(data.Search).forEach(function (key) {
         if (data.Search[key] !== null) {
-            $.getJSON(`${App.apiUrl}?i=${data.Search[key].imdbID}&apikey=${App.apiKey}`).done((data) => {
+             $.getJSON(`${App.apiUrl}?i=${data.Search[key].imdbID}&apikey=${App.apiKey}`).done((data) => {
                 moviesContainer.append(App.createMovie(data));
+
+                let stored = window.localStorage.getItem(data.imdbID);
+                console.log($(`input[id=${data.imdbID}][value=${stored}]`));
+                
+                $(`input[id=${data.imdbID}][value=${stored}]`).prop("checked", true);
+
+                $(":radio").change(function() {
+                    
+                    console.log('test ' + this.value);
+                    window.localStorage.setItem(data.imdbID, this.value);
+                    console.log(localStorage.getItem(data.imdbID));
+                    
+                });
+
             }).fail((resp) => {
                 console.log(resp);
             });
@@ -78,10 +92,10 @@ App.createMovie = (data) => {
     `);
 
     let title = $(`
-    <div class ="movie-info">
-    <p>Title: </p>
-    <p>${data.Title}</p>
-    </div>
+        <div class ="movie-info">
+            <p>Title: </p>
+            <p>${data.Title}</p>
+        </div>
     `);
     infoContainer.append(title);
 
@@ -128,6 +142,54 @@ App.createMovie = (data) => {
 
     infoContainer.append(App.createRatings(data.Ratings));
 
+    let userRating = $(`
+        <div class ="movie-info">
+            <p>User rating: </p>
+            <form class ="rating">
+                <label>
+                    <input type="radio" name="stars" value="1" id="${data.imdbID}" />
+                    <span class="icon">★</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="stars" value="2" id="${data.imdbID}"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="stars" value="3" id="${data.imdbID}" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>   
+                </label>
+
+                <label>
+                    <input type="radio" name="stars" value="4" id="${data.imdbID}"/>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="stars" value="5" id="${data.imdbID}" />
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                </label>
+            </form>    
+        </div>
+    `);
+
+    window.localStorage.getItem(data.imdbID);
+    $("#_1234").prop("checked", true);
+
+
+    infoContainer.append(userRating);
+
     movieElement.append(infoContainer);
 
     return movieElement;
@@ -141,7 +203,7 @@ App.createRatings = (data) => {
     `);
     Object.keys(data).forEach(function (key) {
         let ratingElement = $(`
-        <div class ="rating">
+        <div class ="db-rating">
         <p>${data[key].Source}:</p>
         <p>${data[key].Value}</p>
         </div>
