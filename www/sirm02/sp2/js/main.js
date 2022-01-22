@@ -11,15 +11,18 @@ $(document).ready(() => {
     //let buttonClass = $('.tagButton');
 
 
-    let tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
+
+    const defaultTags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
+    let tags = [];
 
     if (!localStorage.getItem('tags')) {
-        localStorage.setItem('tags', JSON.stringify(tags));
+        localStorage.setItem('tags', JSON.stringify(defaultTags));
+        tags = defaultTags;
     } else {
         tags = JSON.parse(localStorage.getItem('tags'));
     };
 
-    console.log(JSON.parse(localStorage.getItem('tags')));
+    //console.log(JSON.parse(localStorage.getItem('tags')));
 
     const tagsForm = $('#tagsForm');
     const tagsInput = $('input[name="tagsInput"]');
@@ -34,21 +37,13 @@ $(document).ready(() => {
         if (!tags.includes(tagsNames)) {
             tags.push(tagsNames);
             col.push(tagsNames);
-            createButtons(col);
+            const newButtons = createButtons(col);
             localStorage.setItem('tags', JSON.stringify(tags));
 
-            console.log(JSON.parse(localStorage.getItem('tags')));
-
-
-
-            $('.tagButton').unbind();
-
-            $('.tagButton').click(function () {
-                whatPicturesGet($(this).attr('id'));
-
-                /* $('.tagButton').click(function () {
-                     whatPicturesGet($(this).attr('id'));
-                 });*/
+            newButtons.forEach(element => {
+                $(element).click(function() {
+                    whatPicturesGet($(element).attr('id'));
+                });
             });
 
         };
@@ -65,15 +60,13 @@ $(document).ready(() => {
     const createButtons = (tags) => {
 
         const col = [];
-        let tempTag;
 
         tags.forEach(element => {
-            tempTag = createButton(element);
-            col.push(tempTag);
+            col.push(createButton(element));
         });
         tagsContainer.append(col);
+        return col;
     };
-
 
     //creates html button from tag on input
     const createButton = (tag) => {
@@ -100,7 +93,7 @@ $(document).ready(() => {
     //when change history
     window.addEventListener('popstate', function () {
         if (history.state === null) {
-            $('#photos').empty();
+            photosContainer.empty();
         } else {
             whatPicturesGet(history.state);
         };
@@ -109,9 +102,7 @@ $(document).ready(() => {
     //delete button
 
     $('#delete').click(function () {
-        tags = ['airport', 'apple', 'bridge', 'car', 'cat', 'czechia', 'dog', 'landscape', 'smartphone', 'winter'];
-        localStorage.setItem('tags', JSON.stringify(tags));
-
+        localStorage.removeItem('tags');
     })
 
     //adding actions to buttons
@@ -135,7 +126,7 @@ $(document).ready(() => {
 
 
         //spinner, user needs to know that something is happening
-        spinner = showSpinner();
+         const spinner = showSpinner();
 
         //going back in history, don't add new
         if (history.state !== tag) {
@@ -163,7 +154,7 @@ $(document).ready(() => {
 
                 }
                 spinner.remove();
-                $('#photos').empty();
+                photosContainer.empty();
                 createPhotos(photosCollection);
 
             },
@@ -177,11 +168,9 @@ $(document).ready(() => {
     //deal with array with info about photos
     const createPhotos = (photos) => {
         const col = [];
-        let tempPhoto;
 
         photos.forEach(element => {
-            tempPhoto = createPhoto(element);
-            col.push(tempPhoto);
+            col.push(createPhoto(element));
 
         });
         photosContainer.append(col);
