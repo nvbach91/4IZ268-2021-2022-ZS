@@ -18,19 +18,61 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 </head>
 
 <body>
-
-    <div class="controls">
-        <button onclick="addPoint()">Přidat bod</button>
-        <button>Uložit nastavení</button>
-        <button>Načíst nastavení</button>
-    </div>
-
-
     <main class="container">
+        <div class="controls">
+            <div class="control-item">
+                <button>Uložit body</button>
+                <button>Načíst body</button>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <input type="radio" id="add" name="mode" value="ADD" checked="checked">
+                <label for="add">Přidávání</label><br>
+                <input type="radio" id="edit" name="mode" value="EDIT">
+                <label for="edit">Editování</label><br>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <label for="filter">Vyberte typ bodu:</label>
+                <select name="filter" id="filter">
+                    <option value="food">Občerstvení</option>
+                    <option value="sight">Památka</option>
+                    <option value="stop">Zastávka</option>
+                    <option value="start">Začátek</option>
+                    <option value="stop">Konec</option>
+                </select>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <div>
+                    <label for="name">Název: </label>
+                    <input type="text" id="name" name="fname"><br><br>
+                    <label for="description">Popis: </label>
+                    <input type="text" id="description" name="lname"><br><br>
+                    <label for="type">Vyberte typ bodu:</label>
+                    <select name="type" id="type">
+                        <option value="food">Občerstvení</option>
+                        <option value="sight">Památka</option>
+                        <option value="stop">Zastávka</option>
+                        <option value="start">Začátek</option>
+                        <option value="stop">Konec</option>
+                    </select>
+                </div>
+                <div>
+                    <button>Uložit nastavení</button>
+                </div>
+            </div>
+        </div>
+
         <div id="map" class="main-map">
 
         </div>

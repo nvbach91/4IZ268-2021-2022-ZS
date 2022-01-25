@@ -5,9 +5,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+hr {
+    width: 100%;
+}
+
 .container {
     display: flex;
-    flex-wrap: wrap;
 }
 
 button {
@@ -16,21 +19,24 @@ button {
     font-size:30px;
     padding: 15px;
     margin: 15px;
-    color: black;
+    color: white;
     text-decoration: none;
+    border: none;
+    background-color: grey;
 }
 
 .controls {
-    background-color: black;
     width: 100%;
     margin: 0;
     padding: 0;
-    max-width: 20%;
+    max-width: 17%;
+    display: flex;
+    flex-flow: column;
 }
 
-a:hover {
-    background-color: grey;
-    border-radius: 10px;
+button:hover {
+    background-color: lightslategray;
+    border: none;
 }
 
 footer {
@@ -52,6 +58,11 @@ footer {
 }
 
 .main-map { 
-    height: 920px;
+    height: calc(100vh - 50px);
     width: 100%;
+}
+
+.control-item{
+    padding: 15px 15px 15px 25px;
+    margin: 5px;
 }
