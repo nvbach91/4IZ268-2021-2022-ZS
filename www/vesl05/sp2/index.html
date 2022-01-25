@@ -5,7 +5,7 @@
     <title>MapHelper</title>
 
     <meta charset="UTF-8">
-    <meta name="keywords" content="school, web development, programming, fan, anime">
+    <meta name="keywords" content="school, web development, programming, map">
     <meta name="author" content="Lukáš Veselý">
     <meta name="description" content="map helper">
 
@@ -27,8 +27,18 @@
     <main class="container">
         <div class="controls">
             <div class="control-item">
-                <button>Uložit body</button>
-                <button>Načíst body</button>
+                <button onclick="findMyLocation()">Ukaž mojí pozici</button>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <button id="sign-in-or-out-button">Přihlásit se</button>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <button onclick="createFile()">Uložit body</button>
+                <button onclick="getFile()">Načíst body</button>
             </div>
             <hr>
 
@@ -68,7 +78,7 @@
                     </select>
                 </div>
                 <div>
-                    <button>Uložit nastavení</button>
+                    <button onclick="markerEdit()">Uložit nastavení</button>
                 </div>
             </div>
         </div>
@@ -82,7 +92,9 @@
         <span class="footer-text">Lukáš Veselý 2021</span>
     </footer>
 
+    <script src="js/googleAPI.js"></script>
     <script src="js/app.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>
