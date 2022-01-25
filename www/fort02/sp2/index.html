@@ -26,32 +26,85 @@
         <div class="navbar-right-info">
             <span id="email-status">Žádný e-mail není připojený</span>
             <span id="connection-status">Připojení k internetu je dostupné</span>
+            <button id="sign-in-or-out-button">Přihlásit se</button>
         </div>
     </nav>
 
     <main>
-        <aside class="history">
-            <h2>E-maily</h2>
+        <aside>
+            <div class="header">
+                <h2>E-maily</h2>
+                <button id="new-email">Nový e-mail</button>
+            </div>
+            <div id="unsent-container" class="hidden">
+                <h3>Neodeslané e-maily</h3>
+                <div id="unsent-emails">
+                </div>
+                <hr>
+            </div>
+            <div id="existing-container">
+                <h3>Doručené e-maily</h3>
+                <div id="existing-emails">
+                </div>
+            </div>
         </aside>
-        <div class="new-email">
-            <h2>Nový e-mail</h2>
-            <div>
-                <label>Příjemce</label>
-                <input id="recipient" type="text" />
-                <span id="checking-recipient" class="hidden">Kontroluji adresu...</span>
-                <span id="recipient-ok" class="hidden">Adresa existuje</span>
-                <span id="recipient-not-found" class="hidden">Tohle jsem nenašel</span>
+        <div class="email-container">
+            <div class="new-email hidden">
+                <div class="header">
+                    <h2>Nový e-mail</h2>
+                    <button id="send-email">Odeslat</button>
+                </div>
+                <input type="hidden" id="email-id" />
+                <input type="hidden" id="email-in-reply-to" />
+                <input type="hidden" id="email-references" />
+                <div>
+                    <div class="line-input">
+                        <label>Příjemce</label>
+                        <input id="recipient" type="text" />
+                    </div>
+                    <div class="line-input">
+                        <label>Předmět</label>
+                        <input id="subject" type="text" />
+                    </div>
+
+                    <div class="check-address">
+                        <span id="checking-recipient" class="hidden">Kontroluji adresu...</span>
+                        <span id="recipient-ok" class="hidden">Adresa existuje</span>
+                        <span id="recipient-not-found" class="hidden">Tuhle adresu jsem nenašel</span>
+                    </div>
+                </div>
+
+                <h4>Zpráva</h4>
+                <div id="email-body"></div>
             </div>
-            <div>
-                <label>Předmět</label>
-                <input type="text" />
+            <div class="read-email hidden">
+                <div class="header">
+                    <h2>E-mail</h2>
+                    <button id="reply-email">Odpovědět</button>
+                </div>
+                <input type="hidden" id="read-email-id" />
+                <div>
+                    <div class="line-input">
+                        <label>Od</label>
+                        <input id="read-from" type="text" />
+                    </div>
+                    <div class="line-input">
+                        <label>Předmět</label>
+                        <input id="read-subject" type="text" />
+                    </div>
+                </div>
+
+                <h4>Zpráva</h4>
+                <div id="read-body"></div>
             </div>
-            <div id="summernote"></div>
         </div>
     </main>
 
+    <script src="assets/scripts/main.js"></script>
     <script src="assets/scripts/email-checker.js"></script>
+    <script src="assets/scripts/email-client.js"></script>
     <script src="assets/scripts/init.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>
