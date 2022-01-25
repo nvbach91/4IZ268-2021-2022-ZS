@@ -1,39 +1,56 @@
 * {
     box-sizing: border-box;
+}
+
+body{
     font-family: 'Dosis', sans-serif;
-    color: #E7E7DE;
+    margin: 0;
+    background-color: #0F3057;
+    justify-content: center;
+    text-align: center;
 }
 
 h1 {
     text-align: center;
     background-color: #0F3057;
-
-}
-/**
-nav {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: wrap;
-    font-weight: 600;
-    font-size: 20px;
-    list-style-type: none;
+    color: white;
 }
 
-nav a {
-    color: black;
+a {
+    color: white;
     text-decoration: none;
-    margin: 3px;
 }
-**/
-.main {
-    justify-content: center;
-    text-align: center;
+
+a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.main form{
+    background-color: rgb(99, 188, 204);
+}
+
+input {
+    width: 50%;
+    height: 35px;
+    background-color: white;
+    border: none;
+}
+
+button {
+    height: 35px;
+    width: 12%;
+    font-weight: bold;
+    background-color: white;
+    color: #0F3057;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
 }
 
 .main-header {
     padding-top: 150px;
-    background-color: #00587A;
+    background-color: rgb(99, 188, 204);
     background-image: url(../img/movies.png);
     background-repeat: no-repeat;
     background-size: 100%;
@@ -41,11 +58,67 @@ nav a {
     min-height: 400px;
 }
 
+.main-search {
+    display: inline-block;
+    text-align: center;
+    border-radius: 25px;
+    padding: 20px;
+    width: 70%;
+    margin: 10px;
+    background-color: rgb(99, 188, 204) !important;
+}
+
+main {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.movie {
+    width: 300px;
+    margin: 20px;
+    border-radius: 3px;
+    background-color: rgb(99, 188, 204);
+    position:relative;
+    overflow: hidden;
+}
+
+.movie img{
+    width:100%;
+}
+
+.movie-info{
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.movie-info h3{
+    margin-top: 0;
+}
+
+.overview{
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color: white;
+    padding: 10px;
+    max-height: 100%;
+    transform: translateY(101%);
+    transition: transform 0.4s ease-in;
+}
+
+.movie:hover .overview{
+    transform: translateY(0);
+}
+
 .footer {
     margin-top: 3px;
     padding-top: 30px;
     width: 100%;
     height: 80px;
-    background-color: #0F3057;
+    background-color: rgb(99, 188, 204);
     text-align: center;
+    color: #0F3057;
 }

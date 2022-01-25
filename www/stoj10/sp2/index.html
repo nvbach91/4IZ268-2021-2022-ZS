@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,17 +19,59 @@
 <body>
     <div class="main">
         <div class="main main-header">
-            <h1>The Movie Database</h1>
+            <h1>
+                <a href="index.html">The Movie Database</a>
+            </h1>
         </div>
-        <div class="main main-info">
-            <h2>.</h2>
-            <p>.
-            </p>
+        <div class="main main-search">
+            <form id="form">
+                <input type="text" placeholder="Search the movie" id="search" class="search">
+                <button id="searchButton">
+                    <i class="loading-icon fa fa-spinner fa fa-spin hide"></i>
+                    Search
+                </button>
+            </form>
         </div>
+        <div id="tags"></div>
+        <main id="main">
+            <div class="movie">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" alt="image">
+            
+                <div class="movie-info">
+                    <h3>Movie Title</h3>
+                </div>
+                <div class="overview">
+                    <h3>Overview</h3>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita, officiis. Quis adipisci laborum eius doloremque rem. Possimus sed optio laboriosam?
+                </div>
+            </div>
+            <div class="movie">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" alt="image">
+            
+                <div class="movie-info">
+                    <h3>Movie Title</h3>
+                </div>
+                <div class="overview">
+                    <h3>Overview</h3>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita, officiis. Quis adipisci laborum eius doloremque rem. Possimus sed optio laboriosam?
+                </div>
+            </div>
+            <div class="movie">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg" alt="image">
+            
+                <div class="movie-info">
+                    <h3>Movie Title</h3>
+                </div>
+                <div class="overview">
+                    <h3>Overview</h3>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita, officiis. Quis adipisci laborum eius doloremque rem. Possimus sed optio laboriosam?
+                </div>
+            </div>
+        </main>
         <div class="footer">© 2021 Jana Štolcová. All rights reserved.</div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="./javascript/main.js"></script>
+    <script src="javascript/main.js"></script>
 </body>
 
 </html>
