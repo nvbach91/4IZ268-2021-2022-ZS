@@ -44,7 +44,7 @@ button {
     background-color: white;
     color: #0F3057;
     border: none;
-    border-radius: 5%;
+    border-radius: 3px;
     cursor: pointer;
 }
 
@@ -61,7 +61,7 @@ button {
 .main-search {
     display: inline-block;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 3px;
     padding: 20px;
     width: 70%;
     margin: 10px;
@@ -111,6 +111,32 @@ main {
 
 .movie:hover .overview{
     transform: translateY(0);
+}
+
+#tags{
+    width:60%;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.tag{
+    color:white;
+    padding:10px 20px;
+    background-color: rgb(99, 188, 204);
+    border-radius: 10px;
+    margin:5px;
+    display:inline-block;
+    cursor: pointer;
+}
+
+.tag.highlight{
+    background-color: rgb(248, 209, 100);
+}
+.no-results{
+    color:white;
 }
 
 .footer {
