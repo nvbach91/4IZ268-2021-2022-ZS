@@ -1,63 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>API - Drinks & meal recipes</title>
     <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/taffydb/2.7.3/taffy-min.js"></script>
 </head>
+
 <body>
     <header>
-        <div>
-            <div></div>
-            <div>
-                <p>Api link 1</p>
-                <p>Api link 2</p>
-            </div>
-        </div>
+        <nav>
+            <a href=".">
+                <div class="nav-item">Home</div>
+            </a>
+            <a href="https://www.thecocktaildb.com" target="_blank">
+                <div class="nav-item push">Drink DB</div>
+            </a>
+            <a href="https://www.themealdb.com" target="_blank">
+                <div class="nav-item push">Meal DB</div>
+            </a>
+        </nav>
     </header>
     <main>
-        <div class="center-text-alignment main-text">
-            <p>Wanna get a food or a drink?</p>
-        </div>
-        <div class="center-text-alignment">
-            <input type="text" placeholder="Search...">
-        </div>
-        <div class="center-text-alignment href-content">
-            <a id="find-meal">Find a meal</a>
-            <a id="find-drink">Find a drink</a>
-            <p>If you leave the search box empty, it will recommend a random food.</p>
-            <p id="error-message" class="error-message"></p>
-            <div id="object-image">
+        <div class="shadow-box margin-top-boxes">
+            <div class="center-text-alignment main-text">
+                <h1 class="main-text">Wanna get a food or a drink?</h1>
+            </div>
+            <div class="center-text-alignment">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="center-text-alignment href-content">
+                <a id="find-meal">Find a meal</a>
+                <a id="find-drink">Find a drink</a>
+                <p class="margin-top-boxes">If you leave the search box empty, it will recommend a random food.<br>When searching a <strong>specific food</strong>, please use a <strong>one word description</strong>. <br>Example: dundee (instead of dundee cake).</p>
+                <p id="error-message" class="error-message"></p>
+                <p id="object-name" class="object-name">Name</p>
+                <div id="object-image">
+                </div>
             </div>
         </div>
         <div class="recipe-info">
-            <div class="recipe-ingredients-box">
+            <div class="left-side shadow-box margin-top-boxes margin-right-boxes">
                 <p class="object-name center-text-alignment">Ingredience</p>
                 <ul id="object-ingredients"></ul>
             </div>
-            <div class="center-text-alignment recipe-other-info-box">
-                <p id="object-name" class="object-name">Název</p>
-                <p id="object-instructions">Postup receptu</p>
+            <div class="center-text-alignment right-side shadow-box margin-top-boxes">
+                <p class="object-name center-text-alignment">Instructions</p>
+                <p id="object-instructions">Instructions of the recipe</p>
             </div>
         </div>
-        <div>
-            <p>Naposledy vyhledávaná jídla</p>
-            <div>
-                <div>
-                    <p>Název</p>
+        <div class="shadow-box margin-top-boxes">
+            <h2 class="main-text center-text-alignment">Latest looked up meals</h2>
+            <div class="flex-setup">
+                <div id="latest-meal-name" class="left-side center-text-alignment margin-right-boxes">
+                    <h3>Name of recipe (type)</h3>
                 </div>
-                <div>
-                    <p>Basic food info</p>
+                <div id="latest-meal-youtube" class="right-side center-text-alignment margin-right-boxes latest-meal">
+                    <h3>Youtube recipe</h3>
                 </div>
             </div>
         </div>
     </main>
-    <footer>
-        <p>Footer</p>
+    <footer class="margin-top-boxes center-text-alignment">
+        <p>© Matěj Novák 2022</p>
     </footer>
     <script src="js/main.js"></script>
 </body>
+
 </html>

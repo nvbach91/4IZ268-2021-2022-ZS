@@ -2,6 +2,35 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0 auto;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    background-color: lightgray;
+    padding: 0 20px;
+    border-bottom: 3px solid darkgrey;
+    box-shadow: 0px 5px 15px grey;
+}
+
+.nav-item {
+    color: black;
+    padding: 20px;
+    border-left: 1px solid black;
+    transition: background-color 0.5s ease;
+}
+
+.nav-item:hover {
+    background-color: rgb(163, 163, 163);
+    font-weight: bold;
+}
+
 main {
     max-width: 1024px;
     margin: 0 auto;
@@ -19,6 +48,12 @@ a:hover {
     cursor: pointer;
 }
 
+.shadow-box {
+    box-shadow: 7.5px 7.5px 20px lightgrey;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .center-text-alignment {
     text-align: center;
 }
@@ -33,17 +68,24 @@ a:hover {
     margin-bottom: 30px;
 }
 
-.href-content > a {
+.href-content>a {
     padding: 10px 20px;
-    border: 1px solid red;
+    border: 2px solid rgb(133, 133, 133);
+    background-color: lightgray;
     border-radius: 5px;
-    margin: 0 5px;
+    margin: 0px 5px;
     text-decoration: none;
+    transition: background-color 0.5s ease;
+}
+
+.href-content>a:hover {
+    background-color: white;
 }
 
 .error-message {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    color: red;
 }
 
 .object-name {
@@ -51,15 +93,37 @@ a:hover {
     font-weight: bold;
 }
 
+.flex-setup {
+    display: flex;
+}
+
+.left-side {
+    width: 33%;
+}
+
+.right-side {
+    width: 66%;
+}
+
 .recipe-info {
     width: 100%;
     display: flex;
 }
 
-.recipe-ingredients-box {
-    width: 33%;
+.margin-right-boxes {
+    margin-right: 3%;
 }
 
-.recipe-other-info-box {
-    width: 66%;
+.margin-top-boxes {
+    margin-top: 3%;
+}
+
+.latest-meal-object {
+    text-align: left;
+}
+
+footer {
+    background-color: lightgray;
+    box-shadow: 0px -5px 15px grey;
+    height: 100%;
 }
