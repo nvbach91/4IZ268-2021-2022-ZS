@@ -5,22 +5,32 @@ const newlyAdded = [];
 let searchedGame = "";
 
 $(document).ready(() => {
-  const form = $("#add-game-form");
+  //načtení her z local storage
+  localStorageLenght = localStorage.length;
+  console.log(localStorageLenght);
+
+  const form = $(".add-game-form");
   const gameList = $("#game-list");
   const input = $("input");
   const body = $("body");
   input.focus();
   const resultSpace = $("<div>").addClass("results");
+  const spinnerWrapper = $("<div>").addClass("spinner-wrapper");
+  const spinner = $(`<i class="spinner fas fa-gamepad"></i>`);
+  const spinnerText = $("<span>").addClass("spinner-text").text("Načítání...");
+
+  spinnerWrapper.append(spinner, spinnerText);
 
   //submit formuláře
   form.submit((event) => {
     event.preventDefault();
+    resultSpace.append(spinnerWrapper);
 
     const pageButtons = $(".page-button");
 
     const gamesToChoose = $(".choose-game");
 
-    const removeButton = $(".results.remove-button");
+    const removeButton = $(".results.remove-button-wrapper");
 
     const addGameButton = $(".add-game-button");
 
@@ -80,20 +90,28 @@ $(document).ready(() => {
       })
       .then((resp) => {
         games = resp;
-        const pageNumber = Math.ceil(resp.count / resp.results.length);
-        console.log(pageNumber);
-        console.log(resp);
-        //gameName.text(resp.results[0].name);
+        if (resp.count == 0) {
+          const noResult = $("<div>").addClass("no-result");
+          noResult.text("Nebyly nalezeny žádné výsledky.");
+          resultSpace.append(noResult);
+        } else {
+          const pageNumber = Math.ceil(resp.count / resp.results.length);
+          console.log(pageNumber);
+          console.log(resp);
 
-        let count = resp.results.length;
-        console.log(count);
-        if (resp.count > count) {
-          for (let x = 1; x <= pageNumber; x++) {
-            resultSpace.append(createPageButton(x));
+          let count = resp.results.length;
+          console.log(count);
+          if (resp.count > count) {
+            for (let x = 1; x <= pageNumber; x++) {
+              resultSpace.append(createPageButton(x));
+            }
           }
-        }
 
-        renderResults(resp);
+          renderResults(resp);
+        }
+      })
+      .then(() => {
+        spinnerWrapper.remove();
       });
 
     //gameWrapper.append(gameName);
@@ -110,6 +128,7 @@ $(document).ready(() => {
       searchResults.remove();
       const addGameButton = $(".add-game-button");
       addGameButton.remove();
+      resultSpace.append(spinnerWrapper);
 
       games = fetch(
         `https://api.rawg.io/api/games?${apiKey}&ordering=name&page=${numberOfPage}&search=${searchedGame}&search_exact=true`
@@ -118,6 +137,7 @@ $(document).ready(() => {
           return resp.json();
         })
         .then((resp) => {
+          spinnerWrapper.remove();
           renderResults(resp);
         });
     });
@@ -137,6 +157,8 @@ $(document).ready(() => {
         metascore: game.metacritic,
       };
 
+      localStorage.setItem(`${game.id}`, `${JSON.stringify(gameDetails)}`);
+
       gameList.append(createGame(gameDetails));
       addButton.remove();
     });
@@ -145,11 +167,13 @@ $(document).ready(() => {
 
   //vytvoření záznamu
   const createGame = (gameDetails) => {
+    let modifyingNow = false;
     const gameContainer = $("<div>").addClass("game-container");
     const infoContainer = $("<div>").addClass("info-container");
     const image = $("<img>")
       .addClass("image")
       .attr({ src: gameDetails.image, alt: `${gameDetails.name} image` });
+    const id = $("<div>").addClass("id").text(`${gameDetails.id}`);
     const name = $("<h2>")
       .addClass("name")
       .attr("id", gameDetails.id)
@@ -157,19 +181,70 @@ $(document).ready(() => {
     const metascore = $("<div>")
       .addClass("metascore")
       .text(`Skóre na Metacritic: ${gameDetails.metascore}`);
+    const modifyButton = $(`<i class="fas fa-pencil-alt"></i>`).addClass(
+      "modify-button"
+    ).attr("title", "Upravit poznámku");
+    const noteDiv = $("<div>").addClass("note-div").text(gameDetails.note);
+    const noteTextArea = $("<textarea>").addClass("note-textarea");
+
+    modifyButton.click(() => {
+      if (modifyingNow) {
+        let modifiedText = noteTextArea.val();
+
+        localGame = JSON.parse(localStorage.getItem(gameDetails.id));
+        localGame.note = modifiedText;
+        localStorage.setItem(gameDetails.id, JSON.stringify(localGame));
+        noteDiv.text(modifiedText);
+        noteTextArea.remove();
+        infoContainer.append(noteDiv);
+        modifyingNow = false;
+      } else {
+        let textToChange = noteDiv.text();
+        noteTextArea.val(textToChange);
+        noteDiv.remove();
+        infoContainer.append(noteTextArea);
+        modifyingNow = true;
+      }
+    });
+
     //const $("<div>").addClass("");
-    infoContainer.append(name, metascore, createRemoveButton(gameContainer));
+    infoContainer.append(
+      id,
+      name,
+      metascore,
+      modifyButton,
+      noteDiv,
+      createRemoveButton(gameContainer)
+    );
     gameContainer.append(image, infoContainer);
+
     return gameContainer;
   };
 
   //vytvoření čudlíku k odstranění
   const createRemoveButton = (elementToRemove) => {
-    const removeButton = $(`<i class="fas fa-times"></i>`).addClass("remove-button");
+    const removeButtonWrapper = $("<div>").addClass("remove-button-wrapper");
+    const removeButton = $(`<i class="fas fa-times"></i>`).addClass(
+      "remove-button"
+    );
     removeButton.click(() => {
-      elementToRemove.empty().remove();
+      switch (elementToRemove.hasClass("game-container")) {
+        case false:
+          elementToRemove.empty().remove();
+          break;
+        case true:
+          if (confirm("Opravdu chcete hru odstranit?")) {
+            const idToRemove = $(elementToRemove)
+              .find(".info-container h2")
+              .attr("id");
+            localStorage.removeItem(idToRemove);
+            elementToRemove.empty().remove();
+          }
+          break;
+      }
     });
-    return removeButton;
+    removeButtonWrapper.append(removeButton);
+    return removeButtonWrapper; //prohledat kód, najít, kde se odkazuju na removeButton a nahradit removeButtonWrapperem
   };
 
   //vykreslování výsledků
@@ -212,6 +287,22 @@ $(document).ready(() => {
 
     resultSpace.append(...gameNames);
   };
+
+  //získání hodnot z localStorage
+  const gamesFromStorage = () => {
+    let games = [];
+    let keys = Object.keys(localStorage);
+    let keysLenght = keys.length;
+
+    for (let i = 0; i <= keysLenght; i++) {
+      gameList.append(createGame(JSON.parse(localStorage.getItem(keys[i]))));
+    }
+    //console.log(games);
+    //gameList.append(...games);
+  };
+
+  //načtení her z local storage
+  gamesFromStorage();
 
   //pageButton.click(() => {
 

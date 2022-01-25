@@ -1,8 +1,51 @@
 * {
   box-sizing: border-box;
 }
+
 body {
+  margin: 0;
+}
+
+.spinner {
+  animation-name: spinner;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+}
+
+.spinner-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+main {
   margin: 40px 150px;
+}
+
+header {
+  height: 100px;
+  width: 100%;
+  background-color: blue;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+
+}
+
+.add-game-form {
+  height: 40px;
+}
+
+.add-game-form input {
+  font-size: 18pt;
+  height: 40px;
+  width: 350px;
+}
+
+#add {
+  height: 40px;
+  font-size: 18pt;
 }
 
 .results {
@@ -21,6 +64,10 @@ body {
 .add-game-button {
   position: absolute;
   right: 20px;
+}
+
+.remove-button-wrapper {
+  height: 24px;
 }
 
 .image {
@@ -52,4 +99,14 @@ body {
 .game-container {
   position: relative;
   width: 50%;
+}
+
+.id {
+  display: none;
+}
+
+@keyframes spinner {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+  
 }
