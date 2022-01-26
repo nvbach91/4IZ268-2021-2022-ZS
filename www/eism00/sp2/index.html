@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Quick Quiz</title>
+    <link rel="stylesheet" href="./assets/css/app.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="home" class="flex-center flex-column">
+        <h1>Quick Quiz</h1>
+        <label for="number-questions">Choose a number of questions :</label>
+        <input type="number" id="number-questions" min="1" max="10" placeholder="choose a number">
+        <form>
+            <label for="category">Choose your desired category :</label>
+            <input list="categories" name="category" id="category" placeholder="choose a category">
+            <datalist id="categories">
+                <option value="General Knowledge"></option>
+                <option value="Science & Nature"></option>
+                <option value="Mythology"></option>
+                <option value="Sports"></option>
+                <option value="Geography"></option>
+                <option value="History"></option>
+            </datalist>
+        </form>
+        <div id="values">
+            <input type="radio" class="radio" name="radio" id="easy" value="easy" ><label for="easy">easy</label>
+            <input type="radio" class="radio" name="radio" id="medium" value="medium" ><label for="easy">medium</label>
+            <input type="radio" class="radio" name="radio" id="hard" value="hard" ><label for="easy">hard</label>
+        </div>
+        <a class="btn" id="start-game" onclick="handleInput()" href="game.html">Play</a>
+        <a class="btn" href="highscores.html">High Scores</a>
+      </div>
+    </div>
+    <script src="./assets/js/index.js"></script>
+  </body>
+</html>
