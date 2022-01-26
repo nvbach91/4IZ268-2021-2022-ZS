@@ -1,0 +1,217 @@
+* {
+    font-family: 'Fredoka One', cursive;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(201, 249, 255, 1) 100%);
+}
+
+h1 {
+    font-size: 80px;
+}
+
+h2 {
+    font-size: 35px;
+    max-width: 80%;
+    margin: 15px auto 15px auto;
+}
+
+button {
+    width: 350px;
+    padding: 20px;
+    margin: 10px auto;
+    border: none;
+    font-size: 22px;
+    background-color: #2589BD;
+    color: white;
+    border-radius: 10px;
+    transition: all .3s;
+}
+
+button:hover:enabled {
+    cursor: pointer;
+    background-color: #01295F;
+    transform: scale(1.03);
+}
+
+.startScreen {
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.scores {
+    background-color: gold;
+    color: black;
+}
+
+.scores:hover:enabled {
+    background-color: goldenrod;
+}
+
+.chooseCategoryScreen {
+    min-height: 80vh;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.categories {
+    margin: 0 70px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+}
+
+.categories button {
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.playScreen {
+    height: 100vh;
+}
+
+.HUD {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    max-width: 1160px;
+    margin: 0 auto;
+    font-size: 40px;
+}
+
+.HUD span {
+    padding: 15px;
+}
+
+.questionContainer {
+    height: 80vh;
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.option {
+    position: relative;
+}
+
+.correct {
+    background-color: #47A025;
+}
+
+.wrong {
+    background-color: #D90B08;
+}
+
+.next {
+    background-color: #01295F;
+}
+
+.marker {
+    position: absolute;
+    top: 17px;
+    right: -40px;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.EndScreen {
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.EndScreen span {
+    font-size: 25px;
+    padding: 15px 0;
+}
+
+.highScoresScreen {
+    height: 100vh;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    justify-content: center;
+}
+
+.highScoresScreen div {
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: left;
+    justify-content: center;
+}
+
+.categoryHS {
+    font-size: 22px;
+    margin: 10px;
+}
+
+.spinner {
+    width: 120px;
+    height: 120px;
+    position: fixed;
+    z-index: 999;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #2589BD;
+    border-radius: 50%;
+    border: 0px;
+    animation: spinning 1.7s infinite ease-in-out;
+}
+
+.spinner::before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes spinning {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1.0);
+        opacity: 0;
+    }
+}
+
+@media screen and (min-width: 480px) {}
+
+@media screen and (min-width: 800px) {
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {}
+
+@media screen and (min-width: 1366px) {
+    .categories {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
