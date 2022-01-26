@@ -19,8 +19,6 @@
         crossorigin=""></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 </head>
 
 <body>
@@ -32,17 +30,19 @@
             <hr>
 
             <div class="control-item">
+                <label class="headline">Ukládání bodů přes google drive</label><br>
                 <button id="sign-in-or-out-button">Přihlásit se</button>
             </div>
             <hr>
-
-            <div class="control-item">
+            <div class="inner-items">
                 <button onclick="createFile()">Uložit body</button>
                 <button onclick="getFile()">Načíst body</button>
             </div>
+
             <hr>
 
             <div class="control-item">
+                <label class="headline">Přepínaní módů</label><br>
                 <input type="radio" id="add" name="mode" value="ADD" checked="checked">
                 <label for="add">Přidávání</label><br>
                 <input type="radio" id="edit" name="mode" value="EDIT">
@@ -51,8 +51,10 @@
             <hr>
 
             <div class="control-item">
+                <label class="headline">Filtrování</label><br>
                 <label for="filter">Vyberte typ bodu:</label>
                 <select name="filter" id="filter">
+                    <option value="all">Všechny</option>
                     <option value="food">Občerstvení</option>
                     <option value="sight">Památka</option>
                     <option value="stop">Zastávka</option>
@@ -63,6 +65,7 @@
             <hr>
 
             <div class="control-item">
+                <label class="headline">Nastavení bodů</label><br>
                 <div>
                     <label for="name">Název: </label>
                     <input type="text" id="name" name="fname"><br><br>
@@ -94,7 +97,8 @@
 
     <script src="js/googleAPI.js"></script>
     <script src="js/app.js"></script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 </body>
 
 </html>

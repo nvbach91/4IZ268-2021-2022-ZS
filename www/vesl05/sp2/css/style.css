@@ -16,9 +16,9 @@ hr {
 button {
     float: left;
     text-align: left;
-    font-size:30px;
-    padding: 15px;
-    margin: 15px;
+    font-size:22px;
+    padding: 10px;
+    margin: 10px;
     color: white;
     text-decoration: none;
     border: none;
@@ -29,7 +29,7 @@ button {
     width: 100%;
     margin: 0;
     padding: 0;
-    max-width: 17%;
+    max-width: 20%;
     display: flex;
     flex-flow: column;
 }
@@ -63,6 +63,15 @@ footer {
 }
 
 .control-item{
-    padding: 15px 15px 15px 25px;
+    padding: 10px 10px 10px 25px;
     margin: 5px;
 }
+
+.inner-items {
+    display: flex;
+}
+
+.headline {
+    font-weight: bold;
+}
+
