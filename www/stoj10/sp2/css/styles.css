@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: 'Dosis', sans-serif;
     margin: 0;
     background-color: #0F3057;
@@ -11,8 +11,6 @@ body{
 }
 
 h1 {
-    text-align: center;
-    background-color: #0F3057;
     color: white;
 }
 
@@ -26,7 +24,7 @@ a:visited {
     text-decoration: none;
 }
 
-.main form{
+.main form {
     background-color: rgb(99, 188, 204);
 }
 
@@ -49,13 +47,10 @@ button {
 }
 
 .main-header {
-    padding-top: 150px;
-    background-color: rgb(99, 188, 204);
-    background-image: url(../img/movies.png);
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
-    min-height: 400px;
+    justify-content: center;
 }
 
 .main-search {
@@ -69,7 +64,7 @@ button {
 }
 
 main {
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -79,29 +74,30 @@ main {
     margin: 20px;
     border-radius: 3px;
     background-color: rgb(99, 188, 204);
-    position:relative;
+    position: relative;
     overflow: hidden;
 }
 
-.movie img{
-    width:100%;
+.movie img {
+    width: 100%;
 }
 
-.movie-info{
+.movie-info {
     color: white;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    padding-top: 15px;
 }
 
-.movie-info h3{
+.movie-info h3 {
     margin-top: 0;
 }
 
-.overview{
+.overview {
     position: absolute;
-    left:0;
-    right:0;
-    bottom:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-color: white;
     padding: 10px;
     max-height: 100%;
@@ -109,34 +105,35 @@ main {
     transition: transform 0.4s ease-in;
 }
 
-.movie:hover .overview{
+.movie:hover .overview {
     transform: translateY(0);
 }
 
-#tags{
-    width:60%;
-    display:flex;
+#tags {
+    width: 60%;
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 10px auto;
 }
 
-.tag{
-    color:white;
-    padding:10px 20px;
+.tag {
+    color: white;
+    padding: 10px 20px;
     background-color: rgb(99, 188, 204);
-    border-radius: 10px;
-    margin:5px;
-    display:inline-block;
+    border-radius: 3px;
+    margin: 5px;
+    display: inline-block;
     cursor: pointer;
 }
 
-.tag.highlight{
+.tag.highlight {
     background-color: rgb(248, 209, 100);
 }
-.no-results{
-    color:white;
+
+.no-results {
+    color: white;
 }
 
 .footer {
@@ -147,4 +144,8 @@ main {
     background-color: rgb(99, 188, 204);
     text-align: center;
     color: #0F3057;
+}
+
+.spinner {
+    color: white;
 }
