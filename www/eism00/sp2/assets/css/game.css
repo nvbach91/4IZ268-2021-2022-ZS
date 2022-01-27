@@ -1,9 +1,9 @@
   .choice-container {
     display: flex;
-    margin-bottom: 0.5rem;
+    margin-bottom: 8px;
     width: 100%;
-    font-size: 1.8rem;
-    border: 0.1rem solid rgb(86, 165, 235, 0.25);
+    font-size: 30px;
+    border: 10px solid rgb(86, 165, 235, 0.25);
     background-color: white;
   }
   
@@ -42,7 +42,7 @@
   
   .hud-prefix {
     text-align: center;
-    font-size: 2rem;
+    font-size: 20px;
   }
   
   .hud-main-text {
@@ -50,25 +50,25 @@
   }
   
   #progressBar {
-    width: 20rem;
-    height: 4rem;
-    border: 0.3rem solid #56a5eb;
-    margin-top: 1.5rem;
+    width: 250px;
+    height: 60px;
+    border: 5px solid #56a5eb;
+    margin-top: 15px;
   }
   
   #progressBarFull {
-    height: 3.4rem;
+    height: 50px;
     background-color: #56a5eb;
     width: 0%;
   }
   
   /* LOADER */
   #loader {
-    border: 1.6rem solid white;
+    border: 30px solid white;
     border-radius: 50%;
-    border-top: 1.6rem solid #56a5eb;
-    width: 12rem;
-    height: 12rem;
+    border-top: 10px solid #56a5eb;
+    width: 50px;
+    height: 50px;
     animation: spin 2s linear infinite;
   }
   
