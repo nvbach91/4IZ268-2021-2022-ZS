@@ -299,7 +299,7 @@ export const registerDragDropListeners = function(boardWidth, boardHeight){
         for(let j = 1; j <= boardWidth; ++j){
             let curCell = BOARD.children[i].children[j];
             
-            if(curCell.children[0].innerText != "　"){ // check for emptiness ex-post instead?
+            if(curCell.children.length > 0 && curCell.children[0].innerText != "　"){ // check for emptiness ex-post instead?
                 curCell.children[0].addEventListener("dragstart", (ev) => {
                     ev.dataTransfer.setData("text", ev.target.id);
                 });
@@ -318,12 +318,23 @@ export const registerDragDropListeners = function(boardWidth, boardHeight){
                 console.log(ev.target);
                 
                 if(ev.target.id != pieceDivId){ // make sure drag and drop on the same cell doesn't delete the piece
-                    ev.target.parentNode.appendChild(pieceDiv);
+                    let wasEmpty = ev.target.innerHTML == "";
+                    if(wasEmpty) { // empty <td> messes up
+                        ev.target.appendChild(pieceDiv);
+                    }else{
+                        ev.target.parentNode.appendChild(pieceDiv);
+                    }
                     
                     if(ev.target.innerText != "　" && ev.target.innerText != ""){ // capturing (to a dumping ground for now)
-                        CAPTURED.appendChild(ev.target); // it's the inner element, no childen
+                        if(!wasEmpty){
+                            CAPTURED.appendChild(ev.target); // it's the inner element, no childen
+                        } 
                     }else{
-                        ev.target.parentNode.removeChild(ev.target.parentNode.firstChild);
+                        if(wasEmpty) {
+                            ev.target.removeChild(ev.target.parentNode.firstChild);
+                        }else{
+                            ev.target.parentNode.removeChild(ev.target.parentNode.firstChild);
+                        }
                     }
 
                 }
@@ -412,5 +423,63 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
     }
 
 }
+
+/**
+    Registers listeners for control buttons.
+*/
+export const registerButtonListeners = function(boardWidth, boardHeight){
+    document.getElementById("btnPromote").addEventListener("click", (ev) => {
+        let piece = selectedPieceDiv.innerText;
+        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+            selectedPieceDiv.innerText = promotionMap[piece];
+            selectedPieceDiv.classList.toggle("promoted");
+        }
+    });
+    document.getElementById("btnPromote").addEventListener("drop", (ev) => { // this button doubles as a drop zone
+        ev.preventDefault();
+        let pieceDiv = document.getElementById(ev.dataTransfer.getData("text"));
+        let piece = pieceDiv.innerText;
+        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+            pieceDiv.innerText = promotionMap[piece];
+            pieceDiv.classList.toggle("promoted");
+        }
+    });
+    
+    document.getElementById("btnDeselect").addEventListener("click", (ev) => { // so that no accidental moves happen
+        selectedPieceDiv = null;
+        displayPieceInfo("");
+        KANJI.innerHTML = "<h4>Není vybrán žádný kámen.</h4>";
+    });
+    
+    document.getElementById("btnSave").addEventListener("click", (ev) => {
+        localStorage.setItem("boardState", BOARD.innerHTML);
+        localStorage.setItem("capturedState", CAPTURED.innerHTML);
+        // the HTML of the board is actually too big for a cookie
+        //document.cookie = "boardState=" + BOARD.innerHTML + ";capturedState=" + CAPTURED.innerHTML + ";max-age=" + 30*24*3600;
+    });
+    document.getElementById("btnLoad").addEventListener("click", (ev) => {
+        let resBoard = localStorage.getItem("boardState");
+        let resCapture = localStorage.getItem("capturedState");
+        if(resBoard != null && resCapture != null){
+            BOARD.innerHTML = resBoard;
+            CAPTURED.innerHTML = resCapture;
+        }
+        registerDragDropListeners(boardWidth, boardHeight);
+        registerPieceSelectListeners(boardWidth, boardHeight);
+        /*
+        let cookieArr = document.cookie.split(";");
+        for(let i = 0; i < cookieArr.length; i++) {
+            let cookiePair = cookieArr[i].split("=");
+            if(cookiePair[0].trim() == "boardState"){
+                BOARD.innerHTML = cookiePair[1];
+            }else if(cookiePair[0].trim() == "capturedState"){
+                CAPTURED.innerHTML = cookiePair[1];
+            }
+        }
+        */
+    });
+
+}
+
 
 

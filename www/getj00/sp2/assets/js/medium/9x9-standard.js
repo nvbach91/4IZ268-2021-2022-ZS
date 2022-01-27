@@ -56,4 +56,5 @@ Shg.writeBoardFooter(9);
 // -*-*-*-   L I S T E N E R S   -*-*-*-
 Shg.registerDragDropListeners(BOARDWIDTH, BOARDHEIGHT);
 Shg.registerPieceSelectListeners(BOARDWIDTH, BOARDHEIGHT);
+Shg.registerButtonListeners(BOARDWIDTH, BOARDHEIGHT);
 
