@@ -3,7 +3,7 @@ let map = null;
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 let findPlacesURL = proxyurl + "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
 const key = "AIzaSyAVkSo1iq9U0FIplqLbNsHyMAHHqtNd7No"
-
+let infoWindow;
 
 document.getElementById("loadMore").addEventListener("click", async () => {
 	let tokens = JSON.parse(window.localStorage.getItem("tokens") || "[]");
@@ -29,7 +29,7 @@ function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
 		center: {lat: 50, lng: 14}, zoom: 15,
 	});
-	let infoWindow = new google.maps.InfoWindow();
+	infoWindow = new google.maps.InfoWindow();
 	let currentLocationMarker;
 
 
@@ -41,7 +41,7 @@ function initMap() {
 			pos.lat = position.coords.latitude;
 			pos.lng = position.coords.longitude;
 			currentLocationMarker = new google.maps.Marker({
-				position: pos, map: map, title: "Current location", icon: 'http://www.robotwoods.com/dev/misc/bluecircle.png'
+				position: pos, map: map, title: "Current location", icon: "http://www.robotwoods.com/dev/misc/bluecircle.png"
 			});
 			map.setCenter(pos);
 			window.localStorage.setItem("currentLocation", JSON.stringify(pos));
@@ -91,6 +91,13 @@ function processData(places, clear = false) {
 			map: map,
 			title: place.name,
 			label: place.type,
+			optimized: true
+		});
+		markers[place.place_id].addListener("click", function () {
+			infoWindow.close();
+			infoWindow.setContent(place.name + `<br><a href='https://www.google.com/maps/search/?api=1&query=${place.geometry.location.lat},${place.geometry.location.lng}
+&query_place_id=${place.place_id}'>View on Google Map</a>`);
+			infoWindow.open(map, markers[place.place_id]);
 		});
 		document.getElementById("list").innerHTML += createPlaceDiv(place)
 	})
@@ -109,6 +116,7 @@ async function loadPlaces(params, page_token = null) {
 		})
 	}
 }
+
 function showPlace(id) {
 	map.setCenter(markers[id].position);
 	map.setZoom(18)
