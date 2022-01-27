@@ -1,0 +1,26 @@
+/*
+    Import fontu a ikonek z Google Fonts.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+/*
+    Import stylů pro jednotlivé komponenty stránky.
+*/
+@import url("../css/loading.css");
+@import url("../css/header.css");
+@import url("../css/searched-shows.css");
+@import url("../css/saved-shows.css");
+@import url("../css/saved-show.css");
+@import url("../css/progress-bar.css");
+
+* {
+    box-sizing: border-box;    
+}
+
+body {
+    background-color: darkgray;
+    margin: 0;
+    font-family: "Quicksand", sans-serif;
+    min-width: 1200px;
+}

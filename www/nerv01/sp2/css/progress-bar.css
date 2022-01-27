@@ -1,0 +1,14 @@
+/* KOMPONENTA PROGRESS BAR*/
+
+.progress-bar-container {
+    width: 100%;
+}
+
+.progress-bar-box-outer {    
+    background-color: #666666;
+    
+}
+
+.progress-bar-box-inner {
+    background-color: #032541;
+}
