@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i|Raleway:400,400i,700,700i&amp;subset=latin-ext');
+
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, 
+.wrapper {
+    text-align: center;
+}
+
+.logo {
+    height: 100px;
+    font-size: 25px;
+    text-transform: uppercase;
+    padding: 35px 0;
+    text-indent: 30px;
+    letter-spacing: 2px;
+    color: #0E3C53;
+}
+
+header{
+    background: pink;
+    width: 100%;
+    padding: 20px;
+}
+
+footer{
+    text-align: center;
+    width: 100%;
+    background: pink;
+    padding: 20px;
+}
+
+.wrong-tries {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    border: 2px solid #756158;
+    border-radius: 6px;
+}
+
+#unknown-word{
+    font-size: 50px;
+}
+
+
+.keyboard-buttons {
+    color: #0E3C53;;
+    padding: 6px 12px;
+    font-weight: 400;
+    margin-top: 5px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.keyboard-buttons:hover{
+    background-color: pink; 
+    color: #0E3C53;
+}
+
+#reset {
+    color: #0E3C53;
+    font-size: 15px;
+    font-weight: 400;
+    width: 200px;
+    border: 1px solid;
+    padding: 15px 30px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    background-color: white;
+    text-align: center;
+    margin: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#reset:hover {
+    background-color: pink; 
+    color: #0E3C53;
+  }
+
+

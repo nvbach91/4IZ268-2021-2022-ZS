@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="./img/10.png" rel="icon" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <span class="logo">Hangman</span>
+    </header>
+    <main>
+        <h1>Welcome to my game!</h1>
+        <div class="wrapper">
+            <img src="./img/0.png" alt="hangman-default" id="hangman-picture">
+            <p>Guess the word:</p>
+            <div id="unknown-word"> </div>
+            <div id="alphabet-buttons"></div>
+            <div class="wrong-tries">Wrong guess: <span id='number-tries'>0</span> out of <span id='max-tries'></span>
+        </div>
+            <button id="reset">New game</button>
+        </div>
+    </main>
+    <footer>
+        <div>Copyright &copy; 2021 Thuy Anh Bui</div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
