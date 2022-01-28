@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="robots" content="follow, index, max-snippet:-1, max-image-preview:small">
+	<meta name="description" content="On-line implementace japonských šachů neboli šógi v JavaScriptu.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	
+	<title>Šóginátor</title>
+	
+	<!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css"/> -->
+	<link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script> -->
+	<!-- <script src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js" async></script> -->
+	<!-- <script src="https://underscorejs.org/underscore-esm-min.js" async></script> -->
+	<script type="module" src="../assets/js/shoginator.js" async></script>
+	<script type="module" src="../assets/js/medium/9x9-standard.js" defer></script> <!-- Will generate the table. -->
+</head>
+<body>
+    <header>
+        <h1><img src="../assets/img/favicon.png" width="32"> &nbsp; Š Ó G I N Á T O R &nbsp; <img src="../assets/img/favicon.png" width="32"></h1>
+        <p>Už nepotřebujete nosit šógi s sebou.</p>
+    </header>
+
+    <nav>
+        <ul class="dropdown">
+            <li><a href="../index.html">Hlavní strana</a></li>
+            <li>
+                <div>Malé varianty</div>
+                <ul>
+                    <li><a href="../small/3x4-dobutsu.php">3x4 - Zvířecí šógi</a></li>
+		            <li><a href="../small/4x5-micro.php">4x5 - Mikro šógi</a></li>
+		            <li><a href="../small/5x5-mini.php">5x5 - Mini šógi</a></li>
+		            <li><a href="../small/5x5-kyoto.php">5x5 - Kyótské šógi</a></li>
+		            <li><a href="../small/6x6-judkins.php">6x6 - Judkinsovy šógi</a></li>
+		            <li><a href="../small/6x6-whale.php">6x6 - Velrybí šógi</a></li>
+		            <li><a href="../small/7x7-tori.php">7x7 - Ptačí šógi</a></li>
+		            <li><a href="../small/7x9-yari.php">7x9 - Oštěpářské šógi</a></li>
+		            <li><a href="../small/8x8-euro.php">8x8 - Eurošógi</a></li>
+		            <li><a href="../small/9x8-heian.php">9x8/8x8 - Heiské šógi (12. st.)</a></li>
+                </ul>
+            </li>
+            <li>
+                <div>Střední varianty</div>
+                <ul>
+                    <li><a href="../medium/9x9-standard.php">9x9 - Standardní šógi</a></li>
+		            <li><a href="../medium/9x9-sho.php">9x9 - Malé šógi (16. st.)</a></li>
+		            <li><a href="../medium/9x9-hasami.php">9x9 - Hasami šógi</a></li>
+		            <li><a href="../medium/9x9-annan.php">9x9 - Annan/Korejské šógi</a></li>
+                </ul>
+            </li>
+            <li>
+                <div>Velké varianty</div>
+                <ul>
+                    <li><a href="../large/10x10-okisaki.php">10x10 - Okisacké šógi</a></li>
+		            <li><a href="../large/11x11-wa.php">11x11 - Wa/Jamato šógi</a></li>
+		            <li><a href="../large/12x12-chu.php">12x12 - Střední šógi</a></li>
+		            <li><a href="../large/13x13-heiandai.php">13x13 - Heiské velké šógi</a></li>
+		            <li><a href="../large/15x15-dai.php">15x15 - Velké šógi</a></li>
+		            <li><a href="../large/16x16-tenjiku.php">16x16 - Exotické šógi</a></li>		    
+		            <li><a href="../large/17x17-daidai.php">17x17 - Velevelké šógi</a></li>
+		            <li><a href="../large/19x19-makadaidai.php">19x19 - Převelevelké šógi</a></li>
+		            <li><a href="../large/19x19-hishigata.php">19x19 - Hišigatské šógi</a></li>
+		            <li><a href="../large/19x19-ko.php">19x19 - Široké šógi</a></li>
+		            <li><a href="../large/25x25-tai.php">25x25 - Ohromné šógi</a></li>
+		            <li><a href="../large/36x36-taikyoku.php">36x36 - Obrovské šógi</a></li>
+                </ul>                
+            </li>
+		    <li><a href="../../sp1/index.html">ŠógiWeb</a></li>      
+		</ul>
+    </nav>
+    
+    <main>
+        <h2>9x9 - Standardní šógi</h1>
+        
+        <div class="columncontainer">
+            <div class="column">
+                <h3>Šógivnice</h3>
+                
+                <!-- 
+                    Tags thead and tbody were nice, but they would complicate indexing in JS, in addition to reversed column indices. 
+                    Chrome automagically puts everything inside tbody. Each table line in HTML is 300 characters long.
+                
+                <table class="mediumsize">
+                    <tbody id="boardmanual">
+                        <tr>                 <th></th>               <th>９</th>               <th>８</th>               <th>７</th>               <th>６</th>               <th>５</th>               <th>４</th>               <th>３</th>               <th>２</th>               <th>１</th><th></th></tr>
+                        <tr><th class="rotate">１</th><td class="rotate">香</td><td class="rotate">桂</td><td class="rotate">銀</td><td class="rotate">金</td><td class="rotate">王</td><td class="rotate">金</td><td class="rotate">銀</td><td class="rotate">桂</td><td class="rotate">香</td><th>１</th></tr>
+                        <tr><th class="rotate">２</th><td class="notrot">　</td><td class="rotate">飛</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="rotate">角</td><td class="notrot">　</td><th>２</th></tr>
+                        <tr><th class="rotate">３</th><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><td class="rotate">歩</td><th>３</th></tr>
+                        <tr><th class="rotate">４</th><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><th>４</th></tr>
+                        <tr><th class="rotate">５</th><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><th>５</th></tr>
+                        <tr><th class="rotate">６</th><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><th>６</th></tr>
+                        <tr><th class="rotate">７</th><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><td class="notrot">歩</td><th>７</th></tr>
+                        <tr><th class="rotate">８</th><td class="notrot">　</td><td class="notrot">角</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">　</td><td class="notrot">飛</td><td class="notrot">　</td><th>８</th></tr>
+                        <tr><th class="rotate">９</th><td class="notrot">香</td><td class="notrot">桂</td><td class="notrot">銀</td><td class="notrot">金</td><td class="notrot">玉</td><td class="notrot">金</td><td class="notrot">銀</td><td class="notrot">桂</td><td class="notrot">香</td><th>９</th></tr>
+                        <tr>                 <th></th><th class="rotate">９</th><th class="rotate">８</th><th class="rotate">７</th><th class="rotate">６</th><th class="rotate">５</th><th class="rotate">４</th><th class="rotate">３</th><th class="rotate">２</th><th class="rotate">１</th><th></th></tr>
+                    </tbody>
+                </table>
+                -->
+                <table class="mediumsize">
+                    <tbody id="board">
+                        <!-- Generate with Javascript, should look like the manually created board. -->
+                    </tbody>
+                </table>
+                <br>
+                <div id="buttons">
+                    <button id="btnPromote">Povýšit/Ponížit</button>
+					<button id="btnRotate">Otočit</button>
+                    <button id="btnDeselect">Zrušit výběr</button>
+                    <button id="btnSave">Uložit stav</button>
+                    <button id="btnLoad">Obnovit stav</button>
+					<button id="btnForget">Zapomenout stav</button>
+					<button id="btnReset">Resetovat</button>
+                </div>
+                <br>
+                <h4>Zajmuté kameny</h4>
+                <div id="captured">
+                    <!-- Currently only a dumping ground. -->
+                </div>
+                
+            </div>
+            <div class="column">   
+                <h3>Vybraný kámen</h3>
+                <div id="selected"></div> <!-- article div gets pasted as a whole (for now) -->          
+                <h3>Kámen sdružený povýšením</h3>
+                <div id="promotion"></div>
+                <h3>Použité čínské znaky</h3>
+                <div id="kanji"></div>
+            </div>
+        </div>
+        
+        <hr>
+    </main>
+
+    <br><br>
+    <footer>
+        <p align="center">
+            <a href="https://eso.vse.cz/~getj00/sp2/index.html">Zpět na hlavní stranu</a>
+            <br><br>
+            (ↄ) Johannes Getmann 2021.<br>
+            Vytvořeno jako semestrální práce na předmět 4IZ268 - Webové technologie.<br>
+            Pravidla variant šógi převzata z anglické Wikipedie.<br>
+        </p>
+    </footer>
+    <br>
+</body>	
+</html>

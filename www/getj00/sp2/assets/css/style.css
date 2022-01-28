@@ -1,0 +1,233 @@
+
+/* --- TEXT --- */
+body {
+	background-color: #111111;
+	color: #bbbbbb;
+	font-family: sans-serif;
+}
+h1,h2 {
+	color: #ffbb77;
+	text-align: center;
+}
+h3,h4 {
+	color: #ffbb77;
+	text-align: left;
+}
+a {
+	color: #77bbff;
+}
+a:hover {
+    color: #bbddff;
+}
+hr{
+    color: #bb7733;
+}
+header p {
+    text-align: center;
+}
+article {
+    background-color: #222222;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin: 16px;
+}
+article:hover {
+    background-color: #223322;
+}
+/* On wide screens, 2 columns are displayed. */
+.columncontainer {
+    display: flex;
+    margin: auto;
+}
+.column {
+    max-width: 40em;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+}
+.bigboardspace{ /* tai and taikyoku */
+    width: 100%;
+}
+@media (max-width: 1200px){
+    .columncontainer{
+        display: block;
+    }
+}
+
+/* --- TABLE --- */
+table {
+	margin-left: auto;
+	margin-right: auto;
+	border-color: #555555;
+	border-width: 2px;
+}
+thead, th {
+    background-color: #332211;
+    color: #ddbb99;
+}
+tbody {
+    background-color: #222222;
+}
+tr {
+    border-style: solid;
+	border-width: 1px;
+	border-color: #444444;
+}
+td {
+    border-color: #333333;
+    border-width: 1px;
+    text-align: center center;
+}
+td:hover {
+    background-color: #223322;
+}
+th:hover {
+    background-color: #333311;
+}
+.rotate{ /* reigning side pieces */
+    transform: rotate(180deg);
+}
+.notrot{ /* JavaScript className override, also for alignment */
+    transform: rotate(0deg);
+}
+.rot90l{ /* yonnin */
+    transform: rotate(90deg);
+}
+.rot90r{ /* yonnin */
+    transform: rotate(270deg);
+}
+/* font sizes for various sized boards */
+.largesize{ /* 5x5, 6x6, 7x7 */
+    font-size: 32pt;
+}
+.mediumsize{ /* 8x8, 9x9, 10x10 */
+    font-size: 24pt;
+}
+.smallsize{ /* 11x11, 12x12, 13x13 */
+    font-size: 16pt;
+}
+.tinysize{ /* 15x15, 16x16, 17x17, 19x19 */
+    font-size: 12pt;
+}
+.boardforants{ /* 25x25, 36x36 */
+    font-size: 8pt;
+}
+.promoted{
+    color: #ff3311;
+}
+.unpromoted{
+    color: #bbbbbb;
+}
+.selected{
+	background-color: #335533;
+}
+
+/* --- FORM --- */
+form {
+    text-align: center;
+    margin-left: auto;
+	margin-right: auto;
+}
+formrow {
+    display: inline-block;
+}
+label.form-label {
+    padding-left: 16px;
+}
+label.form-check-label{
+    padding-right: 16px;
+}
+input[type=text] {
+    border: 2px solid #444422;
+    border-radius: 4px;
+    padding: 8px 16px;
+    background-color: #000000;
+    color: #bbddbb;
+}
+input[type=text]:focus {
+    border: 2px solid #666644;
+}
+input[type=text]:hover {
+    background-color: #001100;
+}
+select {
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: #222211;
+    color: #bbddbb;
+}
+select:hover {
+    background-color: #223311;
+}
+input[type=button], button[type=submit], button[type=reset] { /* ugly, but looks like button */
+    background-color: #999999;
+    color: #000000;
+    padding: 16px 32px;
+    margin: 8px 16px;
+    cursor: pointer;
+}
+
+/* --- MENU --- */
+.menu { /* for main page */
+    border-style: solid;
+	border-width: 4px;
+	border-radius: 8px;
+	border-color: #776655;
+	padding: 16px 32px;
+	max-width: 480px;
+	background-color: #222211;
+	margin-left: auto;
+	margin-right: auto;
+}
+.dropdown {
+    border: 4px solid #776655;
+    background-color: #222211;
+    display: flex;
+
+    /* Reset list styles */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.dropdown li {
+    padding: 8px 16px;
+    position: relative; /* Used to position the sub dropdown */
+}
+.dropdown ul { /* The sub dropdown */
+    border: 4px solid #776655;
+    background-color: 222211;
+    display: none; /* Hidden by default */
+
+    /* Absolute position */
+    left: -50%;
+    position: absolute;
+    top: 100%;
+
+    /* Reset styles */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    width: 256px;
+    z-index: 1;
+}
+.dropdown ul ul { /* The second level sub dropdown */
+    left: 100%;
+    position: absolute;
+    top: 0;
+    background-color: 222211;
+    z-index: 1;
+}
+.dropdown li:hover { /* Change background color of list item when being hovered */
+    background-color: #223311;
+}
+.dropdown li:hover > ul { /* Show the direct sub dropdown when hovering the list item */
+    display: block;
+}
+
+
+
+
