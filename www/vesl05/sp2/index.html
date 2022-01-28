@@ -25,7 +25,7 @@
     <main class="container">
         <div class="controls">
             <div class="control-item">
-                <button onclick="findMyLocation()">Ukaž mojí pozici</button>
+                <button id="findMyLocationButton">Ukaž mojí pozici</button>
             </div>
             <hr>
 
@@ -35,8 +35,9 @@
             </div>
             <hr>
             <div class="inner-items">
-                <button onclick="createFile()">Uložit body</button>
-                <button onclick="getFile()">Načíst body</button>
+                <button id="createFileButton">Uložit body</button>
+                <button id="getFileButton">Načíst body</button>
+                <label id="status" hidden="hidden">Zpracovávání...</label>
             </div>
 
             <hr>
@@ -81,7 +82,21 @@
                     </select>
                 </div>
                 <div>
-                    <button onclick="markerEdit()">Uložit nastavení</button>
+                    <button id="editMarkerButton">Uložit nastavení</button>
+                </div>
+            </div>
+            <hr>
+
+            <div class="control-item">
+                <label class="headline">Přidání vlastního typu bodu</label><br>
+                <div>
+                    <label for="name">Název: </label>
+                    <input type="text" id="newType" name="newtype"><br><br>
+                    <label id="warning" hidden="hidden">Tato možnost už tu je!</label>
+                </div>
+                <div>
+                    <button id="addTypeButton">Přidat typ</button>
+                    <button id="removeTypeButton">Odebrat typ</button>
                 </div>
             </div>
         </div>

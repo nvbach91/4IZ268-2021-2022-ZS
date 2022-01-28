@@ -7,6 +7,7 @@ function handleClientLoad() {
     gapi.load("client:auth2", initClient);
 }
 
+
 function initClient() {
     gapi.client.init({
         "apiKey": "AIzaSyAjrLEcaHIMPgr5aYFzDIWehNH-aVq0_8A",
@@ -28,8 +29,10 @@ function initClient() {
         $("#revoke-access-button").click(function () {
             revokeAccess();
         });
+
     });
 }
+
 
 function handleAuthClick() {
     if (GoogleAuth.isSignedIn.get()) {
@@ -78,11 +81,12 @@ function sendFile(fileToUpload) {
     }).then(function (response) {
         return response.json();
     }).then(function (value) {
-        console.log(value);
+        statusLabel.hide()
     });
 }
 
 function getFile() {
+    statusLabel.show()
     gapi.client.drive.files.list({
         "q": "name='config.json'",
     }).execute(res => {

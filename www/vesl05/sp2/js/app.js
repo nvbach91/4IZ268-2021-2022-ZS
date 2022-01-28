@@ -3,6 +3,23 @@ const map = L.map("map").setView([50.080, 14.451], 15);
 var currentlyEditedMarker;
 var myMarkerGroup = L.featureGroup().addTo(map).on("click", markersClick);
 var mapPoints = []
+var userCreatedTypes = []
+
+const addRadio = $("#add");
+const nameInput = $("#name");
+const descInput = $("#description");
+const typeInput = $("#type");
+const filterSelect = $("#filter");
+const statusLabel = $("#status");
+const newTypeInput = $("#newType");
+const warningLabel = $("#warning");
+
+const findMyLocationButton = $("#findMyLocationButton");
+const createFileButton = $("#createFileButton");
+const getFileButton = $("#getFileButton");
+const editMarkerButton = $("#editMarkerButton");
+const addTypeButton = $("#addTypeButton");
+const removeTypeButton = $("#removeTypeButton");
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -14,10 +31,9 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(map);
 
 function onMapClick(e) {
-
     var marker = L.marker(e.latlng)
 
-    if ($("#add").is(":checked")) {
+    if (addRadio.is(":checked")) {
         var uniqId = "id" + (new Date()).getTime();
         marker.addTo(myMarkerGroup);
 
@@ -42,25 +58,25 @@ function onMapClick(e) {
 
 function markersClick(event) {
     currentlyEditedMarker = event.layer.id;
-    $("#name").val(event.layer.name)
-    $("#description").val(event.layer.description)
-    $("#type").val(event.layer.type)
+    nameInput.val(event.layer.name)
+    descInput.val(event.layer.description)
+    typeInput.val(event.layer.type)
 }
 
 function markerEdit() {
     for (let index in myMarkerGroup._layers) {
         if (myMarkerGroup._layers[index].id == currentlyEditedMarker) {
-            myMarkerGroup._layers[index].name = $("#name").val();
-            myMarkerGroup._layers[index].description = $("#description").val();
-            myMarkerGroup._layers[index].type = $("#type").val();
+            myMarkerGroup._layers[index].name = nameInput.val();
+            myMarkerGroup._layers[index].description = descInput.val();
+            myMarkerGroup._layers[index].type = typeInput.val();
 
-            myMarkerGroup._layers[index].bindPopup("<b>" + $("#name").val() + "</b><br>" + $("#description").val())
+            myMarkerGroup._layers[index].bindPopup("<b>" + nameInput.val() + "</b><br>" + descInput.val())
 
             for (let pointIndex in mapPoints) {
                 if (mapPoints[pointIndex].id == currentlyEditedMarker) {
-                    mapPoints[pointIndex].name = $("#name").val();
-                    mapPoints[pointIndex].description = $("#description").val();
-                    mapPoints[pointIndex].type = $("#type").val();
+                    mapPoints[pointIndex].name = nameInput.val();
+                    mapPoints[pointIndex].description = descInput.val();
+                    mapPoints[pointIndex].type = typeInput.val();
                 }
             }
 
@@ -69,6 +85,7 @@ function markerEdit() {
 }
 
 function findMyLocation() {
+
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
@@ -76,10 +93,11 @@ function findMyLocation() {
         map.setView([latitude, longitude], 15);
     }
 
-    navigator.geolocation.getCurrentPosition(success, function () { });
+    navigator.geolocation.getCurrentPosition(success);
 }
 
 function createFile() {
+    statusLabel.show()
     var points = [];
 
     for (let index in myMarkerGroup._layers) {
@@ -112,6 +130,7 @@ function getData(data) {
 
         marker.bindPopup("<b>" + data[index].name + "</b><br>" + data[index].description)
     }
+    statusLabel.hide()
 }
 
 function removeAllPoins() {
@@ -120,11 +139,11 @@ function removeAllPoins() {
     }
 }
 
-$("#filter").change(function () {
+filterSelect.change(function () {
     removeAllPoins()
 
     for (let index in mapPoints) {
-        if (mapPoints[index].type == $("#filter").val() || $("#filter").val() == "all") {
+        if (mapPoints[index].type == filterSelect.val() || filterSelect.val() == "all") {
             var marker = L.marker(mapPoints[index].latlng)
             marker.addTo(myMarkerGroup);
 
@@ -145,5 +164,87 @@ $(document).keyup(function (e) {
     }
 });
 
-
 map.on("click", onMapClick);
+findMyLocationButton.on("click",findMyLocation);
+createFileButton.on("click",createFile);
+getFileButton.on("click",getFile);
+editMarkerButton.on("click",markerEdit);
+addTypeButton.on("click",addType);
+removeTypeButton.on("click",removeType);
+
+
+
+//new functions
+
+$(document).ready(function() {
+    var userTypesOnLocalStorage = JSON.parse(localStorage.getItem("userCreatedTypes"));
+
+    if (userTypesOnLocalStorage != null)
+    {
+        userCreatedTypes = userTypesOnLocalStorage
+    }
+
+    $.each(userCreatedTypes, function( index, value ) {
+        typeInput.append(new Option(value.text, value.value));
+        filterSelect.append(new Option(value.text,value.value));
+    });   
+
+
+    setTimeout(() => {
+        getFile()  
+    }, 1500);
+});
+
+function addType() {
+    warningLabel.hide()
+
+    var newType = {};
+    var duality = false
+
+    var uniqId = "id" + (new Date()).getTime();
+    var text = newTypeInput.val()
+
+    $("#type option").each(function()
+    {
+        if($(this).text() == text)
+        {
+            warningLabel.show()
+            duality = true;
+        } 
+    });
+
+    if(duality == false){
+        newType.value = uniqId;
+        newType.text = text;
+
+        console.log(newType)
+
+        userCreatedTypes.push(newType);
+
+        typeInput.append(new Option(text, uniqId));
+        filterSelect.append(new Option(text, uniqId))
+
+        localStorage.setItem("userCreatedTypes", JSON.stringify(userCreatedTypes));
+    }
+}
+
+function removeType() {
+    var text = newTypeInput.val()
+
+    $.each(userCreatedTypes, function( index, value ) {
+        if(value.text == text){
+
+            const indexToRemove = userCreatedTypes.findIndex(type => type.text == text);
+
+            $("#type option[value="+ userCreatedTypes[indexToRemove].value +"]").remove();
+            $("#filter option[value="+ userCreatedTypes[indexToRemove].value +"]").remove();
+
+            if (indexToRemove > -1) {
+                  userCreatedTypes.splice(indexToRemove, 1);
+            }
+
+            localStorage.setItem("userCreatedTypes", JSON.stringify(userCreatedTypes));
+        }
+    });   
+}
+
