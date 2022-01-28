@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>DND SPELLBOOK</h1>
+    </header>
+    <main>
+        <div class="menu">
+            <div class="options">
+                <form id="spell-class-form">
+                    <label for="dnd-class">Choose a class:</label>
+                    <select id="dnd-class" name="dnd-class">
+                        <option value="wizard">wizard</option>
+                        <option value="cleric">cleric</option>
+                        <option value="druid">druid</option>
+                        <option value="bard">bard</option>
+                        <option value="paladin">paladin</option>
+                        <option value="ranger">ranger</option>
+                        <option value="sorcerer">sorcerer</option>
+                        <option value="warlock">warlock</option>
+                    </select>
+                    <button id="get-class-spell-list">Get Class spells</button>
+                </form>
+                <form id="spell-level-form">
+                    <label for="spells-by-level-button">Choose a spell level:</label>
+                    <select id="spell-level" name="spell-level">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                    </select>
+                    <button id="get-spell-list">Get Level Spells</button>
+                </form>
+                <form id="spell-form">
+                    <input name="spells-name" placeholder="Spell ID">
+                    <button id="get-a-spell">Add Spell</button>
+                </form>
+            </div>
+            <div id="spell-names-list" class="spell-names-list">
+                <div class="spinner" id="spinner"></div>
+            </div>
+            <div class="clear-buttons">
+                <button id="remove-spell-options">Remove all spell options</button>
+                <button id="remove-all-spells">Remove all spells</button>
+            </div>
+        </div>
+        <div class="spell-slots-with-form">
+            <form id="spell-slots-form" class="spell-slots-form">
+                <button>Create Spell Slots Counter</button>
+                <div class="spell-slot-input">
+                    <div>Level 1 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-one-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 2 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-two-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 3 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-three-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 4 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-four-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 5 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-five-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 6 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-six-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 7 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-seven-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 8 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-eight-spell-slots">
+                </div>
+                <div class="spell-slot-input">
+                    <div>Level 9 Spell Slots </div>
+                    <input type="number" min="0" value="0" class="number-input" name="level-nine-spell-slots">
+                </div>
+                <button id="long-rest">Long rest</button>
+            </form>
+            <div class="gap"></div>
+            <div class="spell-slots" id="spell-slots"></div>
+        </div>
+        <div class="gap"></div>
+        <div>
+            <div id="spell-cards" class="spell-cards"></div>
+            <div class="spell-slots"></div>
+        </div>
+    </main>
+    <footer>
+            &copy; Martina Kunešová, 2022
+    </footer>
+</body>
+
+</html>

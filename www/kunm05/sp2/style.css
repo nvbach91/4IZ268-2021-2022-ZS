@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #5E220C;
+}
+
+header {
+    max-width: 1000px;
+    height: 50px;
+    margin: auto;
+    text-align: center;
+    background-color: #F4D2A2;
+    border: outset 3px #DAAE71;
+}
+
+h1 {
+    font-size: x-large;
+    color: #A8441E;
+    font-family: 'Architects Daughter', cursive;
+}
+
+button {
+    background-color: #A8441E;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Architects Daughter';
+    border: outset 1.5px #DAAE71;
+    border-radius: 10%;
+}
+
+button:hover {
+    background-color: #5E220C;
+    cursor: pointer;
+}
+
+.gap {
+    height: 5px;
+}
+
+main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    background-color: #F9E8D0;
+    justify-content: space-between;
+    border-left: outset 3px #DAAE71;
+    border-right: outset 3px #DAAE71;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+}
+
+.clear-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.spell-names-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.spell-option {
+    padding: 3px;
+    background-color: #F9E8D0;
+    text-transform: uppercase;
+    color: #5E220C;
+}
+
+.spell-option:hover {
+    background-color: #A8441E;
+    color: white;
+    cursor: pointer;
+}
+
+.spell-slots-with-form {
+    background-color: #F9E8D0;
+    padding: 5px;
+    border-left: outset 3px #DAAE71;
+    border-right: outset 3px #DAAE71;
+    border-bottom: outset 3px #DAAE71;
+    border-top: solid 2px #DAAE71;
+}
+
+.spell-slots-form {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    background-color: #F9E8D0;
+}
+
+.number-input {
+    width: 50px;
+}
+
+.spell-slots {
+    display: flex;
+    background-color: #F4D2A2;
+    border: outset 3px #DAAE71;
+    font-family: 'Architects Daughter';
+    text-transform: uppercase;
+}
+
+.level-spell-slots {
+    text-align: center;
+    padding: 5px;
+}
+
+.spell-slot-counter {
+    background-color: #F9E8D0;
+    border: outset 2px #DAAE71;
+}
+
+.spell-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.spell-card {
+    padding: 2px;
+    border: burlywood outset 2px;
+    width: 245px;
+    background-color: #F9E8D0;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.spell-name {
+    font-family: 'Architects Daughter', cursive;
+    background-color: #A8441E;
+    color: white;
+    padding: 2px;
+}
+
+.spell-description {
+    font-size: 14px;
+}
+
+.spell-level {
+    font-style: italic;
+}
+
+.spinner {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    border: 5px solid transparent;
+    border-top-color: firebrick;
+    border-bottom-color: firebrick;
+    animation: spinning 2s linear infinite;
+    transition: border-color 0.5s ease;
+    z-index: 100;
+  }
+  @keyframes spinning {
+    from { 
+      transform: rotate(0deg); 
+    }
+    to { 
+      transform: rotate(360deg); 
+    }
+  }
+
+footer {
+    text-align: center;
+}
+
+
