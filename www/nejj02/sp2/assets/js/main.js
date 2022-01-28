@@ -6,6 +6,11 @@ $(document).ready(() => {
     let questionNumber = 0;
     let categoryName = '';
     let categoryID = 0;
+    let highScores = {};
+    let highScoresString = localStorage.getItem('highScores');
+    if (highScoresString != null) {
+        highScores = JSON.parse(highScoresString);
+    }
 
     const showStartScreen = () => {
         body.empty()
@@ -88,13 +93,16 @@ $(document).ready(() => {
     }
 
     const refreshHUD = () => {
-        $('.question').text('Question: ' + questionNumber);
-        $('.score').text('Score: ' + score);
+        const questionCounter = $('.question');
+        questionCounter.text('Question: ' + questionNumber);
+        const scoreCounter = $('.score');
+        scoreCounter.text('Score: ' + score);
+        const healthBar = $('.HP');
         let HP = '';
         for (let i = 0; i < health; i++) {
             HP += '❤️';
         };
-        $('.HP').text(HP);
+        healthBar.text(HP);
     }
 
     const resetStats = () => {
@@ -173,11 +181,22 @@ $(document).ready(() => {
                     .addClass('invisible')
                     .click((e) => {
                         if (health <= 0) {
-                            if (localStorage.getItem(categoryName) < score) {
-                                localStorage.setItem(categoryName, score);
-                            }
+
+                            let playedCategories = Object.keys(highScores);
+                            if (!playedCategories.includes(categoryName)) {
+                                highScores[categoryName] = 0;
+                                //localStorage.setItem('highScores', JSON.stringify(highScores));
+                            };
+
                             showEndScreen();
+
+                            if (highScores[categoryName] < score) {
+                                highScores[categoryName] = score;
+                            }
+
+                            localStorage.setItem('highScores', JSON.stringify(highScores));
                             resetStats();
+
                         } else {
                             questionContainer.remove();
                             fetchQuestion(categoryID);
@@ -199,7 +218,7 @@ $(document).ready(() => {
         const achievedScore = $('<span>');
         achievedScore.text('Achieved Score: ' + score);
         const highScore = $('<span>');
-        const HS = localStorage.getItem(categoryName);
+        const HS = highScores[categoryName];
         highScore.text('High Score: ' + HS);
         const playButton = $('<button>');
         playButton.text('Play Again');
@@ -226,15 +245,19 @@ $(document).ready(() => {
         const title = $('<h2>');
         title.text('High Scores');
         body.append(title);
-        const highScores = $('<div>');
-        for (let i = 0; i < localStorage.length; i++) {
-            //console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+        const highScoresContainer = $('<div>');
+
+        //console.log(highScores);
+
+        const playedCategories = Object.keys(highScores);
+        playedCategories.forEach(category => {
             const categoryHS = $('<span>');
-            categoryHS.text(localStorage.key(i) + ": " + localStorage.getItem(localStorage.key(i)))
+            categoryHS.text(category + ": " + highScores[category])
                 .addClass('categoryHS');
-            highScores.append(categoryHS);
-        }
-        body.append(highScores);
+            highScoresContainer.append(categoryHS);
+        })
+
+        body.append(highScoresContainer);
         const backButton = $('<button>');
         backButton.text('Back');
         backButton.click((e) => {
@@ -250,7 +273,8 @@ $(document).ready(() => {
     }
 
     const removeSpinner = () => {
-        $('.spinner').remove();
+        spinner = $('.spinner');
+        spinner.remove();
     }
 
     showStartScreen();
