@@ -121,6 +121,9 @@ th:hover {
 .unpromoted{
     color: #bbbbbb;
 }
+.selected{
+	background-color: #335533;
+}
 
 /* --- FORM --- */
 form {

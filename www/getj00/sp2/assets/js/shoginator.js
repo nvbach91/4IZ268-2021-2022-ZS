@@ -48,7 +48,7 @@ const BOARD = document.getElementById("board");
 const KANJI = document.getElementById("kanji");
 const CAPTURED = document.getElementById("captured");
 var selectedPieceDiv = null; // global
-//var capturedPieceDiv = null;
+export var gameSpecificStuff = {};	// FUNCTION CONTAINER (global)
 
 // -*-*-*-   B O A R D   G E N E R A T I O N   -*-*-*-
 // Now using single quotes to not need to escape the double quotes.
@@ -212,63 +212,6 @@ const displayKanjiInfo = function(kanji){
 }
 
 /**
-    Dictionary for turning piece kanji into an URL to get info from. 
-    Would ideally be done by that server API. At least I didn't use switch.
-    Is to be supplied per-game.
-*/
-export const pieceMap = {
-    "歩":"common_fuhyo.html",
-    "角":"common_kakugyo.html",
-    "飛":"common_hisha.html",
-    "香":"common_kyosha.html",
-    "桂":"common_keima.html",
-    "銀":"common_ginsho.html",
-    "金":"common_kinsho.html",
-    "玉":"common_gyokusho_osho.html",
-    "王":"common_gyokusho_osho.html",
-    "と":"common_tokin.html",
-    "馬":"common_ryuma.html",
-    "龍":"common_ryuo.html",
-    "杏":"common_narikyo.html",
-    "圭":"common_narikei.html",
-    "全":"common_narigin.html"
-};
-export const promotionMap = {
-    "歩":"と",
-    "角":"馬",
-    "飛":"龍",
-    "香":"杏",
-    "桂":"圭",
-    "銀":"全",
-    "金":"",
-    "玉":"",
-    "王":"",
-    "と":"歩", // demotion or promotes from
-    "馬":"角",
-    "龍":"飛",
-    "杏":"香",
-    "圭":"桂",
-    "全":"銀"
-};
-export const kanjiMap = {
-    "歩":["歩","兵","金"],
-    "角":["角","行","龍","馬"],
-    "飛":["飛","車","龍","王"],
-    "香":["香","車","成"],
-    "桂":["桂","馬","成"],
-    "銀":["銀","將","成"],
-    "金":["金","將"],
-    "玉":["玉","將"],
-    "王":["王","將"],
-    "と":["金","歩","兵"],
-    "馬":["龍","馬","角","行"],
-    "龍":["龍","王","飛","車"],
-    "杏":["杏","成","香","車"],
-    "圭":["圭","成","桂","馬"],
-    "全":["全","成","銀","將"]
-};
-
-/**
     Displays custom info about the currently selected piece from internals 
     of a previous project of ShogiWeb. Implemented very lamely, there isn't 
     any actual API over there.
@@ -279,39 +222,39 @@ const displayPieceInfo = function(piece){
         document.getElementById("promotion").innerHTML = "<h4>Není vybrán žádný kámen.</h4>"; // May leave previously selected piece there, but for debug purposes will reset.
         return;
     } else {
+		
         var xhrSelected = new XMLHttpRequest();
         xhrSelected.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 document.getElementById("selected").innerHTML = this.responseText; // plain HTML
             }
         };
-        xhrSelected.open("GET", "https://eso.vse.cz/~getj00/sp1/include/pieces/" + pieceMap[piece], true);
+        xhrSelected.open("GET", "https://eso.vse.cz/~getj00/sp1/include/pieces/" + gameSpecificStuff.pieceMap[piece], true);
         xhrSelected.send();
         
-        if(promotionMap[piece] !== ""){ // if piece promotes
+        if(gameSpecificStuff.promotionMap[piece] !== ""){ // if piece promotes
             var xhrPromotion = new XMLHttpRequest();
             xhrPromotion.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     document.getElementById("promotion").innerHTML = this.responseText; // plain HTML
                 }
             };
-            xhrPromotion.open("GET", "https://eso.vse.cz/~getj00/sp1/include/pieces/" + pieceMap[promotionMap[piece]], true);
+            xhrPromotion.open("GET", "https://eso.vse.cz/~getj00/sp1/include/pieces/" + gameSpecificStuff.pieceMap[gameSpecificStuff.promotionMap[piece]], true);
             xhrPromotion.send();
         }else{
             document.getElementById("promotion").innerHTML = "<h4>Vybraný kámen nepovyšuje.</h4>";
         }
 		
-		/* // using fetch () - no returning data out, only sequential processing culminating in a side effect
 		
-		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+pieceMap[piece]).then((resp) => {
-			document.getElementById("promotion").innerHTML = resp;
+		// using fetch () - no returning data out, only sequential processing culminating in a side effect
+		/*
+		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+gameSpecificStuff.pieceMap[piece]).then((resp) => {
+			document.getElementById("promotion").innerHTML = resp; // needs some Promise handling
 		});
-		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+pieceMap[promotionMap[piece]]).then((resp) => {
+		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+gameSpecificStuff.pieceMap[gameSpecificStuff.promotionMap[piece]]).then((resp) => {
 			document.getElementById("promotion").innerHTML = resp;
 		});
 		*/
-		
-		
     }
 }
 
@@ -368,10 +311,13 @@ export const registerDragDropListeners = function(boardWidth, boardHeight){
             });
         }
     }
-	// also need to check captured pieces if loading a state
-	document.getElementById("captured").forEach(addEventListener("dragstart", (ev) => {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }));
+	// also need to check captured pieces if loading a state, also HTMLCollection doesn't have forEach
+	for(let i = 0, len = CAPTURED.children.length; i < len; ++i){
+		CAPTURED.children[i].addEventListener("dragstart", (ev) => {
+			ev.dataTransfer.setData("text", ev.target.id);
+		});
+	}
+	
 }
 
 // ATM, the entire element is dragged into the target element, making a hole at it's original spot.
@@ -420,7 +366,7 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
                 if(selectedPieceDiv == null){
                     if(curCell.innerText != "　" && curCell.innerText != ""){ // prevent capturing pieces with an empty piece
                         selectedPieceDiv = curCell.children[0];
-						// selectedPieceDiv  COLOR <!!!!!!!!!!!!!!!!
+						selectedPieceDiv.classList.add("selected");
                     }else{
                         selectedPieceDiv = null; // deselect any previously selected piece
                     }
@@ -432,7 +378,8 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
                         // only moving, the empty piece gets destroyed (the edge numbers are guarding against an empty row or column shrinking to nothing)
                         curCell.innerHTML = "";
                         curCell.appendChild(selectedPieceDiv);
-                        selectedPieceDiv = null; // clear selection for next move
+                        selectedPieceDiv.classList.remove("selected");
+						selectedPieceDiv = null; // clear selection for next move
                     }
                 }
                 
@@ -440,24 +387,21 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
                 displayPieceInfo(piece); // also promotion, will overwrite
                 KANJI.innerHTML = "";
                 if (piece.length !== 0 && piece !== "　"){ // add space entry to kanjiMap?
-                    kanjiMap[piece].forEach(displayKanjiInfo);
+                    gameSpecificStuff.kanjiMap[piece].forEach(displayKanjiInfo);
                 }else{
                     KANJI.innerHTML = "<h4>Není vybrán žádný kámen.</h4>";
                 }
             });
-            /* // maybe
-            BOARD.children[i].children[j].children[0].addEventListener("click", () => {
-                let curCell = BOARD.children[i].children[j];
-            });
-            */
         }
     }
 	// also need to check captured pieces if loading a state (note, not final structure)
-	document.getElementById("captured").forEach((element, index) => {
-		element.addEventListener("click", (ev) => {
-			selectedPieceDiv = element;
+	for(let i = 0, len = CAPTURED.children.length; i < len; ++i){
+		if(CAPTURED.childen !== undefined){ // why only here?
+			CAPTURED.childen[i].addEventListener("click", (ev) => {
+				selectedPieceDiv = CAPTURED.children[i];
+			});
 		}
-	}));
+	}
 }
 
 /**
@@ -467,8 +411,8 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
     document.getElementById("btnPromote").addEventListener("click", (ev) => {
         if(selectedPieceDiv != null){ // nothing selected
 			let piece = selectedPieceDiv.innerText;
-			if(piece != "　" && piece != "" && promotionMap[piece] != ""){
-				selectedPieceDiv.innerText = promotionMap[piece];
+			if(piece != "　" && piece != "" && gameSpecificStuff.promotionMap[piece] != ""){
+				selectedPieceDiv.innerText = gameSpecificStuff.promotionMap[piece];
 				selectedPieceDiv.classList.toggle("promoted");
 			}
 		}
@@ -477,7 +421,7 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
         ev.preventDefault();
         let pieceDiv = document.getElementById(ev.dataTransfer.getData("text"));
         let piece = pieceDiv.innerText;
-        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+        if(piece != "　" && piece != "" && gameSpecificStuff.promotionMap[piece] != ""){
             pieceDiv.innerText = promotionMap[piece];
             pieceDiv.classList.toggle("promoted");
         }
@@ -485,7 +429,7 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
     
 	document.getElementById("btnRotate").addEventListener("click", (ev) => {
         let piece = selectedPieceDiv.innerText;
-        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+        if(piece != "　" && piece != ""){
 			if(selectedPieceDiv.classList.contains("rotate")){ // maybe nuke notrot, was just for visual alignment
 				selectedPieceDiv.classList.remove("rotate");
 				selectedPieceDiv.classList.add("notrot");
@@ -497,7 +441,8 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
     });
 	
     document.getElementById("btnDeselect").addEventListener("click", (ev) => { // so that no accidental moves happen
-        selectedPieceDiv = null;
+        selectedPieceDiv.classList.remove("selected");
+		selectedPieceDiv = null;
         displayPieceInfo("");
         KANJI.innerHTML = "<h4>Není vybrán žádný kámen.</h4>";
     });
@@ -514,12 +459,37 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
             BOARD.innerHTML = resBoard;
             CAPTURED.innerHTML = resCapture;
         }
-        registerDragDropListeners(boardWidth, boardHeight);
-        registerPieceSelectListeners(boardWidth, boardHeight);
+        registerDragDropListeners(gameSpecificStuff.BOARDWIDTH, gameSpecificStuff.BOARDHEIGHT);
+        registerPieceSelectListeners(gameSpecificStuff.BOARDWIDTH, gameSpecificStuff.BOARDHEIGHT);
+    });
+	document.getElementById("btnForget").addEventListener("click", (ev) => {
+        if(confirm("Opravdu chcete zapomenout uložený stav?")){
+			localStorage.clear();
+		}
+    });
+	document.getElementById("btnReset").addEventListener("click", (ev) => {
+        if(confirm("Opravdu chcete resetovat hru?")){
+			BOARD.innerHTML = ""; // still no abstract representation of game state
+			gameSpecificStuff.createBoard();
+			registerDragDropListeners(gameSpecificStuff.BOARDWIDTH, gameSpecificStuff.BOARDHEIGHT);
+			registerPieceSelectListeners(gameSpecificStuff.BOARDWIDTH, gameSpecificStuff.BOARDHEIGHT);
+		}
     });
 }
 
+export const loadSavedStateIfExists = function() {
+	let resBoard = localStorage.getItem("boardState");
+    let resCapture = localStorage.getItem("capturedState");
+    if(resBoard != null && resCapture != null){
+        BOARD.innerHTML = resBoard;
+        CAPTURED.innerHTML = resCapture;
+		return true;
+    }else{
+		return false;
+	}
+}
 
-// color selected piece (click)
-// auto load saved state if exists
-// reset via button (state), message box - confirm()
+
+// color selected piece (click)  DONE OK
+// auto load saved state if exists  DONE OK
+// reset via button (state), message box - confirm() OK
