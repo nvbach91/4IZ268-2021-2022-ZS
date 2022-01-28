@@ -1,10 +1,10 @@
-//proměnná pro api key
-const apiKey = "key=5bf436f0a714473285874ff7deeb261a";
-let games = [];
-const newlyAdded = [];
-let searchedGame = "";
-
 $(document).ready(() => {
+  //proměnná pro api key
+  const apiKey = "key=5bf436f0a714473285874ff7deeb261a";
+  let games = [];
+  const newlyAdded = [];
+  let searchedGame = "";
+
   const form = $(".add-game-form");
   const gameList = $("#game-list");
   const input = $("input");
@@ -67,11 +67,10 @@ $(document).ready(() => {
           let count = resp.results.length;
           //console.log(count);
           if (resp.count > count) {
-              for (let x = 1; x <= pageNumber; x++) {
-                pageButtonWrapper.append(createPageButton(x));
-              }
-              resultSpace.append(pageButtonWrapper);
-            
+            for (let x = 1; x <= pageNumber; x++) {
+              pageButtonWrapper.append(createPageButton(x));
+            }
+            resultSpace.append(pageButtonWrapper);
           }
           renderResults(resp);
         }
@@ -126,7 +125,15 @@ $(document).ready(() => {
         metascore: game.metacritic,
       };
 
-      localStorage.setItem(`${game.id}`, `${JSON.stringify(gameDetails)}`);
+      let localGamesList = [];
+      if (JSON.parse(localStorage.getItem("localGamesList")) != null) {
+        localGamesList = JSON.parse(localStorage.getItem("localGamesList"));
+      }
+      //localGames[`${game.id}`] = gameDetails;
+      //console.log(localGames);
+      localGamesList.push(gameDetails);
+      console.log(localGamesList);
+      localStorage.setItem("localGamesList", JSON.stringify(localGamesList));
 
       gameList.append(createGame(gameDetails));
       addButton.remove();
@@ -175,9 +182,13 @@ $(document).ready(() => {
         modifyButtons.removeAttr("id");
         let modifiedText = noteTextArea.val();
 
-        localGame = JSON.parse(localStorage.getItem(gameDetails.id));
-        localGame.note = modifiedText;
-        localStorage.setItem(gameDetails.id, JSON.stringify(localGame));
+        let localGamesList = JSON.parse(localStorage.getItem("localGamesList"));
+
+        let localGame = localGamesList.findIndex(function (post) {
+          if (post.id == gameDetails.id) return true;
+        });
+        localGamesList[localGame].note = modifiedText;
+        localStorage.setItem("localGamesList", JSON.stringify(localGamesList));
         noteDiv.text(modifiedText);
         noteTextArea.remove();
         infoContainer.append(noteDiv);
@@ -276,15 +287,24 @@ $(document).ready(() => {
   };
 
   //získání hodnot z localStorage
-  const gamesFromStorage = () => {
-    let games = [];
-    let keys = Object.keys(localStorage);
-    let keysLenght = keys.length;
 
-    for (let i = 0; i <= keysLenght; i++) {
-      gameList.append(createGame(JSON.parse(localStorage.getItem(keys[i]))));
+  const gamesFromStorage = () => {
+    let gamesToAppend = [];
+    let localGamesList = [];
+    localGamesList = JSON.parse(localStorage.getItem("localGamesList"));
+    console.log(localGamesList);
+    const listLenght = localGamesList.length;
+    console.log(listLenght);
+
+    for (let i = 0; i < listLenght; i++) {
+      const gameToAppend = createGame(localGamesList[i]);
+      console.log(gameToAppend);
+      gamesToAppend.push(gameToAppend);
     }
+    console.log("gamesToAppend: ");
+    gameList.append(...gamesToAppend);
   };
+
   //načtení her z local storage
   gamesFromStorage();
 });
