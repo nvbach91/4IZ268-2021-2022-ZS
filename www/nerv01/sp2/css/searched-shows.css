@@ -3,32 +3,32 @@
 */
 #search-results-container {    
     position: absolute;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    left: calc(50% - 500px);
+    height: fit-content;
+    width: 1000px;
+    background-color: white;
 }
 
-#search-results-container img {
-    width: 200px;
-    height: 300px;
-    border-radius: 10px;
-}
 
 #search-results-container span {
-    color: white;
+    color: black;
 }
 
 #search-results-container .show-tiles-wrapper {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    
     justify-content: center;
 }
 
-#search-results-container .show-tiles-wrapper a {
-    margin: 20px;
-    margin-bottom: 0px;
+#search-results-container .show-tiles-wrapper a {        
+    padding: 5px;
     cursor: pointer;
+
+}
+
+#search-results-container .show-tiles-wrapper a:hover {        
+    background-color: lightgray;
 
 }
 .search-result-wrapper {    

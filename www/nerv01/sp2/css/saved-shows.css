@@ -1,8 +1,12 @@
 /* KOMPONENTA SHAVED SHOWS */
-#saved-shows-container {    
-    min-width: 1200px;
+#saved-shows-container {
     height: calc(100vh - 80px);
-    overflow: scroll;
+    overflow: auto;
+}
+#saved-shows-container > div{
+    min-width: 1200px;
+    
+    
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -67,4 +71,9 @@
 .saved-show-info-wrapper .progress-bar-wrapper {
     width: 100%;
     text-align: center;
+}
+
+/* Úprava hash error stránky*/
+#error-container * {
+    flex-direction: column;
 }

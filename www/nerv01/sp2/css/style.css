@@ -24,3 +24,11 @@ body {
     font-family: "Quicksand", sans-serif;
     min-width: 1200px;
 }
+
+/* Úprava introductory stránky */
+#introductory-notes-container {
+    text-align: center;
+}
+#introductory-notes-container * {
+    width: 100%;
+}
