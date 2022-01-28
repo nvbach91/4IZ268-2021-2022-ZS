@@ -13,6 +13,10 @@ $(document).ready(() => {
         localStorage.setItem('spellCardIndexes', '[]');
     }
 
+    if (localStorage.getItem('savedSpellSlots') === null) {
+        localStorage.setItem('savedSpellSlots', '[]');
+    }
+
     const spellClassForm = $('#spell-class-form');
     const spellLevelForm = $('#spell-level-form');
 
@@ -26,31 +30,13 @@ $(document).ready(() => {
     const removeSpellOptionsButton = $('#remove-spell-options');
 
     const spellSlotsForm = $('#spell-slots-form');
-    const levelOneSpellSlots = $('#level-one-spells');
-    const levelTwoSpellSlots = $('#level-two-spells');
-    const levelThreeSpellSlots = $('#level-three-spells');
-    const levelFourSpellSlots = $('#level-four-spells');
-    const levelFiveSpellSlots = $('#level-five-spells');
-    const levelSixSpellSlots = $('#level-six-spells');
-    const levelSevenSpellSlots = $('#level-seven-spells');
-    const levelEightSpellSlots = $('#level-eigth-spells');
-    const levelNineSpellSlots = $('#level-nine-spells');
+    const spellSlotsContainer = $('#spell-slots');
 
-    if (localStorage.getItem('levelOneSpellSlots') === null) {
-        localStorage.setItem('levelOneSpellSlots', levelOneSpellSlots.text());
-        localStorage.setItem('levelTwoSpellSlots', levelTwoSpellSlots.text());
-        localStorage.setItem('levelThreeSpellSlots', levelThreeSpellSlots.text());
-        localStorage.setItem('levelFourSpellSlots', levelFourSpellSlots.text());
-        localStorage.setItem('levelFiveSpellSlots', levelFiveSpellSlots.text());
-        localStorage.setItem('levelSixSpellSlots', levelSixSpellSlots.text());
-        localStorage.setItem('levelSevenSpellSlots', levelSevenSpellSlots.text());
-        localStorage.setItem('levelEightSpellSlots', levelEightSpellSlots.text());
-        localStorage.setItem('levelNineSpellSlots', levelNineSpellSlots.text());
-    }
-
+    const spellSlots = [];
+    const existingSpellCards = [];
 
     const loadingSpinner = $('#spinner').hide();
-    const existingSpellCards = [];
+
 
     $(document).ajaxStart(function () {
         loadingSpinner.show();
@@ -72,7 +58,7 @@ $(document).ready(() => {
 
     spellSlotsForm.submit((e) => {
         e.preventDefault();
-        createSpellsSlots();
+        getSpellsSlots();
     });
 
     longRestButton.click((e) => {
@@ -81,7 +67,7 @@ $(document).ready(() => {
         createSpellsSlots();
     });
 
-    const createSpellsSlots = () => {
+    const getSpellsSlots = () => {
         const levelOneSpellSlotValue = $('input[name="level-one-spell-slots"]').val();
         const levelTwoSpellSlotValue = $('input[name="level-two-spell-slots"]').val();
         const levelThreeSpellSlotValue = $('input[name="level-three-spell-slots"]').val();
@@ -92,25 +78,38 @@ $(document).ready(() => {
         const levelEightSpellSlotValue = $('input[name="level-eight-spell-slots"]').val();
         const levelNineSpellSlotValue = $('input[name="level-nine-spell-slots"]').val();
 
-        levelOneSpellSlots.text(levelOneSpellSlotValue);
-        levelTwoSpellSlots.text(levelTwoSpellSlotValue);
-        levelThreeSpellSlots.text(levelThreeSpellSlotValue);
-        levelFourSpellSlots.text(levelFourSpellSlotValue);
-        levelFiveSpellSlots.text(levelFiveSpellSlotValue);
-        levelSixSpellSlots.text(levelSixSpellSlotValue);
-        levelSevenSpellSlots.text(levelSevenSpellSlotValue);
-        levelEightSpellSlots.text(levelEightSpellSlotValue);
-        levelNineSpellSlots.text(levelNineSpellSlotValue);
+        spellSlots.length = 0;
+        spellSlots.push(levelOneSpellSlotValue);
+        spellSlots.push(levelTwoSpellSlotValue);
+        spellSlots.push(levelThreeSpellSlotValue);
+        spellSlots.push(levelFourSpellSlotValue);
+        spellSlots.push(levelFiveSpellSlotValue);
+        spellSlots.push(levelSixSpellSlotValue);
+        spellSlots.push(levelSevenSpellSlotValue);
+        spellSlots.push(levelEightSpellSlotValue);
+        spellSlots.push(levelNineSpellSlotValue);
+        console.log(spellSlots);
 
-        localStorage.setItem('levelOneSpellSlots', levelOneSpellSlots.text());
-        localStorage.setItem('levelTwoSpellSlots', levelTwoSpellSlots.text());
-        localStorage.setItem('levelThreeSpellSlots', levelThreeSpellSlots.text());
-        localStorage.setItem('levelFourSpellSlots', levelFourSpellSlots.text());
-        localStorage.setItem('levelFiveSpellSlots', levelFiveSpellSlots.text());
-        localStorage.setItem('levelSixSpellSlots', levelSixSpellSlots.text());
-        localStorage.setItem('levelSevenSpellSlots', levelSevenSpellSlots.text());
-        localStorage.setItem('levelEightSpellSlots', levelEightSpellSlots.text());
-        localStorage.setItem('levelNineSpellSlots', levelNineSpellSlots.text());
+        createSpellSlots(spellSlots);
+        localStorage.setItem('savedSpellSlots', JSON.stringify(spellSlots));
+    }
+
+    const createSpellSlots = (spellSlots) => {
+        spellSlotsContainer.empty();
+        for (let i = 0; i < spellSlots.length; i++) {
+            const spellSlotValue = spellSlots[i];
+            const SpellSlotSpot = $('<div>');
+            SpellSlotSpot.addClass('level-spell-slots');
+            SpellSlotSpot.text(spellSlotValue);
+            spellSlotsContainer.append(SpellSlotSpot);
+        }
+    };
+
+    const getSavedSpellSlots = (savedSpellSlots) => {
+        for (let i = 0; i < savedSpellSlots.length; i++) {
+            const spellSlotIndex = savedSpellSlots[i];
+            createSpellSlots(spellSlotIndex);
+        }
     }
 
     const getSavedSpells = (storedSpells) => {
@@ -118,7 +117,6 @@ $(document).ready(() => {
             const spellIndex = storedSpells[i];
             renderSpell(spellIndex);
         }
-
     };
 
     spellForm.submit((e) => {
@@ -129,7 +127,6 @@ $(document).ready(() => {
         } else {
             console.log("Spell card already exists.")
         }
-
         console.log(existingSpellCards);
     });
 
@@ -154,89 +151,16 @@ $(document).ready(() => {
     }
 
     const castSpell = (castingLevel) => {
-        console.log(castingLevel);
-        if (parseInt(castingLevel) === 1) {
-            if (parseInt(levelOneSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelOneSpellSlots.text() - 1);
-                levelOneSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelOneSpellSlots', levelOneSpellSlots.text());
-            }
+        let levelSpellSlotIndex = parseInt(castingLevel) - 1
+        let accessedSpellSlot = savedSpellSlots[levelSpellSlotIndex];
+        if (parseInt(accessedSpellSlot) === 0) {
+            console.log("No available spell slots for this level.")
+        } else {
+            savedSpellSlots[levelSpellSlotIndex] = parseInt(accessedSpellSlot) - 1;
+            spellSlotsContainer.empty();
+            createSpellSlots(savedSpellSlots);
         }
-        if (parseInt(castingLevel) === 2) {
-            if (parseInt(levelTwoSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelTwoSpellSlots.text() - 1);
-                levelTwoSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelTwoSpellSlots', levelTwoSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 3) {
-            if (parseInt(levelThreeSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelThreeSpellSlots.text() - 1);
-                levelThreeSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelThreeSpellSlots', levelThreeSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 4) {
-            if (parseInt(levelThreeSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelFourSpellSlots.text() - 1);
-                levelFourSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelFourSpellSlots', levelFourSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 5) {
-            if (parseInt(levelFiveSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelFiveSpellSlots.text() - 1);
-                levelFiveSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelFiveSpellSlots', levelFiveSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 6) {
-            if (parseInt(levelSixSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelSixSpellSlots.text() - 1);
-                levelSixSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelSixSpellSlots', levelSixSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 7) {
-            if (parseInt(levelSevenSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelSevenSpellSlots.text() - 1);
-                levelSevenSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelSevenSpellSlots', levelSevenSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 8) {
-            if (parseInt(levelEightSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelEightSpellSlots.text() - 1);
-                levelEightSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelEightSpellSlots', levelEightSpellSlots.text());
-            }
-        }
-        if (parseInt(castingLevel) === 9) {
-            if (parseInt(levelNineSpellSlots.text()) === 0) {
-                console.log("no available spell slots for this level");
-            } else {
-                const spellSlotsUpdate = parseFloat(levelNineSpellSlots.text() - 1);
-                levelNineSpellSlots.text(spellSlotsUpdate);
-                localStorage.setItem('levelNineSpellSlots', levelNineSpellSlots.text());
-            }
-        }
-    };
+    }
 
     const createSpellCard = (spell) => {
         const spellCard = $('<div>');
@@ -272,11 +196,11 @@ $(document).ready(() => {
 
         const spellAtHigherLevel = $('<div>');
         spellAtHigherLevel.addClass('spell-at-higher-level');
-        spellAtHigherLevel.text(`At higher level: ${spell.higher_level}`);
+        spellAtHigherLevel.text(`At higher level: ${spell.higher_level ? spell.higher_level : "-"}`);
 
         const castSpellForm = $('<form>');
         castSpellForm.addClass('cast-spell-form');
-        castSpellForm.append('<button> Cast at level:');
+        castSpellForm.append(`<button> Cast at level:`);
         const castSpellFormInput = $('<input type=number class="number-input" min=0 max=9>').attr({
             name: spell.name,
         })
@@ -349,18 +273,21 @@ $(document).ready(() => {
         });
     });
 
-
     const getSpellNames = (spellOptions) => {
         spellNamesList.empty();
+
         const spellOptionsName = spellOptions.map(function (item) {
             return item["index"];
         });
+        const temporarySpellOptions = [];
         for (let i = 0; i < spellOptionsName.length; i++) {
             const spellOptionData = {
                 name: spellOptionsName[i],
-            }
-            createSpellOptionCard(spellOptionData);
+            };
+            const spellOption = createSpellOptionCard(spellOptionData);
+            temporarySpellOptions.push(spellOption);
         }
+        spellNamesList.append(temporarySpellOptions);
     };
 
     const createSpellOptionCard = (spellOption) => {
@@ -369,57 +296,12 @@ $(document).ready(() => {
         spellOptionCard.text(spellOption.name);
         spellOptionCard.click(function () {
             $(spellsNameInput).val(spellOption.name);
-        })
-        spellNamesList.append(spellOptionCard);
+        });
+        return spellOptionCard;
     }
 
-    const parselevelOneSpellSlots = (remainingLevelOneSpellSlots) => {
-        levelOneSpellSlots.text(remainingLevelOneSpellSlots);
-    }
-    const parselevelTwoSpellSlots = (remainingLevelTwoSpellSlots) => {
-        levelTwoSpellSlots.text(remainingLevelTwoSpellSlots);
-    }
-    const parselevelThreeSpellSlots = (remainingLevelThreeSpellSlots) => {
-        levelThreeSpellSlots.text(remainingLevelThreeSpellSlots);
-    }
-    const parselevelFourSpellSlots = (remainingLevelFourSpellSlots) => {
-        levelFourSpellSlots.text(remainingLevelFourSpellSlots);
-    }
-    const parselevelFiveSpellSlots = (remainingLevelFiveSpellSlots) => {
-        levelFiveSpellSlots.text(remainingLevelFiveSpellSlots);
-    }
-    const parselevelSixSpellSlots = (remainingLevelSixSpellSlots) => {
-        levelSixSpellSlots.text(remainingLevelSixSpellSlots);
-    }
-    const parselevelSevenSpellSlots = (remainingLevelSevenSpellSlots) => {
-        levelSevenSpellSlots.text(remainingLevelSevenSpellSlots);
-    }
-    const parselevelEightSpellSlots = (remainingLevelEightSpellSlots) => {
-        levelEightSpellSlots.text(remainingLevelEightSpellSlots);
-    }
-    const parselevelNineSpellSlots = (remainingLevelNineSpellSlots) => {
-        levelNineSpellSlots.text(remainingLevelNineSpellSlots);
-    }
-
+    const savedSpellSlots = JSON.parse(localStorage.getItem('savedSpellSlots'));
     const savedSpells = JSON.parse(localStorage.getItem('spellCardIndexes'));
-    const remainingLevelOneSpellSlots = JSON.parse(localStorage.getItem('levelOneSpellSlots'));
-    const remainingLevelTwoSpellSlots = JSON.parse(localStorage.getItem('levelTwoSpellSlots'));
-    const remainingLevelThreeSpellSlots = JSON.parse(localStorage.getItem('levelThreeSpellSlots'));
-    const remainingLevelFourSpellSlots = JSON.parse(localStorage.getItem('levelFourSpellSlots'));
-    const remainingLevelFiveSpellSlots = JSON.parse(localStorage.getItem('levelFiveSpellSlots'));
-    const remainingLevelSixSpellSlots = JSON.parse(localStorage.getItem('levelSixSpellSlots'));
-    const remainingLevelSevenSpellSlots = JSON.parse(localStorage.getItem('levelSevenSpellSlots'));
-    const remainingLevelEightSpellSlots = JSON.parse(localStorage.getItem('levelEightSpellSlots'));
-    const remainingLevelNineSpellSlots = JSON.parse(localStorage.getItem('levelNineSpellSlots'));
-
+    getSavedSpellSlots(savedSpellSlots);
     getSavedSpells(savedSpells);
-    parselevelOneSpellSlots(remainingLevelOneSpellSlots);
-    parselevelTwoSpellSlots(remainingLevelTwoSpellSlots);
-    parselevelThreeSpellSlots(remainingLevelThreeSpellSlots);
-    parselevelFourSpellSlots(remainingLevelFourSpellSlots);
-    parselevelFiveSpellSlots(remainingLevelFiveSpellSlots);
-    parselevelSixSpellSlots(remainingLevelSixSpellSlots);
-    parselevelSevenSpellSlots(remainingLevelSevenSpellSlots);
-    parselevelEightSpellSlots(remainingLevelEightSpellSlots);
-    parselevelNineSpellSlots(remainingLevelNineSpellSlots);
 });

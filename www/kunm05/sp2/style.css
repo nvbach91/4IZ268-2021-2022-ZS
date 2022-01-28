@@ -129,6 +129,8 @@ main {
     border: burlywood outset 2px;
     width: 245px;
     background-color: #F9E8D0;
+    max-height: 400px;
+    overflow: auto;
 }
 
 .spell-name {
