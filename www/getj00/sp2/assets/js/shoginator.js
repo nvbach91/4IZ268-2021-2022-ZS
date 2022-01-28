@@ -51,6 +51,7 @@ var selectedPieceDiv = null; // global
 //var capturedPieceDiv = null;
 
 // -*-*-*-   B O A R D   G E N E R A T I O N   -*-*-*-
+// Now using single quotes to not need to escape the double quotes.
 /**
     Writes the board header, consisting of reversed upright number sequence 
     and 2 blank squares on the sides. The board origin is at upper right, 
@@ -74,21 +75,21 @@ export const writeBoardHeader = function(cols){
 */
 export const writeBoardLine = function(row, pieces, rotate){
     const rowTens = Math.floor(row/10);
-    let htmlOut = "<tr><th class=\"rotate\">" + (rowTens ? WIDENUM[rowTens] : "") + WIDENUM[row%10] + "</th>";
+    let htmlOut = '<tr><th class="rotate">' + (rowTens ? WIDENUM[rowTens] : '') + WIDENUM[row%10] + '</th>';
     for(let i = 0; i < pieces.length; ++i){
-        if(rotate && pieces[i] != "　"){ // encompass due to dragging: <td (dropzone)><div draggable id class></div></td>
-            htmlOut += "<td><div class=\"rotate\" ";
+        if(rotate && pieces[i] != '　'){ // encompass due to dragging: <td (dropzone)><div draggable id class></div></td>
+            htmlOut += '<td><div class="rotate" ';
         }else{
-            htmlOut += "<td><div class=\"notrot\" ";
+            htmlOut += '<td><div class="notrot" ';
         }
-        if(pieces[i] == "　"){
-            htmlOut += "draggable=\"false\" ";
+        if(pieces[i] == '　'){
+            htmlOut += 'draggable="false" ';
         }else{
-            htmlOut += "draggable=\"true\" ";
+            htmlOut += 'draggable="true" ';
         }
-        htmlOut += "id=\"r"+row+"c"+i+"\">" + pieces[i] + "</div></td>"; 
+        htmlOut += 'id="r'+row+'c'+i+'">' + pieces[i] + '</div></td>'; 
     }
-    htmlOut += "<th>" + (rowTens ? WIDENUM[rowTens] : "") + WIDENUM[row%10] + "</th></tr>";
+    htmlOut += '<th>' + (rowTens ? WIDENUM[rowTens] : '') + WIDENUM[row%10] + '</th></tr>';
     BOARD.innerHTML += htmlOut; // must add whole <tr> at once or the browser will try to fix the DOM by closing it early
 }
 
@@ -99,21 +100,21 @@ export const writeBoardLine = function(row, pieces, rotate){
 */
 export const writeBoardLineUniform = function(row, piece, columns, rotate){
     const rowTens = Math.floor(row/10);
-    let htmlOut = "<tr><th class=\"rotate\">" + (rowTens ? WIDENUM[rowTens] : "") + WIDENUM[row%10] + "</th>";
+    let htmlOut = '<tr><th class="rotate">' + (rowTens ? WIDENUM[rowTens] : '') + WIDENUM[row%10] + '</th>';
     for(let i = 1; i <= columns; ++i){
         if(rotate){
-            htmlOut += "<td><div class=\"rotate\" ";
+            htmlOut += '<td><div class="rotate" ';
         }else{
-            htmlOut += "<td><div class=\"notrot\" ";
+            htmlOut += '<td><div class="notrot" ';
         }
         if(piece == "　"){
-            htmlOut += "draggable=\"false\" ";
+            htmlOut += 'draggable="false" ';
         }else{
-            htmlOut += "draggable=\"true\" ";
+            htmlOut += 'draggable="true" ';
         }
-        htmlOut += "id=\"r"+row+"c"+i+"\">" + piece + "</div></td>"; 
+        htmlOut += 'id="r'+row+'c'+i+'">' + piece + '</div></td>'; // this does not change when moving, quite confusing wrt move history
     }
-    htmlOut += "<th>" + (rowTens ? WIDENUM[rowTens] : "") + WIDENUM[row%10] + "</th></tr>";
+    htmlOut += '<th>' + (rowTens ? WIDENUM[rowTens] : '') + WIDENUM[row%10] + '</th></tr>';
     BOARD.innerHTML += htmlOut; // must add whole <tr> at once or the browser will try to fix the DOM by closing it early
 }
 
@@ -123,13 +124,13 @@ export const writeBoardLineUniform = function(row, piece, columns, rotate){
 */
 export const writeBoardCell = function(piece, rotate){
     if(rotate === 90){
-        BOARD.innerHTML += "<td><div class=\"rot90l\">"+piece+"</div></td>";
+        BOARD.innerHTML += '<td><div class="rot90l">'+piece+'</div></td>';
     }else if(rotate === -90 || rotate === 270){
-        BOARD.innerHTML += "<td><div class=\"rot90r\">"+piece+"</div></td>";
+        BOARD.innerHTML += '<td><div class="rot90r">'+piece+'</div></td>';
     }else if(rotate === 180){
-        BOARD.innerHTML += "<td><div class=\"rotate\">"+piece+"</div></td>";
+        BOARD.innerHTML += '<td><div class="rotate">'+piece+'</div></td>';
     }else{
-        BOARD.innerHTML += "<td><div class=\"notrot\">"+piece+"</div></td>";
+        BOARD.innerHTML += '<td><div class="notrot">'+piece+'</div></td>';
     }
 }
 
@@ -194,6 +195,19 @@ const displayKanjiInfo = function(kanji){
         //let piece = document.getElementById("board");
         xmlhttp.open("GET", "https://kanjiapi.dev/v1/kanji/" + kanji, true);
         xmlhttp.send();
+		
+		/* // using fetch
+		fetch("https://kanjiapi.dev/v1/kanji/" + kanji).then((resp) => {
+			let jsonResponse = JSON.parse(this.responseText);
+            KANJI.innerHTML += "<article><h4>"
+                    +jsonResponse.kanji+" - "+jsonResponse.meanings+"</h4><p>"
+                    +jsonResponse.stroke_count+" tahů, ročník "+jsonResponse.grade+", JLPT "+jsonResponse.jlpt+", U+"+jsonResponse.unicode.toUpperCase()
+                    +"</p><p><strong>Onjómi:</strong> "+jsonResponse.on_readings
+                    +"</p><p><strong>Kunjómi:</strong> "+jsonResponse.kun_readings
+                    +"</p><p><strong>RTK mnemonika:</strong> "+jsonResponse.heisig_en
+                    +"</article>";
+		});
+		*/
     }
 }
 
@@ -286,6 +300,18 @@ const displayPieceInfo = function(piece){
         }else{
             document.getElementById("promotion").innerHTML = "<h4>Vybraný kámen nepovyšuje.</h4>";
         }
+		
+		/* // using fetch () - no returning data out, only sequential processing culminating in a side effect
+		
+		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+pieceMap[piece]).then((resp) => {
+			document.getElementById("promotion").innerHTML = resp;
+		});
+		fetch("https://eso.vse.cz/~getj00/sp1/include/pieces/"+pieceMap[promotionMap[piece]]).then((resp) => {
+			document.getElementById("promotion").innerHTML = resp;
+		});
+		*/
+		
+		
     }
 }
 
@@ -342,6 +368,10 @@ export const registerDragDropListeners = function(boardWidth, boardHeight){
             });
         }
     }
+	// also need to check captured pieces if loading a state
+	document.getElementById("captured").forEach(addEventListener("dragstart", (ev) => {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }));
 }
 
 // ATM, the entire element is dragged into the target element, making a hole at it's original spot.
@@ -390,6 +420,7 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
                 if(selectedPieceDiv == null){
                     if(curCell.innerText != "　" && curCell.innerText != ""){ // prevent capturing pieces with an empty piece
                         selectedPieceDiv = curCell.children[0];
+						// selectedPieceDiv  COLOR <!!!!!!!!!!!!!!!!
                     }else{
                         selectedPieceDiv = null; // deselect any previously selected piece
                     }
@@ -421,7 +452,12 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
             */
         }
     }
-
+	// also need to check captured pieces if loading a state (note, not final structure)
+	document.getElementById("captured").forEach((element, index) => {
+		element.addEventListener("click", (ev) => {
+			selectedPieceDiv = element;
+		}
+	}));
 }
 
 /**
@@ -429,11 +465,13 @@ export const registerPieceSelectListeners = function(boardWidth, boardHeight){
 */
 export const registerButtonListeners = function(boardWidth, boardHeight){
     document.getElementById("btnPromote").addEventListener("click", (ev) => {
-        let piece = selectedPieceDiv.innerText;
-        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
-            selectedPieceDiv.innerText = promotionMap[piece];
-            selectedPieceDiv.classList.toggle("promoted");
-        }
+        if(selectedPieceDiv != null){ // nothing selected
+			let piece = selectedPieceDiv.innerText;
+			if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+				selectedPieceDiv.innerText = promotionMap[piece];
+				selectedPieceDiv.classList.toggle("promoted");
+			}
+		}
     });
     document.getElementById("btnPromote").addEventListener("drop", (ev) => { // this button doubles as a drop zone
         ev.preventDefault();
@@ -445,6 +483,19 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
         }
     });
     
+	document.getElementById("btnRotate").addEventListener("click", (ev) => {
+        let piece = selectedPieceDiv.innerText;
+        if(piece != "　" && piece != "" && promotionMap[piece] != ""){
+			if(selectedPieceDiv.classList.contains("rotate")){ // maybe nuke notrot, was just for visual alignment
+				selectedPieceDiv.classList.remove("rotate");
+				selectedPieceDiv.classList.add("notrot");
+			} else if(selectedPieceDiv.classList.contains("notrot")){
+				selectedPieceDiv.classList.remove("notrot");
+				selectedPieceDiv.classList.add("rotate");
+			}
+        }
+    });
+	
     document.getElementById("btnDeselect").addEventListener("click", (ev) => { // so that no accidental moves happen
         selectedPieceDiv = null;
         displayPieceInfo("");
@@ -455,7 +506,6 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
         localStorage.setItem("boardState", BOARD.innerHTML);
         localStorage.setItem("capturedState", CAPTURED.innerHTML);
         // the HTML of the board is actually too big for a cookie
-        //document.cookie = "boardState=" + BOARD.innerHTML + ";capturedState=" + CAPTURED.innerHTML + ";max-age=" + 30*24*3600;
     });
     document.getElementById("btnLoad").addEventListener("click", (ev) => {
         let resBoard = localStorage.getItem("boardState");
@@ -466,20 +516,10 @@ export const registerButtonListeners = function(boardWidth, boardHeight){
         }
         registerDragDropListeners(boardWidth, boardHeight);
         registerPieceSelectListeners(boardWidth, boardHeight);
-        /*
-        let cookieArr = document.cookie.split(";");
-        for(let i = 0; i < cookieArr.length; i++) {
-            let cookiePair = cookieArr[i].split("=");
-            if(cookiePair[0].trim() == "boardState"){
-                BOARD.innerHTML = cookiePair[1];
-            }else if(cookiePair[0].trim() == "capturedState"){
-                CAPTURED.innerHTML = cookiePair[1];
-            }
-        }
-        */
     });
-
 }
 
 
-
+// color selected piece (click)
+// auto load saved state if exists
+// reset via button (state), message box - confirm()
