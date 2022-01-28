@@ -13,36 +13,23 @@
     <div class="container">
         <div class="left">
             <h1>Weather forecast</h1>
-            <div class="form">
+            <div id="form">
                 <input type="text" id="city" placeholder="Enter the name of the city" />
                 <h2>Or choose from the list</h2>
                 <p>
-                    <select class="select" name="cityes">
-                        <option value="Prague">Praha</option>
-                        <option value="Brno">Brno</option>
-                        <option value="Ostrava">Ostrava</option>
-                        <option value="Pilsen">Plzeň</option>
-                        <option value="Liberec">Liberec</option>
-                        <option value="Olomouc">Olomouc</option>
-                        <option value="České Budějovice">České Budějovice</option>
-                        <option value="Usti nad Labem">Ústí nad Labem</option>
-                        <option value="Bratislava">Bratislava</option>
-                        <option value="Moscow">Moskva</option>
-                        <option value="Berlin">Berlín</option>
-                        <option value="Vienna">Vídeň</option>
-                        <option value="Budapest">Budapešť</option>
-                        <option value="Warsaw">Varšava</option>
-                        <option value="Los Angeles">Los Angeles</option>
+                    <select id="select" name="cityes">
                     </select>
+                    <button id="removeCityBtn">Remove the city</button>
                 </p>
-                <button id="cityB" onclick="showDateTime();">OK</button>
+                <button id="removeAllBtn">Clear All</button>
+                <button id="showResultBtn">OK</button>
             </div>
 
 
             <p class="text">Today</p>
 
             <div id="panelNow">
-                <div class="day">
+                <div class="day dayToday">
                     <img id="iconTempNow" /><br>
                     <div id="tempNow"></div>
                 </div>
@@ -65,7 +52,6 @@
                     <p id="day2"></p>
                     <img id="iconTemp2" /><br>
                     <div id="tempDay2"></div>
-                    <!-- <div id="currentDate2"></div> -->
                     <div id="tempNight2"></div>
                 </div>
 
@@ -73,7 +59,6 @@
                     <p id="day3"></p>
                     <img id="iconTemp3" /><br>
                     <div id="tempDay3"></div>
-                    <!-- <div id="currentDate3"></div> -->
                     <div id="tempNight3"></div>
                 </div>
 
@@ -81,7 +66,6 @@
                     <p id="day4"></p>
                     <img id="iconTemp4" /><br>
                     <div id="tempDay4"></div>
-                    <!-- <div id="currentDate4"></div> -->
                     <div id="tempNight4"></div>
                 </div>
             </div>
