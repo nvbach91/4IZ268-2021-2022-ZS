@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Series Tracker</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/~nerv01/sp2/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/~nerv01/sp2/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/~nerv01/sp2/favicon-16x16.png">
+
+    <link rel="manifest" href="/~nerv01/sp2/site.webmanifest">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
+</head>
+
+<body>
+    <div id="loading">
+        <img src="assets/film-frames.png" alt="Loading spinner">
+    </div>
+    <header>
+        <div id="logo">
+            <span>Series Tracker</span>
+        </div>
+        <div id="search-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="search-input-box" placeholder="Zadej název seriálu &#128269" autocomplete="off">
+            </div>
+        </div>
+        <div id="settings">
+            <button id="clear-local-storage">
+                <span class="material-icons">delete</span>
+                <span>Smazat uložené seriály</span>
+            </button>
+            <button id='insert-dummy-data'>
+                <span class="material-icons">data_object</span>
+                <span>Vložit dummy data</span>
+            </button>
+        </div>
+    </header>
+    <main>
+        <div id="search-results-container">
+
+        </div>
+        <div id="saved-shows-container">
+
+            <!-- ALL SAVED SHOWS ARE HERE -->
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

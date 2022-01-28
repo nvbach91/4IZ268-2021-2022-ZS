@@ -1,0 +1,145 @@
+/* KOMPONENTA SAVED SHOW */
+
+.saved-tvshow-wrapper {    
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.saved-tvshow-container {    
+    min-width: 1200px;
+    max-width: 60%;
+}
+
+.saved-tvshow-container button {
+    border-radius: 20px;
+}
+
+.saved-tvshow-wrapper *{
+    width: 100%;
+}
+
+.saved-tvshow-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+/* HLAVNÍ NADPIS */
+.saved-tvshow-header h1 {
+    margin: 0px;
+    font-size: 68px;
+    width: fit-content;    
+}
+
+.saved-tvshow-header span {    
+    font-size: 48px;
+    font-weight: bold;
+    width: fit-content;
+}
+
+
+/* Hlavní ovládací tlačítka */
+.control-buttons-container {
+    display: flex;
+}
+
+.control-buttons-container * {
+    padding: 5px;
+}
+
+.control-buttons-container .control-buttons-spacer  {
+    width: 100%;
+}
+
+/* Tlačítka */
+.saved-tvshow-wrapper button {    
+    width: max-content;
+    border: none;
+    background-color: unset;
+    display: flex;
+    flex-direction: row;        
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.control-buttons-container span {
+    white-space: pre;
+  }
+
+.saved-tvshow-wrapper button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+/* NAPDPISY SÉRIÍ */
+.season-header-container {
+    display: flex;
+    /* TODO
+    flex-direction: row;
+    justify-content: space-between;
+    */
+}
+
+.season-header-container h2 {
+    margin: 0px;
+    font-size: 32px;    
+}
+
+.season-header-settings {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.season-header-settings {
+    white-space: pre;
+}
+
+
+/* PROGRESS BAR */
+/* Popisek progress baru */
+.saved-tvshow-wrapper .progress-bar-wrapper {    
+    display: flex;
+    align-items: center;
+}
+
+.saved-tvshow-wrapper .progress-bar-box-outer, .saved-tvshow-wrapper .progress-bar-box-inner {    
+    border-radius: 20px;
+    height: 50px;    
+}
+
+/* TABLE */
+.saved-show-season-wrapper {
+    padding: 20px 0px;
+}
+
+.saved-show-season-wrapper table {
+    font-size: 24px;
+}
+
+.saved-show-season-wrapper table * {
+    padding: 5px 20px
+}
+
+.saved-show-season-wrapper table tr:hover {
+    background-color: lightgray;
+}
+
+.saved-show-season-wrapper table td:nth-child(1) {
+    width: fit-content;
+    font-weight: bolder;    
+}
+
+.saved-show-season-wrapper table td:nth-child(3) * {
+    width: 30px;
+    height: 30px;
+}
+
+.seen-icon {
+    color: darkgreen;
+}
+
+.not-yet-seen {
+    color: darkred;
+}

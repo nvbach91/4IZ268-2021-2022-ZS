@@ -1,0 +1,79 @@
+/* KOMPONENTA SHAVED SHOWS */
+#saved-shows-container {
+    height: calc(100vh - 80px);
+    overflow: auto;
+}
+#saved-shows-container > div{
+    min-width: 1200px;
+    
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: auto;
+}
+
+.saved-show-tile-wrapper:hover img {
+    transform: scale(1.03);
+    
+}
+
+.saved-show-tile-wrapper {
+    width: fit-content;    
+    height: fit-content;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+
+
+.saved-show-tile-wrapper h2 {
+    margin: 0px;
+    text-overflow: clip;
+}
+
+
+.saved-show-container {
+    cursor: pointer;
+}
+.saved-show-container img {
+    width: 250px;
+    height: 375px;
+    border-radius: 10px;
+}
+
+.saved-show-info-wrapper {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+/* ÚPRAVA KOMPONENTY PROGRESS BAR V SAVED SHOWS */
+.progress-bar-box-outer {
+    height: 20px;    
+    border-radius: 20px;   
+    width: 100%px;
+}
+
+.saved-show-info-wrapper .progress-bar-box-inner {
+    height: 20px;
+    border-radius: 10px;
+    
+}
+.saved-show-info-wrapper .progress-bar-wrapper span {    
+    color: black;
+    font-weight: bold;
+}
+
+.saved-show-info-wrapper .progress-bar-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+/* Úprava hash error stránky*/
+#error-container * {
+    flex-direction: column;
+}
