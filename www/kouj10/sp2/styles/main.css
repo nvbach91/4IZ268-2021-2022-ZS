@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Hind+Siliguri&family=Istok+Web&family=Paytone+One&family=Road+Rage&family=Volkhov&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Hind Siliguri", sans-serif;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+  text-align: center;
+  font-family: "Anton", sans-serif;
+  letter-spacing: 0.3px;
+}
+
+h1 {
+  color: white;
+  font-size: 50px;
+  position: absolute;
+  left: 25px;
+  line-height: 100px;
+  margin: 0;
+  text-shadow: 2px 2px tomato;
+}
+
+body {
+  margin: 0;
+  background-color: #1e1d257d;
+}
+
+.spinner {
+  animation-name: spinner;
+  animation-iteration-count: infinite;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+}
+
+.spinner-wrapper {
+  color: black;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+main {
+  margin: 10px 145px;
+}
+
+header,
+footer {
+  height: 100px;
+  width: 100%;
+  background-color: #313038;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  z-index: 5;
+  position: sticky;
+  top: 0;
+  border-bottom: 4px solid tomato;
+}
+
+footer {
+  border-top: 4px solid tomato;
+}
+
+a {
+  color: tomato;
+}
+
+.database-link {
+  color: white;
+}
+
+.add-game-form {
+  height: 40px;
+}
+
+.add-game-form input {
+  font-size: 22pt;
+  height: 40px;
+  width: 350px;
+}
+.note-div {
+  text-align: justify;
+  overflow: auto;
+}
+
+.note-textarea {
+  flex-grow: 1;
+  width: 325px;
+  z-index: 1;
+}
+
+.results,
+textarea {
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.747), 0 0 40px 5px black;
+}
+
+/*výsledky hledání*/
+
+#add {
+  height: 40px;
+  font-size: 18pt;
+}
+
+.results {
+  background-color: hsla(0, 0%, 74%, 0.961);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -42%);
+  width: 50%;
+  height: auto;
+  z-index: 4;
+}
+
+.results h2 {
+  margin: 10px 10px 0 10px;
+}
+
+.game-element-wrapper {
+  display: flex;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.game-element-wrapper:nth-child(2n) {
+  background-color: rgba(255, 255, 255, 0.961);
+}
+
+.remove-button,
+.add-game-button {
+  position: absolute;
+  right: 10px;
+}
+
+.results .remove-button {
+  line-height: 36px;
+}
+
+.remove-button-wrapper {
+  margin: 10px;
+}
+
+.image {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+}
+.game-container {
+  display: flex;
+  position: relative;
+  margin: 10px;
+  width: calc(50% - 20px);
+  height: 350px;
+  background-color: white;
+}
+.info-container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 250px);
+  margin: 5px 10px;
+}
+.info-container .remove-button {
+  position: absolute;
+  top: 10px;
+}
+
+#game-list {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 550px;
+}
+
+.metascore span {
+  color: white;
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+
+.na {
+  background-color: black;
+}
+
+.good {
+  background-color: #66cc33;
+}
+
+.medium {
+  background-color: #ffcc33;
+}
+
+.bad {
+  background-color: #ff0000;
+}
+
+.id {
+  display: none;
+}
+
+.fas {
+  color: rgba(41, 41, 41, 0.596);
+}
+
+.fa-search {
+  color: black;
+}
+
+.fa-pencil-alt {
+  z-index: 2;
+  position: relative;
+  margin: 10px 0;
+}
+
+.fa-gamepad {
+  color: black;
+}
+
+.fas:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.fa-plus:hover {
+  color: #66cc33;
+}
+
+.page-button-wrapper {
+  height: autp;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 5px 0;
+}
+
+.page-button {
+  text-align: center;
+  font-weight: bold;
+  margin: 0 5px;
+  font-size: 20px;
+  height: 28px;
+  width: 20px;
+}
+
+.page-button:hover {
+  cursor: pointer;
+  border-bottom: 3px solid tomato;
+}
+
+.game-container #active {
+  color: tomato;
+}
+
+.results #active {
+  border-bottom: 3px solid tomato;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
