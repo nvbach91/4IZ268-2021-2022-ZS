@@ -4,14 +4,32 @@
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 0;
     margin: 0;
     background-image: url(https://source.unsplash.com/1600x900/?cloudy);
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-y: hidden;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+img {
+    max-width: 50px;
+}
+
+.logo {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
 }
 
 .app {
@@ -20,15 +38,26 @@ body {
     margin: 1em
 }
 
+.search-box {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2em;
+    width: 100%;
+    margin: 10px 0;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+}
+
 .search {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: white;
     border-radius: 20px;
-    padding: 0.25em;
+    padding: 0;
     width: 100%;
-    margin-bottom: 10px;
+    margin: 10px 0;
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
@@ -58,22 +87,78 @@ body {
     width: 2.5em;
     height: 2.5em;
     cursor: pointer;
+    transition: 0.25s all ease;
+}
+
+.search-button:hover {
+    margin-bottom: 0.5em;
+    color: cadetblue;
 }
 
 
 .weather {
+    display: none;
     border-radius: 20px;
     padding: 2em;
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    max-height: 300px;
 }
 
 h1 {
     font-size: large;
 }
 
-.temperature {
-    font-weight: bold;
+h2 {
     font-size: xx-large;
+}
+
+.overview {
+    display: flex;
+    align-items: center;
+}
+
+.perceived {
+    font-size: smaller;
+    margin-bottom: 10px;
+}
+
+.temperature {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.units {
+    display: flex;
+    flex-direction: column;
+}
+
+.celsius, .fahrenheit {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    transition: .5s all ease;
+}
+
+.celsius:hover, .fahrenheit:hover {
+    transform: scale(1.2);
+}
+
+.ap-dropdown-menu {
+    width: 110%;
+    margin: 0.5em auto;
+    border-radius: 20px;
+    padding: 0;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    max-height: 150px;
+}
+
+a {
+    text-decoration: none;
 }

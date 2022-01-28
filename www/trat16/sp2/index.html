@@ -10,33 +10,57 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <script src="./assets/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/places.js/1.19.0/places.js"
+        integrity="sha512-uPjo2ebEx6iVEAt81PXcMc/rUcXRHM3Ym/vEu0x4Bmp6gOCRKzmZRu2HNCmlcOGg3pt9TyHyl59JyLarQbROeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/main.js"></script>
 </head>
 
 <body>
-    <div class="app">
-        <div class="search">
-            <input type="text" class="search-bar" placeholder="vyhledat">
-            <button class="search-button">
-                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewbox="0 0 24 24" height="1.5em"
-                    width="1.5em" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
-                    </path>
-                </svg>
-            </button>
-        </div>
-        <div class="weather">
-            <h1 class="location">Počasí v Praze</h1>
-            <div class="temperature">5°C</div>
-            <div class="perceived"></div>
-            <img src="#" alt="" class="icon">
-            <div class="conditions">Oblačno</div>
-            <div class="wind">Rychlost větru: 6 km/h</div>
-            <div class="humidity">Vlhkost: 20%</div>
+    <a class = "logo" href="#">
+        <img src="https://www.pngall.com/wp-content/uploads/11/Weather-No-Background.png" alt="logo">
+        Super Weather
+    </a>
+    <div class="content">
+        <div class="app">
+            <div class="weather">
+                <h1 class="location">Počasí v Praze</h1>
+                <div class="overview">
+                    <img src="http://openweathermap.org/img/wn/04d.png" alt="ikona-oblačno" class="icon">
+                    <div class="temperature">
+                        <h2 class="current-temperature">5°</h2>
+                        <div class="units">
+                            <button class="celsius" type="button">C</button>
+                            <button class="fahrenheit" type="button">F</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="perceived"></div>
+                    <div class="conditions">oblačno</div>
+                    <div class="wind">rychlost větru: 6 km/h</div>
+                    <div class="humidity">vlhkost: 20%</div>
+                </div>
+            </div>
+            <div class="search-box">
+                <button class="position" type="button">
+                    Použít aktuální polohu
+                </button>
+                <div class="search">
+                    <input type="text" class="search-bar" placeholder="vyhledat">
+                    <button class="search-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewbox="0 0 24 24"
+                            height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </body>
