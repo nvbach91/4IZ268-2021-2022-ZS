@@ -1,0 +1,147 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.container{
+    max-width: 1140px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: 5px solid rgb(0, 102, 255);
+    padding: 30px;
+	background-color: rgb(146, 146, 141);
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+input {
+    font-size: 16px;
+    font-weight: bold;
+    border: solid 3px rgb(0, 102, 255);
+    max-width: 300px;
+    height: 45px;
+    border-radius: 20px;
+    padding-left: 20px;
+    z-index: 9999999;
+    margin: 15px 0 0 0;
+}
+
+button {
+    height: 40px;
+    width: 100px;
+    border: solid 3px rgb(0, 102, 255);
+    border-radius: 20px;
+    background: #1b598b;
+    color: #fff;
+}
+
+button:hover {
+    background: rgb(0, 102, 255);
+}
+
+h2{
+    margin: 10px 0 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#form {
+	width: 239px;
+	margin: 0 auto;
+}
+#select {
+    display: block;
+    font-size: 16px;
+    line-height: 1;
+    padding: 10px;
+    width: 233px;
+    box-sizing: border-box;
+    margin: 0 0 10px 0;
+    border: solid 3px rgb(0, 102, 255);
+    border-radius: 20px;
+}
+
+.select:hover {
+    border-color: #000;
+}
+
+.select:focus {
+    border-color: rgb(187, 187, 187);
+}
+
+.select option {
+    font-weight: normal;
+}
+
+#removeCityBtn{
+	margin-bottom: 10px;
+}
+
+.day {
+    border-radius: 15px;
+    text-align: center;
+    padding: 15px;
+    width: 200px;
+}
+
+.day, #demo {
+    background-color: rgb(13, 66, 87);
+}
+
+#panel{
+    display: none;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-around;
+}
+
+#panelNow{
+	display: none;
+	width: 16%;
+	margin: 0 auto;
+}
+
+#day0, #day1, #day2, #day3, #day4 {
+    font-size: 20px;
+    color: #fff;
+}
+#tempNow{
+	font-size: 20px;
+    color: rgb(245, 89, 89);
+}
+
+#currentDate1, #currentDate2, #currentDate3, #currentDate4, #currentDate0{
+    font-size: 13px;
+    color: #66faff;
+}
+
+#tempNight1, #tempNight2, #tempNight3, #tempNight4 {
+    font-size: 17px;
+    color: #2b83ff;
+}
+
+#tempDay1, #tempDay2, #tempDay3, #tempDay4 {
+    font-size: 17px;
+    color: rgb(245, 89, 89);
+}
+
+.text{
+    font-size: 35px;
+    color: #06295e;
+    text-shadow: 1px 1px 2px black, 0 0 1px #ffffff;
+    text-align: center;
+}
+
+#cityC {
+    color: #06295e;
+    font-size: 26px;
+    padding: 10px;
+}

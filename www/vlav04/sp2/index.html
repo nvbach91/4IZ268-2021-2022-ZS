@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather forecast</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <h1>Weather forecast</h1>
+            <div id="form">
+                <input type="text" id="city" placeholder="Enter the name of the city" />
+                <h2>Or choose from the list</h2>
+                <p>
+                    <select id="select" name="cityes">
+                    </select>
+                    <button id="removeCityBtn">Remove the city</button>
+                </p>
+                <button id="removeAllBtn">Clear All</button>
+                <button id="showResultBtn">OK</button>
+            </div>
+
+
+            <p class="text">Today</p>
+
+            <div id="panelNow">
+                <div class="day dayToday">
+                    <img id="iconTempNow" /><br>
+                    <div id="tempNow"></div>
+                </div>
+            </div>
+
+            <p class="text">Forecast for 4 days<br><span id="cityC"></span>
+            <p>
+
+            <div id="panel">
+
+                <div class="day">
+                    <p id="day1"></p>
+                    <img id="iconTemp1" /><br>
+                    <div id="tempDay1"></div>
+                    <div id="currentDate1"></div>
+                    <div id="tempNight1"></div>
+                </div>
+
+                <div class="day">
+                    <p id="day2"></p>
+                    <img id="iconTemp2" /><br>
+                    <div id="tempDay2"></div>
+                    <div id="tempNight2"></div>
+                </div>
+
+                <div class="day">
+                    <p id="day3"></p>
+                    <img id="iconTemp3" /><br>
+                    <div id="tempDay3"></div>
+                    <div id="tempNight3"></div>
+                </div>
+
+                <div class="day">
+                    <p id="day4"></p>
+                    <img id="iconTemp4" /><br>
+                    <div id="tempDay4"></div>
+                    <div id="tempNight4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
+        integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="assets/js/skript.js"></script>
+</body>
+
+</html>
