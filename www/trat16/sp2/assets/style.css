@@ -6,16 +6,15 @@
 body {
     padding: 0;
     margin: 0;
-    background-image: url(https://source.unsplash.com/1600x900/?cloudy);
+    background-image: url(http://cdn.wallpapersafari.com/19/92/JICdo1.jpg);
     background-repeat: no-repeat;
-    background-size: cover;
-    overflow-y: hidden;
+    background-size:cover;
+    height: 100vh;
 }
 
 .content {
     display: flex;
     justify-content: center;
-    height: 100vh;
     margin: 0;
 }
 
@@ -30,6 +29,7 @@ img {
     align-items: center;
     color: white;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .app {
@@ -159,6 +159,22 @@ h2 {
     max-height: 150px;
 }
 
-a {
-    text-decoration: none;
+.position {
+    color: cadetblue;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: .5s color ease;
+}
+
+.position:hover {
+    color: black;
+}
+
+footer {
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    bottom: 0;
 }
