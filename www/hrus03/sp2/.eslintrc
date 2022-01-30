@@ -18,6 +18,7 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": 0,
     "vue/no-unused-vars": 0,
+    "vue/multi-word-component-names": 0,
     "vue/attribute-hyphenation": [2, "never", {
       "ignore": ["data-", "aria-", "slot-scope"]
     }],

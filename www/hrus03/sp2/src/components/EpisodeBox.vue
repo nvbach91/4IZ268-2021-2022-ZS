@@ -4,11 +4,11 @@
     class="podcast-box"
     :to="{
       name: 'episode-detail',
-      params: {
-        episodeId: episode.id
-      }
+      params: {episodeId: episode.id},
     }"
+    @click="onEpisodeDetail"
   >
+    <EpisodeFavoriteButton :episodeId="episode.id" />
     <img
       src="/images/logo.png"
       class="podcast-box__image"
@@ -35,10 +35,10 @@
     class="podcast-box podcast-box--skeleton"
     style="height: 118px"
   >
-    <div class="podcast-box__image" />
+    <div class="podcast-box__image skeleton" />
     <div class="podcast-box__content">
-      <div class="podcast-box__episode-number" />
-      <div class="podcast-box__title" />
+      <div class="podcast-box__episode-number skeleton" />
+      <div class="podcast-box__title skeleton" />
     </div>
   </div>
 </template>
@@ -47,20 +47,29 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { useFilters } from "@/composables/filters";
 import PodcastEpisode from "@/entitites/PodcastEpisode";
+import usePodcast from "@/composables/podcast";
+import EpisodeFavoriteButton from "@/components/EpisodeFavoriteButton.vue";
 
 export default defineComponent({
   name: 'EpisodeBox',
+  components: { EpisodeFavoriteButton },
   props: {
     episode: {
       type: Object as PropType<PodcastEpisode>,
       default: null
     }
   },
-  setup() {
+  setup(props) {
     const { dateFormat } = useFilters()
+    const { openEpisodeDetail } = usePodcast()
+
+    const onEpisodeDetail = () => {
+      openEpisodeDetail(props.episode)
+    }
 
     return {
-      dateFormat
+      dateFormat,
+      onEpisodeDetail
     }
   }
 });

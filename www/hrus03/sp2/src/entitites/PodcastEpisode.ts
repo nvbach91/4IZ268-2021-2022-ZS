@@ -5,7 +5,7 @@ export default class PodcastEpisode {
   content?: string;
   description?: string;
   duration: number;
-  id: string;
+  id: number;
   publishedAt: string;
   serialNumber: string;
   title: string;

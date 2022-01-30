@@ -96,11 +96,13 @@
         </div>
         <div>
           <p class="footer__copyright">
-            © 2021 <a
-              href="index.html"
+            © 2021 <router-link
+              :to="{name: 'home'}"
               class="underline"
               title="Algor Mortis"
-            >Algor Mortis</a>
+            >
+              Algor Mortis
+            </router-link>
           </p>
         </div>
       </div>

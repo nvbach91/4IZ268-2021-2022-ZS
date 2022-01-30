@@ -1,13 +1,17 @@
 <template>
   <header>
     <div class="header-wrapper">
-      <div class="header">
+      <div
+        class="header"
+        :class="{'navbar-visible': showNav}"
+      >
         <div class="container">
           <div class="header__content">
             <router-link
               :to="{name: 'home'}"
               class="header__logo"
               title="Algor Mortis"
+              @click="showNav = false"
             >
               <img
                 class="logo"
@@ -16,24 +20,31 @@
               >
             </router-link>
             <nav class="navbar">
-              <nav class="navbar">
-                <router-link :to="{name: 'episodes'}">
-                  Epizody podcastu
-                </router-link>
-                <a href="about-podcast.html">O podcastu</a>
-                <a href="about-us.html">O nás</a>
-                <a href="recommended/podcasts.html">Doporučujeme</a>
-                <a
-                  href="#donate"
-                  class="btn header__donate"
-                >Podpořit</a>
-              </nav>
+              <router-link
+                v-for="(item, i) in navigation"
+                :key="`NavItem-${i}`"
+                :to="item.to"
+                activeClass="active"
+                @click="showNav = false"
+              >
+                {{ item.label }}
+              </router-link>
+              <a
+                href="#donate"
+                class="btn header__donate"
+                @click="showNav = false"
+              >Podpořit</a>
             </nav>
-            <a
-              href="#donate"
+            <router-link
+              to="#donate"
               class="btn header__donate"
-            >Podpořit</a>
-            <button class="burger">
+            >
+              Podpořit
+            </router-link>
+            <button
+              class="burger"
+              @click="showNav = !showNav"
+            >
               <span />
             </button>
           </div>
@@ -42,3 +53,35 @@
     </div>
   </header>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  name: 'AppHeader',
+  setup() {
+    const showNav = ref(false)
+    const navigation = [
+      {
+        label: 'Epizody podcastu',
+        to: { name: 'episodes' }
+      },
+      {
+        label: 'O podcastu',
+        to: { name: 'about-podcast' }
+      },
+      {
+        label: 'O nás',
+        to: { name: 'about-us' }
+      },
+      {
+        label: 'Doporučujeme',
+        to: { name: 'recommended' }
+      },
+    ]
+
+    return { navigation, showNav }
+  }
+});
+</script>
+

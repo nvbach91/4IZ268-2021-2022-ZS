@@ -31,6 +31,7 @@
     --color-grey-lighter: #F3F4F6;
     --color-grey-lightest: #F9FAFB;
     --color-text: var(--color-grey-dark);
+    --color-error: #CF6679;
 
     /* Text sizes */
     --text-xs: 0.75rem;
@@ -200,6 +201,7 @@
 
     /* ------ Button ------ */
     .btn {
+        display: inline-block;
         padding: var(--space-2) 1.125rem;
         border: 2px solid var(--color-dark);
         border-radius: 0.625rem;
@@ -336,7 +338,7 @@
 
         .navbar {
             position: fixed;
-            top: 69px;
+            top: 65px;
             left: 0;
             width: 100%;
             height: calc(100% - 69px);
@@ -612,7 +614,34 @@
         margin: var(--space-4) auto 0;
     }
 
+    .episode-star {
+        font-size: var(--text-xl);
+        color: var(--color-dark);
+        cursor: pointer;
+    }
+    .episode-star__label {
+        padding-left: var(--space-3);
+    }
+    .episode-star:hover:before {
+    }
+    .episode-star.active:before {
+        font-weight: 900;
+    }
+
+    .podcast-box .episode-star {
+        position: absolute;
+        top: var(--space-5);
+        right: var(--space-5);
+        display: none;
+        z-index: 1;
+    }
+
+    .podcast-box:hover .episode-star, .podcast-box .episode-star.active {
+        display: block;
+    }
+
     .podcast-box {
+        position: relative;
         display: flex;
         align-items: center;
         width: 100%;
@@ -667,17 +696,10 @@
 
     .podcast-box--skeleton {
         position: relative;
-        pointer-events: none;
-    }
-
-    .podcast-box--skeleton .podcast-box__episode-number,
-    .podcast-box--skeleton .podcast-box__title,
-    .podcast-box--skeleton .podcast-box__image {
-        background: var(--color-grey-lighter);
-        animation: pulse 2s infinite;
     }
 
     .podcast-box--skeleton .podcast-box__image {
+        width: 100px;
         height: 100px;
     }
 
@@ -690,6 +712,28 @@
         width: 90%;
         height: 18px;
         margin-top: var(--space-1h);
+    }
+
+    .skeleton {
+        width: 100%;
+        background: var(--color-grey-lighter);
+        animation: pulse 2s infinite;
+    }
+
+    .skeleton--title {
+        display: inline-block;
+        max-width: 700px;
+        height: 33px;
+        margin: auto;
+    }
+    .skeleton--episode-number {
+        display: inline-block;
+        max-width: 250px;
+        height: 20px;
+        margin: auto;
+    }
+    .skeleton--description {
+        height: 54px;
     }
 
     @media only screen and (min-width: 1024px) {
@@ -870,7 +914,7 @@
 
     .page-title__small {
         display: block;
-        margin-top: var(--space-2);
+        margin: var(--space-2) 0;
         font-size: var(--text-xl);
         color: var(--color-text)
     }
@@ -953,7 +997,10 @@
 
     .podcasts__header {
         display: flex;
+        flex-direction: column;
+        align-items: center;
         margin-bottom: var(--space-12);
+        row-gap: var(--space-8);
     }
 
     .podcasts__header label {
@@ -964,7 +1011,10 @@
 
     .podcasts__filters {
         display: flex;
+        flex-direction: column;
+        align-items: center;
         column-gap: var(--space-5);
+        row-gap: var(--space-5);
     }
 
     .podcasts__filters .input,
@@ -992,13 +1042,11 @@
 
     .podcasts__footer {
         display: flex;
+        flex-direction: column;
+        row-gap: var(--space-5);
         align-items: center;
         justify-content: space-between;
         margin-top: var(--space-12);
-    }
-
-    .podcasts__footer > div {
-        width: calc(100% / 3);
     }
 
     .podcasts__footer .paginator {
@@ -1019,6 +1067,10 @@
 
         .podcasts__grid .podcast-box__image {
             width: 60px;
+        }
+
+        .podcast-request-box--narrow {
+            order: 0;
         }
     }
 
@@ -1053,6 +1105,8 @@
 
     .podcast-request-box--narrow {
         max-width: 350px;
+        order: 1;
+        padding-top: var(--space-5);
     }
 
     @media only screen and (max-width: 1023px) {
@@ -1061,6 +1115,32 @@
             text-align: center;
         }
     }
+
+    @media only screen and (min-width: 800px) {
+        .podcasts__header {
+            flex-direction: row;
+            row-gap: 0;
+        }
+
+        .podcasts__filters {
+            flex-direction: row;
+            row-gap: 0;
+        }
+
+        .podcasts__footer {
+            flex-direction: row;
+            row-gap: 0;
+        }
+
+        .podcasts__footer > div {
+            width: calc(100% / 3);
+        }
+
+        .podcast-request-box--narrow {
+            order: 0;
+        }
+    }
+
 
     /* ------ Podcast detail ------ */
     .podcast-detail {
@@ -1075,12 +1155,20 @@
     }
 
     .podcast-detail__embed {
-        width: 100%;
         height: 200px;
         margin-top: var(--space-5);
+        border-radius: 5px;
+    }
+    .podcast-detail__embed iframe {
+        width: 100%;
+        height: 100%;
         border: 0;
         border-radius: 5px;
-        background: #EEEEEE;
+    }
+
+    .podcast-detail__favorite {
+        margin-top: var(--space-6);
+        user-select: none;
     }
 
     .podcast-detail__request {
@@ -1095,7 +1183,7 @@
 
     @media only screen and (min-width: 1024px) {
         .podcast-detail__other-episodes {
-            margin-top: var(--space-24);
+            margin-top: var(--space-10);
         }
     }
 
@@ -1135,7 +1223,7 @@
             justify-content: start;
         }
 
-        .other-episodes > div:last-child .other-episodes__title {
+        .other-episodes > div:nth-child(2) .other-episodes__title {
             justify-content: end;
         }
     }
@@ -1239,6 +1327,20 @@
         margin-bottom: var(--space-5);
     }
 
+    .form-error {
+        display: block;
+        margin-top: var(--space-1);
+        color: var(--color-dark);
+        font-size: var(--text-sm);
+    }
+
+    .form-sent {
+        margin-top: var(--space-10);
+        font-size: var(--text-lg);
+        font-weight: 600;
+        color: var(--color-dark);
+    }
+
     .label {
         display: inline-block;
         margin-bottom: var(--space-1h);
@@ -1252,6 +1354,10 @@
         border-radius: 0.3rem;
         font-family: var(--font-primary);
         font-size: var(--text-base);
+    }
+
+    .error {
+        border-color: var(--color-error);
     }
 
     .input:focus, .textarea:focus {

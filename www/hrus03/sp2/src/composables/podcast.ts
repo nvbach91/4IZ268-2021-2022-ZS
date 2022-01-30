@@ -1,10 +1,24 @@
 import { ref } from "vue";
-import { apiFetchEpisode, apiFetchEpisodes, apiFetchLatestEpisode } from "@/api/api";
+import { apiFetchEpisode, apiFetchEpisodes, apifetchStats } from "@/api/api";
 import { ApiFetchEpisodesInputType } from "@/types/api/ApiFetchEpisodesInputType";
 import { ApiFetchEpisodeInputType } from "@/types/api/ApiFetchEpisodeInputType";
 import PodcastEpisode from "@/entitites/PodcastEpisode";
 
-const latestEpisode = ref<PodcastEpisode>();
+const episodeDetail = ref<{
+  episode?: PodcastEpisode,
+  previousEpisode?: PodcastEpisode|null,
+  nextEpisode?: PodcastEpisode|null,
+}>({});
+const stats = ref<{
+  latestEpisode?: PodcastEpisode,
+  solvedCasesCount: number,
+  unsolvedCasesCount: number,
+  bonusCasesCount: number,
+}>({
+  solvedCasesCount: 0,
+  unsolvedCasesCount: 0,
+  bonusCasesCount: 0,
+});
 
 export default function usePodcast() {
   const isLoading = ref(false)
@@ -21,7 +35,6 @@ export default function usePodcast() {
     episodes: PodcastEpisode[],
     total: number
   }> => {
-    console.log({ params })
     toggleLoader(true)
     try {
       const { episodes, total } = await apiFetchEpisodes(params)
@@ -40,29 +53,50 @@ export default function usePodcast() {
     }
   }
 
-  const fetchLatestEpisode = async () => {
+  const fetchStats = async () => {
     try {
-      const episode = await apiFetchLatestEpisode()
-      latestEpisode.value = new PodcastEpisode(episode)
+      const result = await apifetchStats()
+      stats.value = {
+        solvedCasesCount: result.solved_episodes_count,
+        unsolvedCasesCount: result.unsolved_episodes_count,
+        bonusCasesCount: result.bonus_episodes_count,
+        latestEpisode: new PodcastEpisode(result.latest_episode),
+      }
     } catch (e) {
       console.error({ e })
     }
   }
 
   const fetchEpisode = async (id: ApiFetchEpisodeInputType["id"]) => {
+    toggleLoader(true)
+    if (!id) return
     try {
-      const episode = await apiFetchEpisode(id)
-      return new PodcastEpisode(episode)
+      const result = await apiFetchEpisode(id)
+      episodeDetail.value = {
+        episode: new PodcastEpisode(result.episode),
+        previousEpisode: result.previous_episode && new PodcastEpisode(result.previous_episode),
+        nextEpisode: result.next_episode && new PodcastEpisode(result.next_episode),
+      }
     } catch (e) {
       console.error({ e })
+    } finally {
+      toggleLoader(false)
     }
   }
 
+  const openEpisodeDetail = (episode: PodcastEpisode) => {
+    episodeDetail.value.episode = episode
+    episodeDetail.value.nextEpisode = null
+    episodeDetail.value.previousEpisode = null
+  }
+
   return {
-    latestEpisode,
+    episodeDetail,
+    stats,
     fetchEpisodes,
-    fetchLatestEpisode,
+    fetchStats,
     fetchEpisode,
     isLoading,
+    openEpisodeDetail
   }
 }

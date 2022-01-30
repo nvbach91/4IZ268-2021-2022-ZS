@@ -1,4 +1,4 @@
-import ApiPodcastEpisodeType from "@/types/api/ApiPodcastEpisodeType";
+import { ApiPodcastEpisodeType } from "@/types/api/ApiPodcastEpisodeType";
 
 export interface ApiFetchEpisodesResponseType {
   episodes: ApiPodcastEpisodeType[]

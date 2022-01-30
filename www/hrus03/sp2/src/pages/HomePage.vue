@@ -28,27 +28,48 @@
           Nový díl každý čtvrtek
         </h2>
         <nav class="stats">
-          <a
+          <router-link
+            :to="{
+              name: 'episodes',
+              params: {type: PodcastEpisodeTypeEnum.EPISODE_TYPE_SOLVED}
+            }"
             class="stats-item"
-            href="podcasts/solved.html"
           >
-            <div class="stats-item__number">3</div>
-            <div class="stats-item__label">vyřešené případy</div>
-          </a>
-          <a
+            <div class="stats-item__number">
+              {{ stats.solvedCasesCount || '-' }}
+            </div>
+            <div class="stats-item__label">
+              vyřešených případů
+            </div>
+          </router-link>
+          <router-link
+            :to="{
+              name: 'episodes',
+              params: {type: PodcastEpisodeTypeEnum.EPISODE_TYPE_UNSOLVED}
+            }"
             class="stats-item"
-            href="podcasts/unsolved.html"
           >
-            <div class="stats-item__number">3</div>
-            <div class="stats-item__label">nevyřešené případy</div>
-          </a>
-          <a
+            <div class="stats-item__number">
+              {{ stats.unsolvedCasesCount || '-' }}
+            </div>
+            <div class="stats-item__label">
+              nevyřešených případů
+            </div>
+          </router-link>
+          <router-link
+            :to="{
+              name: 'episodes',
+              params: {type: PodcastEpisodeTypeEnum.EPISODE_TYPE_BONUS}
+            }"
             class="stats-item"
-            href="podcasts/bonus-content.html"
           >
-            <div class="stats-item__number">2</div>
-            <div class="stats-item__label">bonusové epizody</div>
-          </a>
+            <div class="stats-item__number">
+              {{ stats.bonusCasesCount || '-' }}
+            </div>
+            <div class="stats-item__label">
+              bonusových epizod
+            </div>
+          </router-link>
         </nav>
       </div>
     </div>
@@ -57,24 +78,34 @@
     <div class="container-lg">
       <div class="latest-episode">
         <h2>Nejnovější díl</h2>
-        <EpisodeBox :episode="latestEpisode" />
+        <EpisodeBox :episode="stats.latestEpisode" />
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import EpisodeBox from "@/components/EpisodeBox.vue";
 import usePodcast from "@/composables/podcast";
+import { PodcastEpisodeTypeEnum } from "@/types/PodcastEpisodeTypeEnum";
+import { useHeadResolver } from "@/composables/head";
 
 export default defineComponent({
   name: 'HomePage',
   components: { EpisodeBox },
   setup() {
-    const { latestEpisode } = usePodcast()
+    const { updateHead } = useHeadResolver()
+    const { stats } = usePodcast()
+
+    updateHead({
+      title: 'Algor Mortis - True crime podcast',
+      meta: { description: 'True crime podcast hostován Anet a Natálií.' }
+    })
+
     return {
-      latestEpisode
+      stats,
+      PodcastEpisodeTypeEnum
     }
   }
 });

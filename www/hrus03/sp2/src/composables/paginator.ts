@@ -36,13 +36,14 @@ export default function usePaginator() {
   const isFirstPage = computed(() => currentPage.value === 1)
   const isLastPage = computed(() => currentPage.value === totalPages.value)
   const showLastPageSeparator = computed(() => currentPage.value <= totalPages.value - maxPages.value - 1)
+  const showLoadMore = computed(() => currentPage.value < totalPages.value)
   const isActive = (page: number) => page === currentPage.value
-  const getPageLink = (page) => ({
+  const getPageLink = (page: string) => ({
     params: router.currentRoute.value.params,
     query: { ...router.currentRoute.value.query, page },
   })
-  const changePage = async (page) => {
-    await router.replace(getPageLink(page))
+  const changePage = async (page: string|number) => {
+    await router.replace(getPageLink(page.toString()))
   }
 
   return {
@@ -55,6 +56,7 @@ export default function usePaginator() {
     isFirstPage,
     isLastPage,
     showLastPageSeparator,
+    showLoadMore,
     isActive,
     changePage,
     getPageLink,

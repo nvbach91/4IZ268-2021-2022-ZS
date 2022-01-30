@@ -1,7 +1,7 @@
 import { PodcastEpisodeTypeEnum } from "@/types/PodcastEpisodeTypeEnum";
 
 export interface ApiPodcastEpisodeType {
-  id: string
+  id: number
   title: string
   type: PodcastEpisodeTypeEnum
   serial_number: string
