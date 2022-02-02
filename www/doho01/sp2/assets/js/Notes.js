@@ -1,7 +1,6 @@
 import Storage from "./storage.js"
 import NotesView from "./NotesView.js";
 
-//const marker = "notes";
 export default class Notes {
     constructor(root, marker) {
         this.notes = [];

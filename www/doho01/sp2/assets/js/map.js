@@ -1,5 +1,6 @@
+
 //initialize map
-window.initMap = function() {
+function initMap() {
 
     let myLatlng = { lat: 60.073658, lng: 14.418540 };
     let markers = [];
@@ -31,11 +32,49 @@ window.initMap = function() {
         anchor: new google.maps.Point(6, 6),
     };
     
+    
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = JSON.parse(localStorage.key(i));
+        
+        const marker = new google.maps.Marker({
+            position: new google.maps.LatLng(key.lat, key.lng),
+            map,
+            title: "Click to zoom",
+            icon: svgMarker,
+            label: `${i + 1}`,
+            animation: google.maps.Animation.DROP,
+        });
+        const noteWindow = new google.maps.InfoWindow();
+
+        markers.push(marker);
+        window.setTimeout(() => {
+            geocodeLatLng(map, noteWindow, marker);
+        }, i * 2000);
+
+
+        marker.addListener("click", () => {
+        
+            sessionStorage.setItem('helper', JSON.stringify(marker.position.toJSON()));
+            history.pushState(null, null, "#"+marker.position.toUrlValue());
+
+            //after click it also opens a note window
+            noteWindow.open({
+                anchor: marker,
+                shouldFocus: true,
+            });
+
+            //listens for the click event on a marker to zoom the map when the marker is clicked
+            map.setZoom(8);
+            map.panTo(marker.getPosition());
+            toggleBounce(marker);
+        });
+
+    }
+
     //when click on map add marker
     map.addListener('click', (event) => {
         addMarker(event.latLng);
     });
-
 
     //add marker (automatically) function
     function addMarker(coords) {     
@@ -46,7 +85,9 @@ window.initMap = function() {
             position: coords,
             map,
             title: "Click to zoom",
-            icon: svgMarker
+            icon: svgMarker,
+            label: `${markers.length + 1}`,
+            animation: google.maps.Animation.DROP,
         });
 
         const noteWindow = new google.maps.InfoWindow();
@@ -81,52 +122,23 @@ window.initMap = function() {
             //listens for the click event on a marker to zoom the map when the marker is clicked
             map.setZoom(8);
             map.panTo(marker.getPosition());
+            toggleBounce();
         });
 
         markers.push(marker);
-
+        //set the map center to actual marker
         map.panTo(coords);
-    }
-    
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = JSON.parse(localStorage.key(i));
-
-        const marker = new google.maps.Marker({
-            position: new google.maps.LatLng(key.lat, key.lng),
-            map,
-            title: "Click to zoom",
-            icon: svgMarker
-        });
-        const noteWindow = new google.maps.InfoWindow();
-
-        geocodeLatLng(map, noteWindow, marker);
-
-        marker.addListener("click", () => {
-        
-            sessionStorage.setItem('helper', JSON.stringify(marker.position.toJSON()));
-            history.pushState(null, null, "#"+marker.position.toUrlValue());
-
-            //after click it also opens a note window
-            noteWindow.open({
-                anchor: marker,
-                shouldFocus: true,
-            });
-
-            //listens for the click event on a marker to zoom the map when the marker is clicked
-            map.setZoom(8);
-            map.panTo(marker.getPosition());
-        });
-
-        markers.push(marker);
     }
 
 
     // add event listeners for the buttons
-    $('#show-markers').click(showMarkers);
+    /*$('#show-markers').click(showMarkers);
     $('#hide-markers').click(hideMarkers);
-    $('#delete-markers').click(deleteMarkers);
+    $('#delete-markers').click(deleteMarkers);*/
 
-
+    document.getElementById('show-markers').addEventListener('click', showMarkers);
+    document.getElementById('hide-markers').addEventListener('click', hideMarkers);
+    document.getElementById('delete-markers').addEventListener('click', deleteMarkers);
 
     // Sets the map on all markers in the array.
     function setMapOnAll(map) {
@@ -237,6 +249,13 @@ function geocodeLatLng(map, infowindow, marker) {
     .catch((e) => window.alert("Geocoder failed due to: " + e));
 }
 
+function toggleBounce(marker) {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
 
 /*
 // 10 seconds after the center of the map has changed, pan back to the
