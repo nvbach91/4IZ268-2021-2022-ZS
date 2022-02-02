@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Homepage">
-    <meta name="keywords" content="travelling, songs">
+    <meta name="description" content="Mapp app">
+    <meta name="keywords" content="travelling, notes">
     <meta name="author" content="Do Viet Anh">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,35 +46,57 @@
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                         </p>
                     </div>
-                    <!--<div class="intro-img">
-                        <figure>
-                            <img src="" alt="">
-                            <figcaption>Sunrise</figcaption>
-                        </figure>
-                    </div>-->
                 </div>
             </section>
-
-            <form id="map-form">
-                <input id="map-input" name="search" placeholder="Please enter location of interest">
-                <button>Find</button>
-            </form>
-
+            <hr class="custom-hr">
             <div id="map"></div>
+            <div class="control-panel">
+                <form id="map-form">
+                    <input id="map-input" name="search" type="text" class="map-input"
+                        placeholder="Please enter location">
+                </form>
 
+                <div class="markers-btns">
+                    <button id="hide-markers">Hide Markers</button> 
+                    <button id="show-markers">Show Markers</button> 
+                    <button id="delete-markers">Delete Markers</button>
+                </div>
+            </div>
+            <div class="notes-container" id="notes">
+                <!--<div class="notes-sidebar">
+                    <button class="notes-add" type="button">Add note</button>
+                    <div class="notes-list">
+                        <div class="notes-list-item notes-list-item-selected">
+                            <div class="notes-item-title">Hello</div>
+                            <div class="notes-item-body">How are you today?</div>
+                            <div class="notes-item-time"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="notes-wrapper">
+                    <input class="notes-title" type="text" placeholder="Enter a title...">-->
+                    <!--<label for="notes-body">What I have in mind:</label>
+                    <textarea class="notes-body" name="notes-body" rows="6" cols="60"
+                        placeholder="Enter your notes here..." required></textarea>
+                    <br><br>
+                    <input type="submit" value="Submit">
+                </div>-->
+            </div>
         </main>
 
         <footer>
-            <p>Do Viet Anh ©2021</p>
+            <p>Do Viet Anh &copy;2021</p>
         </footer>
 
     </div>
 
+    <script src="./assets/js/map.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZYVfP5jtWCzgpq9l0-neeZvxUa6_I_y0&callback=initMap&v=weekly">
-    </script>
-    <script src="./assets/js/main.js"></script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZYVfP5jtWCzgpq9l0-neeZvxUa6_I_y0&callback=initMap&libraries=places&v=weekly">
+        </script>
 </body>
 
 </html>
