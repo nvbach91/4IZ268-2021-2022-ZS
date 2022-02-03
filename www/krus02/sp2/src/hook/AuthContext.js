@@ -17,7 +17,7 @@ const useProvideAuth = () => {
   const init = async () => {
     gapiInstance.client
       .init({
-        apiKey: "AIzaSyCClDbFfRRELg4noQWA93etWkaOv_QTFlU",
+        apiKey: process.env.REACT_APP_GOOGLE_API_KEY,
         clientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         scope:
           "profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events",
