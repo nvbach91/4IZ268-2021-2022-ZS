@@ -207,8 +207,8 @@ function initMap() {
         hideMarkers();
         markers = [];
         localStorage.clear();
-        history.pushState(null, null, location.origin);
-        location.reload();
+        //history.pushState(null, null, location.origin);
+        location.replace('https://eso.vse.cz/~doho01/sp2/');
     }
 
 
