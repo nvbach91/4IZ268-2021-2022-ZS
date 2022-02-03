@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    height: 80px;
+    background-color: olivedrab;
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 20px;
+
+}
+
+header h1{
+    margin: 50px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+aside {
+    float: left;
+    width: 150px;
+    margin: 50px;
+}
+aside button {
+    width: 150px;
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+aside input {
+    width: 150px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 100px;
+}
+
+.mapa {
+    float: left;
+    margin-top: 20px;
+    height: 360px;
+    width: 800px;
+    background-color: green;
+    color: hotpink;
+
+}
+
+footer {
+    clear: both;
+    margin-top: 20px;
+    margin-left: 100px;
+    width: 950px;
+}
+footer input {
+    float: right;
+
+}
+footer button {
+    float: right;
+    margin-right: 10px;
+}
+
+/* #authorize_button {
+    display: none;
+} */
+
+#signout_button {
+    display: none;
+}
