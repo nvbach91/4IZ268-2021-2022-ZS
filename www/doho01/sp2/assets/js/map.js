@@ -1,4 +1,3 @@
-
 //initialize map
 function initMap() {
 
@@ -10,6 +9,7 @@ function initMap() {
         zoom: 8,
     });
 
+    //asking for geolocation API
     if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
         myLatlng = {
@@ -44,7 +44,9 @@ function initMap() {
             label: `${i + 1}`,
             animation: google.maps.Animation.DROP,
         });
-        const noteWindow = new google.maps.InfoWindow();
+        const noteWindow = new google.maps.InfoWindow({
+            content: "Please wait few moments, I am retrieving info..."
+        });
 
         markers.push(marker);
         window.setTimeout(() => {
@@ -55,7 +57,13 @@ function initMap() {
         marker.addListener("click", () => {
         
             sessionStorage.setItem('helper', JSON.stringify(marker.position.toJSON()));
-            history.pushState(null, null, "#"+marker.position.toUrlValue());
+
+            //search for the already bouncing marker to then stop this animation and "asign" it to clicked marker
+            const bouncing = markers.find(marker => marker.animation == google.maps.Animation.BOUNCE);
+            if (bouncing) {
+                bouncing.setAnimation(null);
+            }
+            marker.setAnimation(google.maps.Animation.BOUNCE);
 
             //after click it also opens a note window
             noteWindow.open({
@@ -66,9 +74,21 @@ function initMap() {
             //listens for the click event on a marker to zoom the map when the marker is clicked
             map.setZoom(8);
             map.panTo(marker.getPosition());
-            toggleBounce(marker);
+
+            history.pushState(null, null, "#"+marker.position.toUrlValue());
         });
 
+        marker.addListener("dblclick", () => {
+            const doDelete = confirm("Are you sure you want to delete this note?");
+            const latlngstr = JSON.stringify(marker.position.toJSON());
+            const deleted = marker;
+
+            if(doDelete) {
+                localStorage.removeItem(latlngstr);
+                markers = markers.filter(marker => marker !== deleted);
+                marker.setMap(null);
+            }
+        });
     }
 
     //when click on map add marker
@@ -77,17 +97,20 @@ function initMap() {
     });
 
     //add marker (automatically) function
-    function addMarker(coords) {     
-       /* console.log(coords.toUrlValue());
-        console.log(coords.toJSON());
-        console.log(coords.toString());*/
+    function addMarker(coords) {
+    
+        const bouncing = markers.find(marker => marker.animation == google.maps.Animation.BOUNCE);
+            if (bouncing) {
+                bouncing.setAnimation(null);
+        }
+
         const marker = new google.maps.Marker({
             position: coords,
             map,
             title: "Click to zoom",
             icon: svgMarker,
             label: `${markers.length + 1}`,
-            animation: google.maps.Animation.DROP,
+            animation: google.maps.Animation.BOUNCE,
         });
 
         const noteWindow = new google.maps.InfoWindow();
@@ -104,14 +127,17 @@ function initMap() {
         //save markers coords to use as keys to get matching list of notes 
         localStorage.setItem(latlngstr, []);
         sessionStorage.setItem('helper', latlngstr);
-        // creating url after adding new marker
-        history.pushState(null, null, "#"+ marker.position.toUrlValue());
 
         //listens for the click event on a marker to show infowindow and to set current marker for getting match list of
         marker.addListener("click", () => {
             
             sessionStorage.setItem('helper', JSON.stringify(marker.position.toJSON()));
-            history.pushState(null, null, "#"+ marker.position.toUrlValue());
+
+            const bouncing = markers.find(marker => marker.animation == google.maps.Animation.BOUNCE);
+            if (bouncing) {
+                bouncing.setAnimation(null);
+            }
+            toggleBounce(marker);
 
             //after click it also opens a note window
             noteWindow.open({
@@ -122,23 +148,38 @@ function initMap() {
             //listens for the click event on a marker to zoom the map when the marker is clicked
             map.setZoom(8);
             map.panTo(marker.getPosition());
-            toggleBounce();
+            
+            history.pushState(null, null, "#"+ marker.position.toUrlValue());
+        });
+
+        marker.addListener("dblclick", () => {
+            const doDelete = confirm("Are you sure you want to delete this note?");
+            const latlngstr = JSON.stringify(marker.position.toJSON());
+            const deleted = marker;
+
+            if(doDelete) {
+                localStorage.removeItem(latlngstr);
+                markers = markers.filter(marker => marker !== deleted);
+                marker.setMap(null);
+            }
         });
 
         markers.push(marker);
         //set the map center to actual marker
         map.panTo(coords);
+        // creating url after adding new marker
+        history.pushState(null, null, "#"+ marker.position.toUrlValue());
     }
 
 
     // add event listeners for the buttons
-    /*$('#show-markers').click(showMarkers);
+    $('#show-markers').click(showMarkers);
     $('#hide-markers').click(hideMarkers);
-    $('#delete-markers').click(deleteMarkers);*/
+    $('#delete-markers').click(deleteMarkers);
 
-    document.getElementById('show-markers').addEventListener('click', showMarkers);
+  /*  document.getElementById('show-markers').addEventListener('click', showMarkers);
     document.getElementById('hide-markers').addEventListener('click', hideMarkers);
-    document.getElementById('delete-markers').addEventListener('click', deleteMarkers);
+    document.getElementById('delete-markers').addEventListener('click', deleteMarkers);*/
 
     // Sets the map on all markers in the array.
     function setMapOnAll(map) {
@@ -155,6 +196,7 @@ function initMap() {
     // Shows any markers currently in the array.
     function showMarkers() {
         setMapOnAll(map);
+        marker
     }
 
     // Deletes all markers in the array by removing references to them.
@@ -241,7 +283,7 @@ function geocodeLatLng(map, infowindow, marker) {
     .then((response) => {
         if (response.results[0]) {
             
-          infowindow.setContent(response.results[0].formatted_address);
+          infowindow.setContent(response.results[0].formatted_address || "");
         } else {
           window.alert("No results found");
         }
@@ -255,7 +297,7 @@ function toggleBounce(marker) {
     } else {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-  }
+}
 
 /*
 // 10 seconds after the center of the map has changed, pan back to the
@@ -265,52 +307,3 @@ map.addListener("center_changed", () => {
         map.panTo(marker.getPosition());
     }, 10000);
 });*/
-
-/*
-const sydney = new google.maps.LatLng(-35.867, 151.195);
-
-infowindow = new google.maps.InfoWindow();
-map = new google.maps.Map(document.getElementById("map"), {
-    center: sydney,
-    zoom: 15,
-});
-
-
-const findBtn = document.getElementById('find-btn');
-
-findBtn.addEventListener("click", () => {
-const place = document.getElementById("map-input").value;
-console.log(place);
-    const request = {
-    query: place,
-    fields: ["name", "geometry"],
-  };
-
-  service = new google.maps.places.PlacesService(map);
-  service.findPlaceFromQuery(request, (results, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-      for (let i = 0; i < results.length; i++) {
-        createMarker(results[i]);
-      }
-
-      map.setCenter(results[0].geometry.location);
-    }
-  });
-});
-
-
-
-function createMarker(place) {
-  if (!place.geometry || !place.geometry.location) return;
-
-  const marker = new google.maps.Marker({
-    map,
-    position: place.geometry.location,
-    icon: svgMarker
-  });
-
-  google.maps.event.addListener(marker, "click", () => {
-    infowindow.setContent(place.name || "");
-    infowindow.open(map);
-  });
-}*/

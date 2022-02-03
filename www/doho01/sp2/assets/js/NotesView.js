@@ -1,3 +1,4 @@
+// rendering view for notes class
 export default class NotesUI {
     constructor(root, { onNoteSelect, onNoteAdd, onNoteEdit, onNoteDelete } = {}) {
         this.root = root;

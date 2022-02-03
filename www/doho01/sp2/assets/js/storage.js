@@ -1,4 +1,6 @@
+// basic "backend" data manipulation, persistence layer (localStorage)
 export default class Storage {
+    //get all notes (array) for selected (matching) marker
     static getAll(marker) {
         const notes = JSON.parse(localStorage.getItem(marker) || "[]");
         return notes.sort((a, b) => {
@@ -6,6 +8,7 @@ export default class Storage {
         });
     }
 
+    //store notes for selected (matching) marker
     static store(noteToSave, marker) {
         const notes = Storage.getAll(marker);
         const existing = notes.find(note => note.id == noteToSave.id);
@@ -23,6 +26,7 @@ export default class Storage {
         localStorage.setItem(marker, JSON.stringify(notes));
     }
 
+    //delete notes for selected (matching) marker
     static delete(id, marker) {
         const notes = Storage.getAll(marker);
         const newNotes = notes.filter(note => note.id != id);
@@ -31,13 +35,14 @@ export default class Storage {
     }
 }
 
-/*
+/* Data ,model, mapping marker (latlng) to list of individual notes
 {
     latitude: '-50',
     longtitude: '30'
  } map {
-    id: '8000',
+    id: '8000', --> note identifier
     title: 'My note',
     body: 'Custom note'
+    time: (updated time)
 }
 */

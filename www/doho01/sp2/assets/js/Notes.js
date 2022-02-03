@@ -1,6 +1,7 @@
 import Storage from "./storage.js"
 import NotesView from "./NotesView.js";
 
+// main notes logic, calling other 2 classes for updating view and localStorage
 export default class Notes {
     constructor(root, marker) {
         this.notes = [];
