@@ -32,14 +32,14 @@ function initMap() {
         anchor: new google.maps.Point(6, 6),
     };
     
-    
+    // show all markers from local storage (created in previous sessions) map 
     for (let i = 0; i < localStorage.length; i++) {
         const key = JSON.parse(localStorage.key(i));
         
         const marker = new google.maps.Marker({
             position: new google.maps.LatLng(key.lat, key.lng),
             map,
-            title: "Click to zoom",
+            title: "Click to zoom, double click to delete",
             icon: svgMarker,
             label: `${i + 1}`,
             animation: google.maps.Animation.DROP,
@@ -49,6 +49,9 @@ function initMap() {
         });
 
         markers.push(marker);
+
+        // after 2s get adress of another marker
+        //setTimeout was set up to prevent sending too much request to Google in a small amount of time
         window.setTimeout(() => {
             geocodeLatLng(map, noteWindow, marker);
         }, i * 2000);
@@ -79,7 +82,7 @@ function initMap() {
         });
 
         marker.addListener("dblclick", () => {
-            const doDelete = confirm("Are you sure you want to delete this note?");
+            const doDelete = confirm("Are you sure you want to delete this marker?");
             const latlngstr = JSON.stringify(marker.position.toJSON());
             const deleted = marker;
 
@@ -107,7 +110,7 @@ function initMap() {
         const marker = new google.maps.Marker({
             position: coords,
             map,
-            title: "Click to zoom",
+            title: "Click to zoom, double click to delete",
             icon: svgMarker,
             label: `${markers.length + 1}`,
             animation: google.maps.Animation.BOUNCE,
@@ -153,7 +156,7 @@ function initMap() {
         });
 
         marker.addListener("dblclick", () => {
-            const doDelete = confirm("Are you sure you want to delete this note?");
+            const doDelete = confirm("Are you sure you want to delete this marker?");
             const latlngstr = JSON.stringify(marker.position.toJSON());
             const deleted = marker;
 
