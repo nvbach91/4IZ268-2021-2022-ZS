@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>DOTA 2 players finder</title>
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,16 +12,27 @@
       href="https://fonts.googleapis.com/css2?family=Dosis:wght@200;300&display=swap"
       rel="stylesheet"
     />
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
   </head>
   <body>
-    <div id="app">
+    <header></header>
+    <main>
       <h1>DOTA 2 players finder</h1>
-    </div>
+      <img src="./img/dotaLogo.png" alt="logo" />
+      <form id="search-form">
+        <input id="search-input" placeholder="Search by nickname" required />
+        <button>Search</button>
+      </form>
+      <div id="root">
+        <img class="loader" src="img/loader.gif" alt="loader">
+      </div>
+    </main>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
     <script src="./js/main.js"></script>
   </body>
 </html>
+
+
