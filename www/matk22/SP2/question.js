@@ -1,6 +1,4 @@
-
-// Pole objektu
-const quiz =[
+[
 {
     q: 'अ',
     options: ['a','i','o','u'],
@@ -180,6 +178,5 @@ const quiz =[
     options: ['uu','shi','ru','hu'],
     answer: 0
 },
-
 
 ]
