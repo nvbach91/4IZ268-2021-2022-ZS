@@ -8,7 +8,7 @@ body {
     margin: 0;
     background-image: url(http://cdn.wallpapersafari.com/19/92/JICdo1.jpg);
     background-repeat: no-repeat;
-    background-size:cover;
+    background-size: cover;
     height: 100vh;
 }
 
@@ -92,7 +92,7 @@ img {
 
 .search-button:hover {
     margin-bottom: 0.5em;
-    color: cadetblue;
+    color: #14679b;
 }
 
 
@@ -103,7 +103,8 @@ img {
     backdrop-filter: blur(8px);
     background-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
-    max-height: 300px;
+    position: relative;
+    height: 300px;
 }
 
 h1 {
@@ -160,7 +161,7 @@ h2 {
 }
 
 .position {
-    color: cadetblue;
+    color: #14679b;
     font-weight: bold;
     border: none;
     background: none;
@@ -177,4 +178,26 @@ footer {
     position: fixed;
     text-align: center;
     bottom: 0;
+}
+
+@keyframes spinner {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.loading {
+    animation: .5s linear infinite spinner;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #14679b;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
 }
