@@ -8,26 +8,38 @@ function randomInteger(min, max) {
   }
 
 function randomType(){
-   const typ = ""; 
-   const num =  randomInteger(1,3);
+   const num =  randomInteger(1,4);
    if (num == 1) {
-        typ == "trivia";
+      const typ = "trivia";
+      console.log(typ);
+      return typ;
    } 
 
    if (num == 2){
-        typ == "math";
+      const typ = "math";
+      console.log(typ);
+      return typ;
    }
 
    if (num == 3){
-        typ == "year";
+      const typ = "year";
+      console.log(typ);
+      return typ;
    }
-   return typ;
+
+   if (num == 4){
+    const typ = "date";
+    console.log(typ);
+    return typ;
+ }
+   
+   
 }
 
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const loadText ="wait a little bit";
+  const loadText ="wait a little bit ⌛";
   factDiv.innerHTML = loadText;
   const baseURL = "http://numbersapi.com/";
   const number = e.target.querySelector('input[type="number"]').value;
@@ -40,6 +52,20 @@ form.addEventListener('submit', (e) => {
     .catch(e=>console.log(e));
 })
 
+getRndm.addEventListener('click', () => {
+    const loadText ="wait a little bit ⌛";
+    factDiv.innerHTML = loadText;
+    const baseURL = "http://numbersapi.com/";
+    const number = randomInteger(0, 2000);
+    const typ = "/" + randomType();
+    fetch(baseURL + number + typ,{
+        headers:{
+            'x-requested-with': 'text/plain'
+          }})
+          .then(response => response.text())
+          .then(text => factDiv.innerHTML = text)
+          .catch(e=>console.log(e));
 
+    })
 
 
