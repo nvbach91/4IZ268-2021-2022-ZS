@@ -9,23 +9,27 @@ const showSpinner = () => {
     return spinner;
 };
 
+//creating the local storage
 let collectionMovies = localStorage.getItem("collectionMovies");
 if (!collectionMovies) {
     localStorage.setItem("collectionMovies", JSON.stringify([]));
 }
 
+//adds movie to the collection
 function addToCollection(movieId) {
     let movieList = JSON.parse(localStorage.getItem("collectionMovies"));
     movieList.push(movieId);
     localStorage.setItem("collectionMovies", JSON.stringify(movieList));
 }
 
+//removes movie from the collection
 function removeFromCollection(movieId) {
     let movieList = JSON.parse(localStorage.getItem("collectionMovies"));
     movieList.splice(movieList.indexOf(movieId), 1);
     localStorage.setItem("collectionMovies", JSON.stringify(movieList));
 }
 
+//checks if the movie is already in the collection
 function isInCollection(movieId) {
     let movieList = JSON.parse(localStorage.getItem("collectionMovies"));
     return movieList.includes(movieId);
@@ -215,19 +219,13 @@ function showMovies(data, main) {
         }
     })
 }
+//creates the movie tabs
+function createMovie(movie) {
+    const { title, poster_path, overview, vote_average, id } = movie;
+    const movieEl = document.createElement("div");
 
-//creates the movie tabs in the structure (collection section) with the title, poster, overview, vote average and movie id
-function showCollectionMovies(data, collection) {
-    $('#collection').empty();
-    const fragment = document.createDocumentFragment();
-
-    data.forEach((movie) => {
-        const { title, poster_path, overview, vote_average, id } = movie;
-        const movieEl = document.createElement("div");
-        if (isInCollection(id)) {
-
-            movieEl.classList.add("movie");
-            movieEl.innerHTML = `
+    movieEl.classList.add("movie");
+    movieEl.innerHTML = `
             <img src="${IMG_URL + poster_path}" alt="${title}">
         
             <div class="movie-info">
@@ -241,10 +239,22 @@ function showCollectionMovies(data, collection) {
                 <button class="remove-collection" data-id="${id}">Remove from collection</button>
             </div>
             `;
-            fragment.appendChild(movieEl);
 
+    return movieEl;
+}
+
+//creates the movie tabs in the structure (collection section)
+function showCollectionMovies(data, collection) {
+    $(collection).empty();
+    const fragment = document.createDocumentFragment();
+
+    data.forEach((movie) => {
+        if (isInCollection(movie.id)) {
+            const movieEl = createMovie(movie);
+            fragment.appendChild(movieEl);
         }
     });
+
     collection.appendChild(fragment);
 
     //when clicking on "Remove" the movie id is removed from the local storage
@@ -253,8 +263,6 @@ function showCollectionMovies(data, collection) {
         getCollectionMovies(API_URL, collection);
     })
 }
-
-
 
 //gets the data from TMDB and uses the showMovies function
 async function getMovies(url, main) {
