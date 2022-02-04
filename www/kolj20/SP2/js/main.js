@@ -12,13 +12,20 @@ $(document).ready(() => {
     const spinner = $('<div class="loader"></div>');
     const saved = [];
     let books = [];
+    let tempBooks = [];
     let searchedUrl;
     let loadingUrl;
 
-    $("form").on("submit", function (e) {
+    $(document).ready(function () {
+        if (localStorage.getItem("savedBooks") !== (null)) {
+            retrieve();
+        };
+    });
+
+    $('#search-form').on("submit", function (e) {
         e.preventDefault();
 
-        if (bookInput.val()) {
+        if (bookInput.val().trim()) {
             bookList.empty();
             checkActive();
             spinner.appendTo(bookList);
@@ -45,7 +52,7 @@ $(document).ready(() => {
             else {
                 resp['items'].forEach((r) => {
                     const book = addBook(r);
-                    books.push(book); 
+                    books.push(book);
                 });
                 sortingButtons.removeClass("d-none");
             }
@@ -78,7 +85,7 @@ $(document).ready(() => {
         const title = $(`<h3 class="card-title">${r['volumeInfo']['title']}</h3>`);
         const infoText = $(`<ul class="list-group list-group-flush text-left align-items-bottom">`);
         const bookRating = $(`<li class="list-group-item rating">Book rating: ${r['volumeInfo']['averageRating']}</li>`);
-        const bookPages = $(`<li class="list-group-item time">Pages: ${r['volumeInfo']['pageCount']} pages</li>`);
+        const bookPages = $(`<li class="list-group-item pages">Pages: ${r['volumeInfo']['pageCount']} pages</li>`);
         const ebook = $(`<li class="list-group-item ebook">Ebook: ${r['saleInfo']['isEbook']}</li>`);
         infoText.append(bookRating, bookPages, ebook);
         textField.append(title, infoText, buttonsContainer);
@@ -99,33 +106,34 @@ $(document).ready(() => {
     sortingPages.click(() => {
         sortBooks('newest');
     });
-    
+
     const sortBooks = (sortType) => {
         checkActive();
 
         books = [];
-        
+
         let baseUrl = loadingUrl.replace(/&orderBy=(?:newest|relevance)/, "");
 
         if (sortType === "relevance") {
 
             baseUrl = baseUrl + '&orderBy=relevance';
-            loadingUrl = baseUrl = baseUrl + '&key=' + apiKey;
+            //loadingUrl = baseUrl = baseUrl + '&key=' + apiKey;
+            loadingUrl = baseUrl;
             sortingPages.addClass("active");
         };
         if (sortType === "newest") {
 
             baseUrl = baseUrl + '&orderBy=newest';
-            loadingUrl = baseUrl = baseUrl + '&key=' + apiKey;
-
+            //loadingUrl = baseUrl = baseUrl + '&key=' + apiKey;
+            loadingUrl = baseUrl;
             sortingRating.addClass("active");
         };
-        
+
         bookList.empty();
 
         spinner.appendTo(bookList);
         loadBooks();
-    } 
+    }
 
     bookList.on("click", ".save-button", function () {
 
@@ -133,7 +141,7 @@ $(document).ready(() => {
         const bookName = container.find(".card-title").text();
         const bookUrl = container.find(".view").attr("href");
         const bookImg = container.find(".card-img-top").attr("src");
-        const bookPages = container.find(".time").text();
+        const bookPages = container.find(".pages").text();
         var inArray = false;
 
         const bookData = {
@@ -141,7 +149,6 @@ $(document).ready(() => {
             sourceUrl: bookUrl,
             bookHasPages: bookPages,
             image: bookImg,
-
         }
 
         saved.forEach((r) => {
@@ -155,6 +162,7 @@ $(document).ready(() => {
             console.log(saved);
             const savedHtml = addSavedBook(bookData);
             savedBooks.append(savedHtml);
+            localStorage.setItem("savedBooks", JSON.stringify(saved));
         }
     });
 
@@ -193,6 +201,8 @@ $(document).ready(() => {
             }
             x += 1;
         })
+        saved.splice(position, 1);
+        localStorage.setItem("savedBooks", JSON.stringify(saved));
     });
 
     const checkActive = () => {
@@ -203,4 +213,15 @@ $(document).ready(() => {
             sortingPages.removeClass("active")
         };
     }
+
+    function retrieve() {
+        tempBooks = [];
+        const storage = JSON.parse(localStorage.getItem("savedBooks")); //conversion to js object
+        storage.forEach((r) => {
+            const book = addSavedBook(r);
+            tempBooks.push(book);
+            saved.push(r);
+        });
+        savedBooks.append(tempBooks);
+    };
 });
