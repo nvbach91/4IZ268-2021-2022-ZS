@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="./assets/css/main.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Bebas Neue" rel="stylesheet">
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/img/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
+	<link rel="manifest" href="./assets/img/site.webmanifest">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+	<title>Flag Quiz</title>
+</head>
+
+<body>
+	<header>
+		<h1>Flag Quiz</h1>
+	</header>
+	<main>
+		<div class="gameOverWindow" id="gameOverWindow">
+			<h2>GAME OVER</h2>
+			<div class="showFinalScore">
+				<div class="finalScoreLabel">Score:</div>
+				<div class="finalScore" id="finalScore"></div>
+			</div>
+			<div class="startButtonDiv" id="tryAgainButtonDiv">
+				<button class="startButton" id="tryAgainButton">TRY AGAIN</button>
+			</div>
+		</div>
+		<div class="startWindow" id="startWindow">
+			<div class="startImages" id="startImages">
+				<div>
+					<i class="fa fa-check fa-5x"></i>
+					<p>Only one correct answer</p>
+				</div>
+				<div>
+					<i class="fa fa-heart fa-5x"></i>
+					<p>3 Lives</p>
+				</div>
+				<div>
+					<i class="fa fa-star fa-5x"></i>
+					<p>Get top score</p>
+				</div>
+			</div>
+			<div class="startButtonDiv" id="startButtonDiv">
+				<button class="startButton" id="startButton">START</button>
+			</div>
+		</div>
+		<div class="layout" id="layout">
+			<div class="box highscore">
+				<div class="text-box">Highscore</div>
+				<div class="plain" id="highScore"></div>
+				<button class="hintButton" id="showHintButton">HINT</button>
+				<div class="plain" id="showHintPlain"></div>
+				
+			</div>
+			<div class="box flag" id="flag-img">
+				<img src="#" id="flag-image" alt="flag">
+			</div>
+			<div class="box score">
+				<div class="text-box">Score</div>
+				<div class="plain" id="score"></div>
+				<div class="text-box">Lives</div>
+				<div class="plain">
+					<i class="fa fa-heart" aria-hidden="true" id="heart-00"></i>
+					<i class="fa fa-heart" aria-hidden="true" id="heart-01"></i>
+					<i class="fa fa-heart" aria-hidden="true" id="heart-02"></i>
+				</div>
+			</div>
+			<div class="box answers">
+				<div class="options" id="options">
+					<button class="quiz-button" id="quiz-option-0">
+						<strong>a)</strong> <span class="quiz-answer" id="quiz-option-text-0"></span>
+					</button>
+					<button class="quiz-button" id="quiz-option-1">
+						<strong>b)</strong> <span class="quiz-answer" id="quiz-option-text-1"></span>
+					</button>
+					<button class="quiz-button" id="quiz-option-2">
+						<strong>c)</strong> <span class="quiz-answer" id="quiz-option-text-2"></span>
+					</button>
+					<button class="quiz-button" id="quiz-option-3">
+						<strong>d)</strong> <span class="quiz-answer" id="quiz-option-text-3"></span>
+					</button>
+					<button class="quiz-button" id="quiz-option-4">
+						<strong>e)</strong> <span class="quiz-answer" id="quiz-option-text-4"></span>
+					</button>
+					<button class="quiz-button" id="quiz-option-5">
+						<strong>f)</strong> <span class="quiz-answer" id="quiz-option-text-5"></span>
+					</button>
+				</div>
+
+			</div>
+		</div>
+
+	</main>
+	<script src="./assets/script/main.js"></script>
+</body>
+
+</html>
