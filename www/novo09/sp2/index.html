@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Google Sheets API Quickstart</title>
+  <title>Planovac trasy</title>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +12,6 @@
 </head>
 
 <body>
-  <!-- <p>Google Sheets API Quickstart</p> -->
-
-  
-
   <header>
     <h1>Plánovač trasy</h1>
   </header>
@@ -24,18 +20,32 @@
         <button id="add-point">Přidat bod</button>
         <button id="remove-point">Smazat přidaný bod</button>
         <button id="start-over">Začít znovu</button>
+        <button id="center-on-location">Vycentrovat na mou polohu</button>
+
         <input type="text" name="new-trip-name">
-        <button id="save-to-drive">Uložit na disk</button>
+        <button id="save-to-sheet">Uložit na disk</button>
 
         <!--Add buttons to initiate auth sequence and sign out-->
-        <button id="authorize_button" >Authorize</button>
-        <button id="signout_button" >Sign Out</button>
+        <button id="authorize_button" >Autorizovat</button>
+        <button id="signout_button" >Odhlásit</button>
     </aside>
     <div class="mapa" id="mapa"></div>
     
   </div>
   <footer>
-    <input type="text" name="search-trip">
+    <!-- <button id="load-routes">Načti trasy</button>
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown</button>
+      <div id="dropdown-content">
+
+      </div>
+    </div>  -->
+
+
+    <input type="text" id="search-trip" list="available-trips">
+    <datalist type="text" id="available-trips"></datalist>
+
+
     <button id="load-trip">Otevřít výlet</button>
   </footer>
 
