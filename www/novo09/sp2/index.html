@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Planovac trasy</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+  <script type="text/javascript">Loader.load();</script>
+</head>
+
+<body>
+  <header>
+    <h1>Plánovač trasy</h1>
+  </header>
+  <div class="container">
+    <aside>
+        <button id="add-point">Přidat bod</button>
+        <button id="remove-point">Smazat přidaný bod</button>
+        <button id="start-over">Začít znovu</button>
+        <button id="center-on-location">Vycentrovat na mou polohu</button>
+
+        <input type="text" name="new-trip-name">
+        <button id="save-to-sheet">Uložit na disk</button>
+
+        <!--Add buttons to initiate auth sequence and sign out-->
+        <button id="authorize_button" >Autorizovat</button>
+        <button id="signout_button" >Odhlásit</button>
+    </aside>
+    <div class="mapa" id="mapa"></div>
+    
+  </div>
+  <footer>
+    <!-- <button id="load-routes">Načti trasy</button>
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown</button>
+      <div id="dropdown-content">
+
+      </div>
+    </div>  -->
+
+
+    <input type="text" id="search-trip" list="available-trips">
+    <datalist type="text" id="available-trips"></datalist>
+
+
+    <button id="load-trip">Otevřít výlet</button>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script src="./assets/js/main.js"></script>
+</body>
+
+</html>
