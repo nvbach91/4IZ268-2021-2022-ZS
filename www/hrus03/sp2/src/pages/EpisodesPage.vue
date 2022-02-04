@@ -45,6 +45,7 @@
             v-for="episode in episodes"
             :key="episode.id"
             :episode="episode"
+            :highlight="search"
           />
           <template v-if="podcast.isLoading.value">
             <EpisodeBox

@@ -12,13 +12,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
-      '/api': 'http://localhost:8000',
-      // with options
-      // '/api': {
-      //   target: 'http://jsonplaceholder.typicode.com',
-      //   changeOrigin: true,
-      //   rewrite: (path) => path.replace(/^\/api/, '')
-      // },
+      '/api': 'http://apialgor.hrubysimon.cz/',
     }
   }
 })

@@ -674,6 +674,10 @@
         font-weight: 700;
     }
 
+    .podcast-box__title-highlight {
+        color: var(--color-error);
+    }
+
     .podcast-box__episode-number {
         margin-right: var(--space-1);
     }
