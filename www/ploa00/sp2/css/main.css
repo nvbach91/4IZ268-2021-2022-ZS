@@ -1,0 +1,121 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Dosis", sans-serif;
+  background: #0a081f;
+}
+
+h1 {
+  margin: 15px 40px;
+  color: white;
+}
+
+
+img {
+  margin: -60px -95px;
+  width: 445px;
+  height: 300px;
+}
+
+form {
+  float: right;
+  margin: -30px 40px;
+  padding: 30px 50px;
+}
+
+.left {
+  float: left;
+  width: 33.33%;
+  padding: 15px;
+}
+
+.right {
+  float: left;
+  width: 33.33%;
+  padding: 60px;
+}
+
+.player-name {
+  font-size: 30px;
+  color: white;
+  margin: 5px 25px;
+}
+
+.avatar {
+  border-radius: 5px;
+  margin: 25px;
+}
+
+.right ul li {
+  float: none;
+  padding: 8px;
+  margin: 15px;
+  font-size: 30px;
+  display: block;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 70%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+}
+
+.hero {
+  height: 40%;
+  width: 40%;
+  float: right;
+  margin: -20px 0px;
+}
+
+.center {
+  float: left;
+  width: 33.33%;
+  padding: 60px;
+}
+
+.center li {
+  float: none;
+  padding: 8px;
+  margin: 15px;
+  font-size: 30px;
+  display: block;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.hero-statistics {
+  float: none;
+  padding: 8px;
+  margin: 15px;
+  font-size: 30px;
+  display: block;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: white;
+    color: black;
+    width: 30%;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px; 
+}
