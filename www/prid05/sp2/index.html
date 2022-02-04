@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="main.css">
+    <title>Pet Store Locator</title>
+</head>
+
+<body>
+
+    <div id="map"></div>
+    <div class="controls">
+        <input id="name">
+        <button id="search">Search</button>
+        <div id="list">
+            <div class="loader"></div>
+        </div>
+        <button id="loadMore">Load More</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"></script>
+    <script src="index.js"></script>
+
+    <script
+        src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAVkSo1iq9U0FIplqLbNsHyMAHHqtNd7No&callback=initMap&v=weekly&libraries=places'></script>
+</body>
+
+</html>
