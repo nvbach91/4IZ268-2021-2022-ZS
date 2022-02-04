@@ -12,12 +12,24 @@
       <div class="container">
         <h1>interesting facts about numbers</h1>
         <form>
-          <input type="number" placeholder="Enter a number">
+          <input id="num" type="number" placeholder="Enter a number">
           <button type="submit" class="submit">Submit</button>
+          <label><input type="radio" name="type1" value="trivia" checked>Trivia</label> 
+          <label><input type="radio" name="type1" value="math">Math</label>
+          <label><input type="radio" name="type1" value="year">Year</label>
+          <label><input type="radio" name="type1" value="date">Date</label>
+          <label><input type="radio" name="type1" value="random">Random</label>
+
         </form>
         <button class="getRandom">Get random fact</button>
         <div class="number-fact">Give a number and i will tell you an interesting fact 😎.</div>
+        <button class="button-save">Save to fav</button>
+        <button class="clearstrg">Clear favs</button>
+        
+        <div class="favorites">Favorites</div>
+
       </div>
+      
     </section>
     
     <script src="JS/script.js"></script>
