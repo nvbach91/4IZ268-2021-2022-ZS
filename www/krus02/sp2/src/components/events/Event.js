@@ -1,23 +1,71 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cn from "classnames";
 import Button from "../controls/Button";
 
 const Event = ({ event, index, edit, deleteEvent }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [locationLat, setLocationLat] = useState("");
+  const [locationLon, setLocationLon] = useState("");
+  const [locationWeather, setLocationWeather] = useState("");
 
-  const parseDateToMakeSense = (start, end) => {
+  function parseDateToMakeSense(start, end) {
     return (
       <>
         {new Date(start).toLocaleDateString("cs-cz")}{" "}
-        {
-          <p>
-            {new Date(start).toLocaleTimeString()} -{" "}
-            {new Date(end).toLocaleTimeString()}
-          </p>
-        }
+        {<p>
+          {new Date(start).toLocaleTimeString()} -{" "}
+          {new Date(end).toLocaleTimeString()}
+        </p>}
       </>
     );
-  };
+  }
+  const weatherAPIKey = "b7a29de44058f61eb862029521e3cc80"
+
+  const urlGeo = (loc) => {
+    if (event.location)
+      return (`http://api.openweathermap.org/geo/1.0/direct?q=${loc}&limit=1&appid=${weatherAPIKey}`)
+  }
+  const urlCoorToTemp = (lat, lon) => {
+    if (event.location)
+      return (`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${weatherAPIKey}`)
+  }
+  const fetchLocationCoor = (loc) => {
+    fetch(urlGeo(loc))
+      .then
+      (res => res.json())
+      .then
+      (data => {
+        setLocationLat(data[0].lat);
+        setLocationLon(data[0].lon);
+      })
+      .catch
+      (e => console.log(e))
+
+  }
+  const fetchLocationWeather = (lat, lon) => {
+    fetch(urlCoorToTemp(lat, lon))
+      .then
+      (res => res.json())
+      .then
+      (data => {
+        console.log(typeof(data.main.temp))
+        setLocationWeather(`${Math.round(data.main.temp - 273.15)}°C`)
+      })
+      .catch
+      (e => console.log(e));
+  }
+  useEffect(() => {
+    if (event.location) {
+      fetchLocationCoor(event.location)
+    }
+  }, []);
+
+  useEffect(() => {
+    if (locationLat && locationLon) {
+      fetchLocationWeather(locationLat,locationLon)
+    }
+  },[locationLat,locationLon]);
+
   if (event) {
     return (
       <div
@@ -29,7 +77,7 @@ const Event = ({ event, index, edit, deleteEvent }) => {
             ? event.start.date
             : parseDateToMakeSense(event.start.dateTime, event.end.dateTime)} - {event.end.date
               ? event.end.date
-              : parseDateToMakeSense(event.start.dateTime, event.end.dateTime)} 
+              : parseDateToMakeSense(event.start.dateTime, event.end.dateTime)}
         </span>
         <div className="border-2 border-purple-500 rounded-md p-2 transition-all w-full cursor-pointer">
           <div className="flex flex-row pb-1 w-full justify-between">
@@ -37,8 +85,8 @@ const Event = ({ event, index, edit, deleteEvent }) => {
               className={cn(
                 "text-2xl",
                 isOpen &&
-                  (event.description || event.location) &&
-                  "border-b-2 border-black"
+                (event.description || event.location) &&
+                "border-b-2 border-black"
               )}
             >
               {event.summary}
@@ -63,6 +111,7 @@ const Event = ({ event, index, edit, deleteEvent }) => {
             <div className="mt-2">
               <p>{event.description}</p>
               <p>{event.location}</p>
+              <p>{locationWeather}</p>
             </div>
           )}
         </div>
