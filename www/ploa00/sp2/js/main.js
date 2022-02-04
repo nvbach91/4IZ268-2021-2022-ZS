@@ -126,6 +126,7 @@ function getPlayersList(query) {
   fetch(`https://api.opendota.com/api/search?q=` + query)
     .then((response) => response.json())
     .then((responseJSON) => displaySearchResults(responseJSON));
+
 };
 
 function getPlayerData(accountID) {
@@ -137,11 +138,21 @@ function getPlayerData(accountID) {
 function getRecentMatches(accountID) {
   fetch(`https://api.opendota.com/api/players/${accountID}/recentMatches`)
     .then((response) => response.json())
-    .then((responseJSON) => showRecentMatches(responseJSON, accountID));
+    .then((responseJSON) => showRecentMatches(responseJSON, accountID))
 };
+
+function getHeroesData(accountID) {
+  fetch(`https://api.opendota.com/api/players/${accountID}/heroes`)
+    .then((response) => response.json())
+    .then((responseJSON) => showHeroStats(responseJSON, accountID)) 
+};
+
+const main =  $("main");
+const loader = $("#root")
 
 function displaySearchResults(data) {
   data = data.slice(0, 10);
+  //data = data.filter((each) => each.similarity);
   data = data.filter((each) => each.last_match_time);
   data.sort((a, b) => {
     return a.last_match_time < b.last_match_time
@@ -170,11 +181,12 @@ function displaySearchResults(data) {
   </div>`;
   };
   searchResults += `</ul>`;
-  $("main").empty().append(searchResults);
+  main.remove(loader);
+  main.empty().append(searchResults);
 };
 
 function showPlayerData(data) {
-  $("main").append(`<div class="right">
+  main.append(`<div class="right">
                       <ul>
                         <li>Account Id: ${
                           data.profile.account_id || "Unknown"
@@ -205,21 +217,57 @@ function showRecentMatches(data) {
     <li>Kills: ${data[i].kills}</li>
     <li>Deaths: ${data[i].deaths}</li>
     <li>Assists: ${data[i].assists}</li>
- </div>`;
+    <button id="button">Show last five games</button>
+    <div id="heroes-result"></div> 
+    </div>`;
   };
-  $("main").append(recentMatch);
+  main.append(recentMatch);
+  
+
+  $(`#button`).on('click', function() {
+    /*fetch(`https://api.opendota.com/api/players/${accountID}/heroes`)
+    .then((response) => response.json())
+    .then((responseJSON) => showHeroStats(responseJSON, accountID))*/
+    
+    showHeroStats(data);
+    const x = showHeroStats(data);
+    $("#heroes-result").empty().append(x);
+
+
+  });
 };
+
+
+function showHeroStats(data) {
+  let heroStats = "";
+  for (let i = 0; i < 5; i++) {
+    heroStats += `<div class="hero-statistics"
+                    <li>${heroes[data[i].hero_id]}</li>
+                    <li><img src ="./img/${data[i].hero_id}.png" class="hero"/></li>
+                    <li>Kills: ${data[i].kills}</li>
+                    <li>Deaths: ${data[i].deaths}</li>
+                    <li>Assists: ${data[i].assists}</li>
+                  </div>`; 
+  };
+
+  return heroStats;
+}
 
 function init() {
   $("body").on("submit", "form", function (e) {
     e.preventDefault();
     $("#search-input").blur();
+    main.empty().append(loader)
+    
 
     const searchInput = $("#search-input").val();
     getPlayersList(searchInput);
+    localStorage.setItem("results", searchInput);
+    //showLocalStorage();
   });
 
   $("#search-input").focus();
+  
 };
 
 $(document).ready(init());

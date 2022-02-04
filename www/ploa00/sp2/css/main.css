@@ -99,3 +99,23 @@ form {
   flex-direction: column;
   
 }
+
+.hero-statistics {
+  float: none;
+  padding: 8px;
+  margin: 15px;
+  font-size: 30px;
+  display: block;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: white;
+    color: black;
+    width: 30%;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px; 
+}
