@@ -1,0 +1,241 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-image: url(http://cdn.wallpapersafari.com/19/92/JICdo1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+img {
+    max-width: 50px;
+}
+
+.logo {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.app {
+    max-width: 480px;
+    width: 100%;
+    margin: 1em
+}
+
+.search-box {
+    background-color: white;
+    border-radius: 20px;
+    padding: 2em;
+    width: 100%;
+    margin: 10px 0;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0;
+    width: 100%;
+    margin: 10px 0;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    transition: .5s all ease;
+}
+
+.search:hover {
+    background-color: white;
+}
+
+.search-bar {
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    padding: 1em;
+    font-size: 100%;
+    width: 100%;
+    background: none;
+}
+
+.search-button {
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    background: none;
+    margin-right: 10px;
+    width: 2.5em;
+    height: 2.5em;
+    cursor: pointer;
+    transition: 0.25s all ease;
+}
+
+.search-button:hover {
+    margin-bottom: 0.5em;
+    color: #14679b;
+}
+
+
+.weather {
+    display: none;
+    border-radius: 20px;
+    padding: 2em;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    position: relative;
+    height: 300px;
+}
+
+h1 {
+    font-size: large;
+}
+
+h2 {
+    font-size: xx-large;
+}
+
+.overview {
+    display: flex;
+    align-items: center;
+}
+
+.perceived {
+    font-size: smaller;
+    margin-bottom: 10px;
+}
+
+.temperature {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.units {
+    display: flex;
+    flex-direction: column;
+}
+
+.celsius, .fahrenheit {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    transition: .5s all ease;
+}
+
+.celsius:hover, .fahrenheit:hover {
+    transform: scale(1.2);
+}
+
+.ap-dropdown-menu {
+    width: 110%;
+    margin: 0.5em auto;
+    border-radius: 20px;
+    padding: 0;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    max-height: 150px;
+}
+
+.position {
+    color: #14679b;
+    font-weight: bold;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: .5s color ease;
+}
+
+.position:hover {
+    color: black;
+}
+
+footer {
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+}
+
+@keyframes spinner {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.loading {
+    animation: .5s linear infinite spinner;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #14679b;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.language-options {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0.5em;
+    width: 100%;
+    margin: 10px 0;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    align-items: center;
+}
+
+.lang-btn {
+    margin: 5px;
+    display: flex;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    outline: none;
+    background: none;
+    transition: .25s all ease;
+}
+
+.lang-btn:hover {
+    transform: scale(1.2);
+    font-weight: bold;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.1);
+}
+
+.active {
+    color: white;
+    background-color: #14679b;
+}

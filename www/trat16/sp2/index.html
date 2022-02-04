@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Weather</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/places.js/1.19.0/places.js"
+        integrity="sha512-uPjo2ebEx6iVEAt81PXcMc/rUcXRHM3Ym/vEu0x4Bmp6gOCRKzmZRu2HNCmlcOGg3pt9TyHyl59JyLarQbROeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./assets/main.js"></script>
+</head>
+
+<body>
+    <a class="logo" href="./index.html">
+        <img src="https://www.pngall.com/wp-content/uploads/11/Weather-No-Background.png" alt="logo">
+        Super Weather
+    </a>
+    <div class="content">
+        <div class="app">
+            <div class="weather">
+                <div class="loading"></div>
+                <div class="info">
+                    <h1 class="location">Počasí v Praze</h1>
+                    <div class="overview">
+                        <img src="http://openweathermap.org/img/wn/04d.png" alt="ikona-oblačno" class="icon">
+                        <div class="temperature">
+                            <h2 class="current-temperature">5°</h2>
+                            <div class="units">
+                                <button class="celsius" type="button">C</button>
+                                <button class="fahrenheit" type="button">F</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="perceived"></div>
+                        <div class="conditions">oblačno</div>
+                        <div class="wind">rychlost větru: 6 km/h</div>
+                        <div class="humidity">vlhkost: 20%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="language-options">
+                <button class="lang-btn" type="button">en</button>
+                <button class="lang-btn" type="button">de</button>
+                <button class="lang-btn" type="button">ja</button>
+                <button class="lang-btn" type="button">pl</button>
+                <button class="lang-btn" type="button">vi</button>
+                <button class="lang-btn" type="button">ru</button>
+                <button class="lang-btn" type="button">fr</button>
+                <button class="lang-btn" type="button">cz</button>
+            </div>
+            <div class="search-box">
+                <button class="position" type="button">
+                    &rarr; použít aktuální polohu
+                </button>
+                <div class="search">
+                    <input type="text" class="search-bar" placeholder="vyhledat">
+                    <button class="search-button">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewbox="0 0 24 24"
+                            height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        &copy; Super Weather 2022 | Tien Tran
+    </footer>
+</body>
+
+</html>
