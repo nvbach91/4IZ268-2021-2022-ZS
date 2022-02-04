@@ -1,24 +1,37 @@
 $(document)
     .ready(function () {
-        const overview = $(".weather");
-        const temperature = $(".current-temperature");
-        const wind = $(".wind");
-        const perceived = $(".perceived");
-        const celsius = $(".celsius");
-        const fahrenheit = $(".fahrenheit");
-        const conditions = $(".conditions");
-        const percentage = $(".humidity");
-        const search = $(".search-bar");
+        $(document).ajaxStart(function () {
+            spinner.show();
+            info.hide();
+        })
+        .ajaxStop(function () {
+            spinner.hide();
+            info.show()
+        })
+        const overview = $('.weather');
+        const temperature = $('.current-temperature');
+        const wind = $('.wind');
+        const perceived = $('.perceived');
+        const celsius = $('.celsius');
+        const fahrenheit = $('.fahrenheit');
+        const conditions = $('.conditions');
+        const percentage = $('.humidity');
+        const search = $('.search-bar');
+        const position = $('.position');
+        const searchBtn = $('.search-button');
+        const changeLang = $('.lang-btn');
+        const spinner = $('.loading');
+        const info = $('.info')
         let cache = {
             emptyName: false,
-
         }
         const apiKey = '1c54893d31e3e717c91e0ab4a132f9ef';
         function fetchWeather(lat, lon, units) {
+            let lang = localStorage.getItem('lang');
             localStorage.setItem('lat', lat);
             localStorage.setItem('lon', lon);
             localStorage.setItem('units', units);
-            $.getJSON(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&lang=cz&appid=${apiKey}`
+            $.getJSON(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&lang=${lang}&appid=${apiKey}`
             ).fail(function () {
                 alert('Chyba při načítání dat.');
             }).done((data) => {
@@ -32,7 +45,7 @@ $(document)
             const { speed } = data.wind;
             const { name } = data;
             temperature.text(`${Math.round(temp)}°`);
-            $(".icon").attr({
+            $('.icon').attr({
                 src: `http://openweathermap.org/img/wn/${icon}.png`,
                 alt: main
             });
@@ -66,14 +79,14 @@ $(document)
                 changeText(name);
                 fetchWeather(lat, lng, localStorage.getItem('units'));
             } else {
-                $("title").text('Super Weather');
+                $('title').text('Super Weather');
                 overview.slideUp(1000);
                 search.val('');
             }
         });
         function changeText(name) {
-            $("title").text(`Super Weather | ${name}`);
-            $(".location").text(`Počasí v ${name}`);
+            $('title').text(`Super Weather | ${name}`);
+            $('.location').text(`Počasí v ${name}`);
         }
         if (localStorage.getItem('units') === null) {
             localStorage.setItem('units', 'metric');
@@ -82,6 +95,9 @@ $(document)
             changeText(localStorage.getItem('name'));
             cache.emptyName = false;
             fetchWeather(localStorage.getItem('lat'), localStorage.getItem('lon'), localStorage.getItem('units'));
+        }
+        if (localStorage.getItem('lang') === null) {
+            localStorage.setItem('lang', 'cz');
         }
 
         function getUserLocation() {
@@ -130,25 +146,23 @@ $(document)
             cache.emptyName = false;
             fetchWeather(lat, lng, localStorage.getItem('units'));
         }
-        placesAutocomplete.on("change", e => getLocation(e.suggestion));
-        
-        search.on("keypress", function (e) {
+        placesAutocomplete.on('change', e => getLocation(e.suggestion));
+
+        search.on('keypress', function (e) {
             if (e.which == 13) {
                 useUserInput(search.val());
             }
         })
         fahrenheit.click(() => { changeUnits('imperial'); });
         celsius.click(() => { changeUnits('metric') });
-        $(".position").click(() => { getUserLocation() });
-        $(".search-button").click(() => { useUserInput(search.val()) });
-    })
-    .ajaxStart(function () {
-        $(".loading").show();
-        $(".info").hide();
-    })
-    .ajaxStop(function () {
-        $(".loading").hide();
-        $(".info").show()
+        position.click(() => { getUserLocation() });
+        searchBtn.click(() => { useUserInput(search.val()) });
+        changeLang.click(function () {
+            $(this).siblings().removeClass('active');
+            var chosenLang = $(this).addClass('active').text();
+            localStorage.setItem('lang', chosenLang);
+            fetchWeather(localStorage.getItem('lat'), localStorage.getItem('lon'), localStorage.getItem('units'));
+        })
     })
 
 

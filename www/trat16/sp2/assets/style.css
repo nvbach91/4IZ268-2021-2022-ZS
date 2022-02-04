@@ -201,3 +201,41 @@ footer {
     top: 50%;
     left: 50%;
 }
+
+.language-options {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0.5em;
+    width: 100%;
+    margin: 10px 0;
+    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 2em 0 rgba(0, 0, 0, 0.25);
+    align-items: center;
+}
+
+.lang-btn {
+    margin: 5px;
+    display: flex;
+    border: none;
+    padding: 5px;
+    border-radius: 20px;
+    outline: none;
+    background: none;
+    transition: .25s all ease;
+}
+
+.lang-btn:hover {
+    transform: scale(1.2);
+    font-weight: bold;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.1);
+}
+
+.active {
+    color: white;
+    background-color: #14679b;
+}
