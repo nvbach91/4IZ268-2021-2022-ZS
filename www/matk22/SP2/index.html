@@ -22,7 +22,10 @@
 <div class = "home-box custom-box">
     <h3> Instructions: </h3>
     <p>Total number of questions: 
-        <span class="total-question"></span>
+
+        <!--<span class="total-question"> </span>-->
+       <input type="number" class="total-question" required>
+
     </p>
     <button type="button" class="btn" id="start_button">Start Quiz</button>
 </div>
@@ -89,7 +92,7 @@
     <button type="button" class="btn" id="go_home_button">Home</button>
 
    
-    <button id="authorize_button" class="btn" >Save<br>results</button>
+    <button id="authorize_button" class="btn" >Save results</button>
    
 
     <!--<button id="authorize_button" class="btn" style="display: none;">Save results</button> -->
@@ -98,8 +101,8 @@
 </div>
 
 
-<script src="question.js"></script>
 <script src="app.js"></script>
+
 
 
 <script src="google-sheet.js"></script> 

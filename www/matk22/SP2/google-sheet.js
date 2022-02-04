@@ -7,19 +7,20 @@ const DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v
 
 // Authorization scopes required by the API multiple scopes can be
 // included, separated by spaces.
-const SCOPES = 'https://www.googleapis.com/auth/drive.file'
+const SCOPES = 'https://www.googleapis.com/auth/drive.file' //prava uzivatele
 
 
+// aby se nepouzival inline js ()=>
 document.addEventListener('DOMContentLoaded', () => {
   const apiScript = document.createElement('script')
   apiScript.type = 'text/javascript'
   apiScript.src = 'https://apis.google.com/js/api.js'
   apiScript.onload = function () {
-    this.onload = function () {}
+    this.onload = function () { }
     handleClientLoad()
   }
   apiScript.onreadystatechange = function () {
-    if (this.readyState === 'complete') 
+    if (this.readyState === 'complete')
       this.onload()
   }
 
@@ -33,13 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const wrongAnswers = resultBox.querySelector('.total-wrong')
   const percentage = resultBox.querySelector('.percentage')
   const totalScore = resultBox.querySelector('.total-score')
-  
+
   const authorizeButton = document.querySelector('#authorize_button')
-  
-  
+
+
   let spreadsheetId
-  
-  async function createTable () {
+
+  async function createTable() {
     const response = await gapi.client.sheets.spreadsheets.create({
       properties: {
         title: 'results'
@@ -53,16 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
   /**
    *  On load, called to load the auth2 library and API client library.
    */
-   function handleClientLoad () {
+  function handleClientLoad() {
     gapi.load('client:auth2', initClient)
   }
-  
-  
-  /**
+
+
+  /*
    *  Initializes the API client library and sets up sign-in state
    *  listeners.
    */
-  function initClient () {
+  function initClient() {
     gapi.client.init({
       apiKey: API_KEY,
       clientId: CLIENT_ID,
@@ -71,21 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }).then(() => {
       // Listen for sign-in state changes.
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus)
-  
+
       // Handle the initial sign-in state.
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
-  
+
       authorizeButton.addEventListener('click', handleAuthClick)
     }, (error) => {
       console.log(JSON.stringify(error, null, 2))
     })
   }
-  
+
   let newSheetId = 0
-  
-  async function addResultSheet () {
+
+  async function addResultSheet() {
     ++newSheetId
-    
+
     const requests = [
       {
         addSheet: {
@@ -96,20 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     ]
-  
+
     const update = {
       spreadsheetId,
       resource: { requests }
     }
-  
+
     response = await gapi.client.sheets.spreadsheets.batchUpdate({
       spreadsheetId,
       resource: { requests }
     })
     console.log(response)
   }
-  
-  async function writeResults () {
+
+  async function writeResults() {
     const values = [
       ['Date', new Date()],
       ['Total question', totalQuestion.innerText],
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ['Percentage', percentage.innerText],
       ['Total score', totalScore.innerText],
     ]
-  
+
     const { result } = await gapi.client.sheets.spreadsheets.values.update({
       spreadsheetId,
       range: `Results${newSheetId}!A1:B7`,
@@ -128,36 +129,41 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     console.log(result)
   }
-  
-  /**
+
+  /*
    *  Called when the signed in status changes, to update the UI
    *  appropriately. After a sign-in, the API is called.
    */
-  async function updateSigninStatus (isSignedIn) {
+  async function updateSigninStatus(isSignedIn) {
     authorizeButton.style.display = 'block'
   }
-  
-  /**
+
+  /*
    *  Sign in the user upon button click.
    */
   let tableCreated = false
-  
-  async function handleAuthClick (event) {
+
+  async function handleAuthClick(event) {
     await gapi.auth2.getAuthInstance().signIn()
 
-    if (!tableCreated ) {
+    if (!tableCreated) {
       await createTable()
       tableCreated = true
     }
-      
+
     try {
-      await addResultSheet()
+      await addResultSheet() //novy list
     } catch (e) {
       console.log(e)
     }
-    
+
     await writeResults()
-  
-    await gapi.auth2.getAuthInstance().signOut()
+
+    await gapi.auth2.getAuthInstance().signOut() //vychod z mailu
   }
 })
+
+
+
+
+// await asynchronni fce

@@ -1,6 +1,5 @@
 const quizPromise = fetch('question.json')
 
-
 /*
  * 'DOMContentLoaded' je lepsi nez 'window.onload',
  * protoze 'DOMContentLoaded' neceka, az se nactou obrazky a styly, ceka jen na nacteni DOMu
@@ -10,10 +9,7 @@ const quizPromise = fetch('question.json')
  * vzdy bude fungovat jen pro naposledy pridaneho listenera
  * 
  */
-
-
 document.addEventListener('DOMContentLoaded', async () => {
-    
     const questionNumber = document.querySelector('.question-number')
     const questionText = document.querySelector('.question-text')
     const optionContainer = document.querySelector('.option-container')
@@ -21,40 +17,39 @@ document.addEventListener('DOMContentLoaded', async () => {
     const homeBox = document.querySelector('.home-box')
     const quizBox = document.querySelector('.quiz-box')
     const resultBox = document.querySelector('.result-box')
-    const questionLimit = 3 //nebo ='quiz.length' pro vse
-
-
+    
+    
     let questionCounter = 0
     let currentQuestion
     let availableQuestions = []
     let availableOptions = []
     let correctAnswers = 0
     let attempt = 0
-
-
+    
     const response = await quizPromise
     const quiz = await response.json()
-    console.log('quiz', quiz)
-
+    let questionLimit = quiz.length
 
     //vklada otazky do pole
     function setAvailableQuestions () {
-        const totalQuestion = quiz.length
+        let totalQuestion = quiz.length
+        console.log('totalQuestion: ', totalQuestion)
+        
         for (let i = 0; i < totalQuestion; i++) {
             availableQuestions.push(quiz[i])
         }
         // console.log(availableQuestions)
+
     }
 
     //cislo otazky, otazka, varianty
     function getNewQuestion () {
-
         //console.log('hi')
         //console.log(availableQuestions)
 
         //cislo:
         questionNumber.innerText = 'Question ' + (questionCounter + 1) + ' of ' + questionLimit
-
+        
         //randomni sada otazek:
         const questionIndex = availableQuestions[Math.floor(Math.random() * availableQuestions.length)]
         currentQuestion = questionIndex
@@ -70,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         //smazani indexovani pro neopakovani
         availableQuestions.splice(index1, 1)
         
-        //ukazat obrazky (pokud existuji)\
+        //ukazat obrazky (pokud existuji)
         if (currentQuestion.hasOwnProperty('img')) {
             //console.log(currentQuestion.img)
             const img = document.createElement('img')
@@ -87,7 +82,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         for (let i = 0; i < optionLen; i++) {
             availableOptions.push(i)
         }
-
         //console.log(availableOptions)
 
         optionContainer.innerText = ''
@@ -118,7 +112,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         questionCounter++
 
     }
-
 
     //vysledek odpovedi
     function getResult (element) {
@@ -165,7 +158,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     }
 
-
     //neclikabilni jine varianty, zakaz vymeny odpovedi
     function unclickableOptions () {
         const optionLen = optionContainer.children.length
@@ -176,7 +168,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function answersIndicator () {
         answersIndicatorContainer.innerText = ''
-        const totalQuestion = questionLimit
+        let totalQuestion = questionLimit
+
         for (let i = 0; i < totalQuestion; i++) {
             const indicator = document.createElement('div')
             answersIndicatorContainer.appendChild(indicator)
@@ -257,6 +250,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function startQuiz () {
 
+        
+
+        questionLimit = +totalQuestionInput.value
+        localStorage.setItem('questionLimit', totalQuestionInput.value)
+
         //skryt domovskou stranku
         homeBox.classList.add('hide')
 
@@ -270,8 +268,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         answersIndicator()
     }
 
+    const totalQuestionInput = homeBox.querySelector('.total-question')
+   totalQuestionInput.value = localStorage.getItem('questionLimit') ?? questionLimit
 
-    homeBox.querySelector('.total-question').innerText = questionLimit
 
     document.querySelector('#start_button').addEventListener('click', startQuiz)
     document.querySelector('#next_question_button').addEventListener('click', next)

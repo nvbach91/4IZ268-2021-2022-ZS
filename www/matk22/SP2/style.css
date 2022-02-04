@@ -78,7 +78,7 @@ body {
 }
 
 .btn {
-    padding: 15px 45px;
+    padding: 15px 35px; /*45*/
     background-color: #ff8646;
     color: #ffffff;
     border: none;
@@ -263,7 +263,7 @@ body {
 }
 
 .result-box .btn{
-    margin-right: 20px;
+    margin-right: 10px;
 }
 
 
