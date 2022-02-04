@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jana Štolcová">
+    <meta name="keywords" content="movies, movie database">
+    <title>Movie Database</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="main main-header">
+            <h1>
+                <a href="index.html">The Movie Database</a>
+            </h1>
+        </div>
+        <div class="main main-search">
+            <form id="form">
+                <input type="text" placeholder="Search the movie" id="search" class="search">
+                <button id="searchButton">
+                    Search
+                </button>
+            </form>
+        </div>
+        <div id="tags"></div>
+        <main id="main"></main>
+        <h2>Your Movie Collection</h2>
+        <div class="collection" id="collection"></div>
+        <div class="footer">© 2021 Jana Štolcová. All rights reserved.</div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="javascript/main.js"></script>
+</body>
+
+</html>
