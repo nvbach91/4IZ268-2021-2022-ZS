@@ -3,6 +3,8 @@ const APIController = (function () {
     const clientId = 'bbdbe788328745839692d696ab547cfc';
     const clientSecret = '9e6aa0a4f5394b1cb0e67ed9ea67c57c';
 
+
+
     const _getToken = async () => {
 
         const result = await fetch('https://accounts.spotify.com/api/token', {
@@ -55,27 +57,49 @@ const APIController = (function () {
 
 const UIController = (function () {
 
+
+
     const DOMElements = {
         hfToken: '#hidden_token',
         divPlaylistList: '.playlist-list',
         search: '#search',
         quantity: '#quantity',
-        button: '#searchButton'
+        button: '#searchButton',
+        trackList: '#trackList'
     }
 
     return {
 
         inputField() {
+            // document.querySelector(DOMElements.search).value = localStorage.getItem('seached_text');
+
+            const txt = localStorage.getItem('searched_text');
+            const qtt = localStorage.getItem('quantityOfTracks');
+            document.querySelector(DOMElements.search).value = txt;
+            document.querySelector(DOMElements.quantity).value = qtt;
+
+
+
+            if (txt && qtt) {
+                setTimeout(function () { document.querySelector(DOMElements.button).click() }, 100);
+            }
+            
             return {
                 playlists: document.querySelector(DOMElements.divPlaylistList),
                 search: document.querySelector(DOMElements.search),
                 quantity: document.querySelector(DOMElements.quantity),
-                button: document.querySelector(DOMElements.button)
+                button: document.querySelector(DOMElements.button),
+                trackList: document.querySelector(DOMElements.trackList)
             }
         },
 
+        createTrack(name) {
+            const html = `<a href="#" class="list-group-item list-group-item-action list-group-item-light">${name}</a>`;
+            document.querySelector(DOMElements.trackList).insertAdjacentHTML('beforeend', html);
+        },
+
         createPlaylist(name, id) {
-            
+
             const div = document.createElement("div");
 
             const a = document.createElement("a");
@@ -85,9 +109,11 @@ const UIController = (function () {
             a.innerText = name;
 
             const button = document.createElement("button");
+            button.setAttribute('class', 'btn btn-info btn-block');
             button.id = "exportButton"
             button.innerText = "Export"
-            button.onclick = async () => {
+
+            button.addEventListener("click", async () => {
                 const token = await APIController.getToken();
                 const tracks = await APIController.getPlaylistTracks(token, id);
                 const exportJson = tracks.map(m => {
@@ -96,17 +122,39 @@ const UIController = (function () {
                         songName: m.track.name
                     }
                 });
-                
+
                 //https://stackoverflow.com/a/34156339
                 var a = document.createElement("a");
                 var file = new Blob([JSON.stringify(exportJson)], { type: 'text/json' });
                 a.href = URL.createObjectURL(file);
                 a.download = 'export.json';
                 a.click();
-            };
+            });
+
+            const view = document.createElement("button");
+            view.id = "viewButton"
+            view.innerText = "View"
+
+            view.addEventListener("click", async (e) => {
+                e.preventDefault;
+
+
+                this.resetTracklist();
+
+                const token = await APIController.getToken();
+
+                const tracks = await APIController.getPlaylistTracks(token, id);
+
+                tracks.forEach(element => {
+                    this.createTrack(element.track.name)
+                });
+
+                // this.createTracklist(id);
+            })
 
             div.append(a)
             div.append(button)
+            div.append(view)
 
 
             document.querySelector(DOMElements.divPlaylistList).append(div);
@@ -114,6 +162,12 @@ const UIController = (function () {
 
         resetPlaylist() {
             document.querySelector(DOMElements.divPlaylistList).innerHTML = '';
+
+        },
+
+        resetTracklist() {
+            trackList.innerHTML = '';
+            // document.querySelector(DOMElements.trackList).innerHTML = '';
         },
 
         storeToken(value) {
@@ -133,10 +187,12 @@ const UIController = (function () {
         },
 
         getPlaylistQuantity() {
+            localStorage.setItem('quantityOfTracks', document.querySelector(DOMElements.quantity).value)
             return document.querySelector(DOMElements.quantity).value
-
         }
     }
+
+
 
 })();
 
@@ -154,22 +210,35 @@ const APPController = (async function (UICtrl, APICtrl) {
         UICtrl.resetPlaylist();
 
         UICtrl.storeToken(token);
-        const x = UICtrl.getSearchText();
-        const y = await APICtrl.searchPlaylists(token, x.value, quantity);
-        console.log(y);
-        y.forEach(Element => {
+
+        const text = UICtrl.getSearchText().value;
+        localStorage.setItem('searched_text', text);
+
+
+        const playlists = await APICtrl.searchPlaylists(token, text, quantity);
+
+
+        playlists.forEach(Element => {
             UICtrl.createPlaylist(Element.name, Element.id);
         });
+        // UICtrl.createTracklist(playlists[0].id);
     })
+
+    // DOMInputs.playlists.addEventListener('click', async (e) => {
+    //     e.preventDefault;
+
+    //     console.log("bruh");
+    //     UICtrl.resetTracklist();
+    // })
 
 
     return {
         init() {
             console.log('App is starting');
+
         }
     }
 
 
 })(UIController, APIController);
 
-APPController.init();
