@@ -1,0 +1,112 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+header {
+    /* background-color: yellow;
+    background-color: rgb(238, 255, 0);
+    background-color: hsl(60, 100%, 50%); */
+    background-color: #eeff00;
+    padding: 10px;
+    border: 5px solid brown;
+    /* margin: 20px; */
+    visibility: hidden;
+    opacity: 0;
+}
+
+.navigation {
+    display: flex;
+    padding: 0px;
+}
+
+.navigation li {
+    /* border: 2px solid green; */
+    list-style-type: none;
+    padding: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    color: darkblue;
+    text-decoration: underline;
+}
+
+article {
+    margin-bottom: 50px;
+}
+
+main {
+    width: 800px;
+    margin: auto;
+}
+
+img {
+    width: 100px;
+    float: right;
+}
+
+img.squirtle {
+    float: left;
+}
+
+aside {
+    background-color: orange;
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: aqua;
+    padding: 50px;
+    text-align: center;
+}
+
+.example-overflow {
+    width: 100px;
+    height: 200px;
+    background-color: pink;
+    overflow: auto;
+}
+
+
+.example-position {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    position: relative;
+}
+
+.example-button {
+    position: absolute;
+    top: 50px;
+    left: 100px;
+    z-index: 9999;
+}
+
+.eb-2 {
+    top: 60px;
+    left: 90px;
+    z-index: 2;
+}
+
+.box-model {
+    background-color: pink;
+    width: 300px;
+    height: 200px;
+    border: 20px solid black;
+    padding: 10px;
+}
+
+

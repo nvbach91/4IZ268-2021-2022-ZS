@@ -1,0 +1,84 @@
+/* from 0 - 320px */
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    background-color: rgb(197, 207, 119);
+    padding: 20px;
+}
+
+.header {
+    background-color: rgb(57, 122, 180);
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid black;
+    /* border-width: 2px;
+    border-style: solid;
+    border-color: black; */
+}
+
+.container {
+    background-color: rgb(194, 156, 109);
+    display: flex;
+}
+
+.menu {
+    background-color: rgb(199, 105, 199);
+    padding: 20px;
+    width: calc(100% / 12 * 2);
+}
+
+.main {
+    background-color: rgb(217, 97, 97);
+    padding: 20px;
+    width: calc(100% / 12 * 6);
+}
+
+.right-menu {
+    padding: 20px;
+    width: calc(100% / 12 * 4);
+}
+
+footer {
+    background-color: rgb(99, 145, 99);
+    padding: 30px;
+}
+
+
+
+
+
+
+
+
+/* from 320px - 639px */
+@media screen and (min-width: 320px) {
+    /* 2 column*/
+
+    .abc {
+        font-size: 20px;
+    }
+    
+    .abc {
+        font-size: 24px !important;
+    }
+    /*css */
+
+}
+
+
+
+/* from 640px - ... */
+@media screen and (min-width: 640px) {
+    /* 3 column*/
+}
+
+
+
+
+/* from 1024px - ... */
+@media screen and (min-width: 1024px) {
+    /* 4 column*/
+}
+

@@ -1,0 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    /* web-safe font */
+    font-family: "Open sans", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+}

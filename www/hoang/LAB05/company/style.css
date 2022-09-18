@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 5px solid rgb(87, 87, 187);
+}
+.logo {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/c/cf/Bitcoin.com_logo.png);
+    background-size: 40px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    display: inline-block;
+    text-indent: 30px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+nav li {
+}
+nav a {
+    text-decoration: none;
+    padding: 20px;
+}
+
+
+
+
+
+
+.title-background {
+    background-image: url(https://as1.ftcdn.net/v2/jpg/04/26/37/18/1000_F_426371877_jGyegFYEcXrgkc6zMrwbjkJlducr7z8h.jpg);
+    padding: 50px 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-size: 10px;
+}
+
+.title-background h1, .title-background h3 {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+
+.our-products {
+    background-image: url(https://www.raconteur.net/wp-content/uploads/2016/11/increase-productivity.jpg);
+    padding: 50px 0;
+    background-position: center;
+    margin-bottom: 100px;
+}
+
+.our-products h2 {
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.products {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+.product {
+    padding: 10px;
+    width: calc(100% / 1);
+    display: flex;
+    flex-direction: column; /*default was row*/
+    justify-content: space-between;
+}
+
+/* .product .description {
+    border: 1px solid blue;
+} */
+
+.product button {
+    padding: 10px;
+    border: none;
+    background-color: crimson;
+    color: white;
+    border-radius: 3px;
+}
+
+.product:nth-child(1) h2 { border-bottom: 5px solid red; }
+.product:nth-child(2) h2 { border-bottom: 5px solid yellow; }
+.product:nth-child(3) h2 { border-bottom: 5px solid green; }
+.product:nth-child(4) h2 { border-bottom: 5px solid purple; }
+.product:nth-child(5) h2 { border-bottom: 5px solid pink; }
+.product:nth-child(6) h2 { border-bottom: 5px solid orange; }
+.product:nth-child(7) h2 { border-bottom: 5px solid blue; }
+.product:nth-child(8) h2 { border-bottom: 5px solid brown; }
+.product:nth-child(9) h2 { border-bottom: 5px solid black; }
+
+
+
+@media screen and (min-width: 800px) {
+    .title-background {
+        padding: 50px 100px;
+        font-size: 15px;
+    }
+    .product {
+        width: calc(100% / 2);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .title-background {
+        padding: 50px 150px;
+        font-size: 20px;
+    }
+    main {
+        max-width: 960px;
+    }
+    .product {
+        width: calc(100% / 3);
+    }
+}
+
+
+@media screen and (min-width: 1280px) {
+    
+    main {
+        max-width: 1024px;
+    }
+    .product {
+        width: calc(100% / 4);
+    }
+}
