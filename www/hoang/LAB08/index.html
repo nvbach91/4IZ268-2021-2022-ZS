@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form class="login-form" method="POST" action=".">
+        <div class="form-row">
+            <label>Username</label>
+            <input name="username">
+        </div>
+        <div class="form-row">
+            <label>Age</label>
+            <input type="number" name="age">
+        </div>
+        <div class="form-row">
+            <label>Do you agree?</label>
+            <input type="checkbox" name="agree">
+        </div>
+        <div class="form-row">
+            <label>Your phone number</label>
+            <input type="tel" name="phone">
+        </div>
+        <div class="form-row">
+            <label>Your favorite color</label>
+            <input type="color" name="color">
+        </div>
+        <div class="form-row">
+            <label>Your profile image</label>
+            <input type="file" accept="application/pdf">
+        </div>
+        <div class="form-row">
+            <label>Your birth date</label>
+            <input type="date">
+        </div>
+        <div class="form-row">
+            <label>when do you wake up?</label>
+            <input type="time">
+        </div>
+        <div class="form-row">
+            <label>Your Email</label>
+            <input type="email">
+        </div>
+        <div class="form-row">
+            <label>About yourself</label>
+            <textarea></textarea>
+        </div>
+        <div class="form-row">
+            <label>Password</label>
+            <input type="password">
+        </div>
+        <div class="form-row">
+            <label>Your gender</label>
+            <select>
+                <option value="F">Female</option>
+                <option value="M" selected>Male</option>
+                <option value="N">N/A</option>
+            </select>
+        </div>
+        <div class="form-row form-control">
+            <button type="submit">Sign in</button>
+            <button type="button">Return</button>
+        </div>
+    </form>
+</body>
+
+</html>
