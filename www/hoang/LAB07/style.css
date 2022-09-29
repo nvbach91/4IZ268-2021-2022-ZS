@@ -1,0 +1,118 @@
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.box {
+    border: 5px solid white;
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+}
+
+.first-row .col {
+    flex-grow: 1;
+}
+
+.second-row .col:nth-child(1) {
+    flex-grow: 2;
+}
+.second-row .col:nth-child(2) {
+    flex-grow: 1;
+}
+
+
+
+.header {
+    background-color: skyblue;
+}
+.left-panel {
+    background-color: tomato;
+}
+.content {
+    background-color: white;
+}
+.section:nth-child(1) {
+    background-color: greenyellow;
+}
+.section:nth-child(2) {
+    background-color: yellow;
+}
+.column:nth-child(1) {
+    background-color: aquamarine;
+}
+.column:nth-child(2) {
+    background-color: plum;
+}
+.main {
+    display: flex;
+}
+.left-panel {
+    flex-grow: 2;
+}
+.content {
+    flex-grow: 3;
+}
+.section:nth-child(3) {
+    display: flex;
+}
+.column {
+    flex-grow: 1;
+}
+
+
+
+.test-container {
+    margin-bottom: 200px;
+    display: flex;
+}
+.first-column {
+    padding: 50px;
+    background-color: blue;
+}
+.second-column {
+    padding: 50px;
+    background-color: red;
+}
+
+.blue { background-color: blue; }
+.yellow { background-color: yellow; }
+.green { background-color: green; }
+.orange { background-color: orange; }
+.purple { background-color: purple; }
+
+
+
+.gallery {
+    width: 900px;
+    margin: 0 auto;
+    display: flex;
+}
+.gallery-column {
+    flex-grow: 1;
+}
+.gallery-item {
+    width: 100%;
+    border: 5px solid white;
+}
+#gi-1 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 100px; background-color: orange; }
+#gi-2 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 500px; background-color: green; }
+#gi-3 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 200px; background-color: red; }
+#gi-4 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 300px; background-color: blue; }
+#gi-5 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 400px; background-color: yellow; }
+#gi-6 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 600px; background-color: mediumpurple; }
+#gi-7 { background-size: cover; background-repeat: no-repeat; background-image: url(https://picsum.photos/200/300); height: 300px; background-color: aqua; }
+
+
+
+
+
+
+
+
